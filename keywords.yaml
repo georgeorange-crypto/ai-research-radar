@@ -1,0 +1,148 @@
+focus_areas:
+  - name: LLM Agents
+    weight: 1.0
+    terms:
+      - llm agent
+      - agents
+      - agentic
+      - tool use
+      - function calling
+      - planning
+      - multi-agent
+      - browser agent
+      - computer use
+      - autonomous agent
+      - agent benchmark
+      - workflow
+
+  - name: Context Compression
+    weight: 1.0
+    terms:
+      - context compression
+      - prompt compression
+      - memory compression
+      - token pruning
+      - kv cache compression
+      - summary memory
+      - retrieval compression
+      - compressive transformer
+
+  - name: Long Context
+    weight: 1.0
+    terms:
+      - long context
+      - long-context
+      - million token
+      - extended context
+      - context window
+      - position interpolation
+      - rope scaling
+      - needle in a haystack
+      - long-range dependency
+
+  - name: Reinforcement Learning
+    weight: 0.95
+    terms:
+      - reinforcement learning
+      - rl
+      - policy optimization
+      - reward model
+      - rlhf
+      - rlaif
+      - grpo
+      - dpo
+      - ppo
+      - offline rl
+      - online rl
+      - self-play
+
+  - name: Open-World Learning
+    weight: 0.95
+    terms:
+      - open-world learning
+      - open world
+      - continual learning
+      - lifelong learning
+      - out-of-distribution
+      - ood
+      - open set
+      - open vocabulary
+      - novelty detection
+
+  - name: Novel Class Discovery
+    weight: 0.9
+    terms:
+      - novel class discovery
+      - generalized category discovery
+      - class-incremental
+      - open-set recognition
+      - clustering
+      - pseudo-label
+      - unknown class
+
+  - name: Model Distillation
+    weight: 0.95
+    terms:
+      - distillation
+      - knowledge distillation
+      - teacher student
+      - student model
+      - model compression
+      - small language model
+      - slm
+      - speculative decoding
+
+  - name: AI Infrastructure
+    weight: 0.9
+    terms:
+      - inference
+      - serving
+      - gpu
+      - tpu
+      - kernel
+      - vllm
+      - tensor parallel
+      - expert parallel
+      - mixture of experts
+      - moe
+      - quantization
+      - cache
+      - scheduler
+      - ai infrastructure
+      - training systems
+
+  - name: Reasoning Models
+    weight: 1.0
+    terms:
+      - reasoning model
+      - chain-of-thought
+      - test-time compute
+      - deliberation
+      - theorem proving
+      - math reasoning
+      - code reasoning
+      - verifier
+      - process reward
+      - self-correction
+      - tree search
+
+boost_terms:
+  - benchmark
+  - dataset
+  - open-source
+  - open source
+  - code release
+  - github
+  - evaluation
+  - leaderboard
+  - survey
+  - scaling law
+  - sota
+
+negative_terms:
+  - webinar
+  - event registration
+  - sponsor
+  - sales
+  - marketing
+  - hiring
