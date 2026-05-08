@@ -1,6 +1,6 @@
 # AI Research Radar - 2026-05-09
 
-- 生成时间：2026-05-09T02:56:57
+- 生成时间：2026-05-09T03:36:00
 - 条目数：35 / 抓取后排序总数 100
 - 值得深读：35
 - 摘要模式：本地规则摘要（未配置 OPENAI_API_KEY）
@@ -357,6 +357,18 @@
 - 命中方向：LLM Agents
 - 命中关键词：agents、benchmark、evaluation、llm agent、workflow
 
+### 29. [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
+- 来源：BAIR Blog
+- 来源类型：一手来源
+- 原文链接：http://bair.berkeley.edu/blog/2026/03/13/spex/
+- 发布时间：2026-03-13T09:00:00+00:00
+- 简明摘要：该条目围绕“Identifying Interactions at Scale for LLMs”展开，原始摘要显示其主要内容是：Understanding the behavior of complex machine learning systems, particularly Large Language Models (LLMs), is a critical challenge in modern artificial intelligence. Interpretability research aims to make the decision-making process more transparent to model builders and impacted humans, a step tow…
+- 为什么重要：它与 AI Infrastructure、Long Context 相关；来源类型为一手来源，适合用于日常雷达跟踪。 其中包含较强的可操作信号，例如代码、数据、评测、系统或方法线索。
+- 是否值得深读：是。综合相关性、可信度和新颖性较高。
+- 评分：relevance 0.91；credibility 0.95；novelty 0.22；actionability 0.80；overall 0.76
+- 命中方向：AI Infrastructure、Long Context
+- 命中关键词：dataset、github、inference、long-context、serving
+
 ## 媒体摘要与聚合
 ### 1. [Skill1: Unified Evolution of Skill-Augmented Agents via Reinforcement Learning](https://arxiv.org/abs/2605.06130)
 - 来源：Hugging Face Daily Papers
@@ -394,19 +406,7 @@
 - 命中方向：AI Infrastructure、Reasoning Models、Reinforcement Learning
 - 命中关键词：chain-of-thought、inference、reinforcement learning、reward model
 
-### 4. [KinDER: A Physical Reasoning Benchmark for Robot Learning and Planning](https://arxiv.org/abs/2604.25788)
-- 来源：Hugging Face Daily Papers
-- 来源类型：聚合/摘要
-- 原文链接：https://arxiv.org/abs/2604.25788
-- 发布时间：2026-05-03T20:00:00+00:00
-- 简明摘要：该条目围绕“KinDER: A Physical Reasoning Benchmark for Robot Learning and Planning”展开，原始摘要显示其主要内容是：Robotic systems that interact with the physical world must reason about kinematic and dynamic constraints imposed by their own embodiment, their environment, and the task at hand. We introduce KinDER, a benchmark for Kinematic and Dynamic Embodied Reasoning that targets physical reasoning challenge…
-- 为什么重要：它与 LLM Agents、Reinforcement Learning 相关；来源类型为聚合/摘要，适合用于日常雷达跟踪。 其中包含较强的可操作信号，例如代码、数据、评测、系统或方法线索。
-- 是否值得深读：是。综合相关性、可信度和新颖性较高。
-- 评分：relevance 0.94；credibility 0.79；novelty 0.69；actionability 0.70；overall 0.81
-- 命中方向：LLM Agents、Reinforcement Learning
-- 命中关键词：benchmark、evaluation、planning、reinforcement learning、tool use
-
-### 5. [Continuous-Time Distribution Matching for Few-Step Diffusion Distillation](https://arxiv.org/abs/2605.06376)
+### 4. [Continuous-Time Distribution Matching for Few-Step Diffusion Distillation](https://arxiv.org/abs/2605.06376)
 - 来源：Hugging Face Daily Papers
 - 来源类型：聚合/摘要
 - 原文链接：https://arxiv.org/abs/2605.06376
@@ -419,7 +419,7 @@
 - 命中关键词：distillation、github、reward model
 - 去重信息：同一内容也出现在 Hugging Face Daily Papers、Papers with Code Trending (HF redirect)
 
-### 6. [Beyond SFT-to-RL: Pre-alignment via Black-Box On-Policy Distillation for Multimodal RL](https://arxiv.org/abs/2604.28123)
+### 5. [Beyond SFT-to-RL: Pre-alignment via Black-Box On-Policy Distillation for Multimodal RL](https://arxiv.org/abs/2604.28123)
 - 来源：Papers with Code Trending (HF redirect)
 - 来源类型：聚合/摘要
 - 原文链接：https://arxiv.org/abs/2604.28123
@@ -431,7 +431,7 @@
 - 命中方向：AI Infrastructure、Model Distillation、Reinforcement Learning
 - 命中关键词：distillation、moe、reinforcement learning、rl
 
-### 7. [When to Trust Imagination: Adaptive Action Execution for World Action Models](https://arxiv.org/abs/2605.06222)
+### 6. [When to Trust Imagination: Adaptive Action Execution for World Action Models](https://arxiv.org/abs/2605.06222)
 - 来源：Hugging Face Daily Papers
 - 来源类型：聚合/摘要
 - 原文链接：https://arxiv.org/abs/2605.06222
