@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RADAR_TIMEZONE: Asia/Shanghai
-      RADAR_MAX_REPORT_ITEMS: "35"
-      RADAR_RANK_LIMIT: "100"
+      RADAR_RANK_LIMIT: "0"
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
 
@@ -39,7 +38,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/*.md report.md
+          git add report.md reports data/raw data/processed
           if git diff --cached --quiet; then
             echo "No report changes to commit."
           else

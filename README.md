@@ -1,15 +1,60 @@
 # AI Research Radar
 
-每天自动抓取 AI 学术与科技企业动态，去重、打分，并生成中文 Markdown 报告到 `reports/YYYY-MM-DD.md`。仓库根目录的 `report.md` 会同步为最新一期。
+AI Research Radar 是一个每日自动抓取、去重、分类、评分并生成中文 Markdown 报告的研究雷达。当前版本已经从“混排论文列表”升级为“分领域研究仪表盘”。
 
-## 覆盖范围
+## 报告结构
 
-- 论文与聚合：Hugging Face Daily Papers、arXiv、OpenReview、Papers with Code Trending
-- 企业与研究机构：OpenAI、Anthropic、Google DeepMind、Google Research、Meta AI、Microsoft Research、NVIDIA、Apple Machine Learning Research、Stanford HAI、MIT CSAIL、BAIR、CMU AI、Princeton NLP
-- 会议：NeurIPS、ICML、ICLR、ACL、EMNLP、CVPR、ICCV、ECCV、RSS、CoRL
-- Newsletter / 媒体摘要：The Batch、Import AI、Latent Space、Ahead of AI
+日报固定按版块输出，不再只按单一总分排序。日报版面模板位于 `config/daily_report.md.j2`，调整标题、段落顺序或展示字段时，优先改这个模板：
 
-重点方向在 `keywords.yaml` 中维护：LLM Agents、Context Compression、Long Context、Reinforcement Learning、Open-World Learning、Novel Class Discovery、Model Distillation、AI Infrastructure、Reasoning Models。
+- 重点研究方向
+  - Context Compression / Long Context / Memory
+  - LLM Agents / Tool Use / Planning / Multi-Agent
+  - Novel Class Discovery / Open-World Learning / OOD / Continual Learning
+  - Model Distillation / Model Compression / Efficient Training
+- 传统 AI 基础领域
+  - CV
+  - NLP
+  - RL
+  - Model Architecture
+  - Learning Methods / Optimization / Representation Learning
+- Other Highlights
+  - AI for Science、Robotics、World Models、AI Systems、Interpretability、Security 等
+- GitHub / Open-source Projects
+- 温故而知新 / Classic Paper Revisit
+- Archive Queue
+
+阅读分层：
+
+- `MUST_READ`：`personal_score >= 0.86`，每天最多 3 条
+- `SKIM`：`personal_score >= 0.72` 或 `global_score >= 0.85`，每天最多 8 条
+- `ARCHIVE`：有价值但未进入深读或略读，正文中只做紧凑展示
+- `IGNORE`：低质量、缺少原文、营销内容或与 AI 研究弱相关
+
+## 输出路径
+
+```text
+reports/daily/YYYY/MM/YYYY-MM-DD.md
+reports/daily/latest.md
+reports/weekly/YYYY-WW.md
+reports/weekly/latest.md
+reports/monthly/YYYY-MM.md
+reports/monthly/latest.md
+reports/index.md
+report.md
+data/raw/YYYY-MM-DD.jsonl
+data/processed/YYYY-MM-DD.json
+```
+
+说明：
+
+- `reports/daily/YYYY/MM/YYYY-MM-DD.md` 保留每日历史版本
+- `reports/daily/latest.md` 是最新日报副本
+- `reports/index.md` 按日期倒序列出所有日报，包含日期、Must Read 数量、主要方向和链接
+- `report.md` 仍作为兼容入口，同步为最新日报副本
+- `data/raw/*.jsonl` 保存原始抓取结果
+- `data/processed/*.json` 保存去重、分类、评分、阅读分层后的完整数据
+- `reports/weekly/*.md` 汇总本周重要论文、趋势和 GitHub 项目
+- `reports/monthly/*.md` 汇总本月重要论文、趋势和 GitHub 项目
 
 ## 本地运行
 
@@ -21,14 +66,22 @@ pip install -r requirements.txt
 python run.py
 ```
 
-生成结果：
+指定日期运行：
 
-- `reports/YYYY-MM-DD.md`：当天报告
-- `report.md`：最新报告
-- `data/raw-YYYY-MM-DD.json`：原始抓取结果，本地保留，不提交
-- `data/ranked-YYYY-MM-DD.json`：去重和打分后的结果，本地保留，不提交
+```powershell
+python run.py --date 2026-05-10
+```
 
-如果配置了 `OPENAI_API_KEY`，报告会调用 OpenAI API 生成更自然的中文摘要；没有配置时，会使用本地规则生成中文报告骨架和保守摘要。
+只重新生成 processed 和报告：
+
+```powershell
+python rank.py --input data/raw/2026-05-10.jsonl --output data/processed/2026-05-10.json --date 2026-05-10
+python summarize.py --input data/processed/2026-05-10.json --date 2026-05-10
+python weekly.py --date 2026-05-10
+python archive.py --date 2026-05-10
+```
+
+如果配置了 `OPENAI_API_KEY`，日报条目摘要会调用 OpenAI API；没有配置时，使用本地规则生成中文摘要。
 
 ```powershell
 $env:OPENAI_API_KEY="sk-..."
@@ -52,7 +105,7 @@ git push -u origin main
 ```
 
 3. 打开仓库 `Settings -> Actions -> General -> Workflow permissions`，选择 `Read and write permissions`。
-4. 可选：打开 `Settings -> Secrets and variables -> Actions`，新增 secret：
+4. 可选：在 `Settings -> Secrets and variables -> Actions` 新增 secret：
 
 - `OPENAI_API_KEY`：用于生成更好的中文摘要
 
@@ -60,25 +113,27 @@ git push -u origin main
 
 - `OPENAI_MODEL`：例如 `gpt-4o-mini`
 
-6. 工作流 `.github/workflows/daily-report.yml` 会在北京时间每天 06:30 运行，也可以在 GitHub 的 `Actions` 页手动触发 `Daily AI Research Radar`。
+6. 工作流 `.github/workflows/daily-report.yml` 会在北京时间每天 06:30 运行，也可以在 GitHub 的 `Actions` 页手动触发。
+
+工作流会提交：
+
+- `report.md`
+- `reports/`
+- `data/raw/`
+- `data/processed/`
 
 ## Codex 自动化建议
 
-这个项目的主自动化建议放在 GitHub Actions，因为它可以在云端定时运行，并把 `reports/YYYY-MM-DD.md` 自动提交回仓库。
+GitHub Actions 负责每日正式生产报告。Codex 适合作为“秘书处”做巡检：
 
-Codex 自动化更适合作为兜底：
-
-- 定期提醒你检查 GitHub Actions 是否仍在成功运行
-- 在本地工作区手动或半自动运行 `python run.py`
-- 当某些源连续失败时，让 Codex 帮你定位是 RSS 失效、网页结构变化，还是网络问题
-
-因此推荐组合是：GitHub Actions 负责每日生产报告，Codex 负责维护和巡检。
+- 检查当天日报、`reports/daily/latest.md`、`reports/index.md`、raw、processed、weekly、monthly 是否存在
+- 发现缺失或异常时运行 `python run.py`
+- 如果脚本报错，优先修复小范围问题，例如 RSS 失效、网页选择器变化、依赖缺失、编码问题
+- 修复后重新运行并用中文汇报
 
 ## 添加新信息源
 
-编辑 `sources.yaml`，添加一个 source。推荐优先级是 API > RSS > HTML 页面。
-
-说明：`paperswithcode.com/trending` 当前会跳转到 Hugging Face papers trending 页面，因此项目把它配置为 `Papers with Code Trending (HF redirect)`，保留这个雷达入口，同时使用当前可抓取的替代页面。
+编辑 `config/sources.yaml`。推荐优先级是 API > RSS > HTML 页面。
 
 RSS 示例：
 
@@ -106,54 +161,89 @@ HTML 示例：
     summary: "p"
 ```
 
-OpenReview 示例：
+GitHub search 示例：
 
 ```yaml
-- id: openreview_extra
-  name: OpenReview Extra
-  type: openreview
-  source_kind: primary
-  max_items: 30
-  venue_ids:
-    - ICLR.cc/2026/Conference
+- id: github_extra_projects
+  name: GitHub Extra Projects
+  type: github_search
+  source_kind: aggregator
+  url: https://github.com/search
+  max_items: 20
+  max_items_per_query: 5
+  pushed_after_days: 365
+  queries:
+    - llm agent language:Python
+    - model distillation language:Python
 ```
 
-`source_kind` 用来区分来源类型：
+`source_kind`：
 
 - `primary`：一手来源，例如论文、官方博客、官方会议页面
-- `aggregator`：聚合站或趋势榜
+- `aggregator`：聚合站、趋势榜或代码搜索
 - `media`：媒体摘要或 newsletter
 
-## 添加关键词
+说明：`paperswithcode.com/trending` 当前会跳转到 Hugging Face papers trending 页面，因此项目保留 `Papers with Code Trending (HF redirect)` 作为替代入口。
 
-编辑 `keywords.yaml`：
+## 添加版块和关键词
+
+编辑 `config/keywords.yaml` 的 `sections`：
 
 ```yaml
-focus_areas:
-  - name: New Topic
+sections:
+  - id: new_topic
+    title: New Topic
+    group: core_focus
+    order: 50
     weight: 1.0
+    categories: [cs.LG]
     terms:
       - keyword one
       - keyword two
 ```
 
-建议把同义词、缩写、常见 benchmark 名称都放进 `terms`。`weight` 越高，命中后越容易进入报告前列。
+字段说明：
+
+- `id`：稳定机器 ID
+- `title`：日报显示标题
+- `group`：`core_focus`、`traditional_ai` 或 `other`
+- `order`：版块顺序
+- `weight`：匹配后加权强度
+- `categories`：可选，arXiv category 命中加分
+- `terms`：同义词、缩写、benchmark、方法名
+
+经典论文推荐在 `config/classics.yaml` 的 `classic_papers` 中维护。每篇至少包含：
+
+- `title`
+- `year`
+- `authors`
+- `topic_tags`
+- `url`
+- `why_classic`
+- `related_modern_keywords`
+
+可选字段包括 `bibtex` 和 `prerequisite`。系统会优先选择与当天 `MUST_READ` 条目相关的经典论文；如果没有明显关联，则按星期主题轮换，每天输出 1-2 篇，并说明“它和今日新论文的连接”。
 
 ## 评分逻辑
 
-每条内容都会输出四个分数：
+每条内容都会输出：
 
-- `relevance`：是否命中你的研究方向和关键词
+- `primary_section`：主归属版块
+- `reading_tier`：`MUST_READ` / `SKIM` / `ARCHIVE` / `IGNORE`
+- `global_score`：面向整个 AI 研究社区的综合重要性
+- `personal_score`：面向当前研究主线的个人优先级
+- `novelty`：发布时间越近越高，趋势源会参考热度信号
 - `credibility`：来源可信度，一手来源高于聚合和媒体摘要
-- `novelty`：发布时间越近越高，部分趋势源会参考热度信号
-- `actionability`：是否包含代码、数据、评测、系统实现或可跟进线索
-
-报告会同时给出 `overall`，用于排序。分数是筛选信号，不是质量定论。
+- `evidence_strength`：原文、摘要、作者、官方线索等证据强度
+- `community_signal`：stars、upvotes、多源重复等社区热度信号
+- `actionability`：是否包含代码、数据、评测、系统实现或可复现线索
+- `research_relevance`：是否命中固定版块关键词和研究方向
 
 ## 设计原则
 
 - 标题保持原文，不改写成夸张标题
 - 中文摘要保持克制，不写营销语言
 - 明确区分一手来源、聚合来源和媒体摘要
-- 自动去重：优先使用 arXiv ID、OpenReview forum ID，其次使用规范化标题
+- 自动去重：优先使用 arXiv ID、OpenReview forum ID、GitHub repo，其次使用规范化标题
+- 日报正文不包含 `IGNORE`
 - 源抓取失败不会中断整次任务，只会跳过该源并继续生成报告

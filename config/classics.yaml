@@ -1,0 +1,159 @@
+classic_papers:
+  - title: Attention Is All You Need
+    year: 2017
+    authors: [Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin]
+    topic_tags: [model_architecture, nlp, long_context, context_compression]
+    url: https://arxiv.org/abs/1706.03762
+    bibtex: vaswani2017attention
+    why_classic: Transformer 把注意力机制推到序列建模中心，是今天长上下文、KV cache、稀疏注意力和大模型架构讨论的共同底座。
+    prerequisite: 了解 encoder-decoder、attention 和基本序列建模。
+    related_modern_keywords: [transformer, attention, long context, context window, KV cache, token efficiency, model architecture]
+
+  - title: Transformer-XL
+    year: 2019
+    authors: [Zihang Dai, Zhilin Yang, Yiming Yang, Jaime Carbonell, Quoc V. Le, Ruslan Salakhutdinov]
+    topic_tags: [context_compression, long_context, model_architecture]
+    url: https://arxiv.org/abs/1901.02860
+    bibtex: dai2019transformerxl
+    why_classic: 它系统化处理长距离依赖和跨片段记忆，适合回看今天关于长上下文、状态压缩和记忆复用的新工作。
+    prerequisite: 熟悉 Transformer 自注意力和语言模型训练。
+    related_modern_keywords: [long context, memory, cache reuse, state compression, recurrence, context window]
+
+  - title: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+    year: 2020
+    authors: [Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Kuttler, Mike Lewis, Wen-tau Yih, Tim Rocktaschel, Sebastian Riedel, Douwe Kiela]
+    topic_tags: [context_compression, long_context, nlp]
+    url: https://arxiv.org/abs/2005.11401
+    bibtex: lewis2020retrieval
+    why_classic: RAG 把参数记忆和外部检索连接起来，是理解今天检索增强、agent memory、记忆有效性和上下文预算取舍的关键参照。
+    prerequisite: 了解 seq2seq、dense retrieval 和生成式问答。
+    related_modern_keywords: [RAG, retrieval augmented generation, agent memory, memory validity, context compression, summarization]
+
+  - title: "ReAct: Synergizing Reasoning and Acting in Language Models"
+    year: 2022
+    authors: [Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao]
+    topic_tags: [agents, planning]
+    url: https://arxiv.org/abs/2210.03629
+    bibtex: yao2022react
+    why_classic: ReAct 把推理轨迹和行动轨迹放在同一循环中，是今天 tool use、web agent、GUI agent 和长程任务规划的经典起点。
+    prerequisite: 熟悉 prompting、chain-of-thought 和基础强化学习任务表述。
+    related_modern_keywords: [LLM agent, tool use, planning, trajectory, environment, web agent, long-horizon]
+
+  - title: Toolformer
+    year: 2023
+    authors: [Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom]
+    topic_tags: [agents, tool_use]
+    url: https://arxiv.org/abs/2302.04761
+    bibtex: schick2023toolformer
+    why_classic: 它展示了语言模型如何自监督学习调用外部工具，适合对照今天的 function calling、agentic workflow 和工具学习系统。
+    related_modern_keywords: [tool use, function calling, skill learning, workflow, self-evolving agent]
+
+  - title: OpenMax
+    year: 2015
+    authors: [Abhijit Bendale, Terrance E. Boult]
+    topic_tags: [open_world_learning, open_set_recognition]
+    url: https://arxiv.org/abs/1511.06233
+    bibtex: bendale2015openmax
+    why_classic: OpenMax 是开集识别的代表性早期方法，给今天的 OOD、未知类检测和开放世界学习提供了问题定义上的参照。
+    prerequisite: 了解分类器 softmax 输出和开放集识别目标。
+    related_modern_keywords: [open-set recognition, open-world learning, OOD, unknown class, semantic shift]
+
+  - title: iCaRL
+    year: 2016
+    authors: [Sylvestre-Alvise Rebuffi, Alexander Kolesnikov, Georg Sperl, Christoph H. Lampert]
+    topic_tags: [open_world_learning, continual_learning]
+    url: https://arxiv.org/abs/1611.07725
+    bibtex: rebuffi2016icarl
+    why_classic: iCaRL 把类增量学习、样本记忆和分类器更新结合起来，适合连接今天的新类发现、持续学习和语义漂移问题。
+    related_modern_keywords: [class-incremental, continual learning, novel class discovery, clustering, representation learning]
+
+  - title: Distilling the Knowledge in a Neural Network
+    year: 2015
+    authors: [Geoffrey Hinton, Oriol Vinyals, Jeff Dean]
+    topic_tags: [model_distillation, model_compression]
+    url: https://arxiv.org/abs/1503.02531
+    bibtex: hinton2015distilling
+    why_classic: 这篇论文确立了 teacher-student 蒸馏范式，是今天 step distillation、consistency distillation、小模型训练和高效推理的源头之一。
+    related_modern_keywords: [knowledge distillation, teacher student, student model, model compression, small language model, SLM]
+
+  - title: "LoRA: Low-Rank Adaptation of Large Language Models"
+    year: 2021
+    authors: [Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen]
+    topic_tags: [model_distillation, model_compression, efficient_training]
+    url: https://arxiv.org/abs/2106.09685
+    bibtex: hu2021lora
+    why_classic: LoRA 是低秩适配的代表工作，常被用来理解参数高效训练、压缩部署和小模型微调的工程取舍。
+    related_modern_keywords: [low-rank, efficient inference, model compression, quantization, pruning, SLM]
+
+  - title: Proximal Policy Optimization Algorithms
+    year: 2017
+    authors: [John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov]
+    topic_tags: [rl, agents]
+    url: https://arxiv.org/abs/1707.06347
+    bibtex: schulman2017ppo
+    why_classic: PPO 是现代 RL 和 RLHF 语境里反复出现的基础算法，适合对照 agentic RL、长程轨迹优化和偏好优化系统。
+    prerequisite: 了解 policy gradient 和 actor-critic。
+    related_modern_keywords: [RL, reinforcement learning, agentic RL, trajectory, long-horizon, environment]
+
+  - title: Deep Residual Learning for Image Recognition
+    year: 2015
+    authors: [Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun]
+    topic_tags: [cv, model_architecture]
+    url: https://arxiv.org/abs/1512.03385
+    bibtex: he2015resnet
+    why_classic: ResNet 解决了深层网络训练退化问题，是视觉模型架构、残差连接和现代表示学习的基础参照。
+    related_modern_keywords: [CV, computer vision, model architecture, representation learning, detection, segmentation]
+
+  - title: BERT
+    year: 2018
+    authors: [Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova]
+    topic_tags: [nlp, model_architecture]
+    url: https://arxiv.org/abs/1810.04805
+    bibtex: devlin2018bert
+    why_classic: BERT 推动了预训练-微调范式，是理解今天 NLP 表征学习、encoder 架构和迁移学习的经典坐标。
+    related_modern_keywords: [NLP, representation learning, transformer, language model, transfer learning]
+
+  - title: Learning Transferable Visual Models From Natural Language Supervision
+    year: 2021
+    authors: [Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen Krueger, Ilya Sutskever]
+    topic_tags: [cv, nlp, learning_methods]
+    url: https://arxiv.org/abs/2103.00020
+    bibtex: radford2021clip
+    why_classic: CLIP 是视觉语言对齐和开放词表识别的重要基线，适合连接今天的 open-vocabulary、multimodal 和 representation learning 工作。
+    related_modern_keywords: [open-vocabulary, vision-language, multimodal, representation learning, semantic shift]
+
+  - title: The Lottery Ticket Hypothesis
+    year: 2018
+    authors: [Jonathan Frankle, Michael Carbin]
+    topic_tags: [model_distillation, model_compression, learning_methods]
+    url: https://arxiv.org/abs/1803.03635
+    bibtex: frankle2018lottery
+    why_classic: 彩票假说给模型稀疏化和剪枝提供了重要直觉，适合对照今天的 pruning、quantization 和高效推理。
+    related_modern_keywords: [pruning, quantization, model compression, efficient inference, token efficiency]
+
+  - title: Megatron-LM
+    year: 2019
+    authors: [Mohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, Bryan Catanzaro]
+    topic_tags: [ai_systems, model_architecture]
+    url: https://arxiv.org/abs/1909.08053
+    bibtex: shoeybi2019megatron
+    why_classic: Megatron-LM 是大模型并行训练系统的代表工作，适合放在今天 AI systems、serving、inference 和训练基础设施新闻旁边重读。
+    related_modern_keywords: [AI systems, inference, serving, model architecture, efficient inference]
+
+  - title: A Mathematical Framework for Transformer Circuits
+    year: 2021
+    authors: [Nelson Elhage, Neel Nanda, Catherine Olsson, Tom Henighan, Nicholas Joseph, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, Nova DasSarma, Deep Ganguli, Zac Hatfield-Dodds, Danny Hernandez, Andy Jones, Jackson Kernion, Liane Lovitt, Kamal Ndousse, Dario Amodei, Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish, Chris Olah]
+    topic_tags: [interpretability, model_architecture]
+    url: https://transformer-circuits.pub/2021/framework/index.html
+    bibtex: elhage2021transformer
+    why_classic: 这篇工作把 Transformer 内部结构拆成可分析电路，是理解今天 mechanistic interpretability 和安全分析的基础材料。
+    related_modern_keywords: [interpretability, mechanistic interpretability, transformer, attention, safety]
+
+  - title: Highly accurate protein structure prediction with AlphaFold
+    year: 2021
+    authors: [John Jumper, Richard Evans, Alexander Pritzel, Tim Green, Michael Figurnov, Olaf Ronneberger, Kathryn Tunyasuvunakool, Russ Bates, Augustin Zidek, Anna Potapenko, Alex Bridgland, Clemens Meyer, Simon A. A. Kohl, Andrew J. Ballard, Andrew Cowie, Bernardino Romera-Paredes, Stanislav Nikolov, Rishub Jain, Jonas Adler, Trevor Back, Stig Petersen, David Reiman, Ellen Clancy, Michal Zielinski, Martin Steinegger, Michalina Pacholska, Tamas Berghammer, Sebastian Bodenstein, David Silver, Oriol Vinyals, Andrew W. Senior, Koray Kavukcuoglu, Pushmeet Kohli, Demis Hassabis]
+    topic_tags: [ai_for_science, biology]
+    url: https://www.nature.com/articles/s41586-021-03819-2
+    bibtex: jumper2021highly
+    why_classic: AlphaFold 是 AI for Science 的标志性成果，适合在生物、蛋白质、科学发现和世界模型相关进展出现时重读。
+    related_modern_keywords: [AI for Science, scientific discovery, biology, protein, world model]

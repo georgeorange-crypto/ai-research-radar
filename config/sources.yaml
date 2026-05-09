@@ -1,0 +1,303 @@
+# source_kind:
+#   primary    = 论文、官方博客、官方会议/机构页面
+#   aggregator = 聚合站或趋势榜
+#   media      = 新闻信/媒体摘要
+sources:
+  - id: hf_daily_papers
+    name: Hugging Face Daily Papers
+    type: hf_daily_papers
+    source_kind: aggregator
+    url: https://huggingface.co/papers
+    api_url: https://huggingface.co/api/daily_papers
+    max_items: 40
+
+  - id: arxiv_ai_ml
+    name: arXiv AI/ML/NLP/Vision/Robotics
+    type: arxiv
+    source_kind: primary
+    categories: [cs.AI, cs.LG, cs.CL, cs.CV, cs.RO, stat.ML]
+    max_items: 120
+
+  - id: openreview_core
+    name: OpenReview
+    type: openreview
+    source_kind: primary
+    max_items: 30
+    venue_ids:
+      - ICLR.cc/2026/Conference
+      - ICLR.cc/2025/Conference
+      - NeurIPS.cc/2025/Conference
+      - ICML.cc/2025/Conference
+
+  - id: papers_with_code_trending
+    name: Papers with Code Trending (HF redirect)
+    type: hf_papers_page
+    source_kind: aggregator
+    url: https://huggingface.co/papers/trending
+    max_items: 30
+
+  - id: github_ai_projects
+    name: GitHub AI Research Projects
+    type: github_search
+    source_kind: aggregator
+    url: https://github.com/search
+    max_items: 36
+    max_items_per_query: 6
+    pushed_after_days: 365
+    sort: stars
+    queries:
+      - llm agent language:Python
+      - context compression language:Python
+      - long context llm language:Python
+      - novel class discovery language:Python
+      - open world learning language:Python
+      - model distillation language:Python
+
+  - id: openai_news
+    name: OpenAI News
+    type: rss
+    source_kind: primary
+    url: https://openai.com/news/rss.xml
+    max_items: 15
+
+  - id: anthropic_news
+    name: Anthropic News
+    type: html_links
+    source_kind: primary
+    url: https://www.anthropic.com/news
+    max_items: 15
+    selectors:
+      item: "article, li, .PostCard, [data-testid='post-card']"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: google_deepmind_blog
+    name: Google DeepMind Blog
+    type: rss
+    source_kind: primary
+    url: https://deepmind.google/blog/rss.xml
+    max_items: 15
+
+  - id: google_research_blog
+    name: Google Research Blog
+    type: rss
+    source_kind: primary
+    url: https://research.google/blog/rss/
+    max_items: 15
+
+  - id: meta_ai_blog
+    name: Meta AI Blog
+    type: html_links
+    source_kind: primary
+    url: https://ai.meta.com/blog/
+    max_items: 15
+    selectors:
+      item: "article, li, div"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: microsoft_research
+    name: Microsoft Research Blog
+    type: rss
+    source_kind: primary
+    url: https://www.microsoft.com/en-us/research/feed/
+    max_items: 15
+
+  - id: nvidia_ai_blog
+    name: NVIDIA AI Blog
+    type: rss
+    source_kind: primary
+    url: https://blogs.nvidia.com/blog/category/deep-learning/feed/
+    max_items: 15
+
+  - id: apple_ml_research
+    name: Apple Machine Learning Research
+    type: rss
+    source_kind: primary
+    url: https://machinelearning.apple.com/rss.xml
+    max_items: 15
+
+  - id: stanford_hai
+    name: Stanford HAI
+    type: html_links
+    source_kind: primary
+    url: https://hai.stanford.edu/news
+    max_items: 15
+    selectors:
+      item: "article, .views-row, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: mit_csail
+    name: MIT CSAIL News
+    type: rss
+    source_kind: primary
+    url: https://www.csail.mit.edu/rss.xml
+    max_items: 15
+
+  - id: bair_blog
+    name: BAIR Blog
+    type: rss
+    source_kind: primary
+    url: https://bair.berkeley.edu/blog/feed.xml
+    max_items: 15
+
+  - id: princeton_nlp
+    name: Princeton NLP
+    type: rss
+    source_kind: primary
+    url: https://princeton-nlp.github.io/feed.xml
+    max_items: 15
+
+  - id: cmu_ai
+    name: CMU AI
+    type: html_links
+    source_kind: primary
+    url: https://www.cs.cmu.edu/news/artificial-intelligence
+    max_items: 15
+    selectors:
+      item: "article, .views-row, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: neurips
+    name: NeurIPS
+    type: html_links
+    source_kind: primary
+    url: https://neurips.cc/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: icml
+    name: ICML
+    type: html_links
+    source_kind: primary
+    url: https://icml.cc/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: iclr
+    name: ICLR
+    type: html_links
+    source_kind: primary
+    url: https://iclr.cc/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: acl
+    name: ACL
+    type: html_links
+    source_kind: primary
+    url: https://www.aclweb.org/portal/news
+    max_items: 15
+    selectors:
+      item: "article, .views-row, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: emnlp
+    name: EMNLP
+    type: html_links
+    source_kind: primary
+    url: https://2026.emnlp.org/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: cvpr
+    name: CVPR
+    type: html_links
+    source_kind: primary
+    url: https://cvpr.thecvf.com/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: iccv
+    name: ICCV
+    type: html_links
+    source_kind: primary
+    url: https://iccv.thecvf.com/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: eccv
+    name: ECCV
+    type: html_links
+    source_kind: primary
+    url: https://eccv.ecva.net/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: rss_conference
+    name: RSS Robotics
+    type: html_links
+    source_kind: primary
+    url: https://roboticsconference.org/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: corl
+    name: CoRL
+    type: html_links
+    source_kind: primary
+    url: https://www.corl.org/
+    max_items: 15
+    selectors:
+      item: "article, .news-item, li"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: the_batch
+    name: The Batch
+    type: html_links
+    source_kind: media
+    url: https://www.deeplearning.ai/the-batch
+    max_items: 15
+    selectors:
+      item: "article, li, .post-card"
+      title: "h2, h3, a"
+      summary: "p"
+
+  - id: import_ai
+    name: Import AI
+    type: rss
+    source_kind: media
+    url: https://jack-clark.net/feed/
+    max_items: 15
+
+  - id: latent_space
+    name: Latent Space
+    type: rss
+    source_kind: media
+    url: https://www.latent.space/feed
+    max_items: 15
+
+  - id: ahead_of_ai
+    name: Ahead of AI
+    type: rss
+    source_kind: media
+    url: https://magazine.sebastianraschka.com/feed
+    max_items: 15

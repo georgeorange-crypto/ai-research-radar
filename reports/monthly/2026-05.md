@@ -1,0 +1,126 @@
+# AI Research Radar Monthly - 2026-05
+
+- 纳入日报：1 份
+- 跟踪条目：502；MUST_READ 3；SKIM 8；ARCHIVE 491
+- 本月高频主方向：LLM Agents / Tool Use / Planning / Multi-Agent
+
+## 本月最重要论文 / 动态
+- [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)（MUST_READ，Model Distillation / Model Compression / Efficient Training，score 0.96）
+- [Instrumental Choices: Measuring the Propensity of LLM Agents to Pursue Instrumental Behaviors](https://arxiv.org/abs/2605.06490v1)（MUST_READ，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.90）
+- [Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies](https://arxiv.org/abs/2605.06470v1)（MUST_READ，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.90）
+- [Continuous-Time Distribution Matching for Few-Step Diffusion Distillation](https://arxiv.org/abs/2605.06376)（SKIM，Model Distillation / Model Compression / Efficient Training，score 0.90）
+- [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（SKIM，Context Compression / Long Context / Memory，score 0.89）
+- [STALE: Can LLM Agents Know When Their Memories Are No Longer Valid?](https://arxiv.org/abs/2605.06527v1)（SKIM，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.88）
+- [PaddlePaddle/PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim)（SKIM，Model Distillation / Model Compression / Efficient Training，score 0.88）
+- [Beyond Task Success: Measuring Workflow Fidelity in LLM-Based Agentic Payment Systems](https://arxiv.org/abs/2605.06457v1)（SKIM，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.88）
+- [NeuroAgent: LLM Agents for Multimodal Neuroimaging Analysis and Research](https://arxiv.org/abs/2605.06584v1)（SKIM，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.87）
+- [StraTA: Incentivizing Agentic Reinforcement Learning with Strategic Trajectory Abstraction](https://arxiv.org/abs/2605.06642v1)（SKIM，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.87）
+- [On the Safety of Graph Representation Learning](https://arxiv.org/abs/2605.06576v1)（SKIM，Novel Class Discovery / Open-World Learning / OOD / Continual Learning，score 0.84）
+- [BAMI: Training-Free Bias Mitigation in GUI Grounding](https://arxiv.org/abs/2605.06664v1)（ARCHIVE，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.84）
+- [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（ARCHIVE，Context Compression / Long Context / Memory，score 0.83）
+- [When to Trust Imagination: Adaptive Action Execution for World Action Models](https://arxiv.org/abs/2605.06222)（ARCHIVE，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.83）
+- [infiniflow/ragflow](https://github.com/infiniflow/ragflow)（ARCHIVE，Context Compression / Long Context / Memory，score 0.83）
+- [yoshitomo-matsubara/torchdistill](https://github.com/yoshitomo-matsubara/torchdistill)（ARCHIVE，Model Distillation / Model Compression / Efficient Training，score 0.83）
+- [lightly-ai/lightly-train](https://github.com/lightly-ai/lightly-train)（ARCHIVE，Model Distillation / Model Compression / Efficient Training，score 0.83）
+- [Can RL Teach Long-Horizon Reasoning to LLMs? Expressiveness Is Key](https://arxiv.org/abs/2605.06638v1)（ARCHIVE，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.83）
+- [chopratejas/headroom](https://github.com/chopratejas/headroom)（ARCHIVE，Context Compression / Long Context / Memory，score 0.82）
+- [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)（ARCHIVE，LLM Agents / Tool Use / Planning / Multi-Agent，score 0.82）
+
+## 分方向趋势
+- LLM Agents / Tool Use / Planning / Multi-Agent：88 条进入跟踪；高频信号：benchmark、nlp、language model、framework、robotics、evaluation、agentic、environment。
+  - [Instrumental Choices: Measuring the Propensity of LLM Agents to Pursue Instrumental Behaviors](https://arxiv.org/abs/2605.06490v1)
+  - [Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies](https://arxiv.org/abs/2605.06470v1)
+  - [STALE: Can LLM Agents Know When Their Memories Are No Longer Valid?](https://arxiv.org/abs/2605.06527v1)
+  - [Beyond Task Success: Measuring Workflow Fidelity in LLM-Based Agentic Payment Systems](https://arxiv.org/abs/2605.06457v1)
+  - [NeuroAgent: LLM Agents for Multimodal Neuroimaging Analysis and Research](https://arxiv.org/abs/2605.06584v1)
+- Institutional Updates：84 条进入跟踪；高频信号：cmu.edu、stanford.edu、anthropic.com、deepmind.google、nvidia.com、openai.com、research.google、meta.com。
+  - [Parloa builds service agents customers want to talk to](https://openai.com/index/parloa)
+  - [Advancing voice intelligence with new models in the API](https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api)
+  - [Simplex rethinks software development with Codex](https://openai.com/index/simplex)
+  - [Announcing our partnership with the Republic of Korea](https://deepmind.google/blog/announcing-our-partnership-with-the-republic-of-korea/)
+  - [AlphaEvolve: How our Gemini-powered coding agent is scaling impact across fields](https://deepmind.google/blog/alphaevolve-impact/)
+- Other Highlights：56 条进入跟踪；高频信号：robotics、nlp、systems、cs.LG、privacy、safety、inference、framework。
+  - [CLAD: A Clustered Label-Agnostic Federated Learning Framework for Joint Anomaly Detection and Attack Classification](https://arxiv.org/abs/2605.06571v1)
+  - [Multi-Robot Coordination in V2X Environments](https://arxiv.org/abs/2605.06662v1)
+  - [SoftSAE: Dynamic Top-K Selection for Adaptive Sparse Autoencoders](https://arxiv.org/abs/2605.06610v1)
+  - [GA3T: A Ground-Aerial Terrain Traversability Dataset for Heterogeneous Robot Teams in Unstructured Environments](https://arxiv.org/abs/2605.06478v1)
+  - [FedAttr: Towards Privacy-preserving Client-Level Attribution in Federated LLM Fine-tuning](https://arxiv.org/abs/2605.06596v1)
+- CV：50 条进入跟踪；高频信号：image、framework、diffusion、nlp、cs.CV、visual、attention、language model。
+  - [DINORANKCLIP: DINOv3 Distillation and Injection for Vision-Language Pretraining with High-Order Ranking Consistency](https://arxiv.org/abs/2605.06592v1)
+  - [GlazyBench: A Benchmark for Ceramic Glaze Property Prediction and Image Generation](https://arxiv.org/abs/2605.06641v1)
+  - [FreeSpec: Training-Free Long Video Generation via Singular-Spectrum Reconstruction](https://arxiv.org/abs/2605.06509v1)
+  - [MedHorizon: Towards Long-context Medical Video Understanding in the Wild](https://arxiv.org/abs/2605.06537v1)
+  - [ActCam: Zero-Shot Joint Camera and 3D Motion Control for Video Generation](https://arxiv.org/abs/2605.06667v1)
+- Learning Methods / Optimization / Representation Learning：47 条进入跟踪；高频信号：nlp、cs.LG、robotics、optimization、framework、gradient、generalization、stat.ML。
+  - [Directional Consistency as a Complementary Optimization Signal: The GONO Framework](https://arxiv.org/abs/2605.06575v1)
+  - [MARBLE: Multi-Aspect Reward Balance for Diffusion RL](https://arxiv.org/abs/2605.06507v1)
+  - [Transformers Efficiently Perform In-Context Logistic Regression via Normalized Gradient Descent](https://arxiv.org/abs/2605.06609v1)
+  - [Weight-Decay Turns Transformer Loss Landscapes Villani: Functional-Analytic Foundations for Optimization and Generalization](https://arxiv.org/abs/2605.06599v1)
+  - [ReActor: Reinforcement Learning for Physics-Aware Motion Retargeting](https://arxiv.org/abs/2605.06593v1)
+- NLP：44 条进入跟踪；高频信号：language model、nlp、cs.CL、framework、robotics、princeton、evaluation、cs.LG。
+  - [MASPO: Joint Prompt Optimization for LLM-based Multi-Agent Systems](https://arxiv.org/abs/2605.06623v1)
+  - [Cited but Not Verified: Parsing and Evaluating Source Attribution in LLM Deep Research Agents](https://arxiv.org/abs/2605.06635v1)
+  - [UniSD: Towards a Unified Self-Distillation Framework for Large Language Models](https://arxiv.org/abs/2605.06597v1)
+  - [Continuous Latent Diffusion Language Model](https://arxiv.org/abs/2605.06548v1)
+  - [EMO: Pretraining Mixture of Experts for Emergent Modularity](https://arxiv.org/abs/2605.06663v1)
+- GitHub / Open Source Projects：34 条进入跟踪；高频信号：github、open-source、framework、github.com、detection、evaluation、implementation、repo。
+  - [AI CFD Scientist: Toward Open-Ended Computational Fluid Dynamics Discovery with Physics-Aware AI Agents](https://arxiv.org/abs/2605.06607v1)
+  - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
+  - [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)
+  - [browser-use/browser-use](https://github.com/browser-use/browser-use)
+  - [cleanlab/cleanlab](https://github.com/cleanlab/cleanlab)
+- Context Compression / Long Context / Memory：26 条进入跟踪；高频信号：github、github.com、open-source、RAG、nlp、long-context、attention、framework。
+  - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
+  - [langchain-ai/langchain](https://github.com/langchain-ai/langchain)
+  - [infiniflow/ragflow](https://github.com/infiniflow/ragflow)
+  - [chopratejas/headroom](https://github.com/chopratejas/headroom)
+  - [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)
+- Model Architecture：24 条进入跟踪；高频信号：architecture、attention、transformer、framework、inference、robotics、optimization、cs.LG。
+  - [Cubit: Token Mixer with Kernel Ridge Regression](https://arxiv.org/abs/2605.06501v1)
+  - [UniPool: A Globally Shared Expert Pool for Mixture-of-Experts](https://arxiv.org/abs/2605.06665v1)
+  - [Self-Supervised Learning of Graph Representations for Network Intrusion Detection](https://openreview.net/forum?id=5bu1IOOvf0)
+  - [Large-Scale High-Quality 3D Gaussian Head Reconstruction from Multi-View Captures](https://machinelearning.apple.com/research/gaussian-head-reconstruction)
+  - [Transformers as Unsupervised Learning Algorithms: A study on Gaussian Mixtures](https://openreview.net/forum?id=4hKNGmjXVQ)
+- Novel Class Discovery / Open-World Learning / OOD / Continual Learning：20 条进入跟踪；高频信号：github、clustering、generalization、nlp、out-of-distribution、framework、cs.LG、ood。
+  - [On the Safety of Graph Representation Learning](https://arxiv.org/abs/2605.06576v1)
+  - [Scene-Adaptive Continual Learning for CSI-based Human Activity Recognition with Mixture of Experts](https://arxiv.org/abs/2605.06447v1)
+  - [Agentic AIs Are the Missing Paradigm for Out-of-Distribution Generalization in Foundation Models](https://arxiv.org/abs/2605.06522v1)
+  - [GeoStack: A Framework for Quasi-Abelian Knowledge Composition in VLMs](https://arxiv.org/abs/2605.06477v1)
+  - [On the Implicit Reward Overfitting and the Low-rank Dynamics in RLVR](https://arxiv.org/abs/2605.06523v1)
+- Model Distillation / Model Compression / Efficient Training：17 条进入跟踪；高频信号：github、distillation、language model、github.com、framework、inference、open-source、quantization。
+  - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
+  - [Continuous-Time Distribution Matching for Few-Step Diffusion Distillation](https://arxiv.org/abs/2605.06376)
+  - [PaddlePaddle/PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim)
+  - [yoshitomo-matsubara/torchdistill](https://github.com/yoshitomo-matsubara/torchdistill)
+  - [lightly-ai/lightly-train](https://github.com/lightly-ai/lightly-train)
+- RL：12 条进入跟踪；高频信号：framework、reinforcement learning、optimization、language model、rl、grpo、nlp、policy optimization。
+  - [Beyond Negative Rollouts: Positive-Only Policy Optimization with Implicit Negative Gradients](https://arxiv.org/abs/2605.06650v1)
+  - [Operator-Guided Invariance Learning for Continuous Reinforcement Learning](https://arxiv.org/abs/2605.06500v1)
+  - [Sequential Design of Genetic Circuits Under Uncertainty With Reinforcement Learning](https://arxiv.org/abs/2605.06552v1)
+  - [Think, then Score: Decoupled Reasoning and Scoring for Video Reward Modeling](https://arxiv.org/abs/2605.05922)
+  - [SNAPO: Smooth Neural Adjoint Policy Optimization for Optimal Control via Differentiable Simulation](https://arxiv.org/abs/2605.06570v1)
+
+## GitHub / 开源项目
+- [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)（Model Distillation / Model Compression / Efficient Training，stars 2640）
+- [yoshitomo-matsubara/torchdistill](https://github.com/yoshitomo-matsubara/torchdistill)（Model Distillation / Model Compression / Efficient Training，stars 1616）
+- [thu-ml/TurboDiffusion](https://github.com/thu-ml/TurboDiffusion)（Model Distillation / Model Compression / Efficient Training，stars 3493）
+- [PaddlePaddle/PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim)（Model Distillation / Model Compression / Efficient Training，stars 1615）
+- [lightly-ai/lightly-train](https://github.com/lightly-ai/lightly-train)（Model Distillation / Model Compression / Efficient Training，stars 1450）
+- [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（Context Compression / Long Context / Memory，stars 136251）
+- [cleanlab/cleanlab](https://github.com/cleanlab/cleanlab)（GitHub / Open Source Projects，stars 11455）
+- [microsoft/MInference](https://github.com/microsoft/MInference)（Context Compression / Long Context / Memory，stars 1212）
+- [ymcui/Chinese-LLaMA-Alpaca-2](https://github.com/ymcui/Chinese-LLaMA-Alpaca-2)（Context Compression / Long Context / Memory，stars 7143）
+- [infiniflow/ragflow](https://github.com/infiniflow/ragflow)（Context Compression / Long Context / Memory，stars 80100）
+- [justin-herry/C3-OWD](https://github.com/justin-herry/C3-OWD)（GitHub / Open Source Projects，stars 77）
+- [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 140759）
+- [chopratejas/headroom](https://github.com/chopratejas/headroom)（Context Compression / Long Context / Memory，stars 1702）
+- [ModelTC/LightX2V-Qwen-Image-Lightning](https://github.com/ModelTC/LightX2V-Qwen-Image-Lightning)（Model Distillation / Model Compression / Efficient Training，stars 1308）
+- [qiwang067/LS-Imagine](https://github.com/qiwang067/LS-Imagine)（RL，stars 213）
+
+## 月度判断
+- LLM Agents / Tool Use / Planning / Multi-Agent：本月可继续沿着 [Instrumental Choices: Measuring the Propensity of LLM Agents to Pursue Instrumental Behaviors](https://arxiv.org/abs/2605.06490v1) 追踪。
+- Institutional Updates：本月可继续沿着 [Parloa builds service agents customers want to talk to](https://openai.com/index/parloa) 追踪。
+- Other Highlights：本月可继续沿着 [CLAD: A Clustered Label-Agnostic Federated Learning Framework for Joint Anomaly Detection and Attack Classification](https://arxiv.org/abs/2605.06571v1) 追踪。
+- CV：本月可继续沿着 [DINORANKCLIP: DINOv3 Distillation and Injection for Vision-Language Pretraining with High-Order Ranking Consistency](https://arxiv.org/abs/2605.06592v1) 追踪。
+- Learning Methods / Optimization / Representation Learning：本月可继续沿着 [Directional Consistency as a Complementary Optimization Signal: The GONO Framework](https://arxiv.org/abs/2605.06575v1) 追踪。
+- NLP：本月可继续沿着 [MASPO: Joint Prompt Optimization for LLM-based Multi-Agent Systems](https://arxiv.org/abs/2605.06623v1) 追踪。

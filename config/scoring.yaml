@@ -1,0 +1,121 @@
+source_credibility:
+  primary: 0.88
+  aggregator: 0.72
+  media: 0.62
+
+official_hints:
+  - arxiv.org
+  - openreview.net
+  - openai.com
+  - anthropic.com
+  - deepmind.google
+  - research.google
+  - meta.com
+  - microsoft.com
+  - nvidia.com
+  - apple.com
+  - stanford.edu
+  - mit.edu
+  - berkeley.edu
+  - cmu.edu
+  - princeton
+  - neurips.cc
+  - icml.cc
+  - iclr.cc
+  - aclweb.org
+  - thecvf.com
+  - ecva.net
+  - roboticsconference.org
+  - corl.org
+  - github.com
+
+score_fields:
+  - global_score
+  - personal_score
+  - novelty
+  - credibility
+  - evidence_strength
+  - community_signal
+  - actionability
+  - research_relevance
+
+global_score_weights:
+  research_relevance: 0.12
+  novelty: 0.24
+  credibility: 0.18
+  evidence_strength: 0.18
+  community_signal: 0.14
+  actionability: 0.14
+
+personal_score_weights:
+  research_relevance: 0.42
+  novelty: 0.14
+  credibility: 0.12
+  evidence_strength: 0.08
+  community_signal: 0.06
+  actionability: 0.18
+
+group_bonus:
+  primary_research: 0.05
+  other: -0.02
+
+classification:
+  fallback_section: highlights
+  fallback_min_score: 0.45
+  normalized_score_divisor: 4.0
+
+tier_limits:
+  must_read: 3
+  skim: 8
+
+tier_thresholds:
+  must_read:
+    personal_score_min: 0.86
+  skim:
+    personal_score_min: 0.72
+    global_score_min: 0.85
+  archive:
+    personal_score_min: 0.45
+    global_score_min: 0.55
+    research_relevance_min: 0.18
+
+boost_terms:
+  - benchmark
+  - dataset
+  - open-source
+  - open source
+  - code release
+  - github
+  - evaluation
+  - leaderboard
+  - survey
+  - scaling law
+  - sota
+  - reproducible
+  - replication
+
+negative_terms:
+  - webinar
+  - event registration
+  - sponsor
+  - sales
+  - marketing
+  - hiring
+
+actionable_terms:
+  - code
+  - github
+  - dataset
+  - benchmark
+  - leaderboard
+  - evaluation
+  - release
+  - open-source
+  - open source
+  - framework
+  - library
+  - inference
+  - serving
+  - distillation
+  - agent
+  - tool

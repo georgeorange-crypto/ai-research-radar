@@ -1,47 +1,152 @@
-focus_areas:
-  - name: LLM Agents
-    weight: 1.0
-    terms:
-      - llm agent
-      - agents
-      - agentic
-      - tool use
-      - function calling
-      - planning
-      - multi-agent
-      - browser agent
-      - computer use
-      - autonomous agent
-      - agent benchmark
-      - workflow
+# 固定日报仪表盘版块。order 越小越靠前。
+classification:
+  mode: multi_label
+  max_labels_per_item: 5
+  min_section_score: 0.0
+  fallback_section: other_highlights
 
-  - name: Context Compression
-    weight: 1.0
+sections:
+  - id: context_memory
+    title: Context Compression / Long Context / Memory
+    group: core_focus
+    order: 10
+    weight: 1.2
     terms:
       - context compression
       - prompt compression
       - memory compression
-      - token pruning
-      - kv cache compression
-      - summary memory
-      - retrieval compression
-      - compressive transformer
-
-  - name: Long Context
-    weight: 1.0
-    terms:
       - long context
       - long-context
-      - million token
-      - extended context
       - context window
-      - position interpolation
-      - rope scaling
-      - needle in a haystack
-      - long-range dependency
+      - KV cache
+      - KV-cache
+      - cache reuse
+      - RAG
+      - retrieval augmented generation
+      - agent memory
+      - memory validity
+      - belief update
+      - summarization
+      - state compression
+      - information bottleneck
+      - token efficiency
 
-  - name: Reinforcement Learning
-    weight: 0.95
+  - id: agents
+    title: LLM Agents / Tool Use / Planning / Multi-Agent
+    group: core_focus
+    order: 20
+    weight: 1.2
+    terms:
+      - llm agent
+      - agentic
+      - autonomous agent
+      - tool use
+      - function calling
+      - planning
+      - multi-agent
+      - workflow
+      - web agent
+      - GUI agent
+      - computer use
+      - recursive agent
+      - agentic RL
+      - long-horizon
+      - trajectory
+      - environment
+      - benchmark
+      - self-evolving agent
+      - skill learning
+      - memory agent
+
+  - id: open_world
+    title: Novel Class Discovery / Open-World Learning / OOD / Continual Learning
+    group: core_focus
+    order: 30
+    weight: 1.15
+    terms:
+      - novel class discovery
+      - open-world learning
+      - open-set recognition
+      - open-vocabulary
+      - ood
+      - out-of-distribution
+      - domain shift
+      - class-incremental
+      - continual learning
+      - unknown class
+      - clustering
+      - representation learning
+      - semantic shift
+
+  - id: distillation_efficiency
+    title: Model Distillation / Model Compression / Efficient Training
+    group: core_focus
+    order: 40
+    weight: 1.15
+    terms:
+      - knowledge distillation
+      - distillation
+      - model compression
+      - teacher student
+      - student model
+      - step distillation
+      - consistency distillation
+      - diffusion distillation
+      - DMD
+      - quantization
+      - pruning
+      - low-rank
+      - efficient inference
+      - small language model
+      - SLM
+
+  - id: cv
+    title: CV
+    group: traditional_ai
+    order: 110
+    weight: 0.85
+    categories: [cs.CV]
+    terms:
+      - computer vision
+      - vision-language
+      - vision language
+      - image
+      - video
+      - segmentation
+      - detection
+      - object detection
+      - diffusion
+      - multimodal
+      - visual
+      - clip
+      - dinov
+      - sam
+      - 3d vision
+
+  - id: nlp
+    title: NLP
+    group: traditional_ai
+    order: 120
+    weight: 0.85
+    categories: [cs.CL]
+    terms:
+      - natural language processing
+      - nlp
+      - language model
+      - translation
+      - summarization
+      - dialogue
+      - information extraction
+      - question answering
+      - text generation
+      - tokenizer
+      - corpus
+
+  - id: rl
+    title: RL
+    group: traditional_ai
+    order: 130
+    weight: 0.9
     terms:
       - reinforcement learning
       - rl
@@ -55,76 +160,78 @@ focus_areas:
       - offline rl
       - online rl
       - self-play
+      - bandit
+      - markov decision process
 
-  - name: Open-World Learning
-    weight: 0.95
+  - id: architecture
+    title: Model Architecture
+    group: traditional_ai
+    order: 140
+    weight: 0.85
     terms:
-      - open-world learning
-      - open world
-      - continual learning
-      - lifelong learning
-      - out-of-distribution
-      - ood
-      - open set
-      - open vocabulary
-      - novelty detection
-
-  - name: Novel Class Discovery
-    weight: 0.9
-    terms:
-      - novel class discovery
-      - generalized category discovery
-      - class-incremental
-      - open-set recognition
-      - clustering
-      - pseudo-label
-      - unknown class
-
-  - name: Model Distillation
-    weight: 0.95
-    terms:
-      - distillation
-      - knowledge distillation
-      - teacher student
-      - student model
-      - model compression
-      - small language model
-      - slm
-      - speculative decoding
-
-  - name: AI Infrastructure
-    weight: 0.9
-    terms:
-      - inference
-      - serving
-      - gpu
-      - tpu
-      - kernel
-      - vllm
-      - tensor parallel
-      - expert parallel
+      - architecture
+      - transformer
+      - attention
+      - state space model
+      - ssm
+      - mamba
       - mixture of experts
       - moe
-      - quantization
-      - cache
-      - scheduler
-      - ai infrastructure
-      - training systems
+      - sparse attention
+      - recurrent
+      - decoder-only
+      - encoder-decoder
 
-  - name: Reasoning Models
-    weight: 1.0
+  - id: learning_methods
+    title: Learning Methods / Optimization / Representation Learning
+    group: traditional_ai
+    order: 150
+    weight: 0.85
+    categories: [cs.LG, stat.ML]
     terms:
-      - reasoning model
-      - chain-of-thought
-      - test-time compute
-      - deliberation
-      - theorem proving
-      - math reasoning
-      - code reasoning
-      - verifier
-      - process reward
-      - self-correction
-      - tree search
+      - representation learning
+      - self-supervised
+      - contrastive learning
+      - optimization
+      - optimizer
+      - gradient
+      - generalization
+      - transfer learning
+      - meta-learning
+      - curriculum learning
+      - active learning
+      - semi-supervised
+      - unsupervised
+
+  - id: other_highlights
+    title: Other Highlights
+    group: other
+    order: 210
+    weight: 0.75
+    categories: [cs.RO]
+    terms:
+      - ai for science
+      - scientific discovery
+      - biology
+      - chemistry
+      - materials
+      - protein
+      - robotics
+      - robot
+      - world model
+      - world models
+      - ai systems
+      - systems
+      - inference
+      - serving
+      - interpretability
+      - mechanistic interpretability
+      - security
+      - safety
+      - alignment
+      - privacy
+      - watermark
+      - jailbreak
 
 boost_terms:
   - benchmark
@@ -138,6 +245,8 @@ boost_terms:
   - survey
   - scaling law
   - sota
+  - reproducible
+  - replication
 
 negative_terms:
   - webinar
@@ -146,3 +255,65 @@ negative_terms:
   - sales
   - marketing
   - hiring
+
+classic_papers:
+  - title: Attention Is All You Need
+    year: 2017
+    url: https://arxiv.org/abs/1706.03762
+    sections: [architecture, nlp, context_memory]
+    note: Transformer 架构奠基论文，适合连接长上下文、注意力稀疏化和现代大模型架构演进。
+  - title: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+    year: 2020
+    url: https://arxiv.org/abs/2005.11401
+    sections: [context_memory, nlp]
+    note: RAG 奠基工作之一，适合对照当前记忆、检索压缩和长上下文方案。
+  - title: "ReAct: Synergizing Reasoning and Acting in Language Models"
+    year: 2022
+    url: https://arxiv.org/abs/2210.03629
+    sections: [agents]
+    note: LLM agent 推理-行动范式的代表工作，可与工具调用、规划和网页代理新成果对照。
+  - title: Toolformer
+    year: 2023
+    url: https://arxiv.org/abs/2302.04761
+    sections: [agents]
+    note: 早期系统化讨论语言模型自监督学习使用工具的工作。
+  - title: Distilling the Knowledge in a Neural Network
+    year: 2015
+    url: https://arxiv.org/abs/1503.02531
+    sections: [distillation_efficiency]
+    note: 知识蒸馏经典起点，适合对照当前小模型、压缩和高效训练方法。
+  - title: "LoRA: Low-Rank Adaptation of Large Language Models"
+    year: 2021
+    url: https://arxiv.org/abs/2106.09685
+    sections: [distillation_efficiency]
+    note: 参数高效微调代表工作，连接高效训练、模型压缩和部署成本。
+  - title: OpenMax
+    year: 2015
+    url: https://arxiv.org/abs/1511.06233
+    sections: [open_world]
+    note: 开集识别经典工作，适合对照 open-world、OOD 和未知类发现。
+  - title: iCaRL
+    year: 2016
+    url: https://arxiv.org/abs/1611.07725
+    sections: [open_world]
+    note: 类增量学习经典方法，适合连接 continual learning 和 novel class discovery。
+  - title: Deep Residual Learning for Image Recognition
+    year: 2015
+    url: https://arxiv.org/abs/1512.03385
+    sections: [cv, architecture]
+    note: ResNet 是现代视觉模型训练和架构设计的基础参照点。
+  - title: Proximal Policy Optimization Algorithms
+    year: 2017
+    url: https://arxiv.org/abs/1707.06347
+    sections: [rl]
+    note: PPO 是 RL 和 RLHF 语境下仍频繁出现的基础算法。
+  - title: Learning Transferable Visual Models From Natural Language Supervision
+    year: 2021
+    url: https://arxiv.org/abs/2103.00020
+    sections: [cv, nlp, learning_methods]
+    note: CLIP 是视觉语言表示学习的关键基线。
+  - title: The Lottery Ticket Hypothesis
+    year: 2018
+    url: https://arxiv.org/abs/1803.03635
+    sections: [distillation_efficiency, learning_methods]
+    note: 稀疏化和模型压缩方向的重要思想来源。

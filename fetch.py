@@ -6,15 +6,16 @@ import json
 import logging
 import re
 import sys
-from datetime import datetime, timezone
+import warnings
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin, urlparse, urlunparse
+from urllib.parse import parse_qs, urljoin, urlparse, urlunparse
 
 import feedparser
 import requests
 import yaml
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 from dateutil import parser as date_parser
 
 try:
@@ -26,6 +27,7 @@ except Exception:  # pragma: no cover
 
 USER_AGENT = "ai-research-radar/0.1 (+https://github.com/your-name/ai-research-radar)"
 DEFAULT_TIMEOUT = 25
+warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 
 def configure_logging(verbose: bool = False) -> None:
@@ -67,6 +69,21 @@ def parse_date(value: Any) -> str | None:
     return parsed.astimezone(timezone.utc).isoformat()
 
 
+def openreview_forum_id_from_url(url: str) -> str | None:
+    parsed = urlparse(url)
+    if "openreview.net" not in parsed.netloc.lower():
+        return None
+    for value in parse_qs(parsed.query).get("id", []):
+        forum_id = str(value).strip()
+        if re.fullmatch(r"[A-Za-z0-9_-]{5,}", forum_id):
+            return forum_id
+    return None
+
+
+def openreview_forum_url(forum_id: str) -> str:
+    return f"https://openreview.net/forum?id={forum_id}"
+
+
 def canonical_url(url: str, base_url: str | None = None) -> str:
     if not url:
         return ""
@@ -75,6 +92,10 @@ def canonical_url(url: str, base_url: str | None = None) -> str:
     parsed = urlparse(url)
     if parsed.scheme not in {"http", "https"}:
         return ""
+    if "openreview.net" in parsed.netloc.lower():
+        forum_id = openreview_forum_id_from_url(url)
+        if forum_id:
+            return openreview_forum_url(forum_id)
     parsed = parsed._replace(fragment="", query="")
     return urlunparse(parsed)
 
@@ -263,6 +284,67 @@ def fetch_hf_papers_page(source: dict[str, Any], http: requests.Session) -> list
     return items
 
 
+def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
+    headers = {"Accept": "application/vnd.github+json"}
+    token = source.get("token") or ""
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    items: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    pushed_after_days = int(source.get("pushed_after_days", 365))
+    pushed_after = (datetime.now(timezone.utc) - timedelta(days=pushed_after_days)).strftime("%Y-%m-%d")
+    per_query = int(source.get("max_items_per_query", 5))
+
+    for query in source.get("queries", []):
+        q = str(query)
+        if "pushed:" not in q:
+            q = f"{q} pushed:>={pushed_after}"
+        params = {
+            "q": q,
+            "sort": source.get("sort", "stars"),
+            "order": source.get("order", "desc"),
+            "per_page": per_query,
+        }
+        response = http.get("https://api.github.com/search/repositories", params=params, headers=headers, timeout=source.get("timeout", DEFAULT_TIMEOUT))
+        if response.status_code == 403:
+            logging.warning("GitHub API rate limit hit for query: %s", query)
+            continue
+        response.raise_for_status()
+        for repo in response.json().get("items", [])[:per_query]:
+            url = repo.get("html_url", "")
+            if not url or url in seen:
+                continue
+            seen.add(url)
+            topics = repo.get("topics") or []
+            summary_bits = [
+                repo.get("description") or "",
+                f"Stars: {repo.get('stargazers_count', 0)}",
+                f"Language: {repo.get('language') or 'Unknown'}",
+            ]
+            item = make_item(
+                source=source,
+                title=repo.get("full_name") or repo.get("name") or "",
+                url=url,
+                summary=" | ".join(part for part in summary_bits if part),
+                published_at=parse_date(repo.get("pushed_at") or repo.get("updated_at")),
+                authors=[repo.get("owner", {}).get("login")] if repo.get("owner") else [],
+                tags=["github", "open-source", *(str(topic) for topic in topics)],
+                metrics={
+                    "stars": repo.get("stargazers_count", 0),
+                    "forks": repo.get("forks_count", 0),
+                    "open_issues": repo.get("open_issues_count", 0),
+                    "language": repo.get("language"),
+                    "pushed_at": repo.get("pushed_at"),
+                },
+            )
+            if item:
+                items.append(item)
+            if len(items) >= source.get("max_items", 30):
+                return items
+    return items
+
+
 def fetch_openreview_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     venue_ids = source.get("venue_ids") or []
@@ -272,7 +354,7 @@ def fetch_openreview_source(source: dict[str, Any], http: requests.Session) -> l
             "content.venueid": venue_id,
             "limit": limit,
             "sort": "tcdate:desc",
-            "select": "id,content.title,content.abstract,content.authors,content.venueid,tcdate,tmdate,pdate,odate",
+            "select": "id,forum,content.title,content.abstract,content.authors,content.venueid,tcdate,tmdate,pdate,odate",
         }
         response = http.get("https://api2.openreview.net/notes", params=params, timeout=source.get("timeout", DEFAULT_TIMEOUT))
         response.raise_for_status()
@@ -283,15 +365,16 @@ def fetch_openreview_source(source: dict[str, Any], http: requests.Session) -> l
             raw_authors = get_nested_value(content.get("authors")) or []
             authors = raw_authors if isinstance(raw_authors, list) else []
             published = note.get("pdate") or note.get("odate") or note.get("tmdate") or note.get("tcdate")
+            forum_id = str(note.get("forum") or note.get("id") or "").strip()
             item = make_item(
                 source={**source, "name": f"{source.get('name')} ({venue_id})"},
                 title=title,
-                url=f"https://openreview.net/forum?id={note.get('id')}",
+                url=openreview_forum_url(forum_id) if forum_id else "https://openreview.net/forum",
                 summary=abstract,
                 published_at=parse_date(published),
                 authors=[str(a) for a in authors],
                 tags=["openreview", venue_id],
-                metrics={"venue_id": venue_id},
+                metrics={"venue_id": venue_id, "openreview_forum_id": forum_id},
             )
             if item:
                 items.append(item)
@@ -372,6 +455,7 @@ FETCHERS = {
     "arxiv": fetch_arxiv_source,
     "hf_daily_papers": fetch_hf_daily_papers,
     "hf_papers_page": fetch_hf_papers_page,
+    "github_search": fetch_github_search_source,
     "openreview": fetch_openreview_source,
     "html_links": fetch_html_links_source,
 }
@@ -392,7 +476,7 @@ def fetch_source(source: dict[str, Any], http: requests.Session) -> list[dict[st
         return []
 
 
-def fetch_all(sources_path: str | Path = "sources.yaml") -> list[dict[str, Any]]:
+def fetch_all(sources_path: str | Path = "config/sources.yaml") -> list[dict[str, Any]]:
     config = load_yaml(sources_path)
     http = session()
     items: list[dict[str, Any]] = []
@@ -411,9 +495,17 @@ def save_json(path: str | Path, payload: Any) -> None:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
 
+def save_jsonl(path: str | Path, rows: list[dict[str, Any]]) -> None:
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False))
+            f.write("\n")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Fetch AI research radar sources.")
-    parser.add_argument("--sources", default="sources.yaml")
+    parser.add_argument("--sources", default="config/sources.yaml")
     parser.add_argument("--output", default="data/raw.json")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()

@@ -1,0 +1,297 @@
+# 每个 section 的 id 对应 config/categories.yaml 中的版块 key。
+classification:
+  mode: multi_label
+  max_labels_per_item: 5
+  min_section_score: 0.0
+  fallback_section: highlights
+
+sections:
+  - id: context_compression
+    title: Context Compression / Long Context / Memory
+    group: primary_research
+    order: 10
+    weight: 1.2
+    terms:
+      - context compression
+      - prompt compression
+      - memory compression
+      - long context
+      - long-context
+      - context window
+      - KV cache
+      - KV-cache
+      - cache reuse
+      - RAG
+      - retrieval augmented generation
+      - agent memory
+      - memory validity
+      - belief update
+      - summarization
+      - state compression
+      - information bottleneck
+      - token efficiency
+
+  - id: agents
+    title: LLM Agents / Tool Use / Planning / Multi-Agent
+    group: primary_research
+    order: 20
+    weight: 1.2
+    terms:
+      - llm agent
+      - agentic
+      - autonomous agent
+      - tool use
+      - function calling
+      - planning
+      - multi-agent
+      - workflow
+      - web agent
+      - GUI agent
+      - computer use
+      - recursive agent
+      - agentic RL
+      - long-horizon
+      - trajectory
+      - environment
+      - benchmark
+      - self-evolving agent
+      - skill learning
+      - memory agent
+
+  - id: open_world_learning
+    title: Novel Class Discovery / Open-World Learning / OOD / Continual Learning
+    group: primary_research
+    order: 30
+    weight: 1.15
+    terms:
+      - novel class discovery
+      - open-world learning
+      - open-set recognition
+      - open-vocabulary
+      - ood
+      - out-of-distribution
+      - domain shift
+      - class-incremental
+      - continual learning
+      - unknown class
+      - clustering
+      - representation learning
+      - semantic shift
+
+  - id: model_distillation
+    title: Model Distillation / Model Compression / Efficient Training
+    group: primary_research
+    order: 40
+    weight: 1.15
+    terms:
+      - knowledge distillation
+      - distillation
+      - model compression
+      - teacher student
+      - student model
+      - step distillation
+      - consistency distillation
+      - diffusion distillation
+      - DMD
+      - quantization
+      - pruning
+      - low-rank
+      - efficient inference
+      - small language model
+      - SLM
+
+  - id: cv
+    title: CV
+    group: traditional_fields
+    order: 110
+    weight: 0.85
+    categories: [cs.CV]
+    terms:
+      - computer vision
+      - vision-language
+      - vision language
+      - image
+      - video
+      - segmentation
+      - detection
+      - object detection
+      - diffusion
+      - multimodal
+      - visual
+      - clip
+      - dinov
+      - sam
+      - 3d vision
+
+  - id: nlp
+    title: NLP
+    group: traditional_fields
+    order: 120
+    weight: 0.85
+    categories: [cs.CL]
+    terms:
+      - natural language processing
+      - nlp
+      - language model
+      - translation
+      - summarization
+      - dialogue
+      - information extraction
+      - question answering
+      - text generation
+      - tokenizer
+      - corpus
+
+  - id: rl
+    title: RL
+    group: traditional_fields
+    order: 130
+    weight: 0.9
+    terms:
+      - reinforcement learning
+      - rl
+      - policy optimization
+      - reward model
+      - rlhf
+      - rlaif
+      - grpo
+      - dpo
+      - ppo
+      - offline rl
+      - online rl
+      - self-play
+      - bandit
+      - markov decision process
+
+  - id: model_architecture
+    title: Model Architecture
+    group: traditional_fields
+    order: 140
+    weight: 0.85
+    terms:
+      - architecture
+      - transformer
+      - attention
+      - state space model
+      - ssm
+      - mamba
+      - mixture of experts
+      - moe
+      - sparse attention
+      - recurrent
+      - decoder-only
+      - encoder-decoder
+
+  - id: learning_methods
+    title: Learning Methods / Optimization / Representation Learning
+    group: traditional_fields
+    order: 150
+    weight: 0.85
+    categories: [cs.LG, stat.ML]
+    terms:
+      - representation learning
+      - self-supervised
+      - contrastive learning
+      - optimization
+      - optimizer
+      - gradient
+      - generalization
+      - transfer learning
+      - meta-learning
+      - curriculum learning
+      - active learning
+      - semi-supervised
+      - unsupervised
+
+  - id: highlights
+    title: Other Highlights
+    group: other
+    order: 210
+    weight: 0.75
+    categories: [cs.RO]
+    terms:
+      - ai for science
+      - scientific discovery
+      - biology
+      - chemistry
+      - materials
+      - protein
+      - robotics
+      - robot
+      - world model
+      - world models
+      - ai systems
+      - systems
+      - inference
+      - serving
+      - interpretability
+      - mechanistic interpretability
+      - security
+      - safety
+      - alignment
+      - privacy
+      - watermark
+      - jailbreak
+
+  - id: github_projects
+    title: GitHub / Open Source Projects
+    group: other
+    order: 220
+    weight: 0.8
+    source_hints:
+      - github.com
+    terms:
+      - github
+      - open-source
+      - open source
+      - code release
+      - repository
+      - repo
+      - framework
+      - library
+      - toolkit
+      - implementation
+
+  - id: classics
+    title: Classic Papers Revisited
+    group: other
+    order: 230
+    weight: 0.6
+    terms:
+      - classic paper
+      - seminal
+      - foundational
+      - survey
+      - retrospective
+      - historical perspective
+
+  - id: institutional_updates
+    title: Institutional Updates
+    group: other
+    order: 240
+    weight: 0.65
+    source_hints:
+      - openai.com
+      - anthropic.com
+      - deepmind.google
+      - research.google
+      - meta.com
+      - microsoft.com
+      - nvidia.com
+      - apple.com
+      - stanford.edu
+      - mit.edu
+      - berkeley.edu
+      - cmu.edu
+      - princeton
+    terms:
+      - research update
+      - product research
+      - technical report
+      - institute
+      - lab
+      - university
+      - research center
+      - announcement
+      - partnership
+      - release

@@ -1,0 +1,31 @@
+primary_research:
+  context_compression:
+    display_name: "上下文压缩 / 长上下文 / 记忆"
+  agents:
+    display_name: "Agent / Tool Use / Planning"
+  open_world_learning:
+    display_name: "新类学习 / 开放世界学习"
+  model_distillation:
+    display_name: "模型蒸馏 / 模型压缩"
+
+traditional_fields:
+  cv:
+    display_name: "CV"
+  nlp:
+    display_name: "NLP"
+  rl:
+    display_name: "RL"
+  model_architecture:
+    display_name: "模型架构"
+  learning_methods:
+    display_name: "学习方法"
+
+other:
+  highlights:
+    display_name: "其他方向最耀眼成果"
+  github_projects:
+    display_name: "GitHub / 开源项目"
+  classics:
+    display_name: "温故而知新"
+  institutional_updates:
+    display_name: "企业 / 大学 / 研究所动态"

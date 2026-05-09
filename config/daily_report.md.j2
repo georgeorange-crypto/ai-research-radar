@@ -1,0 +1,95 @@
+# AI Research Radar - {{ report_date }}
+{% if collection.local_summary_notice %}
+> {{ collection.local_summary_notice }}
+{% endif %}
+
+## 0. 今日总览
+- 今日最重要方向：{{ overview.most_important_direction }}
+- 今日必须深读：{{ overview.must_read_count }} 篇{% if overview.must_read_titles %}（{{ overview.must_read_titles }}）{% endif %}
+- 今日值得略读：{{ overview.skim_count }} 篇{% if overview.skim_titles %}（{{ overview.skim_titles }}）{% endif %}
+- 今日关键词：{{ overview.keywords }}
+- 今日判断：{{ overview.judgement }}
+
+## 1. 我的研究主线
+
+### 1.1 上下文压缩 / 长上下文 / 记忆
+#### Must Read
+{{ primary.context_compression.must_read }}
+
+#### Skim
+{{ primary.context_compression.skim }}
+
+#### Archive
+{{ primary.context_compression.archive }}
+
+### 1.2 Agent / Tool Use / Planning
+#### Must Read
+{{ primary.agents.must_read }}
+
+#### Skim
+{{ primary.agents.skim }}
+
+#### Archive
+{{ primary.agents.archive }}
+
+### 1.3 新类学习 / 开放世界学习
+#### Must Read
+{{ primary.open_world_learning.must_read }}
+
+#### Skim
+{{ primary.open_world_learning.skim }}
+
+#### Archive
+{{ primary.open_world_learning.archive }}
+
+### 1.4 模型蒸馏 / 模型压缩
+#### Must Read
+{{ primary.model_distillation.must_read }}
+
+#### Skim
+{{ primary.model_distillation.skim }}
+
+#### Archive
+{{ primary.model_distillation.archive }}
+
+## 2. 传统 AI 基础领域
+### CV
+{{ traditional.cv }}
+
+### NLP
+{{ traditional.nlp }}
+
+### RL
+{{ traditional.rl }}
+
+### 模型架构
+{{ traditional.model_architecture }}
+
+### 学习方法
+{{ traditional.learning_methods }}
+
+## 3. 其他方向最耀眼成果
+{{ other_highlights }}
+
+## 4. GitHub / 开源项目推荐
+{{ github_projects }}
+
+## 5. 企业 / 大学 / 研究所动态
+{{ institutional_updates }}
+
+## 6. 温故而知新：经典论文回顾
+{{ classic_revisit }}
+
+## 7. 今日深读清单
+- 只列 3 篇以内。
+- 每篇给出预计阅读目的。
+{{ deep_read_list }}
+
+## 8. 采集说明
+- 采集时间：{{ collection.generated_at }}
+- source count：{{ collection.source_count }}
+- raw item count：{{ collection.raw_count }}
+- dedup item count：{{ collection.dedup_count }}
+- LLM summary mode or local summary mode：{{ collection.summary_mode }}
+- report path：{{ collection.report_path }}
+- previous report link：{{ collection.previous_report_link }}

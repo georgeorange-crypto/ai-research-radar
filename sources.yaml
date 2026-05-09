@@ -36,6 +36,23 @@ sources:
     url: https://huggingface.co/papers/trending
     max_items: 30
 
+  - id: github_ai_projects
+    name: GitHub AI Research Projects
+    type: github_search
+    source_kind: aggregator
+    url: https://github.com/search
+    max_items: 36
+    max_items_per_query: 6
+    pushed_after_days: 365
+    sort: stars
+    queries:
+      - llm agent language:Python
+      - context compression language:Python
+      - long context llm language:Python
+      - novel class discovery language:Python
+      - open world learning language:Python
+      - model distillation language:Python
+
   - id: openai_news
     name: OpenAI News
     type: rss
