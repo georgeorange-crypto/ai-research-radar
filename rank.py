@@ -6,7 +6,7 @@ import math
 import re
 import sys
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlparse
@@ -66,6 +66,8 @@ OFFICIAL_HINTS = [
 
 MUST_READ_LIMIT = 3
 SKIM_LIMIT = 8
+MUST_READ_PERSONAL_MIN = 0.85
+MUST_READ_RESEARCH_RELEVANCE_MIN = 0.85
 
 PAPER_TIERS = {"MUST_READ", "SKIM", "WATCH", "ARCHIVE", "IGNORE"}
 GITHUB_ACTIONS = {"study_code", "use_as_baseline", "read_readme", "save", "clone_and_run"}
@@ -169,7 +171,23 @@ TOP_OFFICIAL_RELEASE_HINTS = {
     "apple",
 }
 
-MUST_BUCKET_ORDER = ["context_memory", "agentic_planning", "open_or_distill"]
+MUST_BUCKET_ORDER = ["context_memory", "agentic_planning", "distillation", "open_world"]
+MUST_BUCKET_LABELS = {
+    "context_memory": "Context Compression / Agent Memory",
+    "agentic_planning": "Agent / Reasoning / RL",
+    "distillation": "Model Distillation / Compression / CV-VLM",
+    "open_world": "Open-World Learning / Novel Class Discovery",
+}
+EVERGREEN_PROJECT_HINTS = {
+    "langchain-ai/langchain",
+    "langchain",
+    "browser-use/browser-use",
+    "browser-use",
+    "infiniflow/ragflow",
+    "ragflow",
+    "llamaindex",
+    "llama-index",
+}
 
 
 def clamp_score(value: float) -> float:
@@ -1003,57 +1021,83 @@ def extract_institution_signal(item: dict[str, Any], config: dict[str, Any], mat
 
 
 def extract_conference_year(item: dict[str, Any]) -> int | None:
-    text = signal_text(item)
+    metadata = metadata_dict(item)
+    text = " ".join(
+        str(value)
+        for value in [
+            metric_value(item, "venue_id"),
+            metadata.get("venue_id"),
+            metadata.get("conference_year"),
+            metadata.get("year"),
+        ]
+        if value
+    )
     match = re.search(r"\b(20[2-9][0-9])\b", text)
     return int(match.group(1)) if match else None
 
 
 def extract_conference_signal(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
-    text = normalized_signal_text(item)
-    raw_text = signal_text(item)
+    metadata = metadata_dict(item)
+    source = item.get("source", {})
+    reliable_values = [
+        metric_value(item, "venue_id"),
+        metadata.get("venue_id"),
+        metadata.get("venue"),
+        metadata.get("venue_name"),
+        metadata.get("conference"),
+        metadata.get("conference_name"),
+        metadata.get("conference_id"),
+    ]
+    reliable_text = normalize_title(" ".join(str(value) for value in reliable_values if value))
     matched_conference: dict[str, Any] | None = None
     for conference in config.get("_conference_registry", []) or []:
         aliases = conference.get("_aliases", [])
-        if any(alias and term_matches(alias, text) for alias in aliases):
-            matched_conference = conference
-            break
-        if any(url_contains_hint(item, str(url)) for url in as_list(conference.get("urls"))):
+        if any(alias and term_matches(alias, reliable_text) for alias in aliases):
             matched_conference = conference
             break
 
-    source = item.get("source", {})
-    if not matched_conference and source_roles(source).intersection({"conference_authority"}):
-        source_name = normalize_title(str(source.get("name") or source.get("id") or ""))
-        for conference in config.get("_conference_registry", []) or []:
-            if any(alias and (alias in source_name or source_name in alias) for alias in conference.get("_aliases", [])):
-                matched_conference = conference
-                break
+    evidence_parts = []
+    if metric_value(item, "venue_id"):
+        evidence_parts.append(f"metrics.venue_id={metric_value(item, 'venue_id')}")
+    for key in ["venue_id", "venue", "venue_name", "conference", "conference_name", "conference_id"]:
+        if metadata.get(key):
+            evidence_parts.append(f"metadata.{key}={metadata.get(key)}")
+    if source.get("type") == "openreview" and metric_value(item, "venue_id"):
+        evidence_parts.append("openreview venue metadata")
 
-    award_aliases = config.get("award_aliases", {})
+    status = "confirmed" if matched_conference and evidence_parts else "unknown"
+
     score_map = config.get("conference_signal_scores", {})
-    award_type = None
+    award_type = normalize_title(str(
+        metadata.get("award_type")
+        or metadata.get("award")
+        or metadata.get("paper_award")
+        or ""
+    )) or None
     signal_score = 0.0
-    for signal, aliases in award_aliases.items():
-        if any(normalize_title(str(alias)) in text for alias in aliases or []):
-            award_type = signal
-            signal_score = max(signal_score, float(score_map.get(signal, 0.0)))
-            break
+    if award_type in score_map:
+        signal_score = max(signal_score, float(score_map.get(award_type, 0.0)))
 
-    presentation_type = None
+    raw_presentation = normalize_title(str(
+        metadata.get("presentation_type")
+        or metadata.get("presentation")
+        or metadata.get("acceptance_type")
+        or metadata.get("track")
+        or ""
+    ))
+    presentation_type = raw_presentation if raw_presentation in {"oral", "spotlight", "poster"} else None
     presentation_scores = config.get("presentation_type_scores", {})
-    for candidate in ["oral", "spotlight", "poster"]:
-        if term_matches(candidate, text):
-            presentation_type = candidate
-            signal_score = max(signal_score, float(presentation_scores.get(candidate, 0.0)))
+    if presentation_type:
+        signal_score = max(signal_score, float(presentation_scores.get(presentation_type, 0.0)))
 
-    if not award_type and not presentation_type and matched_conference:
-        venue_id = str(metric_value(item, "venue_id") or "").lower()
-        if "conference" in raw_text or "accepted" in text or venue_id:
-            award_type = "accepted"
-            signal_score = max(signal_score, float(score_map.get("accepted", 0.16)))
+    if status == "confirmed" and not award_type and not presentation_type:
+        award_type = "accepted"
+        signal_score = max(signal_score, float(score_map.get("accepted", 0.16)))
 
-    if matched_conference:
+    if status == "confirmed":
         signal_score = clamp_score(signal_score + max(0.0, (2 - int(matched_conference.get("tier", 2))) * 0.03))
+    else:
+        signal_score = 0.0
 
     return {
         "conference_signal": clamp_score(signal_score),
@@ -1062,6 +1106,8 @@ def extract_conference_signal(item: dict[str, Any], config: dict[str, Any]) -> d
         "conference_award_type": award_type,
         "presentation_type": presentation_type,
         "conference_area": matched_conference.get("area") if matched_conference else None,
+        "conference_signal_status": status,
+        "evidence_source": "; ".join(evidence_parts) if evidence_parts else "none",
     }
 
 
@@ -1725,6 +1771,9 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         "status": "accepted" if conference_payload["conference_award_type"] == "accepted" else None,
         "award_type": conference_payload["conference_award_type"],
         "presentation_type": conference_payload["presentation_type"],
+        "conference_signal": conference_payload["conference_signal_status"],
+        "conference_signal_status": conference_payload["conference_signal_status"],
+        "evidence_source": conference_payload["evidence_source"],
     }
     item["community"] = {
         "x_mentions": item.get("metrics", {}).get("x_mentions", 0),
@@ -1891,6 +1940,16 @@ def force_min_watch(item: dict[str, Any]) -> bool:
     return force_watch(item) or any(title_matches(item, pattern) for pattern in FORCE_MIN_WATCH_TITLE_PATTERNS)
 
 
+def explicit_editorial_override(item: dict[str, Any]) -> bool:
+    metadata = metadata_dict(item)
+    return bool(
+        item.get("explicit_editorial_override")
+        or item.get("editorial_override")
+        or metadata.get("explicit_editorial_override")
+        or metadata.get("editorial_override")
+    )
+
+
 def editorial_priority_score(item: dict[str, Any]) -> float:
     scores = item.get("scores", {})
     primary_id = primary_category_id(item)
@@ -1903,8 +1962,7 @@ def editorial_priority_score(item: dict[str, Any]) -> float:
         + scores.get("evidence_strength", 0.0) * 0.10
     )
     priority += scores.get("multi_source_confirmation", 0.0) * 0.05
-    priority += scores.get("conference_signal", 0.0) * 0.04
-    priority += scores.get("institution_signal", 0.0) * 0.03
+    priority += scores.get("conference_signal", 0.0) * 0.025
     priority -= scores.get("hype_risk", 0.0) * 0.06
 
     if primary_id in CONTEXT_SECTION_IDS and any(term in text for term in ["agent memory", "memory validity", "belief update", "kv cache", "long context"]):
@@ -1913,6 +1971,10 @@ def editorial_priority_score(item: dict[str, Any]) -> float:
         priority += 0.12
     if primary_id == "model_distillation" and any(term in text for term in ["diffusion distillation", "step distillation", "dinorankclip", "dino"]):
         priority += 0.06
+    if primary_id == "model_distillation" and any(term in text for term in ["continuous-time distribution", "few-step diffusion", "diffusion distillation"]):
+        priority += 0.08
+    if primary_id == "model_distillation" and "dinorankclip" in text:
+        priority += 0.14
     if item.get("source", {}).get("kind") == "primary":
         priority += 0.04
     if primary_category_group(item) in {"primary_research", "core_focus"}:
@@ -1935,6 +1997,26 @@ def editorial_rank_key(item: dict[str, Any]) -> tuple[float, float, float, float
         scores.get("novelty", 0.0),
         scores.get("credibility", 0.0),
         scores.get("personal_score", 0.0),
+    )
+
+
+def must_bucket_rank_key(item: dict[str, Any], bucket: str) -> tuple[float, float, float, float]:
+    scores = item.get("scores", {})
+    text = item_text(item)
+    bucket_fit = 0.0
+    if bucket == "context_memory" and any(term in text for term in ["stale", "memory validity", "memory staleness", "belief update"]):
+        bucket_fit += 0.30
+    if bucket == "agentic_planning" and any(term in text for term in ["adaptive parallel reasoning", "strata", "agentic rl", "planning"]):
+        bucket_fit += 0.20
+    if bucket == "distillation" and "dinorankclip" in text:
+        bucket_fit += 0.28
+    if bucket == "open_world" and any(term in text for term in ["novel class", "open-world", "open world", "open-set"]):
+        bucket_fit += 0.16
+    return (
+        editorial_priority_score(item) + bucket_fit,
+        scores.get("personal_score", 0.0),
+        scores.get("research_relevance", 0.0),
+        scores.get("novelty", 0.0),
     )
 
 
@@ -1976,8 +2058,16 @@ def must_bucket(item: dict[str, Any]) -> str | None:
         return "agentic_planning"
     if primary_id == "rl" and any(term in text for term in planning_terms):
         return "agentic_planning"
-    if primary_id in {"open_world_learning", "model_distillation"}:
-        return "open_or_distill"
+    if primary_id in {"open_world_learning", "open_world"}:
+        return "open_world"
+    if primary_id in {"model_distillation", "distillation_efficiency"}:
+        return "distillation"
+    if primary_id == "rl" and any(term in text for term in ["agentic rl", "long-horizon", "long horizon", "planning"]):
+        return "agentic_planning"
+    if any(term in text for term in ["novel class discovery", "open-world", "open world", "open-set", "unknown class"]):
+        return "open_world"
+    if any(term in text for term in ["distillation", "compression", "quantization", "pruning", "student model", "diffusion"]):
+        return "distillation"
     if any(
         term in text
         for term in memory_terms
@@ -1995,6 +2085,8 @@ def must_read_eligible(item: dict[str, Any]) -> bool:
     priority = editorial_priority_score(item)
     personal = scores.get("personal_score", 0.0)
     relevance = scores.get("research_relevance", 0.0)
+    direct_mainline = must_bucket(item) in MUST_BUCKET_LABELS
+    override = explicit_editorial_override(item)
     if ignore_reason(item):
         return False
     if primary_category_group(item) not in {"primary_research", "core_focus"}:
@@ -2003,12 +2095,24 @@ def must_read_eligible(item: dict[str, Any]) -> bool:
         return False
     if not is_deep_read_source(item) or is_pure_tool_library(item) or force_watch(item):
         return False
+    if not override and (
+        personal < MUST_READ_PERSONAL_MIN
+        or relevance < MUST_READ_RESEARCH_RELEVANCE_MIN
+    ):
+        return False
     if scores.get("hype_risk", 0.0) >= 0.65 and scores.get("credibility", 0.0) < 0.78:
         return False
     if item.get("requires_primary_source_check") and scores.get("credibility", 0.0) < 0.75:
         return False
-    if primary_id in MAINLINE_SECTION_IDS and relevance < 0.80:
-        return False
+    if override and direct_mainline:
+        return priority >= 0.70
+    if primary_id in MAINLINE_SECTION_IDS and relevance < 0.74:
+        if not (priority >= 0.80 and relevance >= 0.65 and scores.get("credibility", 0.0) >= 0.75):
+            return False
+    if direct_mainline and priority >= 0.80 and relevance >= 0.65 and scores.get("credibility", 0.0) >= 0.75:
+        return True
+    if direct_mainline and personal >= 0.76 and relevance >= 0.78 and priority >= 0.72:
+        return True
     if personal < 0.80 and not (is_top_official_release(item) and priority >= 0.94):
         return False
     return priority >= 0.80
@@ -2081,19 +2185,47 @@ def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
 
     must_selected: list[dict[str, Any]] = []
     used_ids: set[str] = set()
+    used_sources: set[str] = set()
+    bucket_winners: list[tuple[str, dict[str, Any]]] = []
     for bucket in MUST_BUCKET_ORDER:
-        candidates = [
-            item
-            for item in paper_items
-            if id(item) not in used_ids and must_read_eligible(item) and must_bucket(item) == bucket
-        ]
-        if not candidates:
+        candidates = sorted(
+            [
+                item
+                for item in paper_items
+                if id(item) not in used_ids and must_read_eligible(item) and must_bucket(item) == bucket
+            ],
+            key=lambda item, bucket=bucket: must_bucket_rank_key(item, bucket),
+            reverse=True,
+        )
+        if candidates:
+            bucket_winners.append((bucket, candidates[0]))
+    for _, chosen in bucket_winners:
+        source_name = str(chosen.get("source", {}).get("name") or chosen.get("source", {}).get("id") or "")
+        if source_name in used_sources and len(must_selected) < len(bucket_winners) - 1:
             continue
-        chosen = candidates[0]
         must_selected.append(chosen)
         used_ids.add(id(chosen))
+        if source_name:
+            used_sources.add(source_name)
         if len(must_selected) >= MUST_READ_LIMIT:
             break
+
+    if len(must_selected) < MUST_READ_LIMIT:
+        fallback_candidates = [
+            item
+            for item in paper_items
+            if id(item) not in used_ids and must_read_eligible(item)
+        ]
+        for item in fallback_candidates:
+            source_name = str(item.get("source", {}).get("name") or item.get("source", {}).get("id") or "")
+            if source_name in used_sources and len(fallback_candidates) > 1:
+                continue
+            must_selected.append(item)
+            used_ids.add(id(item))
+            if source_name:
+                used_sources.add(source_name)
+            if len(must_selected) >= MUST_READ_LIMIT:
+                break
 
     if len(must_selected) < MUST_READ_LIMIT:
         for item in paper_items:
@@ -2186,7 +2318,84 @@ def build_section_payloads(items: list[dict[str, Any]], config: dict[str, Any]) 
     return sections
 
 
-def select_github_projects(items: list[dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
+def github_full_name(item: dict[str, Any]) -> str:
+    metadata = metadata_dict(item)
+    full_name = str(metadata.get("full_name") or "").strip().lower()
+    if full_name:
+        return full_name
+    parsed = urlparse(item.get("url", ""))
+    if "github.com" in parsed.netloc.lower():
+        parts = parsed.path.strip("/").split("/")
+        if len(parts) >= 2:
+            return f"{parts[0]}/{parts[1]}".lower()
+    return normalize_title(item.get("title", ""))
+
+
+def is_known_evergreen_project(item: dict[str, Any]) -> bool:
+    key = github_full_name(item)
+    title = normalize_title(item.get("title", ""))
+    return any(hint in key or hint in title for hint in EVERGREEN_PROJECT_HINTS)
+
+
+def github_project_category(item: dict[str, Any]) -> str:
+    metadata = metadata_dict(item)
+    text = item_text(item)
+    if metadata.get("paper_link") or re.search(r"arxiv\.org|openreview\.net|doi\.org|aclanthology\.org|proceedings\.mlr", text):
+        return "paper_linked"
+
+    created = parse_date(str(metadata.get("created_at") or ""))
+    pushed = parse_date(str(item.get("metrics", {}).get("pushed_at") or metadata.get("updated_at") or ""))
+    now = datetime.now(timezone.utc)
+    if created and (now - created).days <= 30:
+        return "recent"
+    if pushed and (now - pushed).days <= 14 and not is_known_evergreen_project(item):
+        return "recent"
+    return "evergreen"
+
+
+def previous_daily_report_text(report_date: str | None, *, days: int = 30) -> str:
+    if not report_date:
+        return ""
+    try:
+        current = datetime.strptime(report_date, "%Y-%m-%d")
+    except ValueError:
+        return ""
+    pieces: list[str] = []
+    for offset in range(1, days + 1):
+        day = current - timedelta(days=offset)
+        path = Path("reports") / "daily" / day.strftime("%Y") / day.strftime("%m") / f"{day.strftime('%Y-%m-%d')}.md"
+        if not path.exists():
+            continue
+        try:
+            pieces.append(path.read_text(encoding="utf-8", errors="ignore").lower())
+        except OSError:
+            continue
+    return "\n".join(pieces)
+
+
+def recently_recommended_project(item: dict[str, Any], history_text: str) -> bool:
+    if not history_text:
+        return False
+    keys = {github_full_name(item), normalize_title(item.get("title", ""))}
+    keys = {key for key in keys if key and len(key) >= 4}
+    return any(key in history_text for key in keys)
+
+
+def major_github_update(item: dict[str, Any]) -> bool:
+    metadata = metadata_dict(item)
+    metrics = item.get("metrics", {})
+    prev_stars = metrics.get("prev_stars")
+    star_growth = ((metrics.get("stars", 0) or 0) - prev_stars) if isinstance(prev_stars, (int, float)) else 0
+    return bool(
+        metadata.get("is_major_release")
+        or metadata.get("major_release")
+        or metadata.get("new_paper_citation")
+        or metadata.get("paper_link")
+        or star_growth >= 100
+    )
+
+
+def select_github_projects(items: list[dict[str, Any]], limit: int = 9, report_date: str | None = None) -> list[dict[str, Any]]:
     action_rank = {
         "use_as_baseline": 5,
         "study_code": 4,
@@ -2195,17 +2404,55 @@ def select_github_projects(items: list[dict[str, Any]], limit: int = 5) -> list[
         "save": 1,
     }
     projects = [item for item in items if item.get("reading_tier") != "IGNORE" and is_repository_item(item)]
-    projects.sort(
-        key=lambda item: (
+    history_text = previous_daily_report_text(report_date)
+    grouped: dict[str, list[dict[str, Any]]] = {"recent": [], "paper_linked": [], "evergreen": []}
+    for item in projects:
+        category = github_project_category(item)
+        metadata = dict(metadata_dict(item))
+        metadata["github_bucket"] = category
+        item["metadata"] = metadata
+        if category == "evergreen" and recently_recommended_project(item, history_text) and not major_github_update(item):
+            continue
+        grouped[category].append(item)
+
+    def project_rank_key(item: dict[str, Any]) -> tuple[float, float, float, float, float]:
+        evergreen_penalty = -0.8 if github_project_category(item) == "evergreen" and is_known_evergreen_project(item) else 0.0
+        return (
             action_rank.get(item.get("github_action") or item.get("reading_tier"), 0),
             item.get("scores", {}).get("actionability", 0),
             item.get("scores", {}).get("community_signal", 0),
+            item.get("scores", {}).get("personal_score", 0) + evergreen_penalty,
             item.get("metrics", {}).get("stars", 0) or 0,
-            item.get("scores", {}).get("personal_score", 0),
-        ),
-        reverse=True,
-    )
-    return projects[:limit]
+        )
+
+    for bucket_items in grouped.values():
+        bucket_items.sort(key=project_rank_key, reverse=True)
+    evergreen_filtered: list[dict[str, Any]] = []
+    known_evergreen_kept = 0
+    for item in grouped["evergreen"]:
+        if is_known_evergreen_project(item) and not major_github_update(item):
+            if known_evergreen_kept >= 1:
+                continue
+            known_evergreen_kept += 1
+        evergreen_filtered.append(item)
+    grouped["evergreen"] = evergreen_filtered
+
+    selected: list[dict[str, Any]] = []
+    caps = {"recent": 3, "paper_linked": 3, "evergreen": 2}
+    for bucket in ["recent", "paper_linked", "evergreen"]:
+        selected.extend(grouped[bucket][: caps[bucket]])
+
+    if len(selected) < limit:
+        already = {id(item) for item in selected}
+        leftovers = [
+            item
+            for bucket in ["recent", "paper_linked", "evergreen"]
+            for item in grouped[bucket]
+            if id(item) not in already
+        ]
+        leftovers.sort(key=project_rank_key, reverse=True)
+        selected.extend(leftovers[: limit - len(selected)])
+    return selected[:limit]
 
 
 CLASSIC_TOPIC_ALIASES = {
@@ -2255,6 +2502,11 @@ CLASSIC_GENERIC_TERMS = {
     "model_architecture",
     "cv",
     "computer vision",
+    "trajectory",
+    "environment",
+    "workflow",
+    "framework",
+    "benchmark",
 }
 
 
@@ -2284,6 +2536,8 @@ def classic_connection_terms(paper: dict[str, Any], item: dict[str, Any]) -> lis
         if keyword and keyword not in CLASSIC_GENERIC_TERMS and (term_matches(keyword, text) or keyword in item_keywords(item))
     ]
     section_hits = normalized_topic_tags(paper).intersection({item_primary_topic(item)})
+    if not keyword_hits and item_primary_topic(item) in {"agents", "rl", "model_distillation"}:
+        return []
     return sorted(set(keyword_hits + list(section_hits)))[:8]
 
 
@@ -2321,6 +2575,17 @@ def classic_specific_bonus(paper: dict[str, Any], item: dict[str, Any], terms: l
     if any(term in {"knowledge distillation", "distillation", "teacher student"} for term in terms):
         if "lora" in paper_text or "low rank" in paper_text:
             return -0.8
+    if any(term in item_text_value for term in ["diffusion distillation", "continuous-time distribution", "consistency distillation", "progressive distillation"]):
+        if any(term in paper_text for term in ["knowledge distillation", "distilling", "progressive distillation", "consistency model"]):
+            return 3.5
+        if "lora" in paper_text or "lottery" in paper_text:
+            return -1.2
+    if any(term in item_text_value for term in ["adaptive parallel reasoning", "tree of thoughts", "graph of thoughts", "agent reasoning", "reasoning"]):
+        if any(term in paper_text for term in ["react", "tree of thoughts", "graph of thoughts"]):
+            return 3.3
+    if any(term in item_text_value for term in ["agentic rl", "reinforcement learning", "policy optimization", "rlhf", "decision transformer"]):
+        if any(term in paper_text for term in ["proximal policy", "ppo", "rlhf", "decision transformer"]):
+            return 3.2
     return 0.0
 
 
@@ -2519,7 +2784,7 @@ def process_items(
 
     tier_counts = Counter(item.get("reading_tier", "IGNORE") for item in scored)
     sections = build_section_payloads(scored, config)
-    github_projects = select_github_projects(scored)
+    github_projects = select_github_projects(scored, report_date=report_date)
     must_primary_mainlines = {
         primary_category_id(item)
         for item in scored
