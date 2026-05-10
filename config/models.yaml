@@ -1,5 +1,5 @@
-mode: single
-strategy: voting
+mode: ensemble
+strategy: editor
 primary_model: deepseek
 
 models:
@@ -23,3 +23,9 @@ models:
     base_url: https://open.bigmodel.cn/api/paas/v4
     model: glm-4.7-flash
     weight: 1.0
+
+editor:
+  enabled: true
+  api_key: ${OPENAI_API_KEY}
+  base_url: ${OPENAI_BASE_URL}
+  model: gpt-4o-mini

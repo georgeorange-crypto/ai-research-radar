@@ -10,7 +10,6 @@ from zoneinfo import ZoneInfo
 
 try:
     from dotenv import load_dotenv
-    # 自动加载 .env 文件（如果存在）
     load_dotenv()
 except ImportError:
     pass
@@ -20,6 +19,12 @@ from fetch import configure_logging, fetch_all, save_jsonl
 from rank import process_items, save_json
 from summarize import generate_report
 from weekly import generate_weekly_report, week_id
+
+try:
+    from quality import pre_generate_checks, post_generate_checks, QualityError
+    QUALITY_ENABLED = True
+except ImportError:
+    QUALITY_ENABLED = False
 
 
 def today(tz_name: str) -> str:
@@ -42,6 +47,7 @@ def main() -> int:
     parser.add_argument("--skip-monthly", action="store_true")
     parser.add_argument("--skip-index", action="store_true")
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--skip-quality", action="store_true", help="Skip quality checks")
     args = parser.parse_args()
 
     configure_logging(args.verbose)
@@ -55,6 +61,16 @@ def main() -> int:
     raw_path = Path("data") / "raw" / f"{report_date}.jsonl"
     processed_path = Path("data") / "processed" / f"{report_date}.json"
     report_path = daily_report_path(report_date)
+    latest_path = Path("reports") / "daily" / "latest.md"
+
+    if QUALITY_ENABLED and not args.skip_quality:
+        try:
+            print("Running pre-generate quality checks...")
+            pre_generate_checks(report_path, latest_path)
+            print("Pre-generate checks passed.")
+        except QualityError as e:
+            print(f"Quality check failed: {e}", file=sys.stderr)
+            return 1
 
     raw_items = fetch_all(args.sources)
     save_jsonl(raw_path, raw_items)
@@ -68,13 +84,30 @@ def main() -> int:
     )
     save_json(processed_path, processed)
 
-    generate_report(
+    rendered = generate_report(
         processed,
         report_path,
         report_date=report_date,
-        latest_path=Path("reports") / "daily" / "latest.md",
+        latest_path=latest_path,
     )
     shutil.copyfile(report_path, "report.md")
+
+    if QUALITY_ENABLED and not args.skip_quality:
+        try:
+            print("Running post-generate quality checks...")
+            warnings = post_generate_checks(rendered, report_path)
+            if warnings:
+                print("Quality warnings:")
+                for warning in warnings:
+                    print(f"  - {warning}")
+            print("Post-generate checks passed.")
+        except QualityError as e:
+            print(f"Quality check failed: {e}", file=sys.stderr)
+            if report_path.exists():
+                report_path.unlink()
+            if Path("report.md").exists():
+                Path("report.md").unlink()
+            return 1
 
     weekly_path = None
     run_day = datetime.strptime(report_date, "%Y-%m-%d").date()

@@ -68,6 +68,9 @@ ACTION_CHOICES = {
     "read_readme",
     "archive",
 }
+
+OPEN_SOURCE_ACTIONS = {"study_code", "use_as_baseline", "clone_and_run", "read_readme", "save", "archive"}
+
 DEFAULT_TEMPLATE_PATH = Path("config") / "daily_report.md.j2"
 LLM_SUMMARY_CALLS = 0
 
@@ -222,27 +225,63 @@ def benchmark_action(item: dict[str, Any]) -> str:
     return "ignore"
 
 
+def apply_action_constraints(action: str, item: dict[str, Any]) -> str:
+    """
+    应用 suggested_action 的硬约束：
+    
+    1. 如果 reading_tier 是 WATCH 或 ARCHIVE，则 suggested_action 不得为 read_pdf
+    2. 如果 is_open_source_project=true，则 suggested_action 只能是：
+       study_code / use_as_baseline / clone_and_run / read_readme / save / archive
+    3. 如果 grounding_level=title_only，则 suggested_action 不得为 read_pdf
+    4. 如果 primary_category 是 GitHub / Open Source Projects，则不得进入今日深读清单
+    """
+    tier = item.get("reading_tier", "").upper()
+    is_open_source = item.get("is_open_source_project", False)
+    ground_level = grounding_level(item)
+    
+    if action == "read_pdf":
+        if tier in {"WATCH", "ARCHIVE"}:
+            return "watch" if tier == "WATCH" else "save"
+        if is_open_source:
+            return "read_readme"
+        if ground_level == "title_only":
+            return "save"
+        
+        section_title = item.get("primary_category", {}).get("title", "")
+        if section_title == "GitHub / Open Source Projects":
+            return "read_readme"
+    
+    if is_open_source and action not in OPEN_SOURCE_ACTIONS:
+        return "read_readme"
+    
+    return action
+
+
 def choose_action(item: dict[str, Any]) -> str:
     tier = item.get("reading_tier", "ARCHIVE")
     scores = item.get("scores", {})
     if is_repository_item(item):
-        return item.get("github_action") or tier if tier in ACTION_CHOICES else "read_readme"
+        action = item.get("github_action") or tier if tier in ACTION_CHOICES else "read_readme"
+        return apply_action_constraints(action, item)
     if is_benchmark_item(item):
-        return item.get("benchmark_action") or benchmark_action(item)
+        action = item.get("benchmark_action") or benchmark_action(item)
+        return apply_action_constraints(action, item)
     if tier == "IGNORE":
         return "ignore"
     if tier == "MUST_READ":
-        return "read_pdf"
+        return apply_action_constraints("read_pdf", item)
     if tier == "SKIM":
-        return "skim"
+        return apply_action_constraints("skim", item)
     if tier == "WATCH":
-        return "watch"
-    return "save"
+        return apply_action_constraints("watch", item)
+    return apply_action_constraints("save", item)
 
 
 def normalize_action(value: Any, item: dict[str, Any]) -> str:
     action = str(value or "").strip().lower()
-    return action if action in ACTION_CHOICES else choose_action(item)
+    if action in ACTION_CHOICES:
+        return apply_action_constraints(action, item)
+    return choose_action(item)
 
 
 def normalize_summary(payload: dict[str, Any] | None, item: dict[str, Any]) -> dict[str, str]:
@@ -1028,13 +1067,46 @@ def reading_purpose(item: dict[str, Any]) -> str:
     return "判断该成果与当前研究问题的连接点和是否值得进入文献库。"
 
 
+def is_eligible_for_deep_read(item: dict[str, Any]) -> bool:
+    """
+    判断条目是否符合深读清单的要求：
+    1. 必须是论文、技术报告或高质量一手研究 blog
+    2. 不得是 GitHub / Open Source Projects 分类
+    3. grounding_level 不能是 title_only
+    """
+    if item.get("is_open_source_project"):
+        return False
+    
+    section_title = item.get("primary_category", {}).get("title", "")
+    if section_title == "GitHub / Open Source Projects":
+        return False
+    
+    ground_level = grounding_level(item)
+    if ground_level == "title_only":
+        return False
+    
+    source_type = str(item.get("source", {}).get("type", "")).lower()
+    valid_types = {"arxiv", "openreview", "hf_daily_papers", "hf_papers_page"}
+    
+    kind = item.get("source", {}).get("kind", "")
+    is_primary = kind == "primary"
+    
+    if source_type in valid_types or is_primary:
+        return True
+    
+    return False
+
+
 def render_deep_read_list(items: list[dict[str, Any]]) -> str:
-    must = [item for item in items if item.get("reading_tier") == "MUST_READ"][:3]
-    if not must:
-        return "- 今日没有 MUST_READ 条目。"
+    must_candidates = [item for item in items if item.get("reading_tier") == "MUST_READ"]
+    eligible = [item for item in must_candidates if is_eligible_for_deep_read(item)][:3]
+    
+    if not eligible:
+        return "- 今日没有符合条件的深读条目。"
+    
     return "\n".join(
         f"- [{item.get('title')}]({item.get('url')})：预计阅读目的：{reading_purpose(item)}"
-        for item in must
+        for item in eligible
     )
 
 
