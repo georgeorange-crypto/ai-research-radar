@@ -35,25 +35,58 @@ score_fields:
   - novelty
   - credibility
   - evidence_strength
+  - trend_signal
+  - interpretation_signal
+  - conference_signal
+  - institution_signal
+  - authority_score
+  - multi_source_confirmation
   - community_signal
   - actionability
+  - hype_risk
   - research_relevance
+  - method_relevance
+  - project_relevance
+  - learning_value
 
 global_score_weights:
-  research_relevance: 0.12
-  novelty: 0.24
-  credibility: 0.18
-  evidence_strength: 0.18
-  community_signal: 0.14
-  actionability: 0.14
+  novelty: 0.20
+  credibility: 0.15
+  conference_signal: 0.18
+  institution_signal: 0.12
+  multi_source_confirmation: 0.12
+  community_signal: 0.08
+  actionability: 0.10
+  editorial_signal: 0.05
 
 personal_score_weights:
-  research_relevance: 0.42
-  novelty: 0.14
-  credibility: 0.12
-  evidence_strength: 0.08
-  community_signal: 0.06
-  actionability: 0.18
+  research_relevance: 0.40
+  method_relevance: 0.20
+  project_relevance: 0.15
+  learning_value: 0.10
+  actionability: 0.08
+  authority_signal: 0.00
+  conference_signal: 0.00
+
+source_role_rules:
+  no_direct_credibility_roles:
+    - discovery
+    - community
+    - chinese_context
+  credibility_roles:
+    - paper_source
+    - conference_authority
+    - institution_authority
+  editorial_roles:
+    - editorial_analysis
+    - industry_analysis
+  actionability_roles:
+    - code_actionability
+
+multi_source_confirmation_score:
+  two_quality_sources: 0.05
+  three_quality_sources: 0.10
+  four_or_more_quality_sources: 0.15
 
 group_bonus:
   primary_research: 0.05
@@ -70,7 +103,9 @@ tier_limits:
 
 tier_thresholds:
   must_read:
-    personal_score_min: 0.86
+    personal_score_min: 0.85
+    research_relevance_min: 0.85
+    explicit_editorial_override_field: explicit_editorial_override
   skim:
     personal_score_min: 0.72
     global_score_min: 0.85

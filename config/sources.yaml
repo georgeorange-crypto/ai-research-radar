@@ -2,11 +2,28 @@
 #   primary    = 论文、官方博客、官方会议/机构页面
 #   aggregator = 聚合站或趋势榜
 #   media      = 新闻信/媒体摘要
+#
+# source_role:
+#   discovery              = 热点发现，只提高 freshness/community signal
+#   paper_source           = 论文身份与摘要来源，可提高 credibility
+#   editorial_analysis     = 编辑判断来源，提高 trend/interpretation signal
+#   industry_analysis      = 产业/基础设施分析，提高 trend/industry signal
+#   chinese_context        = 中文语境雷达，必须反查一手来源
+#   community              = 社区线索，只提高 community signal
+#   conference_authority   = 顶会官方/权威信号
+#   institution_authority  = 强校/实验室/大厂官方信号
+#   code_actionability     = 代码、复现、demo、benchmark 可行动性信号
 sources:
   - id: hf_daily_papers
     name: Hugging Face Daily Papers
     type: hf_daily_papers
     source_kind: aggregator
+    source_role: paper_source
+    trust_level: high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: daily
     url: https://huggingface.co/papers
     api_url: https://huggingface.co/api/daily_papers
     max_items: 40
@@ -15,6 +32,12 @@ sources:
     name: arXiv AI/ML/NLP/Vision/Robotics
     type: arxiv
     source_kind: primary
+    source_role: paper_source
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: daily
     categories: [cs.AI, cs.LG, cs.CL, cs.CV, cs.RO, stat.ML]
     max_items: 120
 
@@ -22,6 +45,12 @@ sources:
     name: OpenReview
     type: openreview
     source_kind: primary
+    source_role: [paper_source, conference_authority]
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: daily
     max_items: 30
     venue_ids:
       - ICLR.cc/2026/Conference
@@ -33,6 +62,12 @@ sources:
     name: Papers with Code Trending (HF redirect)
     type: hf_papers_page
     source_kind: aggregator
+    source_role: [paper_source, code_actionability]
+    trust_level: medium_high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: daily
     url: https://huggingface.co/papers/trending
     max_items: 30
 
@@ -40,6 +75,12 @@ sources:
     name: GitHub AI Research Projects
     type: github_search
     source_kind: aggregator
+    source_role: code_actionability
+    trust_level: medium_high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: daily
     url: https://github.com/search
     max_items: 36
     max_items_per_query: 6
@@ -57,6 +98,12 @@ sources:
     name: OpenAI News
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://openai.com/news/rss.xml
     max_items: 15
 
@@ -64,6 +111,12 @@ sources:
     name: Anthropic News
     type: html_links
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://www.anthropic.com/news
     max_items: 15
     selectors:
@@ -75,6 +128,12 @@ sources:
     name: Google DeepMind Blog
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://deepmind.google/blog/rss.xml
     max_items: 15
 
@@ -82,6 +141,12 @@ sources:
     name: Google Research Blog
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://research.google/blog/rss/
     max_items: 15
 
@@ -89,6 +154,12 @@ sources:
     name: Meta AI Blog
     type: html_links
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://ai.meta.com/blog/
     max_items: 15
     selectors:
@@ -100,6 +171,12 @@ sources:
     name: Microsoft Research Blog
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://www.microsoft.com/en-us/research/feed/
     max_items: 15
 
@@ -107,6 +184,12 @@ sources:
     name: NVIDIA AI Blog
     type: rss
     source_kind: primary
+    source_role: [institution_authority, industry_analysis]
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://blogs.nvidia.com/blog/category/deep-learning/feed/
     max_items: 15
 
@@ -114,6 +197,12 @@ sources:
     name: Apple Machine Learning Research
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://machinelearning.apple.com/rss.xml
     max_items: 15
 
@@ -121,6 +210,12 @@ sources:
     name: Stanford HAI
     type: html_links
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://hai.stanford.edu/news
     max_items: 15
     selectors:
@@ -132,6 +227,12 @@ sources:
     name: MIT CSAIL News
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://www.csail.mit.edu/rss.xml
     max_items: 15
 
@@ -139,6 +240,12 @@ sources:
     name: BAIR Blog
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://bair.berkeley.edu/blog/feed.xml
     max_items: 15
 
@@ -146,6 +253,12 @@ sources:
     name: Princeton NLP
     type: rss
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://princeton-nlp.github.io/feed.xml
     max_items: 15
 
@@ -153,6 +266,12 @@ sources:
     name: CMU AI
     type: html_links
     source_kind: primary
+    source_role: institution_authority
+    trust_level: high
+    noise_level: low
+    region: US
+    language: en
+    update_frequency: weekly
     url: https://www.cs.cmu.edu/news/artificial-intelligence
     max_items: 15
     selectors:
@@ -164,6 +283,12 @@ sources:
     name: NeurIPS
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://neurips.cc/
     max_items: 15
     selectors:
@@ -175,6 +300,12 @@ sources:
     name: ICML
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://icml.cc/
     max_items: 15
     selectors:
@@ -186,6 +317,12 @@ sources:
     name: ICLR
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://iclr.cc/
     max_items: 15
     selectors:
@@ -197,6 +334,12 @@ sources:
     name: ACL
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://www.aclweb.org/portal/news
     max_items: 15
     selectors:
@@ -208,6 +351,12 @@ sources:
     name: EMNLP
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://2026.emnlp.org/
     max_items: 15
     selectors:
@@ -219,6 +368,12 @@ sources:
     name: CVPR
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://cvpr.thecvf.com/
     max_items: 15
     selectors:
@@ -230,6 +385,12 @@ sources:
     name: ICCV
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://iccv.thecvf.com/
     max_items: 15
     selectors:
@@ -241,6 +402,12 @@ sources:
     name: ECCV
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://eccv.ecva.net/
     max_items: 15
     selectors:
@@ -252,6 +419,12 @@ sources:
     name: RSS Robotics
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://roboticsconference.org/
     max_items: 15
     selectors:
@@ -263,6 +436,12 @@ sources:
     name: CoRL
     type: html_links
     source_kind: primary
+    source_role: conference_authority
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://www.corl.org/
     max_items: 15
     selectors:
@@ -270,10 +449,35 @@ sources:
       title: "h2, h3, a"
       summary: "p"
 
+  - id: alphasignal
+    name: AlphaSignal
+    type: html_links
+    source_kind: aggregator
+    source_role: discovery
+    trust_level: medium
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://alphasignal.ai/
+    max_items: 15
+    selectors:
+      item: "article, li, .post-card"
+      title: "h2, h3, a"
+      summary: "p"
+
   - id: the_batch
-    name: The Batch
+    name: The Batch by DeepLearning.AI
     type: html_links
     source_kind: media
+    source_role: editorial_analysis
+    trust_level: medium_high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://www.deeplearning.ai/the-batch
     max_items: 15
     selectors:
@@ -285,6 +489,12 @@ sources:
     name: Import AI
     type: rss
     source_kind: media
+    source_role: editorial_analysis
+    trust_level: medium_high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://jack-clark.net/feed/
     max_items: 15
 
@@ -292,6 +502,12 @@ sources:
     name: Latent Space
     type: rss
     source_kind: media
+    source_role: industry_analysis
+    trust_level: medium_high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://www.latent.space/feed
     max_items: 15
 
@@ -299,5 +515,216 @@ sources:
     name: Ahead of AI
     type: rss
     source_kind: media
+    source_role: editorial_analysis
+    trust_level: medium_high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: weekly
     url: https://magazine.sebastianraschka.com/feed
     max_items: 15
+
+  - id: semianalysis
+    name: SemiAnalysis
+    type: rss
+    source_kind: media
+    source_role: industry_analysis
+    trust_level: medium_high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: weekly
+    enabled: false
+    url: https://www.semianalysis.com/feed
+    max_items: 15
+
+  - id: the_information_ai_agenda
+    name: The Information AI Agenda
+    type: html_links
+    source_kind: media
+    source_role: industry_analysis
+    trust_level: medium_high
+    noise_level: medium
+    region: US
+    language: en
+    update_frequency: weekly
+    enabled: false
+    url: https://www.theinformation.com/
+    max_items: 10
+
+  # 中文语境来源：默认禁用，避免未验证选择器把媒体 hype 当事实。
+  - id: jiqizhixin
+    name: 机器之心
+    type: html_links
+    source_kind: media
+    source_role: chinese_context
+    trust_level: medium
+    noise_level: high
+    region: China
+    language: zh
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://www.jiqizhixin.com/
+    max_items: 15
+
+  - id: qbitai
+    name: 量子位
+    type: html_links
+    source_kind: media
+    source_role: chinese_context
+    trust_level: medium
+    noise_level: high
+    region: China
+    language: zh
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://www.qbitai.com/
+    max_items: 15
+
+  - id: xinzhiyuan
+    name: 新智元
+    type: html_links
+    source_kind: media
+    source_role: chinese_context
+    trust_level: medium
+    noise_level: high
+    region: China
+    language: zh
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://www.aibase.com/zh/news
+    max_items: 15
+
+  - id: ai_tech_review
+    name: AI 科技评论
+    type: html_links
+    source_kind: media
+    source_role: chinese_context
+    trust_level: medium
+    noise_level: high
+    region: China
+    language: zh
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://www.leiphone.com/category/ai
+    max_items: 15
+
+  - id: jazzyear
+    name: 甲子光年
+    type: html_links
+    source_kind: media
+    source_role: chinese_context
+    trust_level: medium
+    noise_level: high
+    region: China
+    language: zh
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://www.jazzyear.com/
+    max_items: 15
+
+  - id: latepost
+    name: 晚点 LatePost
+    type: html_links
+    source_kind: media
+    source_role: chinese_context
+    trust_level: medium_high
+    noise_level: medium
+    region: China
+    language: zh
+    update_frequency: weekly
+    requires_primary_source_check: true
+    enabled: false
+    url: https://www.latepost.com/
+    max_items: 15
+
+  - id: kr36
+    name: 36氪
+    type: html_links
+    source_kind: media
+    source_role: chinese_context
+    trust_level: medium
+    noise_level: high
+    region: China
+    language: zh
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://36kr.com/
+    max_items: 15
+
+  # 社区来源：只作为轻量线索/人工或 API 接入占位，不能直接提高 credibility。
+  - id: x_curated
+    name: X Curated AI Accounts
+    type: manual_signal
+    source_kind: aggregator
+    source_role: community
+    trust_level: medium
+    noise_level: high
+    region: global
+    language: en
+    update_frequency: realtime
+    requires_primary_source_check: true
+    enabled: false
+    url: https://x.com/
+
+  - id: reddit_ai
+    name: Reddit AI Subreddits
+    type: manual_signal
+    source_kind: aggregator
+    source_role: community
+    trust_level: low
+    noise_level: high
+    region: global
+    language: en
+    update_frequency: realtime
+    requires_primary_source_check: true
+    enabled: false
+    url: https://www.reddit.com/r/MachineLearning/
+
+  - id: discord_ai
+    name: Discord AI Communities
+    type: manual_signal
+    source_kind: aggregator
+    source_role: community
+    trust_level: low
+    noise_level: high
+    region: global
+    language: en
+    update_frequency: realtime
+    requires_primary_source_check: true
+    enabled: false
+    url: https://discord.com/
+
+  - id: github_discussions
+    name: GitHub Discussions
+    type: manual_signal
+    source_kind: aggregator
+    source_role: community
+    trust_level: medium
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://github.com/
+
+  - id: hf_discussions
+    name: Hugging Face Discussions
+    type: manual_signal
+    source_kind: aggregator
+    source_role: community
+    trust_level: medium
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: daily
+    requires_primary_source_check: true
+    enabled: false
+    url: https://huggingface.co/

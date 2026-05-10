@@ -10,6 +10,8 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+TIER_RANK = {"MUST_READ": 3, "SKIM": 2, "WATCH": 1, "ARCHIVE": 0}
+
 
 def load_json(path: str | Path) -> Any:
     with open(path, "r", encoding="utf-8") as f:
@@ -51,7 +53,7 @@ def unique_items(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 continue
             key = item.get("id") or item.get("url") or item.get("title")
             existing = by_key.get(key)
-            if not existing or score_rank(item) > score_rank(existing):
+            if not existing or report_rank(item) > report_rank(existing):
                 by_key[key] = item
     return list(by_key.values())
 
@@ -60,9 +62,17 @@ def score_rank(item: dict[str, Any]) -> tuple[float, float, float]:
     scores = item.get("scores", {})
     return (
         scores.get("personal_score", 0),
-        scores.get("global_score", 0),
         scores.get("research_relevance", 0),
+        scores.get("global_score", 0),
     )
+
+
+def report_rank(item: dict[str, Any]) -> tuple[int, float, float, float]:
+    return (TIER_RANK.get(item.get("reading_tier", "ARCHIVE"), -1), *score_rank(item))
+
+
+def sorted_for_report(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(items, key=report_rank, reverse=True)
 
 
 def compact_item(item: dict[str, Any]) -> str:
@@ -99,7 +109,7 @@ def generate_weekly_report(
     paths = processed_files_for_week(processed_dir, day)
     reports = [load_json(path) for path in paths]
     items = unique_items(reports)
-    items.sort(key=score_rank, reverse=True)
+    items.sort(key=report_rank, reverse=True)
 
     section_map: dict[str, list[dict[str, Any]]] = {}
     for item in items:
@@ -138,7 +148,7 @@ def generate_weekly_report(
     lines.extend(["", "## 分方向趋势"])
     for section_title, section_items in sorted(section_map.items(), key=lambda pair: len(pair[1]), reverse=True):
         lines.append(trend_sentence(section_title, section_items))
-        for item in section_items[:3]:
+        for item in sorted_for_report(section_items)[:5]:
             lines.append(f"  - [{item.get('title')}]({item.get('url')})")
 
     lines.extend(["", "## GitHub / Open-source Projects"])
@@ -154,7 +164,7 @@ def generate_weekly_report(
     lines.extend(["", "## 下周跟踪建议"])
     if section_map:
         for section_title, section_items in sorted(section_map.items(), key=lambda pair: len(pair[1]), reverse=True)[:5]:
-            top = section_items[0]
+            top = sorted_for_report(section_items)[0]
             lines.append(f"- 继续跟踪 {section_title}：本周最强信号是 [{top.get('title')}]({top.get('url')})。")
     else:
         lines.append("- 等待更多日报数据后生成趋势判断。")

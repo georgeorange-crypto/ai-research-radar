@@ -1,0 +1,113 @@
+institution_tier_scores:
+  tier_1_global_ai: 0.92
+  tier_1_industry_research: 0.92
+  china_top_labs: 0.86
+  regional_tier_1: 0.80
+  tier_2_research: 0.68
+  startup_lab: 0.66
+
+default_focus_areas: [LLM, Agents, CV, Robotics, RL, Systems, AI4Science, Infrastructure]
+
+institutions:
+  # United States universities
+  - {name: MIT, aliases: ["Massachusetts Institute of Technology", "MIT CSAIL", "CSAIL"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [LLM, Agents, Robotics, Systems, AI4Science], official_urls: ["https://www.mit.edu/", "https://www.csail.mit.edu/"], rss_urls: ["https://www.csail.mit.edu/rss.xml"]}
+  - {name: Stanford University, aliases: ["Stanford", "Stanford AI Lab", "SAIL", "Stanford HAI", "Stanford NLP"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [LLM, Agents, NLP, Robotics, AI4Science], official_urls: ["https://www.stanford.edu/", "https://hai.stanford.edu/"]}
+  - {name: Carnegie Mellon University, aliases: ["CMU", "Carnegie Mellon", "CMU AI", "CMU Robotics Institute"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [Agents, Robotics, RL, Systems], official_urls: ["https://www.cmu.edu/", "https://www.ri.cmu.edu/"]}
+  - {name: UC Berkeley, aliases: ["Berkeley", "BAIR", "Berkeley AI Research"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [LLM, Agents, RL, Robotics, Systems], official_urls: ["https://www.berkeley.edu/", "https://bair.berkeley.edu/"], rss_urls: ["https://bair.berkeley.edu/blog/feed.xml"]}
+  - {name: University of Washington, aliases: ["UW", "UW CSE", "Allen School"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [NLP, Systems, HCI, Agents], official_urls: ["https://www.washington.edu/", "https://www.cs.washington.edu/"]}
+  - {name: Cornell University, aliases: ["Cornell", "Cornell Tech"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [LLM, Theory, Robotics, Systems], official_urls: ["https://www.cornell.edu/"]}
+  - {name: Caltech, aliases: ["California Institute of Technology"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [Theory, Robotics, AI4Science], official_urls: ["https://www.caltech.edu/"]}
+  - {name: Princeton University, aliases: ["Princeton", "Princeton NLP"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [NLP, LLM, Theory, Agents], official_urls: ["https://www.princeton.edu/", "https://princeton-nlp.github.io/"], rss_urls: ["https://princeton-nlp.github.io/feed.xml"]}
+  - {name: Columbia University, aliases: ["Columbia"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [NLP, Robotics, CV], official_urls: ["https://www.columbia.edu/"]}
+  - {name: UCLA, aliases: ["University of California Los Angeles"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [CV, Robotics, NLP], official_urls: ["https://www.ucla.edu/"]}
+  - {name: University of Michigan, aliases: ["Michigan AI", "UMich"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [Robotics, NLP, Systems], official_urls: ["https://umich.edu/"]}
+  - {name: UIUC, aliases: ["University of Illinois Urbana-Champaign", "Illinois CS"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [Systems, NLP, CV, Infrastructure], official_urls: ["https://illinois.edu/", "https://cs.illinois.edu/"]}
+  - {name: UT Austin, aliases: ["University of Texas at Austin", "Texas AI"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [LLM, Robotics, Systems], official_urls: ["https://www.utexas.edu/"]}
+  - {name: University of Pennsylvania, aliases: ["UPenn", "Penn Engineering"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [Robotics, NLP, CV], official_urls: ["https://www.upenn.edu/"]}
+  - {name: Johns Hopkins University, aliases: ["JHU", "Johns Hopkins"], region: US, tier: tier_1_global_ai, type: university, focus_areas: [NLP, Healthcare AI, Robotics], official_urls: ["https://www.jhu.edu/"]}
+
+  # United States and global industry labs
+  - {name: OpenAI, aliases: ["OpenAI Research"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, Agents, Multimodal, Safety], official_urls: ["https://openai.com/news/"], rss_urls: ["https://openai.com/news/rss.xml"]}
+  - {name: Google DeepMind, aliases: ["DeepMind", "Google DeepMind Research"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, RL, Robotics, AI4Science], official_urls: ["https://deepmind.google/"], rss_urls: ["https://deepmind.google/blog/rss.xml"]}
+  - {name: Google Research, aliases: ["Google AI", "Google Research Blog"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, Systems, CV, Infrastructure], official_urls: ["https://research.google/"], rss_urls: ["https://research.google/blog/rss/"]}
+  - {name: Microsoft Research, aliases: ["MSR", "Microsoft AI"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, Agents, Systems, HCI], official_urls: ["https://www.microsoft.com/en-us/research/"], rss_urls: ["https://www.microsoft.com/en-us/research/feed/"]}
+  - {name: Meta AI, aliases: ["FAIR", "Meta Fundamental AI Research"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, CV, Multimodal, Open Source], official_urls: ["https://ai.meta.com/"]}
+  - {name: NVIDIA Research, aliases: ["NVIDIA AI", "NVIDIA Research"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [Infrastructure, GPU, CV, Robotics, Inference], official_urls: ["https://research.nvidia.com/", "https://blogs.nvidia.com/blog/category/deep-learning/"]}
+  - {name: Anthropic, aliases: ["Anthropic Research"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, Agents, Safety, Interpretability], official_urls: ["https://www.anthropic.com/news"]}
+  - {name: Tesla AI, aliases: ["Tesla Autopilot", "Tesla Optimus"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [Robotics, CV, World Models], official_urls: ["https://www.tesla.com/AI"]}
+  - {name: xAI, aliases: ["xAI Research"], region: US, tier: startup_lab, type: startup_lab, focus_areas: [LLM, Agents, Infrastructure], official_urls: ["https://x.ai/"]}
+  - {name: IBM Research, aliases: ["IBM AI"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, Systems, AI4Science], official_urls: ["https://research.ibm.com/"]}
+  - {name: Amazon AWS AI, aliases: ["Amazon AI", "AWS AI Labs", "Amazon Science"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [LLM, Infrastructure, Systems], official_urls: ["https://www.amazon.science/"]}
+  - {name: Databricks, aliases: ["Databricks Mosaic", "MosaicML"], region: US, tier: startup_lab, type: industry_lab, focus_areas: [LLM, Infrastructure, Training], official_urls: ["https://www.databricks.com/"]}
+  - {name: Scale AI, aliases: ["Scale AI Research"], region: US, tier: startup_lab, type: startup_lab, focus_areas: [Data, Evaluation, Agents], official_urls: ["https://scale.com/"]}
+  - {name: Hugging Face, aliases: ["HF", "HuggingFace"], region: US, tier: tier_1_industry_research, type: industry_lab, focus_areas: [Open Source, LLM, Models, Datasets], official_urls: ["https://huggingface.co/"]}
+  - {name: AI2, aliases: ["Allen Institute for AI", "Ai2"], region: US, tier: tier_1_industry_research, type: nonprofit, focus_areas: [NLP, LLM, Agents, Open Science], official_urls: ["https://allenai.org/"]}
+
+  # Mainland China universities
+  - {name: Tsinghua University, aliases: ["Tsinghua", "THU", "清华大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [LLM, NLP, CV, Systems], official_urls: ["https://www.tsinghua.edu.cn/"]}
+  - {name: Peking University, aliases: ["PKU", "北大", "北京大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [LLM, NLP, Theory, Agents], official_urls: ["https://www.pku.edu.cn/"]}
+  - {name: Zhejiang University, aliases: ["ZJU", "浙江大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [CV, Robotics, LLM], official_urls: ["https://www.zju.edu.cn/"]}
+  - {name: Shanghai Jiao Tong University, aliases: ["SJTU", "上海交通大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [LLM, CV, Robotics], official_urls: ["https://www.sjtu.edu.cn/"]}
+  - {name: Nanjing University, aliases: ["NJU", "南京大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [AI, LLM, Software Engineering], official_urls: ["https://www.nju.edu.cn/"]}
+  - {name: USTC, aliases: ["University of Science and Technology of China", "中国科学技术大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [AI4Science, CV, LLM], official_urls: ["https://www.ustc.edu.cn/"]}
+  - {name: Fudan University, aliases: ["Fudan", "复旦大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [NLP, LLM, Healthcare AI], official_urls: ["https://www.fudan.edu.cn/"]}
+  - {name: Harbin Institute of Technology, aliases: ["HIT", "哈尔滨工业大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [NLP, Robotics, LLM], official_urls: ["https://www.hit.edu.cn/"]}
+  - {name: Xi'an Jiaotong University, aliases: ["XJTU", "西安交通大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [AI4Science, Systems, CV], official_urls: ["https://www.xjtu.edu.cn/"]}
+  - {name: HUST, aliases: ["Huazhong University of Science and Technology", "华中科技大学"], region: China, tier: tier_1_global_ai, type: university, focus_areas: [CV, Systems, AI4Science], official_urls: ["https://www.hust.edu.cn/"]}
+  - {name: UESTC, aliases: ["University of Electronic Science and Technology of China", "电子科技大学"], region: China, tier: tier_2_research, type: university, focus_areas: [CV, Systems, Edge AI], official_urls: ["https://www.uestc.edu.cn/"]}
+  - {name: Beihang University, aliases: ["BUAA", "北京航空航天大学"], region: China, tier: tier_2_research, type: university, focus_areas: [Robotics, Aerospace AI, CV], official_urls: ["https://www.buaa.edu.cn/"]}
+  - {name: Beijing Institute of Technology, aliases: ["BIT", "北京理工大学"], region: China, tier: tier_2_research, type: university, focus_areas: [Robotics, CV, Systems], official_urls: ["https://www.bit.edu.cn/"]}
+  - {name: Southeast University, aliases: ["SEU", "东南大学"], region: China, tier: tier_2_research, type: university, focus_areas: [CV, Robotics, Systems], official_urls: ["https://www.seu.edu.cn/"]}
+  - {name: Tongji University, aliases: ["Tongji", "同济大学"], region: China, tier: tier_2_research, type: university, focus_areas: [Robotics, Autonomous Driving, CV], official_urls: ["https://www.tongji.edu.cn/"]}
+  - {name: Sun Yat-sen University, aliases: ["SYSU", "中山大学"], region: China, tier: tier_2_research, type: university, focus_areas: [CV, Healthcare AI, NLP], official_urls: ["https://www.sysu.edu.cn/"]}
+  - {name: South China University of Technology, aliases: ["SCUT", "华南理工大学"], region: China, tier: tier_2_research, type: university, focus_areas: [CV, Systems, AI4Science], official_urls: ["https://www.scut.edu.cn/"]}
+  - {name: Nankai University, aliases: ["Nankai", "南开大学"], region: China, tier: tier_2_research, type: university, focus_areas: [CV, NLP, Theory], official_urls: ["https://www.nankai.edu.cn/"]}
+  - {name: Tianjin University, aliases: ["TJU", "天津大学"], region: China, tier: tier_2_research, type: university, focus_areas: [Robotics, AI4Science, CV], official_urls: ["https://www.tju.edu.cn/"]}
+  - {name: Wuhan University, aliases: ["WHU", "武汉大学"], region: China, tier: tier_2_research, type: university, focus_areas: [CV, Remote Sensing, NLP], official_urls: ["https://www.whu.edu.cn/"]}
+
+  # Mainland China labs and companies
+  - {name: CASIA, aliases: ["Institute of Automation CAS", "中国科学院自动化研究所"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [CV, Robotics, LLM], official_urls: ["http://www.ia.cas.cn/"]}
+  - {name: ICT CAS, aliases: ["Institute of Computing Technology CAS", "中科院计算所"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [Systems, Architecture, LLM], official_urls: ["http://www.ict.ac.cn/"]}
+  - {name: ISCAS, aliases: ["Institute of Software CAS", "中科院软件所"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [Software Engineering, Agents, Systems], official_urls: ["http://www.iscas.ac.cn/"]}
+  - {name: SIAT CAS, aliases: ["Shenzhen Institute of Advanced Technology", "中科院深圳先进院"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [Robotics, Healthcare AI, CV], official_urls: ["https://www.siat.ac.cn/"]}
+  - {name: ByteDance AI Lab, aliases: ["ByteDance Research", "字节跳动 AI Lab"], region: China, tier: china_top_labs, type: industry_lab, focus_areas: [LLM, Recommendation, CV], official_urls: ["https://www.bytedance.com/"]}
+  - {name: Baidu Research, aliases: ["百度研究院", "Baidu AI"], region: China, tier: china_top_labs, type: industry_lab, focus_areas: [LLM, Autonomous Driving, NLP], official_urls: ["https://research.baidu.com/"]}
+  - {name: Alibaba DAMO Academy, aliases: ["DAMO Academy", "阿里达摩院"], region: China, tier: china_top_labs, type: industry_lab, focus_areas: [LLM, CV, Cloud AI], official_urls: ["https://damo.alibaba.com/"]}
+  - {name: Huawei Noah's Ark Lab, aliases: ["Noah's Ark Lab", "华为诺亚方舟实验室"], region: China, tier: china_top_labs, type: industry_lab, focus_areas: [LLM, Systems, Optimization], official_urls: ["https://www.noahlab.com.hk/"]}
+  - {name: SenseTime, aliases: ["商汤", "SenseTime Research"], region: China, tier: china_top_labs, type: industry_lab, focus_areas: [CV, Multimodal, LLM], official_urls: ["https://www.sensetime.com/"]}
+  - {name: Zhipu AI, aliases: ["智谱 AI", "智谱清言", "GLM"], region: China, tier: startup_lab, type: startup_lab, focus_areas: [LLM, Agents], official_urls: ["https://www.zhipuai.cn/"]}
+  - {name: Megvii, aliases: ["旷视", "Megvii Research"], region: China, tier: startup_lab, type: startup_lab, focus_areas: [CV, Robotics], official_urls: ["https://www.megvii.com/"]}
+  - {name: iFLYTEK Research, aliases: ["iFLYTEK", "科大讯飞研究院"], region: China, tier: china_top_labs, type: industry_lab, focus_areas: [Speech, NLP, LLM], official_urls: ["https://www.iflytek.com/"]}
+  - {name: Tencent AI Lab, aliases: ["腾讯 AI Lab", "Tencent AI"], region: China, tier: china_top_labs, type: industry_lab, focus_areas: [LLM, Games, CV], official_urls: ["https://ai.tencent.com/ailab/"]}
+  - {name: JD Explore Academy, aliases: ["京东探索研究院"], region: China, tier: startup_lab, type: industry_lab, focus_areas: [Supply Chain AI, LLM, Robotics], official_urls: ["https://www.jd.com/"]}
+  - {name: Xiaomi AI Lab, aliases: ["小米 AI Lab"], region: China, tier: startup_lab, type: industry_lab, focus_areas: [Edge AI, Speech, Robotics], official_urls: ["https://www.mi.com/"]}
+  - {name: Zhejiang Lab, aliases: ["之江实验室"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [LLM, Systems, AI4Science], official_urls: ["https://www.zhejianglab.com/"]}
+  - {name: Shanghai AI Laboratory, aliases: ["Shanghai AI Lab", "上海人工智能实验室"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [Multimodal, Foundation Models, CV], official_urls: ["https://www.shlab.org.cn/"]}
+  - {name: BAAI, aliases: ["Beijing Academy of Artificial Intelligence", "北京智源人工智能研究院", "智源"], region: China, tier: china_top_labs, type: nonprofit, focus_areas: [LLM, Open Source, AI4Science], official_urls: ["https://www.baai.ac.cn/"]}
+  - {name: Peng Cheng Laboratory, aliases: ["Pengcheng Lab", "鹏城实验室"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [Systems, Infrastructure, LLM], official_urls: ["https://www.pcl.ac.cn/"]}
+  - {name: Purple Mountain Lab, aliases: ["紫金山实验室"], region: China, tier: china_top_labs, type: national_lab, focus_areas: [Networks, Systems, AI Infrastructure], official_urls: ["https://www.pmlabs.com.cn/"]}
+
+  # UK, Europe, Canada, Singapore, Hong Kong, Australia, Middle East
+  - {name: University of Oxford, aliases: ["Oxford", "Oxford AI"], region: UK, tier: regional_tier_1, type: university, focus_areas: [LLM, Robotics, AI4Science, Theory], official_urls: ["https://www.ox.ac.uk/"]}
+  - {name: University of Cambridge, aliases: ["Cambridge", "Cambridge AI"], region: UK, tier: regional_tier_1, type: university, focus_areas: [NLP, Robotics, AI4Science], official_urls: ["https://www.cam.ac.uk/"]}
+  - {name: Imperial College London, aliases: ["Imperial"], region: UK, tier: regional_tier_1, type: university, focus_areas: [Robotics, AI4Science, Healthcare AI], official_urls: ["https://www.imperial.ac.uk/"]}
+  - {name: University College London, aliases: ["UCL"], region: UK, tier: regional_tier_1, type: university, focus_areas: [RL, NLP, AI4Science], official_urls: ["https://www.ucl.ac.uk/"]}
+  - {name: University of Edinburgh, aliases: ["Edinburgh AI"], region: UK, tier: regional_tier_1, type: university, focus_areas: [NLP, Robotics, Agents], official_urls: ["https://www.ed.ac.uk/"]}
+  - {name: ETH Zurich, aliases: ["ETH Zürich", "ETH AI Center"], region: Europe, tier: regional_tier_1, type: university, focus_areas: [Robotics, Systems, AI4Science], official_urls: ["https://ethz.ch/"]}
+  - {name: EPFL, aliases: ["École polytechnique fédérale de Lausanne"], region: Europe, tier: regional_tier_1, type: university, focus_areas: [Robotics, CV, Systems], official_urls: ["https://www.epfl.ch/"]}
+  - {name: TU Munich, aliases: ["TUM", "Technical University of Munich"], region: Europe, tier: regional_tier_1, type: university, focus_areas: [Robotics, CV, AI4Science], official_urls: ["https://www.tum.de/"]}
+  - {name: Max Planck Institute, aliases: ["MPI", "Max Planck"], region: Europe, tier: regional_tier_1, type: national_lab, focus_areas: [Robotics, Theory, CV], official_urls: ["https://www.mpg.de/"]}
+  - {name: Inria, aliases: ["INRIA"], region: Europe, tier: regional_tier_1, type: national_lab, focus_areas: [ML, Robotics, Systems], official_urls: ["https://www.inria.fr/"]}
+  - {name: Mila, aliases: ["Mila Quebec AI Institute", "Montréal Institute for Learning Algorithms"], region: Canada, tier: regional_tier_1, type: nonprofit, focus_areas: [LLM, RL, AI Safety], official_urls: ["https://mila.quebec/"]}
+  - {name: University of Toronto, aliases: ["UofT", "Toronto AI"], region: Canada, tier: regional_tier_1, type: university, focus_areas: [LLM, CV, Theory], official_urls: ["https://www.utoronto.ca/"]}
+  - {name: University of Montreal, aliases: ["Université de Montréal", "UdeM"], region: Canada, tier: regional_tier_1, type: university, focus_areas: [Deep Learning, RL, LLM], official_urls: ["https://www.umontreal.ca/"]}
+  - {name: Vector Institute, aliases: ["Vector Institute for AI"], region: Canada, tier: regional_tier_1, type: nonprofit, focus_areas: [LLM, Healthcare AI, AI Safety], official_urls: ["https://vectorinstitute.ai/"]}
+  - {name: National University of Singapore, aliases: ["NUS"], region: Singapore, tier: regional_tier_1, type: university, focus_areas: [LLM, Systems, Robotics], official_urls: ["https://nus.edu.sg/"]}
+  - {name: Nanyang Technological University, aliases: ["NTU Singapore", "NTU"], region: Singapore, tier: regional_tier_1, type: university, focus_areas: [CV, Robotics, Systems], official_urls: ["https://www.ntu.edu.sg/"]}
+  - {name: HKUST, aliases: ["Hong Kong University of Science and Technology", "香港科技大学"], region: Hong Kong, tier: regional_tier_1, type: university, focus_areas: [LLM, Robotics, Systems], official_urls: ["https://hkust.edu.hk/"]}
+  - {name: CUHK, aliases: ["Chinese University of Hong Kong", "香港中文大学"], region: Hong Kong, tier: regional_tier_1, type: university, focus_areas: [CV, NLP, Multimodal], official_urls: ["https://www.cuhk.edu.hk/"]}
+  - {name: University of Hong Kong, aliases: ["HKU", "香港大学"], region: Hong Kong, tier: regional_tier_1, type: university, focus_areas: [LLM, Healthcare AI, Robotics], official_urls: ["https://www.hku.hk/"]}
+  - {name: University of Melbourne, aliases: ["Melbourne AI"], region: Australia, tier: regional_tier_1, type: university, focus_areas: [NLP, AI4Science, Healthcare AI], official_urls: ["https://www.unimelb.edu.au/"]}
+  - {name: Australian National University, aliases: ["ANU"], region: Australia, tier: regional_tier_1, type: university, focus_areas: [CV, Robotics, Theory], official_urls: ["https://www.anu.edu.au/"]}
+  - {name: MBZUAI, aliases: ["Mohamed bin Zayed University of Artificial Intelligence"], region: Middle_East, tier: regional_tier_1, type: university, focus_areas: [LLM, CV, Robotics], official_urls: ["https://mbzuai.ac.ae/"]}
+  - {name: KAUST, aliases: ["King Abdullah University of Science and Technology"], region: Middle_East, tier: regional_tier_1, type: university, focus_areas: [AI4Science, Systems, LLM], official_urls: ["https://www.kaust.edu.sa/"]}

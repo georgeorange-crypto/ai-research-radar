@@ -1,0 +1,199 @@
+conference_signal_scores:
+  best_paper: 0.95
+  test_of_time: 0.92
+  outstanding_paper: 0.86
+  runner_up: 0.74
+  honorable_mention: 0.68
+  workshop_best_paper: 0.66
+  oral: 0.62
+  spotlight: 0.52
+  accepted: 0.16
+
+presentation_type_scores:
+  oral: 0.62
+  spotlight: 0.52
+  poster: 0.16
+
+award_aliases:
+  best_paper:
+    - best paper
+    - best-paper
+    - best paper award
+  outstanding_paper:
+    - outstanding paper
+    - outstanding paper award
+  runner_up:
+    - runner-up
+    - runner up
+  honorable_mention:
+    - honorable mention
+  oral:
+    - oral
+    - oral presentation
+  spotlight:
+    - spotlight
+    - spotlight presentation
+  test_of_time:
+    - test of time
+    - test-of-time
+  workshop_best_paper:
+    - workshop best paper
+    - best workshop paper
+  accepted:
+    - accepted
+    - accepted paper
+
+top_conferences:
+  ai_ml:
+    - name: NeurIPS
+      aliases: ["NeurIPS", "NIPS", "Conference on Neural Information Processing Systems"]
+      tier: 1
+      urls: ["https://neurips.cc/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: ICML
+      aliases: ["ICML", "International Conference on Machine Learning"]
+      tier: 1
+      urls: ["https://icml.cc/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: ICLR
+      aliases: ["ICLR", "International Conference on Learning Representations"]
+      tier: 1
+      urls: ["https://iclr.cc/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: AISTATS
+      aliases: ["AISTATS", "Artificial Intelligence and Statistics"]
+      tier: 1
+      urls: ["https://aistats.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: UAI
+      aliases: ["UAI", "Conference on Uncertainty in Artificial Intelligence"]
+      tier: 1
+      urls: ["https://www.auai.org/uai"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: MLSys
+      aliases: ["MLSys", "Conference on Machine Learning and Systems"]
+      tier: 1
+      urls: ["https://mlsys.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+
+  nlp:
+    - name: ACL
+      aliases: ["ACL", "Annual Meeting of the Association for Computational Linguistics"]
+      tier: 1
+      urls: ["https://www.aclweb.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: EMNLP
+      aliases: ["EMNLP", "Empirical Methods in Natural Language Processing"]
+      tier: 1
+      urls: ["https://2026.emnlp.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: NAACL
+      aliases: ["NAACL", "North American Chapter of the ACL"]
+      tier: 1
+      urls: ["https://naacl.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: COLING
+      aliases: ["COLING", "International Conference on Computational Linguistics"]
+      tier: 1
+      urls: ["https://coling2025.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+
+  cv:
+    - name: CVPR
+      aliases: ["CVPR", "Conference on Computer Vision and Pattern Recognition"]
+      tier: 1
+      urls: ["https://cvpr.thecvf.com/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: ICCV
+      aliases: ["ICCV", "International Conference on Computer Vision"]
+      tier: 1
+      urls: ["https://iccv.thecvf.com/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: ECCV
+      aliases: ["ECCV", "European Conference on Computer Vision"]
+      tier: 1
+      urls: ["https://eccv.ecva.net/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+
+  robotics:
+    - name: RSS
+      aliases: ["RSS", "Robotics: Science and Systems", "Robotics Science and Systems"]
+      tier: 1
+      urls: ["https://roboticsconference.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: CoRL
+      aliases: ["CoRL", "Conference on Robot Learning"]
+      tier: 1
+      urls: ["https://www.corl.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: ICRA
+      aliases: ["ICRA", "International Conference on Robotics and Automation"]
+      tier: 1
+      urls: ["https://www.ieee-icra.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: IROS
+      aliases: ["IROS", "International Conference on Intelligent Robots and Systems"]
+      tier: 1
+      urls: ["https://www.iros.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+
+  systems:
+    - name: SOSP
+      aliases: ["SOSP", "Symposium on Operating Systems Principles"]
+      tier: 1
+      urls: ["https://sigops.org/s/conferences/sosp/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: OSDI
+      aliases: ["OSDI", "Operating Systems Design and Implementation"]
+      tier: 1
+      urls: ["https://www.usenix.org/conferences/byname/179"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: NSDI
+      aliases: ["NSDI", "Networked Systems Design and Implementation"]
+      tier: 1
+      urls: ["https://www.usenix.org/conferences/byname/169"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: ASPLOS
+      aliases: ["ASPLOS", "Architectural Support for Programming Languages and Operating Systems"]
+      tier: 1
+      urls: ["https://www.asplos-conference.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: EuroSys
+      aliases: ["EuroSys", "European Conference on Computer Systems"]
+      tier: 1
+      urls: ["https://2026.eurosys.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+
+  security:
+    - name: USENIX Security
+      aliases: ["USENIX Security", "USENIX Security Symposium"]
+      tier: 1
+      urls: ["https://www.usenix.org/conferences/byname/108"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: IEEE S&P
+      aliases: ["IEEE S&P", "IEEE Symposium on Security and Privacy", "Oakland"]
+      tier: 1
+      urls: ["https://www.ieee-security.org/TC/SP-Index.html"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: CCS
+      aliases: ["CCS", "ACM CCS", "Computer and Communications Security"]
+      tier: 1
+      urls: ["https://www.sigsac.org/ccs.html"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: NDSS
+      aliases: ["NDSS", "Network and Distributed System Security Symposium"]
+      tier: 1
+      urls: ["https://www.ndss-symposium.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+
+  hci:
+    - name: CHI
+      aliases: ["CHI", "Conference on Human Factors in Computing Systems"]
+      tier: 1
+      urls: ["https://chi2026.acm.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]
+    - name: UIST
+      aliases: ["UIST", "User Interface Software and Technology"]
+      tier: 1
+      urls: ["https://uist.acm.org/"]
+      signals: [best_paper, outstanding_paper, runner_up, honorable_mention, oral, spotlight, test_of_time, workshop_best_paper, accepted]

@@ -7,6 +7,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
+import fetch as fetch_module
 
 try:
     from dotenv import load_dotenv
@@ -37,6 +38,10 @@ def daily_report_path(report_date: str) -> Path:
     return Path("reports") / "daily" / year / month / f"{report_date}.md"
 
 
+def announce(message: str) -> None:
+    print(message, flush=True)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run the AI research radar pipeline.")
     parser.add_argument("--date", default=None)
@@ -53,6 +58,7 @@ def main() -> int:
 
     configure_logging(args.verbose)
     report_date = args.date or today(args.timezone)
+    announce(f"AI Research Radar starting for {report_date}.")
     Path("data/raw").mkdir(parents=True, exist_ok=True)
     Path("data/processed").mkdir(parents=True, exist_ok=True)
     Path("reports/daily").mkdir(parents=True, exist_ok=True)
@@ -66,16 +72,19 @@ def main() -> int:
 
     if QUALITY_ENABLED and not args.skip_quality:
         try:
-            print("Running pre-generate quality checks...")
+            announce("Running pre-generate quality checks...")
             pre_generate_checks(report_path, latest_path)
-            print("Pre-generate checks passed.")
+            announce("Pre-generate checks passed.")
         except QualityError as e:
             print(f"Quality check failed: {e}", file=sys.stderr)
             return 1
 
+    announce("Fetching sources...")
     raw_items = fetch_all(args.sources)
+    announce(f"Fetched {len(raw_items)} raw items.")
     save_jsonl(raw_path, raw_items)
 
+    announce("Ranking and deduplicating items...")
     rank_limit = args.rank_limit if args.rank_limit > 0 else None
     processed = process_items(
         raw_items,
@@ -83,9 +92,11 @@ def main() -> int:
         report_date=report_date,
         limit=rank_limit,
     )
+    processed["source_health"] = list(fetch_module.LAST_SOURCE_HEALTH)
     save_json(processed_path, processed)
 
     # Archive previous report.md before overwriting
+    announce("Generating daily report...")
     root_md_path = Path("report.md")
     if root_md_path.exists():
         archive_report_with_timestamp(
@@ -104,13 +115,13 @@ def main() -> int:
 
     if QUALITY_ENABLED and not args.skip_quality:
         try:
-            print("Running post-generate quality checks...")
+            announce("Running post-generate quality checks...")
             warnings = post_generate_checks(rendered, report_path)
             if warnings:
-                print("Quality warnings:")
+                announce("Quality warnings:")
                 for warning in warnings:
-                    print(f"  - {warning}")
-            print("Post-generate checks passed.")
+                    announce(f"  - {warning}")
+            announce("Post-generate checks passed.")
         except QualityError as e:
             print(f"Quality check failed: {e}", file=sys.stderr)
             if report_path.exists():
@@ -122,6 +133,7 @@ def main() -> int:
     weekly_path = None
     run_day = datetime.strptime(report_date, "%Y-%m-%d").date()
     if not args.skip_weekly:
+        announce("Generating weekly report...")
         current_week = week_id(run_day)
         weekly_path = Path("reports") / "weekly" / f"{current_week}.md"
         generate_weekly_report(
@@ -133,6 +145,7 @@ def main() -> int:
 
     monthly_path = None
     if not args.skip_monthly:
+        announce("Generating monthly report...")
         current_month = month_id(run_day)
         monthly_path = Path("reports") / "monthly" / f"{current_month}.md"
         generate_monthly_report(
@@ -144,6 +157,7 @@ def main() -> int:
 
     index_path = None
     if not args.skip_index:
+        announce("Generating report index...")
         index_path = Path("reports") / "index.md"
         generate_index("data/processed", index_path)
 

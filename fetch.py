@@ -5,8 +5,10 @@ import base64
 import hashlib
 import json
 import logging
+import os
 import re
 import sys
+import time
 import warnings
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -14,8 +16,11 @@ from typing import Any
 from urllib.parse import parse_qs, urljoin, urlparse, urlunparse
 
 import feedparser
+import cloudscraper
 import requests
 import yaml
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 from dateutil import parser as date_parser
 
@@ -29,11 +34,43 @@ except Exception:  # pragma: no cover
 USER_AGENT = "ai-research-radar/0.1 (+https://github.com/your-name/ai-research-radar)"
 DEFAULT_TIMEOUT = 25
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
+LOGGER = logging.getLogger("ai_research_radar.fetch")
+
+# 创建全局scraper实例，保持会话和Cookie持久化
+scraper = cloudscraper.create_scraper(
+    browser={
+        "browser": "chrome",
+        "platform": "windows",
+        "desktop": True,
+    },
+    interpreter="js2py",  # 优先使用纯Python解释器，无需额外依赖
+    delay=3,  # 减少等待时间，避免无限等待
+    disableCloudflareV1=False,
+    captcha={
+        "provider": "anticaptcha",
+        "api_key": ""  # 不使用付费打码服务，快速失败
+    }
+)
+
+# 添加超时和重试配置
+scraper.timeout = DEFAULT_TIMEOUT
+scraper.allow_redirects = True
+scraper.verify = True
 
 
 def configure_logging(verbose: bool = False) -> None:
     level = logging.DEBUG if verbose else logging.INFO
-    logging.basicConfig(level=level, format="%(levelname)s: %(message)s")
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
+
+    root = logging.getLogger()
+    root.handlers.clear()
+    root.setLevel(logging.WARNING)
+
+    LOGGER.handlers.clear()
+    LOGGER.addHandler(handler)
+    LOGGER.setLevel(level)
+    LOGGER.propagate = False
 
 
 def load_yaml(path: str | Path) -> dict[str, Any]:
@@ -139,13 +176,33 @@ def make_item(
             "type": source.get("type"),
             "kind": source.get("source_kind", "primary"),
             "url": source.get("url"),
+            "source_role": source.get("source_role"),
+            "trust_level": source.get("trust_level"),
+            "noise_level": source.get("noise_level"),
+            "region": source.get("region"),
+            "language": source.get("language"),
+            "update_frequency": source.get("update_frequency"),
+            "requires_primary_source_check": source.get("requires_primary_source_check", False),
         },
     }
 
 
 def session() -> requests.Session:
-    s = requests.Session()
+    s = scraper
     s.headers.update({"User-Agent": USER_AGENT, "Accept": "*/*"})
+
+    # 添加重试适配器，避免无限等待
+    retry_strategy = Retry(
+        total=2,  # 最多重试 2 次，而不是无限重试
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["HEAD", "GET", "OPTIONS"]
+    )
+
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    s.mount("http://", adapter)
+    s.mount("https://", adapter)
+
     return s
 
 
@@ -298,6 +355,22 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
     pushed_after_days = int(source.get("pushed_after_days", 365))
     pushed_after = (datetime.now(timezone.utc) - timedelta(days=pushed_after_days)).strftime("%Y-%m-%d")
     per_query = int(source.get("max_items_per_query", 5))
+    request_timeout = float(source.get("timeout", os.getenv("GITHUB_REQUEST_TIMEOUT_SECONDS", "8")))
+    readme_timeout = float(source.get("readme_timeout", os.getenv("GITHUB_README_TIMEOUT_SECONDS", "6")))
+    source_budget = float(source.get("overall_timeout", os.getenv("GITHUB_SOURCE_TIMEOUT_SECONDS", "90")))
+    max_enriched_repos = int(source.get("max_enriched_repos", os.getenv("GITHUB_MAX_ENRICHED_REPOS", str(source.get("max_items", 30)))))
+    raw_readme_fallback = bool(source.get("raw_readme_fallback", True))
+    deadline = time.monotonic() + source_budget
+    enriched_repos = 0
+
+    def budget_left() -> float:
+        return max(0.0, deadline - time.monotonic())
+
+    def budget_exhausted() -> bool:
+        return budget_left() <= 0
+
+    def bounded_timeout(cap: float) -> float:
+        return max(1.0, min(float(cap), budget_left() or 1.0))
 
     def decode_readme_response(response: requests.Response) -> str:
         try:
@@ -313,25 +386,30 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
         return str(content or response.text)
 
     def readme_text(full_name: str, default_branch: str = "main") -> str:
-        if not full_name:
+        if not full_name or budget_exhausted():
             return ""
         readme_headers = {**headers, "Accept": "application/vnd.github.raw+json"}
         try:
             response = http.get(
                 f"https://api.github.com/repos/{full_name}/readme",
                 headers=readme_headers,
-                timeout=source.get("timeout", DEFAULT_TIMEOUT),
+                timeout=bounded_timeout(readme_timeout),
             )
             if response.status_code == 200:
                 return decode_readme_response(response)
         except requests.RequestException:
             pass
 
-        for filename in ["README.md", "Readme.md", "readme.md", "README.rst", "README"]:
+        if not raw_readme_fallback:
+            return ""
+
+        for filename in ["README.md", "README.rst"]:
+            if budget_exhausted():
+                break
             try:
                 response = http.get(
                     f"https://raw.githubusercontent.com/{full_name}/{default_branch}/{filename}",
-                    timeout=source.get("timeout", DEFAULT_TIMEOUT),
+                    timeout=bounded_timeout(readme_timeout),
                 )
                 if response.status_code == 200 and response.text.strip():
                     return response.text
@@ -340,14 +418,14 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
         return ""
 
     def repo_root_names(full_name: str, default_branch: str = "main") -> set[str]:
-        if not full_name:
+        if not full_name or budget_exhausted():
             return set()
         try:
             response = http.get(
                 f"https://api.github.com/repos/{full_name}/contents",
                 params={"ref": default_branch},
                 headers=headers,
-                timeout=source.get("timeout", DEFAULT_TIMEOUT),
+                timeout=bounded_timeout(readme_timeout),
             )
             if response.status_code != 200:
                 return set()
@@ -393,6 +471,15 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
         return bool(root_names.intersection(terms) or any(term in text for term in terms))
 
     for query in source.get("queries", []):
+        if budget_exhausted():
+            LOGGER.warning("GitHub source time budget exhausted after %s items", len(items))
+            source["_health_event"] = {
+                "source": source_label(source),
+                "status": "time budget exhausted",
+                "detail": f"time budget exhausted after {len(items)} items",
+                "items": len(items),
+            }
+            return items
         q = str(query)
         if "pushed:" not in q:
             q = f"{q} pushed:>={pushed_after}"
@@ -402,12 +489,35 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
             "order": source.get("order", "desc"),
             "per_page": per_query,
         }
-        response = http.get("https://api.github.com/search/repositories", params=params, headers=headers, timeout=source.get("timeout", DEFAULT_TIMEOUT))
+        try:
+            response = http.get(
+                "https://api.github.com/search/repositories",
+                params=params,
+                headers=headers,
+                timeout=bounded_timeout(request_timeout),
+            )
+        except requests.RequestException as exc:
+            LOGGER.warning("GitHub search failed for %s: %s", query, str(exc)[:160])
+            continue
         if response.status_code == 403:
-            logging.warning("GitHub API rate limit hit for query: %s", query)
+            LOGGER.warning("GitHub API rate limit hit for query: %s", query)
             continue
         response.raise_for_status()
-        for repo in response.json().get("items", [])[:per_query]:
+        try:
+            repos = response.json().get("items", [])[:per_query]
+        except ValueError:
+            LOGGER.warning("GitHub search returned invalid JSON for query: %s", query)
+            continue
+        for repo in repos:
+            if budget_exhausted():
+                LOGGER.warning("GitHub source time budget exhausted after %s items", len(items))
+                source["_health_event"] = {
+                    "source": source_label(source),
+                    "status": "time budget exhausted",
+                    "detail": f"time budget exhausted after {len(items)} items",
+                    "items": len(items),
+                }
+                return items
             url = repo.get("html_url", "")
             if not url or url in seen:
                 continue
@@ -416,9 +526,14 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
             full_name = repo.get("full_name") or repo.get("name") or ""
             default_branch = repo.get("default_branch") or "main"
             description = repo.get("description") or ""
-            readme = readme_text(full_name, default_branch)
+            should_enrich = enriched_repos < max_enriched_repos and not budget_exhausted()
+            readme = readme_text(full_name, default_branch) if should_enrich else ""
+            readme_fetch_status = "ok" if readme else ("failed" if should_enrich else "skipped")
             readme_summary = summarize_readme(readme)
-            root_names = repo_root_names(full_name, default_branch)
+            root_names = repo_root_names(full_name, default_branch) if should_enrich else set()
+            signal_observed = bool(readme or root_names)
+            if should_enrich:
+                enriched_repos += 1
             license_payload = repo.get("license") or {}
             license_name = (
                 license_payload.get("spdx_id")
@@ -430,12 +545,47 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
                 readme,
                 root_names,
                 {"examples", "example", "demo", "demos", "notebooks", "tutorials", "quickstart", "usage"},
-            )
+            ) if signal_observed else None
             has_docs = has_readme_signal(
                 readme,
                 root_names,
                 {"docs", "doc", "documentation", "readthedocs", "api reference"},
-            )
+            ) if signal_observed else None
+            has_requirements = has_readme_signal(
+                readme,
+                root_names,
+                {"requirements.txt", "pyproject.toml", "environment.yml", "setup.py", "package.json", "install"},
+            ) if signal_observed else None
+            has_reproducible_script = has_readme_signal(
+                readme,
+                root_names,
+                {"train.py", "eval.py", "evaluate.py", "run.py", "scripts", "experiments", "reproduce", "reproduction"},
+            ) if signal_observed else None
+            has_pretrained_weights = has_readme_signal(
+                readme,
+                root_names,
+                {"weights", "checkpoint", "checkpoints", "pretrained", "model card", "huggingface.co"},
+            ) if signal_observed else None
+            has_dataset = has_readme_signal(
+                readme,
+                root_names,
+                {"dataset", "datasets", "data/", "download data", "benchmark data"},
+            ) if signal_observed else None
+            has_benchmark = has_readme_signal(
+                readme,
+                root_names,
+                {"benchmark", "leaderboard", "evaluation", "eval", "results"},
+            ) if signal_observed else None
+            has_colab = has_readme_signal(
+                readme,
+                root_names,
+                {"colab", "notebook", ".ipynb", "google colab"},
+            ) if signal_observed else None
+            has_demo = has_readme_signal(
+                readme,
+                root_names,
+                {"demo", "demos", "space", "spaces", "gradio", "streamlit"},
+            ) if signal_observed else None
             paper_link = first_paper_link(f"{description}\n{readme}")
             summary_bits = [
                 description,
@@ -462,11 +612,23 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
                 metadata={
                     "repo_description": description,
                     "github_description": description,
+                    "full_name": full_name,
+                    "created_at": repo.get("created_at"),
+                    "updated_at": repo.get("updated_at"),
                     "repo_readme_summary": readme_summary,
                     "readme_excerpt": normalize_space(readme)[:1800],
+                    "readme_fetch_status": readme_fetch_status,
+                    "readme_signal_observed": signal_observed,
                     "license": license_name,
                     "has_examples": has_examples,
                     "has_docs": has_docs,
+                    "has_requirements": has_requirements,
+                    "has_reproducible_script": has_reproducible_script,
+                    "has_pretrained_weights": has_pretrained_weights,
+                    "has_dataset": has_dataset,
+                    "has_benchmark": has_benchmark,
+                    "has_colab": has_colab,
+                    "has_demo": has_demo,
                     "paper_link": paper_link,
                     "last_updated": last_updated,
                     "default_branch": default_branch,
@@ -595,29 +757,85 @@ FETCHERS = {
     "html_links": fetch_html_links_source,
 }
 
+LAST_SOURCE_HEALTH: list[dict[str, Any]] = []
+
+
+def source_label(source: dict[str, Any]) -> str:
+    return str(source.get("name") or source.get("id") or "unknown source")
+
 
 def fetch_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
     source_type = source.get("type")
     fetcher = FETCHERS.get(source_type)
     if not fetcher:
-        logging.warning("Skip %s: unsupported type %s", source.get("id"), source_type)
+        LOGGER.warning("Skip %s: unsupported type %s", source.get("id"), source_type)
         return []
+
+    # 单源超时控制：1个源最多30秒
+    source_timeout = source.get("timeout", min(DEFAULT_TIMEOUT, 30))
+
     try:
+        # 设置临时超时
+        original_timeout = http.timeout
+        http.timeout = source_timeout
+
         items = fetcher(source, http)
-        logging.info("Fetched %s items from %s", len(items), source.get("name"))
+        LOGGER.info("Fetched %s items from %s", len(items), source.get("name"))
         return items
-    except Exception as exc:  # noqa: BLE001
-        logging.warning("Fetch failed for %s: %s", source.get("name") or source.get("id"), exc)
+    except requests.exceptions.Timeout:
+        LOGGER.warning("Fetch TIMEOUT (%ds) for %s, SKIPPING", source_timeout, source.get("name") or source.get("id"))
+        source["_health_event"] = {
+            "source": source_label(source),
+            "status": "timeout",
+            "detail": f"timeout after {source_timeout}s",
+            "items": 0,
+        }
         return []
+    except Exception as exc:  # noqa: BLE001
+        LOGGER.warning("Fetch failed for %s: %s, SKIPPING", source.get("name") or source.get("id"), str(exc)[:200])
+        source["_health_event"] = {
+            "source": source_label(source),
+            "status": "error",
+            "detail": str(exc)[:200],
+            "items": 0,
+        }
+        return []
+    finally:
+        # 恢复原始超时
+        if 'original_timeout' in locals():
+            http.timeout = original_timeout
 
 
 def fetch_all(sources_path: str | Path = "config/sources.yaml") -> list[dict[str, Any]]:
+    global LAST_SOURCE_HEALTH
+    LAST_SOURCE_HEALTH = []
     config = load_yaml(sources_path)
     http = session()
     items: list[dict[str, Any]] = []
     for source in config.get("sources", []):
         if source.get("enabled", True):
-            items.extend(fetch_source(source, http))
+            LOGGER.info("Fetching source: %s", source.get("name") or source.get("id"))
+            before = len(items)
+            source.pop("_health_event", None)
+            fetched = fetch_source(source, http)
+            items.extend(fetched)
+            health_event = source.pop("_health_event", None)
+            if health_event:
+                LAST_SOURCE_HEALTH.append(health_event)
+            elif not fetched:
+                LAST_SOURCE_HEALTH.append(
+                    {
+                        "source": source_label(source),
+                        "status": "0 items",
+                        "detail": "fetch completed with 0 items",
+                        "items": 0,
+                    }
+                )
+            LOGGER.info(
+                "Source complete: %s (+%s items)",
+                source.get("name") or source.get("id"),
+                len(items) - before,
+            )
     fetched_at = datetime.now(timezone.utc).isoformat()
     for item in items:
         item["fetched_at"] = fetched_at

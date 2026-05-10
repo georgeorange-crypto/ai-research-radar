@@ -10,6 +10,8 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
+TIER_RANK = {"MUST_READ": 3, "SKIM": 2, "WATCH": 1, "ARCHIVE": 0}
+
 
 def load_json(path: str | Path) -> Any:
     with open(path, "r", encoding="utf-8-sig") as f:
@@ -57,9 +59,17 @@ def score_rank(item: dict[str, Any]) -> tuple[float, float, float]:
     scores = item.get("scores", {})
     return (
         scores.get("personal_score", scores.get("overall", 0)),
-        scores.get("global_score", scores.get("overall", 0)),
         scores.get("research_relevance", scores.get("relevance", 0)),
+        scores.get("global_score", scores.get("overall", 0)),
     )
+
+
+def report_rank(item: dict[str, Any]) -> tuple[int, float, float, float]:
+    return (TIER_RANK.get(item.get("reading_tier", "ARCHIVE"), -1), *score_rank(item))
+
+
+def sorted_for_report(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(items, key=report_rank, reverse=True)
 
 
 def tracked_items(report: dict[str, Any]) -> list[dict[str, Any]]:
@@ -72,9 +82,9 @@ def unique_items(reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
         for item in tracked_items(report):
             key = item.get("id") or item.get("url") or item.get("title")
             existing = by_key.get(key)
-            if not existing or score_rank(item) > score_rank(existing):
+            if not existing or report_rank(item) > report_rank(existing):
                 by_key[key] = item
-    return sorted(by_key.values(), key=score_rank, reverse=True)
+    return sorted_for_report(list(by_key.values()))
 
 
 def main_direction(report: dict[str, Any]) -> str:
@@ -170,7 +180,7 @@ def generate_monthly_report(
     lines.extend(["", "## 分方向趋势"])
     for section_title, section_items in sorted(section_map.items(), key=lambda pair: len(pair[1]), reverse=True):
         lines.append(trend_sentence(section_title, section_items))
-        for item in sorted(section_items, key=score_rank, reverse=True)[:5]:
+        for item in sorted_for_report(section_items)[:5]:
             lines.append(f"  - [{item.get('title')}]({item.get('url')})")
 
     lines.extend(["", "## GitHub / 开源项目"])
@@ -186,7 +196,7 @@ def generate_monthly_report(
     lines.extend(["", "## 月度判断"])
     if section_map:
         for section_title, section_items in sorted(section_map.items(), key=lambda pair: len(pair[1]), reverse=True)[:6]:
-            top = sorted(section_items, key=score_rank, reverse=True)[0]
+            top = sorted_for_report(section_items)[0]
             lines.append(f"- {section_title}：本月可继续沿着 [{top.get('title')}]({top.get('url')}) 追踪。")
     else:
         lines.append("- 等待更多日报数据后生成月度判断。")

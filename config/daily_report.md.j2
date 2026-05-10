@@ -93,15 +93,24 @@
 ## 6. 企业 / 大学 / 研究所动态
 {{ institutional_updates }}
 
-## 7. 温故而知新：经典论文回顾
+## 7. 顶会精选 / Awards & Notable Papers
+{{ awards_notable_papers }}
+
+## 8. 强校实验室 / University Lab Radar
+{{ university_lab_radar }}
+
+## 9. 中文语境与社区信号
+{{ context_community_signals }}
+
+## 10. 温故而知新：经典论文回顾
 {{ classic_revisit }}
 
-## 8. 今日深读清单
+## 11. 今日深读清单
 - 只列 3 篇以内。
 - 每篇给出预计阅读目的。
 {{ deep_read_list }}
 
-## 9. 采集说明
+## 12. 采集说明
 - 采集时间：{{ collection.generated_at }}
 - source count：{{ collection.source_count }}
 - raw item count：{{ collection.raw_count }}
@@ -111,3 +120,6 @@
 {% endif %}
 - report path：{{ collection.report_path }}
 - previous report link：{{ collection.previous_report_link }}
+ 
+## Source Health
+{{ collection.source_health }}
