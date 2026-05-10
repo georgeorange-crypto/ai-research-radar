@@ -243,12 +243,15 @@ def apply_action_constraints(action: str, item: dict[str, Any]) -> str:
     """
     应用 suggested_action 的硬约束：
     
-    1. 如果 reading_tier 是 WATCH 或 ARCHIVE，则 suggested_action 不得为 read_pdf
-    2. 如果 reading_tier 是 SKIM，则 suggested_action 不得为 read_pdf（除非 explicit_override=true）
-    3. 如果 is_open_source_project=true，则 suggested_action 只能是：
-       study_code / use_as_baseline / clone_and_run / read_readme / save / archive
-    4. 如果 grounding_level=title_only，则 suggested_action 不得为 read_pdf
-    5. 如果 primary_category 是 GitHub / Open Source Projects，则不得进入今日深读清单
+    1. MUST_READ -> read_pdf
+    2. SKIM -> skim
+    3. WATCH -> watch 或 save
+    4. ARCHIVE -> archive 或 save
+    5. 如果 is_open_source_project=true，则 suggested_action 只能是：
+       study_code / clone_and_run / read_readme / save / archive
+    6. 如果 grounding_level=title_only，则 suggested_action 不得为 read_pdf
+    7. 如果 primary_category 是 GitHub / Open Source Projects，则不得进入今日深读清单
+    8. Benchmark 如果值得用作实验，增加 secondary_action: use_as_eval
     """
     tier = item.get("reading_tier", "").upper()
     is_open_source = item.get("is_open_source_project", False)
@@ -256,8 +259,10 @@ def apply_action_constraints(action: str, item: dict[str, Any]) -> str:
     explicit_override = item.get("explicit_override", False)
     
     if action == "read_pdf":
-        if tier in {"WATCH", "ARCHIVE"}:
-            return "watch" if tier == "WATCH" else "save"
+        if tier == "WATCH":
+            return "watch"
+        if tier == "ARCHIVE":
+            return "archive"
         if tier == "SKIM" and not explicit_override:
             return "skim"
         if is_open_source:
@@ -269,7 +274,9 @@ def apply_action_constraints(action: str, item: dict[str, Any]) -> str:
         if section_title == "GitHub / Open Source Projects":
             return "read_readme"
     
-    if is_open_source and action not in OPEN_SOURCE_ACTIONS:
+    if is_open_source:
+        if action in {"study_code", "clone_and_run", "read_readme", "save", "archive"}:
+            return action
         return "read_readme"
     
     return action
@@ -283,6 +290,8 @@ def choose_action(item: dict[str, Any]) -> str:
         return apply_action_constraints(action, item)
     if is_benchmark_item(item):
         action = item.get("benchmark_action") or benchmark_action(item)
+        if action == "use_as_eval":
+            item["secondary_action"] = "use_as_eval"
         return apply_action_constraints(action, item)
     if tier == "IGNORE":
         return "ignore"
@@ -292,6 +301,8 @@ def choose_action(item: dict[str, Any]) -> str:
         return apply_action_constraints("skim", item)
     if tier == "WATCH":
         return apply_action_constraints("watch", item)
+    if tier == "ARCHIVE":
+        return apply_action_constraints("archive", item)
     return apply_action_constraints("save", item)
 
 
@@ -506,13 +517,43 @@ def score_line(item: dict[str, Any]) -> str:
     return (
         f"global_score {scores.get('global_score', 0):.2f}；"
         f"personal_score {scores.get('personal_score', 0):.2f}；"
-        f"novelty {scores.get('novelty', 0):.2f}；"
         f"credibility {scores.get('credibility', 0):.2f}；"
-        f"evidence_strength {scores.get('evidence_strength', 0):.2f}；"
+        f"conference {scores.get('conference_signal', 0):.2f}；"
+        f"institution {scores.get('institution_signal', 0):.2f}；"
+        f"multi_source {scores.get('multi_source_confirmation', 0):.2f}；"
         f"community_signal {scores.get('community_signal', 0):.2f}；"
         f"actionability {scores.get('actionability', 0):.2f}；"
-        f"research_relevance {scores.get('research_relevance', 0):.2f}"
+        f"research_relevance {scores.get('research_relevance', 0):.2f}；"
+        f"hype_risk {scores.get('hype_risk', 0):.2f}"
     )
+
+
+def source_role_label(item: dict[str, Any]) -> str:
+    roles = item.get("source", {}).get("source_role")
+    if not roles:
+        return "未标注"
+    if isinstance(roles, list):
+        return "、".join(str(role) for role in roles)
+    return str(roles)
+
+
+def signal_line(item: dict[str, Any]) -> str:
+    signals = item.get("source_signals", {})
+    parts = []
+    for label, key in [
+        ("论文", "paper_sources"),
+        ("顶会", "conference_sources"),
+        ("机构", "institution_sources"),
+        ("代码", "code_sources"),
+        ("编辑", "editorial_sources"),
+        ("产业", "industry_sources"),
+        ("社区", "community_sources"),
+        ("中文", "chinese_sources"),
+    ]:
+        values = signals.get(key) or []
+        if values:
+            parts.append(f"{label}:{'/'.join(values[:3])}")
+    return "；".join(parts) or "无额外源信号"
 
 
 def item_block(item: dict[str, Any], idx: int) -> str:
@@ -533,6 +574,7 @@ def item_block(item: dict[str, Any], idx: int) -> str:
         f"- {tier_caption}：{TIER_LABELS.get(item.get('reading_tier'), item.get('reading_tier', 'ARCHIVE'))}",
         f"- 来源：{source.get('name', '未知')}",
         f"- 来源类型：{KIND_LABELS.get(kind, kind)}",
+        f"- source_role：{source_role_label(item)}",
         f"- 证据来源：{grounding_label(item)}",
         f"- 原文链接：{item.get('url')}",
         f"- 发布时间：{published}",
@@ -543,6 +585,7 @@ def item_block(item: dict[str, Any], idx: int) -> str:
         f"- 是否建议深读？{summary.get('deep_read', '').strip()}",
         f"- 建议行动：{summary.get('suggested_action', choose_action(item)).strip()}",
         f"- 评分：{score_line(item)}",
+        f"- 多源信号：{signal_line(item)}",
         f"- 命中方向：{focus}",
         f"- 相关标签：{secondary_tags}",
         f"- 命中关键词：{keywords}",
@@ -556,11 +599,13 @@ def item_block(item: dict[str, Any], idx: int) -> str:
             license_info = metadata.get("license", "") or "未知"
             has_examples = "✅" if metadata.get("has_examples") else "❌"
             has_docs = "✅" if metadata.get("has_docs") else "❌"
+            has_repro = "✅" if metadata.get("has_reproducible_script") else "❌"
+            has_weights = "✅" if metadata.get("has_pretrained_weights") else "❌"
             paper_link = metadata.get("paper_link", "")
             readme_summary = metadata.get("repo_readme_summary", "") or metadata.get("readme_excerpt", "")[:300]
             
             lines.append(f"- 开源信号：⭐ {stars} | 🍴 {forks} | 📜 {license_info}")
-            lines.append(f"- 示例/文档：示例 {has_examples} | 文档 {has_docs}")
+            lines.append(f"- 示例/文档/复现：示例 {has_examples} | 文档 {has_docs} | 脚本 {has_repro} | 权重 {has_weights}")
             if paper_link:
                 lines.append(f"- 关联论文：{paper_link}")
             if readme_summary:
@@ -571,6 +616,8 @@ def item_block(item: dict[str, Any], idx: int) -> str:
         lines.insert(5, "- link_quality: low")
     if duplicate_text:
         lines.append(f"- 去重信息：同一内容也出现在 {duplicate_text}")
+    if item.get("requires_primary_source_check"):
+        lines.append("- 风险提示：该条含发现/社区/中文媒体信号，结论需以论文、代码或官方公告为准。")
     return "\n".join(lines)
 
 
@@ -692,16 +739,104 @@ def render_other_highlights(sections: list[dict[str, Any]]) -> list[str]:
     return lines
 
 
+def _classify_github_project(item: dict[str, Any]) -> str:
+    is_paper_linked = item.get("is_paper_linked", False) or item.get("paper_reference")
+    
+    metadata = item.get("metadata", {})
+    created_at = metadata.get("created_at")
+    updated_at = metadata.get("updated_at")
+    
+    is_recently_active = False
+    if updated_at:
+        try:
+            from datetime import datetime
+            updated_date = datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
+            days_since_update = (datetime.now() - updated_date).days
+            is_recently_active = days_since_update <= 7
+        except:
+            pass
+    
+    is_new = False
+    if created_at:
+        try:
+            from datetime import datetime
+            created_date = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+            days_since_creation = (datetime.now() - created_date).days
+            is_new = days_since_creation <= 30
+        except:
+            pass
+    
+    if is_new or is_recently_active:
+        return "recent"
+    if is_paper_linked:
+        return "paper_linked"
+    return "evergreen"
+
+
+def _is_project_recently_recommended(item: dict[str, Any], days_threshold: int = 30) -> bool:
+    last_recommended = item.get("last_recommended")
+    if not last_recommended:
+        return False
+    
+    try:
+        from datetime import datetime
+        recommended_date = datetime.fromisoformat(last_recommended.replace("Z", "+00:00"))
+        days_since_recommended = (datetime.now() - recommended_date).days
+        return days_since_recommended < days_threshold
+    except:
+        return False
+
+
 def render_github_projects(projects: list[dict[str, Any]]) -> list[str]:
     lines = ["## GitHub / Open-source Projects"]
-    if not projects:
+    
+    recent_projects = []
+    paper_linked_projects = []
+    evergreen_projects = []
+    
+    for item in projects:
+        if _is_project_recently_recommended(item):
+            metrics = item.get("metrics", {})
+            stars = metrics.get("stars", 0) or 0
+            prev_stars = metrics.get("prev_stars", 0) or 0
+            star_growth = stars - prev_stars
+            
+            if star_growth > 100 or item.get("is_major_release") or item.get("new_paper_citation"):
+                pass
+            else:
+                continue
+        
+        category = _classify_github_project(item)
+        if category == "recent":
+            recent_projects.append(item)
+        elif category == "paper_linked":
+            paper_linked_projects.append(item)
+        else:
+            evergreen_projects.append(item)
+    
+    if not recent_projects and not paper_linked_projects and not evergreen_projects:
         lines.append("- 今日没有进入正文的开源项目候选。")
         lines.append("")
         return lines
-
-    for idx, item in enumerate(projects[:5], 1):
-        lines.append(item_block(item, idx))
-        lines.append("")
+    
+    if recent_projects:
+        lines.append("### New / Recently Active Projects")
+        for idx, item in enumerate(recent_projects[:3], 1):
+            lines.append(item_block(item, idx))
+            lines.append("")
+    
+    if paper_linked_projects:
+        lines.append("### Paper-linked Repos")
+        for idx, item in enumerate(paper_linked_projects[:3], 1):
+            lines.append(item_block(item, idx))
+            lines.append("")
+    
+    if evergreen_projects:
+        lines.append("### Evergreen Toolkits")
+        for idx, item in enumerate(evergreen_projects[:3], 1):
+            lines.append(item_block(item, idx))
+            lines.append("")
+    
     return lines
 
 
@@ -856,7 +991,63 @@ def is_strict_other_highlight(item: dict[str, Any]) -> bool:
     )
 
 
+def _classify_institutional_update(item: dict[str, Any]) -> str:
+    title = item.get("title", "").lower()
+    summary = item.get("summary", "").lower()
+    text = title + " " + summary
+    
+    if any(term in text for term in ["research", "paper", "preprint", "arxiv", "publication", "study", "findings"]):
+        return "Research Release"
+    if any(term in text for term in ["product", "api", "service", "feature", "launch", "release", "update"]):
+        return "Product / API Release"
+    if any(term in text for term in ["partnership", "collaboration", "alliance", "policy", "regulation", "announcement"]):
+        return "Partnership / Policy"
+    if any(term in text for term in ["case study", "use case", "application", "deployment", "customer"]):
+        return "Application Case"
+    if "pull request" in text or "pr" in text or "github pr" in text:
+        return "Low-signal PR"
+    return "Research Release"
+
+
+def render_institutional_updates(processed: dict[str, Any]) -> str:
+    items = items_for_section(processed, ["institutional_updates"])
+    if not items:
+        return "- 今日无机构动态。"
+    
+    categorized = {
+        "Research Release": [],
+        "Product / API Release": [],
+        "Partnership / Policy": [],
+        "Application Case": [],
+        "Low-signal PR": [],
+    }
+    
+    for item in items:
+        category = _classify_institutional_update(item)
+        categorized[category].append(item)
+    
+    lines = []
+    for category in ["Research Release", "Product / API Release", "Partnership / Policy", "Application Case", "Low-signal PR"]:
+        if categorized[category]:
+            lines.append(f"### {category}")
+            for item in categorized[category][:3]:
+                if category == "Low-signal PR":
+                    title = item.get("title", "")
+                    lines.append(f"- {title}")
+                else:
+                    lines.append(item_block(item, None))
+                    lines.append("")
+            if len(categorized[category]) > 3:
+                lines.append(f"- ... 还有 {len(categorized[category]) - 3} 条")
+            lines.append("")
+    
+    return "\n".join(lines).strip()
+
+
 def render_other_section(processed: dict[str, Any], section_ids: list[str], *, limit: int = 5) -> str:
+    if "institutional_updates" in section_ids:
+        return render_institutional_updates(processed)
+    
     items = items_for_section(processed, section_ids)
     if any(section_id in {"highlights", "other_highlights"} for section_id in section_ids):
         strict = [
@@ -1024,6 +1215,199 @@ def render_benchmark_section(processed: dict[str, Any], *, report_date: str, lim
     return "\n".join(lines)
 
 
+def all_non_ignored_items(processed: dict[str, Any]) -> list[dict[str, Any]]:
+    return [item for item in processed.get("items", []) if item.get("reading_tier") != "IGNORE"]
+
+
+def recommendation_action(item: dict[str, Any]) -> str:
+    if item.get("reading_tier") == "MUST_READ":
+        return "read_pdf"
+    if item.get("reading_tier") == "SKIM":
+        return "skim"
+    if item.get("is_open_source_project"):
+        return item.get("github_action") or "read_readme"
+    if item.get("requires_primary_source_check"):
+        return "verify_primary_source"
+    return "watch"
+
+
+def render_awards_notable_papers(processed: dict[str, Any], *, limit: int = 5) -> str:
+    candidates = []
+    for item in all_non_ignored_items(processed):
+        conference = item.get("conference", {})
+        signal = item.get("scores", {}).get("conference_signal", 0.0)
+        award = conference.get("award_type")
+        presentation = conference.get("presentation_type")
+        relevant_accepted = award == "accepted" and item.get("scores", {}).get("research_relevance", 0.0) >= 0.70
+        if not conference.get("conference_name") or (signal < 0.50 and not relevant_accepted):
+            continue
+        if award == "accepted" and not relevant_accepted:
+            continue
+        candidates.append(item)
+    candidates.sort(
+        key=lambda item: (
+            item.get("scores", {}).get("conference_signal", 0.0),
+            item.get("scores", {}).get("personal_score", 0.0),
+            item.get("scores", {}).get("research_relevance", 0.0),
+        ),
+        reverse=True,
+    )
+    if not candidates:
+        return "- 今日无高相关顶会精选。"
+    lines = []
+    for item in candidates[:limit]:
+        conference = item.get("conference", {})
+        authority = item.get("authority", {})
+        institutions = "、".join(row.get("name") for row in authority.get("matched_institutions", []) if row.get("name")) or "待从原文确认"
+        signal_type = conference.get("award_type") or conference.get("presentation_type") or "conference_signal"
+        year = conference.get("conference_year") or "年份待确认"
+        lines.extend(
+            [
+                f"- 会议 / 年份 / 信号类型：{conference.get('conference_name')} / {year} / {signal_type}",
+                f"  - 论文标题：[{item.get('title')}]({item.get('url')})",
+                f"  - 作者机构：{institutions}",
+                f"  - 方向标签：{section_title_from_item(item)}",
+                f"  - 和我的研究方向关系：research_relevance {item.get('scores', {}).get('research_relevance', 0):.2f}",
+                f"  - 建议行动：{recommendation_action(item)}",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def lab_item_type(item: dict[str, Any]) -> str:
+    source_type = str(item.get("source", {}).get("type", "")).lower()
+    text = f"{item.get('title', '')} {item.get('summary', '')} {item.get('url', '')}".lower()
+    if source_type in {"arxiv", "openreview", "hf_daily_papers", "hf_papers_page"}:
+        return "paper"
+    if item.get("is_open_source_project") or "github.com" in text:
+        return "project"
+    if any(term in text for term in ["course", "syllabus", "lecture", "reading list"]):
+        return "course"
+    if any(term in text for term in ["seminar", "talk", "workshop"]):
+        return "seminar"
+    if any(term in text for term in ["dataset", "benchmark"]):
+        return "dataset"
+    return "blog"
+
+
+def recent_daily_report_text(report_date: str, *, days: int = 30) -> str:
+    try:
+        current = datetime.strptime(report_date, "%Y-%m-%d")
+    except ValueError:
+        return ""
+    pieces = []
+    for offset in range(1, days + 1):
+        day = current - timedelta(days=offset)
+        path = Path("reports") / "daily" / day.strftime("%Y") / day.strftime("%m") / f"{day.strftime('%Y-%m-%d')}.md"
+        if path.exists():
+            pieces.append(path.read_text(encoding="utf-8", errors="ignore"))
+    return normalize_report_text("\n".join(pieces))
+
+
+def normalize_report_text(text: str) -> str:
+    return re.sub(r"\s+", " ", text).lower()
+
+
+def repeated_evergreen_lab_item(item: dict[str, Any], recent_text: str) -> bool:
+    if not recent_text:
+        return False
+    title = normalize_report_text(str(item.get("title", "")))
+    if not title or len(title) < 12:
+        return False
+    if lab_item_type(item) in {"course", "seminar"} or any(term in title for term in ["course", "reading list", "seminar", "lecture"]):
+        return title in recent_text
+    return False
+
+
+def render_university_lab_radar(processed: dict[str, Any], *, report_date: str, limit: int = 5) -> str:
+    recent_text = recent_daily_report_text(report_date)
+    candidates = []
+    for item in all_non_ignored_items(processed):
+        authority = item.get("authority", {})
+        matched = authority.get("matched_institutions", [])
+        if not matched:
+            continue
+        source_roles = item.get("source", {}).get("source_role") or []
+        if isinstance(source_roles, str):
+            source_roles = [source_roles]
+        if "institution_authority" not in source_roles and item.get("scores", {}).get("institution_signal", 0.0) < 0.72:
+            continue
+        title = str(item.get("title", "")).lower()
+        if title in {"home", "homepage", "research", "people", "publications"}:
+            continue
+        if repeated_evergreen_lab_item(item, recent_text):
+            continue
+        candidates.append(item)
+    candidates.sort(
+        key=lambda item: (
+            item.get("scores", {}).get("institution_signal", 0.0),
+            item.get("scores", {}).get("personal_score", 0.0),
+            item.get("scores", {}).get("actionability", 0.0),
+        ),
+        reverse=True,
+    )
+    if not candidates:
+        return "- 今日无高相关强校/实验室雷达条目。"
+    lines = []
+    for item in candidates[:limit]:
+        authority = item.get("authority", {})
+        matched = authority.get("matched_institutions", [])
+        lab = matched[0].get("name") if matched else authority.get("lab_or_group") or item.get("source", {}).get("name", "未知机构")
+        item_type = lab_item_type(item)
+        scores = item.get("scores", {})
+        lines.extend(
+            [
+                f"- [{item.get('title')}]({item.get('url')})",
+                f"  - 学校 / 实验室：{lab}",
+                f"  - 类型：{item_type}",
+                f"  - 为什么值得关注：institution_signal {scores.get('institution_signal', 0):.2f}，authority_score {scores.get('authority_score', 0):.2f}",
+                f"  - 与我的研究方向关系：{section_title_from_item(item)}，personal {scores.get('personal_score', 0):.2f}",
+                f"  - 建议行动：{recommendation_action(item)}",
+            ]
+        )
+    return "\n".join(lines)
+
+
+def render_context_community_signals(processed: dict[str, Any], *, limit: int = 5) -> str:
+    candidates = []
+    for item in all_non_ignored_items(processed):
+        signals = item.get("source_signals", {})
+        has_context_signal = any(
+            signals.get(key)
+            for key in ["chinese_sources", "community_sources", "discovery_sources"]
+        )
+        if has_context_signal or item.get("requires_primary_source_check"):
+            candidates.append(item)
+    candidates.sort(
+        key=lambda item: (
+            item.get("scores", {}).get("community_signal", 0.0),
+            item.get("scores", {}).get("hype_risk", 0.0),
+            item.get("scores", {}).get("personal_score", 0.0),
+        ),
+        reverse=True,
+    )
+    if not candidates:
+        return "- 今日无需要展开的中文媒体或社区线索。"
+    lines = []
+    for item in candidates[:limit]:
+        signals = item.get("source_signals", {})
+        source_type = "社区/发现线索"
+        if signals.get("chinese_sources"):
+            source_type = "中文媒体线索"
+        scores = item.get("scores", {})
+        primary_status = "已匹配一手来源" if scores.get("credibility", 0) >= 0.75 or signals.get("paper_sources") else "待查"
+        lines.extend(
+            [
+                f"- [{item.get('title')}]({item.get('url')})",
+                f"  - 类型：{source_type}",
+                f"  - 一手来源：{primary_status}",
+                f"  - hype_risk：{scores.get('hype_risk', 0):.2f}",
+                f"  - 建议行动：verify_primary_source",
+            ]
+        )
+    return "\n".join(lines)
+
+
 def source_count(processed: dict[str, Any]) -> int:
     source_ids = {
         item.get("source", {}).get("id")
@@ -1080,24 +1464,83 @@ def _extract_trend_keywords(items: list[dict[str, Any]]) -> list[str]:
     return keywords
 
 
+def _analyze_must_read_trends(must: list[dict[str, Any]]) -> dict[str, list[str]]:
+    trends = {}
+    for item in must:
+        title = item.get("title", "").lower()
+        summary = item.get("summary", "").lower()
+        combined = title + " " + summary
+        
+        section_id = item.get("primary_section", {}).get("id", "")
+        section_title = item.get("primary_section", {}).get("title", "")
+        
+        if "stale" in title or "memory valid" in combined or "memory staleness" in combined:
+            trends.setdefault("memory_validity", []).append(item)
+        elif "agent" in combined and ("memory" in combined or "belief" in combined):
+            trends.setdefault("agent_memory", []).append(item)
+        elif "agent" in combined and ("trajectory" in combined or "workflow" in combined or "long-horizon" in combined):
+            trends.setdefault("agent_trajectory", []).append(item)
+        elif section_id in {"context_compression_memory", "context_compression", "context_memory"}:
+            trends.setdefault("context_compression", []).append(item)
+        elif section_id == "agents":
+            trends.setdefault("agents", []).append(item)
+        elif section_id in {"model_distillation", "distillation_efficiency"}:
+            if "dinorankclip" in title or "ranking" in combined or "clip" in title:
+                trends.setdefault("distillation_ranking", []).append(item)
+            else:
+                trends.setdefault("distillation", []).append(item)
+        elif "vlm" in combined or "vision-language" in combined:
+            trends.setdefault("vlm", []).append(item)
+        elif "benchmark" in combined or "evaluation" in combined:
+            trends.setdefault("benchmark", []).append(item)
+        else:
+            trends.setdefault("other", []).append(item)
+    
+    return trends
+
+
 def _generate_trend_judgement(must: list[dict[str, Any]], direction: str) -> str:
     if not must:
-        return "今天没有强制深读项，建议归档观察。"
-    titles = [item.get("title", "") for item in must]
-    trend_keywords = _extract_trend_keywords(must)
-    unique_trends = list(dict.fromkeys(trend_keywords))
-    if len(must) == 1:
-        title = must[0].get("title", "")[:60]
-        return f"今天仅 1 篇 Must Read——{title}。"
-    if unique_trends:
-        if len(unique_trends) == 1:
-            return f"今天的 Must Read 集中在 {unique_trends[0]} 方向。"
-        elif len(unique_trends) == 2:
-            return f"今天的 Must Read 呈现 {unique_trends[0]} 和 {unique_trends[1]} 双重主线。"
+        return "今日主线：没有强制深读项，建议归档观察。"
+    
+    trends = _analyze_must_read_trends(must)
+    trend_descriptions = []
+    
+    if trends.get("memory_validity"):
+        trend_descriptions.append("Agent 记忆有效性研究持续推进")
+    if trends.get("agent_memory"):
+        trend_descriptions.append("Agent 长期记忆机制探索")
+    if trends.get("agent_trajectory"):
+        trend_descriptions.append("轨迹级策略和执行过程评估")
+    if trends.get("context_compression"):
+        trend_descriptions.append("长上下文压缩与缓存优化")
+    if trends.get("distillation_ranking"):
+        trend_descriptions.append("VLM 蒸馏强调细粒度排序一致性")
+    if trends.get("distillation"):
+        trend_descriptions.append("模型蒸馏与压缩技术")
+    if trends.get("agents"):
+        trend_descriptions.append("Agent 规划与推理能力提升")
+    if trends.get("vlm"):
+        trend_descriptions.append("视觉-语言模型进展")
+    if trends.get("benchmark"):
+        trend_descriptions.append("评测基准与数据集建设")
+    
+    if trend_descriptions:
+        if len(trend_descriptions) == 1:
+            return f"今日主线：{trend_descriptions[0]}。"
+        elif len(trend_descriptions) == 2:
+            return f"今日主线：{trend_descriptions[0]}；同时 {trend_descriptions[1]}。"
         else:
-            main_trends = "、".join(unique_trends[:3])
-            return f"今天的 Must Read 呈现 {main_trends} 等多个研究方向。"
-    return f"今天 {len(must)} 篇 Must Read，重点关注方向：{direction}。"
+            main_trends = "、".join(trend_descriptions[:3])
+            remaining = len(trend_descriptions) - 3
+            suffix = f"等{remaining}个方向" if remaining > 0 else ""
+            return f"今日主线：{main_trends}{suffix}。"
+    
+    title = must[0].get("title", "")[:60]
+    if len(must) == 1:
+        return f"今日主线：{title}。"
+    
+    return f"今日主线：{len(must)} 篇 Must Read，重点关注 {direction}。"
 
 
 def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
@@ -1173,9 +1616,55 @@ def is_eligible_for_deep_read(item: dict[str, Any]) -> bool:
     return False
 
 
+def _mainline_priority_score(item: dict[str, Any]) -> int:
+    title = item.get("title", "").lower()
+    summary = item.get("summary", "").lower()
+    text = title + " " + summary
+    section_id = item.get("primary_section", {}).get("id", "")
+    
+    priority_keywords = [
+        ("stale", 10),
+        ("memory valid", 9),
+        ("memory staleness", 9),
+        ("strata", 8),
+        ("context compression", 8),
+        ("context memory", 7),
+        ("long context", 7),
+        ("dinorankclip", 6),
+        ("ranking clip", 6),
+        ("dino clip", 6),
+        ("agent", 5),
+        ("planning", 4),
+        ("reasoning", 4),
+        ("distillation", 3),
+        ("vlm", 3),
+        ("vision language", 3),
+    ]
+    
+    score = 0
+    for keyword, priority in priority_keywords:
+        if keyword in text:
+            score += priority
+    
+    section_priority = {
+        "context_compression_memory": 10,
+        "context_compression": 9,
+        "context_memory": 8,
+        "agents": 7,
+        "model_distillation": 6,
+        "open_world_learning": 5,
+    }
+    score += section_priority.get(section_id, 0)
+    
+    return score
+
+
 def render_deep_read_list(items: list[dict[str, Any]]) -> str:
     must_candidates = [item for item in items if item.get("reading_tier") == "MUST_READ"]
-    eligible = [item for item in must_candidates if is_eligible_for_deep_read(item)][:3]
+    eligible = [item for item in must_candidates if is_eligible_for_deep_read(item)]
+    
+    eligible.sort(key=_mainline_priority_score, reverse=True)
+    eligible = eligible[:3]
     
     if not eligible:
         return "- 今日没有符合条件的深读条目。"
@@ -1255,6 +1744,9 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
         "benchmark_evaluation": render_benchmark_section(processed, report_date=report_date),
         "github_projects": render_full_items(processed.get("github_projects", []), limit=5, empty="- 今日没有进入正文的开源项目候选。"),
         "institutional_updates": render_other_section(processed, ["institutional_updates"], limit=5),
+        "awards_notable_papers": render_awards_notable_papers(processed),
+        "university_lab_radar": render_university_lab_radar(processed, report_date=report_date),
+        "context_community_signals": render_context_community_signals(processed),
         "classic_revisit": render_classic_revisit(processed.get("classic_revisit", [])),
         "deep_read_list": render_deep_read_list(items),
         "collection": {

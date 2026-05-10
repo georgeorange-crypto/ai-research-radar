@@ -21,6 +21,22 @@ SOURCE_CREDIBILITY = {
     "media": 0.62,
 }
 
+NO_DIRECT_CREDIBILITY_ROLES = {"discovery", "community", "chinese_context"}
+CREDIBILITY_SOURCE_ROLES = {"paper_source", "conference_authority", "institution_authority"}
+EDITORIAL_SOURCE_ROLES = {"editorial_analysis", "industry_analysis"}
+ACTIONABILITY_SOURCE_ROLES = {"code_actionability"}
+SOURCE_SIGNAL_KEYS = {
+    "discovery": "discovery_sources",
+    "paper_source": "paper_sources",
+    "editorial_analysis": "editorial_sources",
+    "industry_analysis": "industry_sources",
+    "chinese_context": "chinese_sources",
+    "community": "community_sources",
+    "conference_authority": "conference_sources",
+    "institution_authority": "institution_sources",
+    "code_actionability": "code_sources",
+}
+
 OFFICIAL_HINTS = [
     "arxiv.org",
     "openreview.net",
@@ -52,7 +68,7 @@ MUST_READ_LIMIT = 3
 SKIM_LIMIT = 8
 
 PAPER_TIERS = {"MUST_READ", "SKIM", "WATCH", "ARCHIVE", "IGNORE"}
-GITHUB_ACTIONS = {"study_code", "use_as_baseline", "read_readme", "save"}
+GITHUB_ACTIONS = {"study_code", "use_as_baseline", "read_readme", "save", "clone_and_run"}
 CONTEXT_SECTION_IDS = {"context_compression_memory", "context_compression", "context_memory"}
 MAINLINE_SECTION_IDS = {"context_compression_memory", "context_compression", "agents", "open_world_learning", "model_distillation"}
 GROUNDING_LEVELS = {"title_only", "abstract_only", "full_text", "repo_readme"}
@@ -168,7 +184,7 @@ def load_yaml(path: str | Path) -> dict[str, Any]:
 def load_radar_config(keywords_path: str | Path) -> dict[str, Any]:
     path = Path(keywords_path)
     config = load_yaml(path)
-    for sibling in ["scoring.yaml", "classics.yaml"]:
+    for sibling in ["scoring.yaml", "classics.yaml", "conferences.yaml", "institutions.yaml", "sources.yaml"]:
         sibling_path = path.parent / sibling
         if not sibling_path.exists():
             continue
@@ -179,6 +195,9 @@ def load_radar_config(keywords_path: str | Path) -> dict[str, Any]:
                 config["classification"] = merged
             elif key not in config:
                 config[key] = value
+    config["_source_registry"] = build_source_registry(config)
+    config["_conference_registry"] = build_conference_registry(config)
+    config["_institution_registry"] = build_institution_registry(config)
     return config
 
 
@@ -207,6 +226,194 @@ def normalize_title(title: str) -> str:
     text = re.sub(r"\barxiv\s*:\s*", "", text)
     text = re.sub(r"[^a-z0-9\u4e00-\u9fff]+", " ", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def as_list(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    if isinstance(value, tuple):
+        return list(value)
+    return [value]
+
+
+def normalize_source_roles(value: Any) -> set[str]:
+    return {str(role).strip() for role in as_list(value) if str(role).strip()}
+
+
+def build_source_registry(config: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    registry: dict[str, dict[str, Any]] = {}
+    for source in config.get("sources", []) or []:
+        if not isinstance(source, dict):
+            continue
+        source_id = str(source.get("id") or "").strip()
+        if source_id:
+            registry[source_id] = source
+    return registry
+
+
+def build_conference_registry(config: dict[str, Any]) -> list[dict[str, Any]]:
+    conferences: list[dict[str, Any]] = []
+    for area, rows in (config.get("top_conferences") or {}).items():
+        for row in rows or []:
+            if not isinstance(row, dict):
+                continue
+            aliases = [row.get("name"), *as_list(row.get("aliases"))]
+            normalized_aliases = sorted({normalize_title(str(alias)) for alias in aliases if alias}, key=len, reverse=True)
+            conferences.append({**row, "area": area, "_aliases": normalized_aliases})
+    return conferences
+
+
+def build_institution_registry(config: dict[str, Any]) -> list[dict[str, Any]]:
+    institutions: list[dict[str, Any]] = []
+    for row in config.get("institutions", []) or []:
+        if not isinstance(row, dict):
+            continue
+        aliases = [row.get("name"), *as_list(row.get("aliases"))]
+        normalized_aliases = sorted({normalize_title(str(alias)) for alias in aliases if alias}, key=len, reverse=True)
+        url_hints = [str(url).lower() for url in as_list(row.get("official_urls")) + as_list(row.get("rss_urls")) if url]
+        institutions.append({**row, "_aliases": normalized_aliases, "_url_hints": url_hints})
+    return institutions
+
+
+def source_with_registry(source: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
+    if not isinstance(source, dict):
+        return {}
+    registry = config.get("_source_registry", {})
+    registered = registry.get(str(source.get("id") or "")) or {}
+    if not registered:
+        return source
+    merged = {
+        "id": registered.get("id"),
+        "name": registered.get("name"),
+        "type": registered.get("type"),
+        "kind": registered.get("source_kind", registered.get("kind", "primary")),
+        "url": registered.get("url"),
+        "source_role": registered.get("source_role"),
+        "trust_level": registered.get("trust_level"),
+        "noise_level": registered.get("noise_level"),
+        "region": registered.get("region"),
+        "language": registered.get("language"),
+        "update_frequency": registered.get("update_frequency"),
+        "requires_primary_source_check": registered.get("requires_primary_source_check", False),
+    }
+    merged.update({key: value for key, value in source.items() if value not in (None, "")})
+    if not merged.get("kind"):
+        merged["kind"] = registered.get("source_kind", "primary")
+    return merged
+
+
+def enrich_item_sources(item: dict[str, Any], config: dict[str, Any]) -> None:
+    source = item.get("source")
+    if isinstance(source, dict):
+        item["source"] = source_with_registry(source, config)
+    item["duplicate_sources"] = [
+        source_with_registry(source, config)
+        for source in duplicate_sources(item)
+        if isinstance(source, dict)
+    ]
+
+
+def item_sources(item: dict[str, Any]) -> list[dict[str, Any]]:
+    sources = duplicate_sources(item)
+    if sources:
+        return sources
+    source = item.get("source", {})
+    return [source] if isinstance(source, dict) else []
+
+
+def source_roles(source: dict[str, Any]) -> set[str]:
+    roles = normalize_source_roles(source.get("source_role"))
+    source_type = str(source.get("type", "")).lower()
+    kind = str(source.get("kind", "")).lower()
+    if not roles:
+        if source_type in {"arxiv", "openreview", "hf_daily_papers", "hf_papers_page"}:
+            roles.add("paper_source")
+        elif source_type == "github_search":
+            roles.add("code_actionability")
+        elif kind == "media":
+            roles.add("editorial_analysis")
+    return roles
+
+
+def all_source_roles(item: dict[str, Any]) -> set[str]:
+    roles: set[str] = set()
+    for source in item_sources(item):
+        roles.update(source_roles(source))
+    return roles
+
+
+def source_signal_payload(item: dict[str, Any]) -> dict[str, list[str]]:
+    payload = {key: [] for key in SOURCE_SIGNAL_KEYS.values()}
+    for source in item_sources(item):
+        name = str(source.get("name") or source.get("id") or "").strip()
+        if not name:
+            continue
+        for role in source_roles(source):
+            key = SOURCE_SIGNAL_KEYS.get(role)
+            if key and name not in payload[key]:
+                payload[key].append(name)
+    return payload
+
+
+def trust_rank(source: dict[str, Any]) -> int:
+    return {
+        "high": 4,
+        "medium_high": 3,
+        "medium": 2,
+        "low": 1,
+    }.get(str(source.get("trust_level", "")).lower(), 2 if source.get("kind") != "media" else 1)
+
+
+def noisy_source(source: dict[str, Any]) -> bool:
+    return str(source.get("noise_level", "")).lower() == "high"
+
+
+def source_is_quality_confirmation(source: dict[str, Any]) -> bool:
+    roles = source_roles(source)
+    if roles.intersection({"community", "chinese_context"}):
+        return False
+    return trust_rank(source) >= 2 and not noisy_source(source)
+
+
+def source_can_boost_credibility(source: dict[str, Any]) -> bool:
+    roles = source_roles(source)
+    source_type = str(source.get("type", "")).lower()
+    return bool(roles.intersection(CREDIBILITY_SOURCE_ROLES) or source_type in {"arxiv", "openreview"})
+
+
+def multi_source_confirmation(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
+    sources = item_sources(item)
+    distinct_quality = {
+        str(source.get("id") or source.get("name") or idx)
+        for idx, source in enumerate(sources)
+        if source_is_quality_confirmation(source)
+    }
+    count = len(distinct_quality)
+    thresholds = config.get("multi_source_confirmation_score", {})
+    if count >= 4:
+        score = float(thresholds.get("four_or_more_quality_sources", 0.15))
+    elif count == 3:
+        score = float(thresholds.get("three_quality_sources", 0.10))
+    elif count == 2:
+        score = float(thresholds.get("two_quality_sources", 0.05))
+    else:
+        score = 0.0
+    credibility_eligible = any(source_can_boost_credibility(source) for source in sources)
+    all_media_or_community = bool(sources) and all(
+        str(source.get("kind", "")).lower() == "media"
+        or source_roles(source).intersection({"community", "chinese_context"})
+        for source in sources
+    )
+    return {
+        "score": score,
+        "source_count": len(sources),
+        "quality_source_count": count,
+        "credibility_boost": score if credibility_eligible and not all_media_or_community else 0.0,
+        "community_boost": score if not credibility_eligible or all_media_or_community else score * 0.35,
+        "credibility_eligible": credibility_eligible and not all_media_or_community,
+    }
 
 
 ARXIV_ID_RE = re.compile(r"(\d{4}\.\d{4,5})(?:v\d+)?", re.IGNORECASE)
@@ -704,6 +911,261 @@ def is_institutional_update(item: dict[str, Any]) -> bool:
     return any(marker in url_text for marker in official_blog_markers) or any(term in title for term in update_terms)
 
 
+def signal_text(item: dict[str, Any]) -> str:
+    source = item.get("source", {})
+    pieces = [
+        item.get("title", ""),
+        item.get("summary", ""),
+        item.get("url", ""),
+        " ".join(str(author) for author in item.get("authors", [])),
+        " ".join(str(tag) for tag in item.get("tags", [])),
+        source.get("id", ""),
+        source.get("name", ""),
+        source.get("url", ""),
+        json.dumps(item.get("metrics", {}), ensure_ascii=False),
+        json.dumps(metadata_dict(item), ensure_ascii=False),
+    ]
+    return " ".join(str(piece) for piece in pieces if piece).lower()
+
+
+def normalized_signal_text(item: dict[str, Any]) -> str:
+    return normalize_title(signal_text(item))
+
+
+def url_contains_hint(item: dict[str, Any], hint: str) -> bool:
+    text = " ".join(
+        [
+            str(item.get("url", "")),
+            str(item.get("source", {}).get("url", "")),
+        ]
+    ).lower()
+    return hint and hint.lower().rstrip("/") in text
+
+
+def tier_signal_score(tier: Any, config: dict[str, Any]) -> float:
+    scores = config.get("institution_tier_scores", {})
+    if isinstance(tier, (int, float)):
+        return clamp_score(1.0 - (float(tier) - 1.0) * 0.12)
+    return float(scores.get(str(tier), 0.62))
+
+
+def focus_overlap_bonus(institution: dict[str, Any], matched_sections: list[str]) -> float:
+    focus = {normalize_title(str(area)) for area in as_list(institution.get("focus_areas"))}
+    text = " ".join(matched_sections).lower()
+    if not focus or not text:
+        return 0.0
+    domain_map = {
+        "llm": ["agents", "context", "nlp", "model_architecture"],
+        "agents": ["agents", "context"],
+        "robotics": ["agents", "rl", "open_world_learning"],
+        "rl": ["agents", "rl"],
+        "systems": ["context", "model_architecture", "highlights"],
+        "infrastructure": ["context", "model_architecture", "highlights"],
+        "cv": ["cv", "model_distillation", "open_world_learning"],
+        "nlp": ["nlp", "agents", "context"],
+        "ai4science": ["highlights", "benchmark_evaluation"],
+    }
+    for area in focus:
+        if any(section in text for section in domain_map.get(area, [area])):
+            return 0.04
+    return 0.0
+
+
+def extract_institution_signal(item: dict[str, Any], config: dict[str, Any], matched_sections: list[str]) -> dict[str, Any]:
+    text = normalized_signal_text(item)
+    raw_url_text = signal_text(item)
+    matched: list[dict[str, Any]] = []
+    for institution in config.get("_institution_registry", []) or []:
+        alias_hit = any(alias and term_matches(alias, text) for alias in institution.get("_aliases", []))
+        url_hit = any(url_contains_hint(item, hint) or hint in raw_url_text for hint in institution.get("_url_hints", []))
+        if not alias_hit and not url_hit:
+            continue
+        score = tier_signal_score(institution.get("tier"), config) + focus_overlap_bonus(institution, matched_sections)
+        matched.append(
+            {
+                "name": institution.get("name"),
+                "tier": institution.get("tier"),
+                "type": institution.get("type"),
+                "region": institution.get("region"),
+                "focus_areas": institution.get("focus_areas", []),
+                "score": round(clamp_score(score), 3),
+            }
+        )
+    matched.sort(key=lambda row: row.get("score", 0.0), reverse=True)
+    score = max((row.get("score", 0.0) for row in matched), default=0.0)
+    return {
+        "matched_institutions": matched[:6],
+        "institution_signal": clamp_score(score),
+        "source_authority_score": clamp_score(score),
+        "author_affiliations": [row.get("name") for row in matched[:6] if row.get("name")],
+        "lab_or_group": matched[0].get("name") if matched else None,
+    }
+
+
+def extract_conference_year(item: dict[str, Any]) -> int | None:
+    text = signal_text(item)
+    match = re.search(r"\b(20[2-9][0-9])\b", text)
+    return int(match.group(1)) if match else None
+
+
+def extract_conference_signal(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
+    text = normalized_signal_text(item)
+    raw_text = signal_text(item)
+    matched_conference: dict[str, Any] | None = None
+    for conference in config.get("_conference_registry", []) or []:
+        aliases = conference.get("_aliases", [])
+        if any(alias and term_matches(alias, text) for alias in aliases):
+            matched_conference = conference
+            break
+        if any(url_contains_hint(item, str(url)) for url in as_list(conference.get("urls"))):
+            matched_conference = conference
+            break
+
+    source = item.get("source", {})
+    if not matched_conference and source_roles(source).intersection({"conference_authority"}):
+        source_name = normalize_title(str(source.get("name") or source.get("id") or ""))
+        for conference in config.get("_conference_registry", []) or []:
+            if any(alias and (alias in source_name or source_name in alias) for alias in conference.get("_aliases", [])):
+                matched_conference = conference
+                break
+
+    award_aliases = config.get("award_aliases", {})
+    score_map = config.get("conference_signal_scores", {})
+    award_type = None
+    signal_score = 0.0
+    for signal, aliases in award_aliases.items():
+        if any(normalize_title(str(alias)) in text for alias in aliases or []):
+            award_type = signal
+            signal_score = max(signal_score, float(score_map.get(signal, 0.0)))
+            break
+
+    presentation_type = None
+    presentation_scores = config.get("presentation_type_scores", {})
+    for candidate in ["oral", "spotlight", "poster"]:
+        if term_matches(candidate, text):
+            presentation_type = candidate
+            signal_score = max(signal_score, float(presentation_scores.get(candidate, 0.0)))
+
+    if not award_type and not presentation_type and matched_conference:
+        venue_id = str(metric_value(item, "venue_id") or "").lower()
+        if "conference" in raw_text or "accepted" in text or venue_id:
+            award_type = "accepted"
+            signal_score = max(signal_score, float(score_map.get("accepted", 0.16)))
+
+    if matched_conference:
+        signal_score = clamp_score(signal_score + max(0.0, (2 - int(matched_conference.get("tier", 2))) * 0.03))
+
+    return {
+        "conference_signal": clamp_score(signal_score),
+        "conference_name": matched_conference.get("name") if matched_conference else None,
+        "conference_year": extract_conference_year(item),
+        "conference_award_type": award_type,
+        "presentation_type": presentation_type,
+        "conference_area": matched_conference.get("area") if matched_conference else None,
+    }
+
+
+def actionability_signals(item: dict[str, Any]) -> dict[str, Any]:
+    metadata = metadata_dict(item)
+    metrics = item.get("metrics", {}) if isinstance(item.get("metrics"), dict) else {}
+    text = signal_text(item)
+    url = str(item.get("url", "")).lower()
+    pushed = parse_date(str(metrics.get("pushed_at") or metrics.get("last_updated") or metadata.get("last_updated") or ""))
+    last_commit_days = None
+    if pushed:
+        last_commit_days = max(0, int((datetime.now(timezone.utc) - pushed).total_seconds() // 86400))
+    has_github = item.get("source", {}).get("type") == "github_search" or "github.com" in url or "github.com" in text
+    has_demo = bool(metadata.get("has_demo") or metadata.get("has_examples") or any(term in text for term in [" demo ", "gradio", "streamlit", "huggingface.co/spaces", "colab"]))
+    has_weights = bool(metadata.get("has_pretrained_weights") or any(term in text for term in ["weights", "checkpoint", "pretrained", "model card"]))
+    has_dataset = bool(metadata.get("has_dataset") or any(term in text for term in ["dataset", "datasets", "data release"]))
+    has_benchmark = bool(metadata.get("has_benchmark") or any(term in text for term in ["benchmark", "leaderboard", "evaluation"]))
+    return {
+        "has_github": has_github,
+        "has_demo": has_demo,
+        "has_weights": has_weights,
+        "has_dataset": has_dataset,
+        "has_benchmark": has_benchmark,
+        "has_pwc": "paperswithcode" in text or "papers with code" in text,
+        "has_colab": bool(metadata.get("has_colab") or "colab" in text or ".ipynb" in text),
+        "has_requirements": bool(metadata.get("has_requirements")),
+        "has_reproducible_script": bool(metadata.get("has_reproducible_script")),
+        "has_pretrained_weights": has_weights,
+        "last_commit_days": last_commit_days,
+        "issue_activity": metrics.get("open_issues", 0),
+    }
+
+
+def trend_signal_score(item: dict[str, Any], config: dict[str, Any]) -> float:
+    roles = all_source_roles(item)
+    score = 0.0
+    if roles.intersection({"discovery", "community", "chinese_context"}):
+        score += 0.24
+    if roles.intersection(EDITORIAL_SOURCE_ROLES):
+        score += 0.18
+    metrics = item.get("metrics", {})
+    for key, denom, cap in [("upvotes", 18, 0.18), ("stars", 16, 0.22)]:
+        value = metrics.get(key)
+        if isinstance(value, (int, float)) and value > 0:
+            score += min(cap, math.log1p(value) / denom)
+    return clamp_score(score)
+
+
+def interpretation_signal_score(item: dict[str, Any]) -> float:
+    roles = all_source_roles(item)
+    score = 0.0
+    if "editorial_analysis" in roles:
+        score += 0.34
+    if "industry_analysis" in roles:
+        score += 0.38
+    if item.get("source", {}).get("kind") == "media" and roles.intersection(EDITORIAL_SOURCE_ROLES):
+        score += 0.08
+    return clamp_score(score)
+
+
+def hype_risk_score(
+    *,
+    item: dict[str, Any],
+    credibility: float,
+    evidence_strength: float,
+    community_signal: float,
+    conference_signal: float,
+    institution_signal: float,
+    actionability: float,
+    multi_source: float,
+) -> float:
+    roles = all_source_roles(item)
+    noisy = bool(roles.intersection({"discovery", "community", "chinese_context"}))
+    media_only = item.get("source", {}).get("kind") == "media" and not roles.intersection(CREDIBILITY_SOURCE_ROLES)
+    weak_grounding = credibility < 0.68 and evidence_strength < 0.60
+    score = 0.0
+    if noisy:
+        score += 0.34
+    if media_only:
+        score += 0.20
+    if weak_grounding:
+        score += 0.26
+    if community_signal >= 0.45 and credibility < 0.70:
+        score += 0.18
+    if max(conference_signal, institution_signal, actionability, multi_source) >= 0.55:
+        score -= 0.18
+    return clamp_score(score)
+
+
+def weighted_score(values: dict[str, float], weights: dict[str, Any]) -> float:
+    total = 0.0
+    weight_sum = 0.0
+    for key, weight in weights.items():
+        try:
+            weight_value = float(weight)
+        except (TypeError, ValueError):
+            continue
+        total += values.get(key, 0.0) * weight_value
+        weight_sum += weight_value
+    if weight_sum <= 0:
+        return 0.0
+    return clamp_score(total / weight_sum)
+
+
 def title_matches(item: dict[str, Any], pattern: str) -> bool:
     return normalize_title(pattern) in title_text(item)
 
@@ -947,11 +1409,21 @@ def credibility_score(item: dict[str, Any], config: dict[str, Any]) -> float:
     url = (item.get("url") or "") + " " + (source.get("url") or "")
     if any(hint in url for hint in config.get("official_hints", OFFICIAL_HINTS)):
         score += 0.07
-    if item.get("duplicate_sources") and len(item["duplicate_sources"]) > 1:
-        score += min(0.08, 0.02 * (len(item["duplicate_sources"]) - 1))
+    roles = all_source_roles(item)
+    if "paper_source" in roles:
+        score += 0.08
+    if "conference_authority" in roles:
+        score += 0.06
+    if "institution_authority" in roles:
+        score += 0.05
+    score += multi_source_confirmation(item, config).get("credibility_boost", 0.0)
     if source.get("type") == "github_search":
         stars = item.get("metrics", {}).get("stars", 0) or 0
         score += min(0.10, math.log1p(stars) / 80)
+    if roles and roles.issubset(NO_DIRECT_CREDIBILITY_ROLES):
+        score = min(score, 0.62)
+    elif roles.intersection({"community", "chinese_context"}) and not any(source_can_boost_credibility(source) for source in item_sources(item)):
+        score = min(score, 0.66)
     return clamp_score(score)
 
 
@@ -984,6 +1456,9 @@ def novelty_score(item: dict[str, Any], now: datetime | None = None) -> float:
 def community_signal_score(item: dict[str, Any]) -> float:
     metrics = item.get("metrics", {})
     score = 0.08
+    roles = all_source_roles(item)
+    if roles.intersection({"discovery", "community", "chinese_context"}):
+        score += 0.22
     upvotes = metrics.get("upvotes")
     if isinstance(upvotes, (int, float)) and upvotes > 0:
         score += min(0.28, math.log1p(upvotes) / 18)
@@ -993,8 +1468,7 @@ def community_signal_score(item: dict[str, Any]) -> float:
     forks = metrics.get("forks")
     if isinstance(forks, (int, float)) and forks > 0:
         score += min(0.12, math.log1p(forks) / 25)
-    if item.get("duplicate_sources") and len(item["duplicate_sources"]) > 1:
-        score += min(0.15, 0.04 * (len(item["duplicate_sources"]) - 1))
+    score += multi_source_confirmation(item, {}).get("community_boost", 0.0)
     if item.get("source", {}).get("type") == "github_search":
         score += 0.08
     return clamp_score(score)
@@ -1004,6 +1478,11 @@ def evidence_strength_score(item: dict[str, Any], config: dict[str, Any]) -> flo
     source = item.get("source", {})
     kind = source.get("kind", "primary")
     score = {"primary": 0.72, "aggregator": 0.52, "media": 0.42}.get(kind, 0.50)
+    roles = all_source_roles(item)
+    if roles.intersection({"paper_source", "conference_authority"}):
+        score += 0.08
+    if "institution_authority" in roles:
+        score += 0.05
     url = (item.get("url") or "") + " " + (source.get("url") or "")
     if any(hint in url for hint in config.get("official_hints", OFFICIAL_HINTS)):
         score += 0.08
@@ -1019,9 +1498,11 @@ def evidence_strength_score(item: dict[str, Any], config: dict[str, Any]) -> flo
     if item.get("tags"):
         score += 0.03
     if item.get("duplicate_sources") and len(item["duplicate_sources"]) > 1:
-        score += min(0.08, 0.03 * (len(item["duplicate_sources"]) - 1))
+        score += min(0.08, multi_source_confirmation(item, config).get("score", 0.0))
     if source.get("type") == "github_search":
         score -= 0.08
+    if roles and roles.issubset(NO_DIRECT_CREDIBILITY_ROLES):
+        score = min(score, 0.58)
     return clamp_score(score)
 
 
@@ -1054,6 +1535,30 @@ def actionability_score(item: dict[str, Any], matched_terms: list[str], config: 
     if item.get("source", {}).get("type") == "github_search":
         stars = item.get("metrics", {}).get("stars", 0) or 0
         score += 0.20 + min(0.12, math.log1p(stars) / 65)
+    if all_source_roles(item).intersection(ACTIONABILITY_SOURCE_ROLES):
+        score += 0.10
+    actionability = actionability_signals(item)
+    score += 0.035 * sum(
+        1
+        for key in [
+            "has_github",
+            "has_demo",
+            "has_weights",
+            "has_dataset",
+            "has_benchmark",
+            "has_pwc",
+            "has_colab",
+            "has_requirements",
+            "has_reproducible_script",
+        ]
+        if actionability.get(key)
+    )
+    last_commit_days = actionability.get("last_commit_days")
+    if isinstance(last_commit_days, int):
+        if last_commit_days <= 30:
+            score += 0.08
+        elif last_commit_days <= 180:
+            score += 0.04
     if item.get("source", {}).get("kind") == "media":
         score -= 0.05
     return clamp_score(score)
@@ -1076,29 +1581,43 @@ def composite_scores(
     evidence_strength: float,
     community_signal: float,
     actionability: float,
+    conference_signal: float,
+    institution_signal: float,
+    authority_signal: float,
+    multi_source_confirmation_score: float,
+    editorial_signal: float,
+    method_relevance: float,
+    project_relevance: float,
+    learning_value: float,
+    hype_risk: float,
     section_group: str,
     negative: bool,
+    config: dict[str, Any],
 ) -> tuple[float, float]:
-    global_score = (
-        research_relevance * 0.12
-        + novelty * 0.24
-        + credibility * 0.18
-        + evidence_strength * 0.18
-        + community_signal * 0.14
-        + actionability * 0.14
-    )
-    personal_score = (
-        research_relevance * 0.42
-        + novelty * 0.14
-        + credibility * 0.12
-        + evidence_strength * 0.08
-        + community_signal * 0.06
-        + actionability * 0.18
-    )
+    values = {
+        "research_relevance": research_relevance,
+        "novelty": novelty,
+        "credibility": credibility,
+        "evidence_strength": evidence_strength,
+        "community_signal": community_signal,
+        "actionability": actionability,
+        "conference_signal": conference_signal,
+        "institution_signal": institution_signal,
+        "authority_signal": authority_signal,
+        "multi_source_confirmation": multi_source_confirmation_score,
+        "editorial_signal": editorial_signal,
+        "method_relevance": method_relevance,
+        "project_relevance": project_relevance,
+        "learning_value": learning_value,
+    }
+    global_score = weighted_score(values, config.get("global_score_weights", {}))
+    personal_score = weighted_score(values, config.get("personal_score_weights", {}))
     if section_group in {"core_focus", "primary_research"}:
         personal_score += 0.05
     elif section_group == "other":
         personal_score -= 0.02
+    global_score -= hype_risk * 0.05
+    personal_score -= hype_risk * 0.07
     if negative:
         global_score -= 0.15
         personal_score -= 0.25
@@ -1106,6 +1625,7 @@ def composite_scores(
 
 
 def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
+    enrich_item_sources(item, config)
     enrich_item_identifiers(item)
     ensure_grounding_metadata(item)
     item["grounding_level"] = infer_grounding_level(item)
@@ -1122,15 +1642,39 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     boosts = boost_matches(item, config)
     matched_terms = sorted(set(section_terms + boosts))
     research_relevance = relevance_score(section_scores, section_terms, section_group)
+    matched_section_ids = [section_id, *matched_sections]
+    institution_payload = extract_institution_signal(item, config, matched_section_ids)
+    conference_payload = extract_conference_signal(item, config)
+    multi_source_payload = multi_source_confirmation(item, config)
     credibility = credibility_score(item, config)
     novelty = novelty_score(item)
     evidence_strength = evidence_strength_score(item, config)
     community_signal = community_signal_score(item)
     actionability = actionability_score(item, matched_terms, config)
+    actionability_payload = actionability_signals(item)
+    trend_signal = trend_signal_score(item, config)
+    interpretation_signal = interpretation_signal_score(item)
+    editorial_signal = max(trend_signal, interpretation_signal)
+    institution_signal = institution_payload["institution_signal"]
+    conference_signal = conference_payload["conference_signal"]
+    authority_score = max(institution_signal, conference_signal, institution_payload["source_authority_score"])
+    method_relevance = clamp_score(research_relevance + min(0.16, 0.025 * len(section_terms)))
+    project_relevance = clamp_score(actionability * 0.58 + research_relevance * 0.42)
+    learning_value = clamp_score(evidence_strength * 0.45 + credibility * 0.30 + novelty * 0.25)
     if item_link_quality == "low":
         credibility = clamp_score(credibility - 0.25)
         actionability = clamp_score(actionability - 0.20)
     negative = is_negative(item, config)
+    hype_risk = hype_risk_score(
+        item=item,
+        credibility=credibility,
+        evidence_strength=evidence_strength,
+        community_signal=community_signal,
+        conference_signal=conference_signal,
+        institution_signal=institution_signal,
+        actionability=actionability,
+        multi_source=multi_source_payload["score"],
+    )
     global_score, personal_score = composite_scores(
         research_relevance=research_relevance,
         novelty=novelty,
@@ -1138,8 +1682,18 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         evidence_strength=evidence_strength,
         community_signal=community_signal,
         actionability=actionability,
+        conference_signal=conference_signal,
+        institution_signal=institution_signal,
+        authority_signal=authority_score,
+        multi_source_confirmation_score=multi_source_payload["score"],
+        editorial_signal=editorial_signal,
+        method_relevance=method_relevance,
+        project_relevance=project_relevance,
+        learning_value=learning_value,
+        hype_risk=hype_risk,
         section_group=section_group,
         negative=negative,
+        config=config,
     )
 
     primary_category = {
@@ -1157,11 +1711,41 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     item["is_open_source_project"] = is_open_source_project(item)
     item["is_repository_item"] = is_repository_item(item)
     item["link_quality"] = item_link_quality
+    item["source_signals"] = source_signal_payload(item)
+    item["authority"] = {
+        "matched_institutions": institution_payload["matched_institutions"],
+        "institution_tier": institution_payload["matched_institutions"][0].get("tier") if institution_payload["matched_institutions"] else None,
+        "lab_or_group": institution_payload["lab_or_group"],
+        "author_affiliations": institution_payload["author_affiliations"],
+        "company_research_lab": any(row.get("type") in {"industry_lab", "startup_lab"} for row in institution_payload["matched_institutions"]),
+    }
+    item["conference"] = {
+        "conference_name": conference_payload["conference_name"],
+        "conference_year": conference_payload["conference_year"],
+        "status": "accepted" if conference_payload["conference_award_type"] == "accepted" else None,
+        "award_type": conference_payload["conference_award_type"],
+        "presentation_type": conference_payload["presentation_type"],
+    }
+    item["community"] = {
+        "x_mentions": item.get("metrics", {}).get("x_mentions", 0),
+        "reddit_mentions": item.get("metrics", {}).get("reddit_mentions", 0),
+        "discord_mentions": item.get("metrics", {}).get("discord_mentions", 0),
+        "notable_accounts": metadata_dict(item).get("notable_accounts", []),
+        "discussion_velocity": item.get("metrics", {}).get("discussion_velocity"),
+    }
+    item["actionability"] = actionability_payload
+    item["multi_source_confirmation"] = multi_source_payload
+    item["requires_primary_source_check"] = bool(
+        item.get("source", {}).get("requires_primary_source_check")
+        or all_source_roles(item).intersection({"community", "chinese_context", "discovery"})
+    )
     item["quality_flags"] = {
         "negative_terms": negative,
         "missing_url": not bool(item.get("url")),
         "low_quality_link": item_link_quality == "low",
         "missing_openreview_forum_id": is_openreview_entry(item) and not extract_openreview_forum_id(item),
+        "requires_primary_source_check": item["requires_primary_source_check"],
+        "high_hype_risk": hype_risk >= 0.65,
     }
     item["scores"] = {
         "global_score": round(global_score, 3),
@@ -1169,9 +1753,24 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         "novelty": round(novelty, 3),
         "credibility": round(credibility, 3),
         "evidence_strength": round(evidence_strength, 3),
+        "trend_signal": round(trend_signal, 3),
+        "interpretation_signal": round(interpretation_signal, 3),
+        "editorial_signal": round(editorial_signal, 3),
+        "conference_signal": round(conference_signal, 3),
+        "conference_score": round(conference_signal, 3),
+        "institution_signal": round(institution_signal, 3),
+        "authority_score": round(authority_score, 3),
+        "source_authority_score": round(institution_payload["source_authority_score"], 3),
+        "multi_source_confirmation": round(multi_source_payload["score"], 3),
         "community_signal": round(community_signal, 3),
+        "community_score": round(community_signal, 3),
         "actionability": round(actionability, 3),
+        "actionability_score": round(actionability, 3),
         "research_relevance": round(research_relevance, 3),
+        "method_relevance": round(method_relevance, 3),
+        "project_relevance": round(project_relevance, 3),
+        "learning_value": round(learning_value, 3),
+        "hype_risk": round(hype_risk, 3),
     }
     return item
 
@@ -1303,6 +1902,10 @@ def editorial_priority_score(item: dict[str, Any]) -> float:
         + scores.get("credibility", 0.0) * 0.10
         + scores.get("evidence_strength", 0.0) * 0.10
     )
+    priority += scores.get("multi_source_confirmation", 0.0) * 0.05
+    priority += scores.get("conference_signal", 0.0) * 0.04
+    priority += scores.get("institution_signal", 0.0) * 0.03
+    priority -= scores.get("hype_risk", 0.0) * 0.06
 
     if primary_id in CONTEXT_SECTION_IDS and any(term in text for term in ["agent memory", "memory validity", "belief update", "kv cache", "long context"]):
         priority += 0.16
@@ -1400,6 +2003,10 @@ def must_read_eligible(item: dict[str, Any]) -> bool:
         return False
     if not is_deep_read_source(item) or is_pure_tool_library(item) or force_watch(item):
         return False
+    if scores.get("hype_risk", 0.0) >= 0.65 and scores.get("credibility", 0.0) < 0.78:
+        return False
+    if item.get("requires_primary_source_check") and scores.get("credibility", 0.0) < 0.75:
+        return False
     if primary_id in MAINLINE_SECTION_IDS and relevance < 0.80:
         return False
     if personal < 0.80 and not (is_top_official_release(item) and priority >= 0.94):
@@ -1426,6 +2033,13 @@ def github_project_action(item: dict[str, Any]) -> str:
     stars = metrics.get("stars", 0) or 0
     text = item_text(item)
     primary_id = primary_category_id(item)
+    metadata = item.get("metadata", {})
+    
+    has_demo = metadata.get("has_demo") or any(term in text for term in ["demo", "colab", "notebook", "example", "huggingface.co/spaces", "streamlit", "gradio"])
+    has_weights = metadata.get("has_pretrained_weights") or any(term in text for term in ["weights", "checkpoint", "pretrained"])
+    
+    if has_demo and stars >= 500:
+        return "clone_and_run"
     if any(term in text for term in ["model-optimizer", "model optimizer", "quantization", "pruning", "compression", "optimizer"]):
         return "study_code" if stars >= 500 or "library" in text or "toolkit" in text else "save"
     if stars >= 5000 and any(term in text for term in ["demo", "examples", "benchmark", "inference", "training"]):
@@ -1434,6 +2048,8 @@ def github_project_action(item: dict[str, Any]) -> str:
         return "use_as_baseline"
     if stars >= 1000 or any(term in text for term in ["framework", "library", "toolkit"]):
         return "study_code"
+    if has_demo:
+        return "clone_and_run"
     if stars >= 100:
         return "read_readme"
     if scores := item.get("scores", {}):
@@ -1574,8 +2190,9 @@ def select_github_projects(items: list[dict[str, Any]], limit: int = 5) -> list[
     action_rank = {
         "use_as_baseline": 5,
         "study_code": 4,
-        "read_readme": 3,
-        "save": 2,
+        "clone_and_run": 3,
+        "read_readme": 2,
+        "save": 1,
     }
     projects = [item for item in items if item.get("reading_tier") != "IGNORE" and is_repository_item(item)]
     projects.sort(
@@ -1914,7 +2531,7 @@ def process_items(
     return {
         "date": report_date or datetime.now().strftime("%Y-%m-%d"),
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "schema_version": 7,
+        "schema_version": 8,
         "counts": {
             "raw": len(items),
             "deduped": len(deduped),
