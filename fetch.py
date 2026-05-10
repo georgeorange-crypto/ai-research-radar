@@ -115,6 +115,7 @@ def make_item(
     authors: list[str] | None = None,
     tags: list[str] | None = None,
     metrics: dict[str, Any] | None = None,
+    metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any] | None:
     title = normalize_space(title)
     url = canonical_url(url, source.get("url"))
@@ -130,6 +131,7 @@ def make_item(
         "authors": authors or [],
         "tags": tags or [],
         "metrics": metrics or {},
+        "metadata": metadata or {},
         "source": {
             "id": source.get("id"),
             "name": source.get("name"),
@@ -296,6 +298,23 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
     pushed_after = (datetime.now(timezone.utc) - timedelta(days=pushed_after_days)).strftime("%Y-%m-%d")
     per_query = int(source.get("max_items_per_query", 5))
 
+    def readme_excerpt(full_name: str) -> str:
+        if not full_name:
+            return ""
+        readme_headers = {**headers, "Accept": "application/vnd.github.raw"}
+        try:
+            response = http.get(
+                f"https://api.github.com/repos/{full_name}/readme",
+                headers=readme_headers,
+                timeout=source.get("timeout", DEFAULT_TIMEOUT),
+            )
+            if response.status_code != 200:
+                return ""
+            text = normalize_space(response.text)
+            return text[:1800]
+        except requests.RequestException:
+            return ""
+
     for query in source.get("queries", []):
         q = str(query)
         if "pushed:" not in q:
@@ -317,14 +336,17 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
                 continue
             seen.add(url)
             topics = repo.get("topics") or []
+            full_name = repo.get("full_name") or repo.get("name") or ""
+            description = repo.get("description") or ""
             summary_bits = [
-                repo.get("description") or "",
+                description,
                 f"Stars: {repo.get('stargazers_count', 0)}",
                 f"Language: {repo.get('language') or 'Unknown'}",
             ]
+            readme = readme_excerpt(full_name)
             item = make_item(
                 source=source,
-                title=repo.get("full_name") or repo.get("name") or "",
+                title=full_name,
                 url=url,
                 summary=" | ".join(part for part in summary_bits if part),
                 published_at=parse_date(repo.get("pushed_at") or repo.get("updated_at")),
@@ -336,6 +358,11 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
                     "open_issues": repo.get("open_issues_count", 0),
                     "language": repo.get("language"),
                     "pushed_at": repo.get("pushed_at"),
+                },
+                metadata={
+                    "github_description": description,
+                    "repo_readme_summary": readme,
+                    "topics": topics,
                 },
             )
             if item:

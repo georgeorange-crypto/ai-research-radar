@@ -1,5 +1,5 @@
 primary_research:
-  context_compression:
+  context_compression_memory:
     display_name: "上下文压缩 / 长上下文 / 记忆"
   agents:
     display_name: "Agent / Tool Use / Planning"

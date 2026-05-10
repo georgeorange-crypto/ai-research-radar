@@ -7,6 +7,7 @@
 - 今日最重要方向：{{ overview.most_important_direction }}
 - 今日必须深读：{{ overview.must_read_count }} 篇{% if overview.must_read_titles %}（{{ overview.must_read_titles }}）{% endif %}
 - 今日值得略读：{{ overview.skim_count }} 篇{% if overview.skim_titles %}（{{ overview.skim_titles }}）{% endif %}
+- 今日值得跟踪：{{ overview.watch_count }} 篇展示{% if overview.watch_titles %}（{{ overview.watch_titles }}）{% endif %}
 - 今日关键词：{{ overview.keywords }}
 - 今日判断：{{ overview.judgement }}
 
@@ -19,6 +20,9 @@
 #### Skim
 {{ primary.context_compression.skim }}
 
+#### Watch
+{{ primary.context_compression.watch }}
+
 #### Archive
 {{ primary.context_compression.archive }}
 
@@ -28,6 +32,9 @@
 
 #### Skim
 {{ primary.agents.skim }}
+
+#### Watch
+{{ primary.agents.watch }}
 
 #### Archive
 {{ primary.agents.archive }}
@@ -39,6 +46,9 @@
 #### Skim
 {{ primary.open_world_learning.skim }}
 
+#### Watch
+{{ primary.open_world_learning.watch }}
+
 #### Archive
 {{ primary.open_world_learning.archive }}
 
@@ -48,6 +58,9 @@
 
 #### Skim
 {{ primary.model_distillation.skim }}
+
+#### Watch
+{{ primary.model_distillation.watch }}
 
 #### Archive
 {{ primary.model_distillation.archive }}
@@ -71,25 +84,30 @@
 ## 3. 其他方向最耀眼成果
 {{ other_highlights }}
 
-## 4. GitHub / 开源项目推荐
+## 4. Benchmark / Dataset / Evaluation
+{{ benchmark_evaluation }}
+
+## 5. GitHub / 开源项目推荐
 {{ github_projects }}
 
-## 5. 企业 / 大学 / 研究所动态
+## 6. 企业 / 大学 / 研究所动态
 {{ institutional_updates }}
 
-## 6. 温故而知新：经典论文回顾
+## 7. 温故而知新：经典论文回顾
 {{ classic_revisit }}
 
-## 7. 今日深读清单
+## 8. 今日深读清单
 - 只列 3 篇以内。
 - 每篇给出预计阅读目的。
 {{ deep_read_list }}
 
-## 8. 采集说明
+## 9. 采集说明
 - 采集时间：{{ collection.generated_at }}
 - source count：{{ collection.source_count }}
 - raw item count：{{ collection.raw_count }}
 - dedup item count：{{ collection.dedup_count }}
 - LLM summary mode or local summary mode：{{ collection.summary_mode }}
+{% if collection.benchmark_appendix %}- benchmark appendix：{{ collection.benchmark_appendix }}
+{% endif %}
 - report path：{{ collection.report_path }}
 - previous report link：{{ collection.previous_report_link }}

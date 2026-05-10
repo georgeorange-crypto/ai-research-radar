@@ -51,6 +51,110 @@ OFFICIAL_HINTS = [
 MUST_READ_LIMIT = 3
 SKIM_LIMIT = 8
 
+PAPER_TIERS = {"MUST_READ", "SKIM", "WATCH", "ARCHIVE", "IGNORE"}
+GITHUB_ACTIONS = {"clone_and_run", "study_code", "use_as_baseline", "read_readme", "save", "archive"}
+CONTEXT_SECTION_IDS = {"context_compression_memory", "context_compression", "context_memory"}
+MAINLINE_SECTION_IDS = {"context_compression_memory", "context_compression", "agents", "open_world_learning", "model_distillation"}
+GROUNDING_LEVELS = {"title_only", "abstract_only", "full_text", "repo_readme"}
+GENERIC_MATCH_TERMS = {
+    "benchmark",
+    "dataset",
+    "evaluation",
+    "framework",
+    "inference",
+    "environment",
+    "systems",
+    "github",
+    "code release",
+    "open source",
+    "open-source",
+    "nlp",
+    "robotics",
+}
+
+TITLE_CATEGORY_OVERRIDES = [
+    (
+        "stale: can llm agents know when their memories are no longer valid",
+        "context_compression_memory",
+        ["Agent Memory", "Belief Update", "Benchmark", "Long Context"],
+    ),
+    (
+        "adaptive parallel reasoning",
+        "agents",
+        ["Reasoning", "Inference-time Scaling", "Long Context", "Planning"],
+    ),
+    (
+        "hitting time isomorphism",
+        "rl",
+        ["Learning Methods", "Long-horizon Planning", "Foundation Policies"],
+    ),
+    (
+        "continuous-time distribution matching",
+        "model_distillation",
+        ["Diffusion Distillation", "Efficient Generation", "CV"],
+    ),
+    (
+        "nvidia/model-optimizer",
+        "github_projects",
+        ["Model Compression", "Quantization", "Tool Library"],
+    ),
+    (
+        "dinorankclip",
+        "model_distillation",
+        ["CV / VLM", "DINOv3 Distillation", "Ranking Consistency"],
+    ),
+    (
+        "efficient serving for dynamic agent workflows",
+        "context_compression_memory",
+        ["Agent Infrastructure", "KV Cache", "Serving"],
+    ),
+    (
+        "video action differencing",
+        "benchmark_evaluation",
+        ["Video Understanding", "Action Evaluation"],
+    ),
+    (
+        "spatialepibench",
+        "benchmark_evaluation",
+        ["Spatial Epidemiology", "Scientific Evaluation"],
+    ),
+    (
+        "medarabench",
+        "benchmark_evaluation",
+        ["Medical QA", "Arabic NLP", "Dataset"],
+    ),
+    (
+        "workflow fidelity",
+        "benchmark_evaluation",
+        ["Agent Evaluation", "Payment Workflow", "Trajectory Fidelity"],
+    ),
+]
+
+FORCE_WATCH_TITLE_PATTERNS = [
+    "recursive agent optimization",
+    "q-rag",
+    "mia-signature",
+    "long context pre-training with lighthouse attention",
+]
+
+FORCE_MIN_WATCH_TITLE_PATTERNS = [
+    "efficient serving for dynamic agent workflows",
+    "dinorankclip",
+]
+
+TOP_OFFICIAL_RELEASE_HINTS = {
+    "openai",
+    "anthropic",
+    "deepmind",
+    "google",
+    "meta",
+    "microsoft",
+    "nvidia",
+    "apple",
+}
+
+MUST_BUCKET_ORDER = ["context_memory", "agentic_planning", "open_or_distill"]
+
 
 def clamp_score(value: float) -> float:
     return max(0.0, min(1.0, value))
@@ -407,6 +511,203 @@ def item_text(item: dict[str, Any]) -> str:
     ).lower()
 
 
+def title_text(item: dict[str, Any]) -> str:
+    return normalize_title(item.get("title", ""))
+
+
+def contains_any(text: str, patterns: list[str] | set[str]) -> bool:
+    normalized = normalize_title(text)
+    return any(normalize_title(pattern) in normalized for pattern in patterns)
+
+
+def section_lookup(config: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {section["id"]: section for section in section_configs(config)}
+
+
+def category_entry(section_id: str, config: dict[str, Any], *, score: float = 0.0, terms: list[str] | None = None) -> dict[str, Any]:
+    section = section_lookup(config).get(section_id, {"title": section_id, "group": "other"})
+    return {
+        "id": section_id,
+        "title": section.get("title", section_id),
+        "group": section.get("group", "other"),
+        "score": round(score, 3),
+        "matched_terms": terms or [],
+    }
+
+
+def custom_tag_entry(title: str) -> dict[str, Any]:
+    tag_id = re.sub(r"[^a-z0-9]+", "_", title.lower()).strip("_")
+    return {"id": tag_id, "title": title, "group": "tag", "score": 1.0, "matched_terms": [title]}
+
+
+def is_repository_item(item: dict[str, Any]) -> bool:
+    url = item.get("url", "")
+    source_type = item.get("source", {}).get("type")
+    return source_type == "github_search" or "github.com" in urlparse(url).netloc.lower()
+
+
+def metadata_dict(item: dict[str, Any]) -> dict[str, Any]:
+    metadata = item.get("metadata")
+    return metadata if isinstance(metadata, dict) else {}
+
+
+def repo_readme_summary(item: dict[str, Any]) -> str:
+    metadata = metadata_dict(item)
+    for key in ["repo_readme_summary", "readme_summary", "readme_excerpt"]:
+        value = metadata.get(key)
+        if value:
+            return str(value)
+    return ""
+
+
+def ensure_grounding_metadata(item: dict[str, Any]) -> None:
+    if not is_repository_item(item):
+        return
+    metadata = dict(metadata_dict(item))
+    if item.get("summary") and not metadata.get("github_description"):
+        metadata["github_description"] = item.get("summary", "")
+    item["metadata"] = metadata
+
+
+def infer_grounding_level(item: dict[str, Any]) -> str:
+    if is_repository_item(item):
+        return "repo_readme" if repo_readme_summary(item) else "title_only"
+    summary = str(item.get("abstract") or item.get("summary") or "").strip()
+    if not summary:
+        return "title_only"
+    source_type = str(item.get("source", {}).get("type", "")).lower()
+    if source_type in {"arxiv", "openreview", "hf_daily_papers", "hf_papers_page"}:
+        return "abstract_only"
+    return "full_text"
+
+
+def is_benchmark_like(item: dict[str, Any]) -> bool:
+    text = item_text(item)
+    return any(
+        term_matches(term, text)
+        for term in [
+            "benchmark",
+            "dataset",
+            "evaluation",
+            "leaderboard",
+            "workflow fidelity",
+            "question answering dataset",
+            "test set",
+        ]
+    )
+
+
+GENERIC_INSTITUTIONAL_LINK_TITLES = {
+    "research",
+    "education",
+    "products",
+    "featured",
+    "learn more",
+    "download press kit",
+    "stanford home",
+    "maps directions",
+    "search stanford",
+    "emergency info",
+    "terms of use",
+    "copyright",
+    "trademarks",
+    "non discrimination",
+    "accessibility",
+    "get involved with hai",
+    "support hai",
+    "subscribe to email",
+    "school of computer science",
+    "economic futures",
+}
+
+
+def is_generic_institutional_link(item: dict[str, Any]) -> bool:
+    title = title_text(item)
+    if title in GENERIC_INSTITUTIONAL_LINK_TITLES:
+        return True
+    return title.startswith(("about ", "about:", "education ", "education:", "student ", "student:"))
+
+
+def is_institutional_update(item: dict[str, Any]) -> bool:
+    source = item.get("source", {})
+    source_type = source.get("type")
+    if source_type in {"arxiv", "openreview", "github_search", "hf_daily_papers", "hf_papers_page"}:
+        return False
+    source_id = str(source.get("id", "")).lower()
+    source_name = str(source.get("name", "")).lower()
+    source_url = str(source.get("url", "")).lower()
+    item_url = str(item.get("url", "")).lower()
+    official_sources = [
+        "openai",
+        "anthropic",
+        "deepmind",
+        "google_research",
+        "meta_ai",
+        "microsoft",
+        "nvidia",
+        "apple",
+        "stanford",
+        "mit",
+        "bair",
+        "princeton",
+        "cmu",
+        "neurips",
+        "icml",
+        "iclr",
+        "acl",
+        "emnlp",
+        "cvpr",
+        "iccv",
+        "eccv",
+        "corl",
+    ]
+    official = any(token in source_id or token in source_name or token in source_url or token in item_url for token in official_sources)
+    if not official or is_generic_institutional_link(item):
+        return False
+
+    title = title_text(item)
+    url_text = f"{source_url} {item_url}"
+    official_blog_markers = [
+        "/blog/",
+        "/blogs/",
+        "/index/",
+        "/news/",
+        "/research/blog",
+        "research.google/blog",
+        "microsoft.com/en-us/research/blog",
+        "blogs.nvidia.com/blog",
+        "deepmind.google/blog",
+        "machinelearning.apple.com/research",
+    ]
+    update_terms = [
+        "announcement",
+        "announcements",
+        "announcing",
+        "introducing",
+        "release",
+        "launched",
+        "launch",
+        "technical report",
+        "research update",
+        "lab",
+        "institute",
+        "partnership",
+        "conference",
+        "award",
+        "fellowship",
+        "supercomputer",
+        "red teaming",
+        "red-teaming",
+    ]
+    if source_type == "rss" and any(marker in url_text for marker in official_blog_markers):
+        return True
+    return any(marker in url_text for marker in official_blog_markers) or any(term in title for term in update_terms)
+
+
+def title_matches(item: dict[str, Any], pattern: str) -> bool:
+    return normalize_title(pattern) in title_text(item)
+
+
 def section_configs(config: dict[str, Any]) -> list[dict[str, Any]]:
     sections = config.get("sections")
     if sections:
@@ -475,6 +776,20 @@ def resolve_fallback_section(config: dict[str, Any], by_id: dict[str, dict[str, 
     return next(iter(by_id), "other_highlights")
 
 
+def best_alternative_section(
+    scores: dict[str, float],
+    by_id: dict[str, dict[str, Any]],
+    *,
+    exclude: set[str] | None = None,
+) -> str | None:
+    exclude = exclude or set()
+    for section_id, score in sorted(scores.items(), key=lambda pair: pair[1], reverse=True):
+        if score <= 0 or section_id in exclude or section_id not in by_id:
+            continue
+        return section_id
+    return None
+
+
 def classify_item(
     item: dict[str, Any],
     config: dict[str, Any],
@@ -535,7 +850,63 @@ def classify_item(
         )
         if len(matched_section_entries) >= max_labels:
             break
-    matched_sections = [section["title"] for section in matched_section_entries]
+
+    extra_tag_titles: list[str] = []
+    override_exact_tags = False
+    for pattern, override_id, tags in TITLE_CATEGORY_OVERRIDES:
+        if title_matches(item, pattern):
+            primary_id = override_id
+            extra_tag_titles.extend(tags)
+            override_exact_tags = True
+            break
+
+    if is_repository_item(item):
+        primary_id = "github_projects"
+        extra_tag_titles.append("Tool Library")
+    elif primary_id != "benchmark_evaluation" and is_benchmark_like(item):
+        title = title_text(item)
+        if any(token in title for token in ["benchmark", "bench", "dataset", "evaluation", "eval"]):
+            primary_id = "benchmark_evaluation"
+    elif primary_id == "github_projects":
+        alternative_id = best_alternative_section(
+            scores,
+            by_id,
+            exclude={"github_projects", "institutional_updates", "classics"},
+        )
+        primary_id = alternative_id or (fallback_id if fallback_id in by_id else "highlights")
+        extra_tag_titles.append("Open Source Signal")
+    if primary_id == "institutional_updates" and not is_institutional_update(item):
+        alternative_id = best_alternative_section(
+            scores,
+            by_id,
+            exclude={"institutional_updates", "github_projects", "classics"},
+        )
+        primary_id = alternative_id or (fallback_id if fallback_id in by_id else "highlights")
+        extra_tag_titles.append("Official Source Mention")
+
+    primary = by_id.get(primary_id, {"title": primary_id, "group": "other"})
+    if not any(entry.get("id") == primary_id for entry in matched_section_entries):
+        matched_section_entries.insert(
+            0,
+            category_entry(
+                primary_id,
+                config,
+                score=normalized_scores.get(primary_id, 1.0 if extra_tag_titles else 0.0),
+                terms=hits_by_section.get(primary_id, []),
+            ),
+        )
+
+    secondary_entries = [] if override_exact_tags else [
+        entry
+        for entry in matched_section_entries
+        if entry.get("id") != primary_id and entry.get("id") != "institutional_updates"
+    ]
+    seen_secondary = {entry.get("title") for entry in secondary_entries}
+    for tag_title in extra_tag_titles:
+        if tag_title not in seen_secondary:
+            secondary_entries.append(custom_tag_entry(tag_title))
+            seen_secondary.add(tag_title)
+    matched_sections = [primary.get("title", primary_id)] + [section["title"] for section in secondary_entries]
     return (
         primary_id,
         primary.get("title", primary_id),
@@ -543,7 +914,7 @@ def classify_item(
         normalized_scores,
         matched_terms,
         matched_sections,
-        matched_section_entries,
+        secondary_entries,
     )
 
 
@@ -694,17 +1065,7 @@ def is_negative(item: dict[str, Any], config: dict[str, Any]) -> bool:
 
 
 def is_open_source_project(item: dict[str, Any]) -> bool:
-    text = item_text(item)
-    url = item.get("url", "")
-    source_type = item.get("source", {}).get("type")
-    return (
-        source_type == "github_search"
-        or "github.com" in urlparse(url).netloc
-        or term_matches("github", text)
-        or term_matches("open-source", text)
-        or term_matches("open source", text)
-        or term_matches("code release", text)
-    )
+    return is_repository_item(item)
 
 
 def composite_scores(
@@ -746,6 +1107,8 @@ def composite_scores(
 
 def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     enrich_item_identifiers(item)
+    ensure_grounding_metadata(item)
+    item["grounding_level"] = infer_grounding_level(item)
     item_link_quality = link_quality(item)
     (
         section_id,
@@ -779,16 +1142,20 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         negative=negative,
     )
 
-    item["primary_section"] = {
+    primary_category = {
         "id": section_id,
         "title": section_title,
         "group": section_group,
     }
+    item["primary_category"] = primary_category
+    item["primary_section"] = primary_category
     item["section_scores"] = section_scores
-    item["matched_sections"] = matched_section_entries
+    item["secondary_tags"] = matched_section_entries
+    item["matched_sections"] = [primary_category, *matched_section_entries]
     item["matched_keywords"] = matched_terms
     item["matched_focus_areas"] = matched_sections
     item["is_open_source_project"] = is_open_source_project(item)
+    item["is_repository_item"] = is_repository_item(item)
     item["link_quality"] = item_link_quality
     item["quality_flags"] = {
         "negative_terms": negative,
@@ -811,12 +1178,16 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
 
 def tier_reason(item: dict[str, Any], tier: str) -> str:
     scores = item.get("scores", {})
+    if tier in GITHUB_ACTIONS:
+        return "GitHub 项目使用项目动作分层，不进入论文深读队列。"
     if tier == "MUST_READ":
-        return "personal_score 达到深读阈值，且进入当日 MUST_READ 名额。"
+        return "与四条主线直接相关，且通过编辑规则进入当日最多 3 篇深读名额。"
     if tier == "SKIM":
-        return "personal_score 或 global_score 达到略读阈值，适合快速判断价值。"
+        return "质量和相关性足够高，适合快速略读后决定是否升级。"
+    if tier == "WATCH":
+        return "方向相关、值得追踪，但今天不安排深读。"
     if tier == "ARCHIVE":
-        return "有研究或情报价值，但未进入当日深读/略读名额。"
+        return "保留到资料库，当前优先级低于 WATCH。"
     if item.get("quality_flags", {}).get("missing_url"):
         return "缺少可打开原文链接。"
     if item.get("quality_flags", {}).get("negative_terms"):
@@ -854,12 +1225,278 @@ def archive_worthy(item: dict[str, Any]) -> bool:
     )
 
 
-def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
-    ranked = sorted(items, key=score_rank_key, reverse=True)
-    must_count = 0
-    skim_count = 0
+def primary_category_id(item: dict[str, Any]) -> str:
+    return item.get("primary_category", item.get("primary_section", {})).get("id", "")
 
-    for item in ranked:
+
+def primary_category_group(item: dict[str, Any]) -> str:
+    return item.get("primary_category", item.get("primary_section", {})).get("group", "")
+
+
+def primary_matched_terms(item: dict[str, Any]) -> list[str]:
+    primary_id = primary_category_id(item)
+    for section in item.get("matched_sections", []) or []:
+        if section.get("id") == primary_id:
+            return [str(term).lower() for term in section.get("matched_terms", [])]
+    return [str(term).lower() for term in item.get("matched_keywords", [])]
+
+
+def is_keyword_only_match(item: dict[str, Any]) -> bool:
+    terms = primary_matched_terms(item)
+    if not terms:
+        return True
+    non_generic = [term for term in terms if term.lower() not in GENERIC_MATCH_TERMS]
+    return len(non_generic) == 0 or (len(non_generic) == 1 and len(terms) <= 2)
+
+
+def is_pure_tool_library(item: dict[str, Any]) -> bool:
+    if is_repository_item(item):
+        return True
+    text = item_text(item)
+    title = title_text(item)
+    return (
+        primary_category_id(item) == "github_projects"
+        or ("toolkit" in text and "paper" not in title)
+        or ("library" in text and "benchmark" not in title and "method" not in title)
+    )
+
+
+def is_deep_read_source(item: dict[str, Any]) -> bool:
+    source = item.get("source", {})
+    source_type = str(source.get("type", "")).lower()
+    if source_type in {"arxiv", "openreview", "hf_daily_papers", "hf_papers_page"}:
+        return True
+    if source_type == "rss" and source.get("kind") == "primary":
+        return True
+    return False
+
+
+def is_top_official_release(item: dict[str, Any]) -> bool:
+    source = item.get("source", {})
+    text = " ".join(
+        [
+            str(source.get("id", "")),
+            str(source.get("name", "")),
+            str(source.get("url", "")),
+            str(item.get("url", "")),
+        ]
+    ).lower()
+    return source.get("kind") == "primary" and any(hint in text for hint in TOP_OFFICIAL_RELEASE_HINTS)
+
+
+def force_watch(item: dict[str, Any]) -> bool:
+    return any(title_matches(item, pattern) for pattern in FORCE_WATCH_TITLE_PATTERNS)
+
+
+def force_min_watch(item: dict[str, Any]) -> bool:
+    return force_watch(item) or any(title_matches(item, pattern) for pattern in FORCE_MIN_WATCH_TITLE_PATTERNS)
+
+
+def editorial_priority_score(item: dict[str, Any]) -> float:
+    scores = item.get("scores", {})
+    primary_id = primary_category_id(item)
+    text = item_text(item)
+    priority = (
+        scores.get("personal_score", 0.0) * 0.45
+        + scores.get("global_score", 0.0) * 0.20
+        + scores.get("novelty", 0.0) * 0.15
+        + scores.get("credibility", 0.0) * 0.10
+        + scores.get("evidence_strength", 0.0) * 0.10
+    )
+
+    if primary_id in CONTEXT_SECTION_IDS and any(term in text for term in ["agent memory", "memory validity", "belief update", "kv cache", "long context"]):
+        priority += 0.16
+    if primary_id == "agents" and any(term in text for term in ["agent evaluation", "agentic rl", "long-horizon", "long horizon", "workflow fidelity", "trajectory", "safety"]):
+        priority += 0.12
+    if primary_id == "model_distillation" and any(term in text for term in ["diffusion distillation", "step distillation", "dinorankclip", "dino"]):
+        priority += 0.06
+    if item.get("source", {}).get("kind") == "primary":
+        priority += 0.04
+    if primary_category_group(item) in {"primary_research", "core_focus"}:
+        priority += 0.04
+    if primary_id in {"benchmark_evaluation"} and not any(term in text for term in ["agent evaluation", "safety", "workflow fidelity", "long-horizon"]):
+        priority -= 0.08
+    if is_pure_tool_library(item):
+        priority -= 0.35
+    if is_keyword_only_match(item):
+        priority -= 0.10
+    if force_watch(item):
+        priority -= 0.15
+    return clamp_score(priority)
+
+
+def editorial_rank_key(item: dict[str, Any]) -> tuple[float, float, float, float]:
+    scores = item.get("scores", {})
+    return (
+        editorial_priority_score(item),
+        scores.get("novelty", 0.0),
+        scores.get("credibility", 0.0),
+        scores.get("personal_score", 0.0),
+    )
+
+
+def must_bucket(item: dict[str, Any]) -> str | None:
+    primary_id = primary_category_id(item)
+    text = item_text(item)
+    memory_terms = [
+        "context compression",
+        "agent memory",
+        "memory validity",
+        "belief update",
+        "kv cache",
+        "kv-cache",
+        "cache reuse",
+    ]
+    planning_terms = [
+        "agentic rl",
+        "long-horizon",
+        "long horizon",
+        "planning",
+        "trajectory",
+        "workflow",
+        "environment",
+        "reinforcement learning",
+    ]
+    agent_memory_terms = [
+        "context compression",
+        "agent memory",
+        "memory validity",
+        "belief update",
+    ]
+    if primary_id in CONTEXT_SECTION_IDS:
+        return "context_memory"
+    if primary_id == "agents":
+        if any(term in text for term in agent_memory_terms):
+            return "context_memory"
+        if any(term in text for term in planning_terms):
+            return "agentic_planning"
+        return "agentic_planning"
+    if primary_id == "rl" and any(term in text for term in planning_terms):
+        return "agentic_planning"
+    if primary_id in {"open_world_learning", "model_distillation"}:
+        return "open_or_distill"
+    if any(
+        term in text
+        for term in memory_terms
+        + [
+            "long context",
+        ]
+    ):
+        return "context_memory"
+    return None
+
+
+def must_read_eligible(item: dict[str, Any]) -> bool:
+    scores = item.get("scores", {})
+    primary_id = primary_category_id(item)
+    priority = editorial_priority_score(item)
+    personal = scores.get("personal_score", 0.0)
+    relevance = scores.get("research_relevance", 0.0)
+    if ignore_reason(item):
+        return False
+    if primary_category_group(item) not in {"primary_research", "core_focus"}:
+        return False
+    if primary_id == "benchmark_evaluation":
+        return False
+    if not is_deep_read_source(item) or is_pure_tool_library(item) or force_watch(item):
+        return False
+    if primary_id in MAINLINE_SECTION_IDS and relevance < 0.80:
+        return False
+    if personal < 0.80 and not (is_top_official_release(item) and priority >= 0.94):
+        return False
+    return priority >= 0.80
+
+
+def skim_eligible(item: dict[str, Any]) -> bool:
+    scores = item.get("scores", {})
+    priority = editorial_priority_score(item)
+    return (
+        not ignore_reason(item)
+        and not force_watch(item)
+        and (
+            priority >= 0.72
+            or scores.get("personal_score", 0) >= 0.72
+            or scores.get("global_score", 0) >= 0.85
+        )
+    )
+
+
+def github_project_action(item: dict[str, Any]) -> str:
+    metrics = item.get("metrics", {})
+    stars = metrics.get("stars", 0) or 0
+    text = item_text(item)
+    primary_id = primary_category_id(item)
+    if any(term in text for term in ["model-optimizer", "model optimizer", "quantization", "pruning", "compression", "optimizer"]):
+        return "study_code" if stars >= 500 or "library" in text or "toolkit" in text else "save"
+    if stars >= 5000 and any(term in text for term in ["demo", "examples", "benchmark", "inference", "training"]):
+        return "clone_and_run"
+    if primary_id in {"model_distillation", *CONTEXT_SECTION_IDS} or any(term in text for term in ["baseline", "evaluation suite", "benchmark suite"]):
+        return "use_as_baseline"
+    if stars >= 1000 or any(term in text for term in ["framework", "library", "toolkit"]):
+        return "study_code"
+    if stars >= 100:
+        return "read_readme"
+    if scores := item.get("scores", {}):
+        if scores.get("actionability", 0) >= 0.55:
+            return "save"
+    return "archive"
+
+
+def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
+    for item in items:
+        item["editorial_priority"] = round(editorial_priority_score(item), 3)
+
+    for item in items:
+        if is_repository_item(item):
+            action = github_project_action(item)
+            item["github_action"] = action
+            item["reading_tier"] = action
+            item["reading_tier_reason"] = "GitHub repository is routed to the open-source project section, not the deep-read queue."
+            item["worth_deep_read"] = False
+
+    paper_items = sorted(
+        [item for item in items if not is_repository_item(item)],
+        key=editorial_rank_key,
+        reverse=True,
+    )
+    for item in paper_items:
+        item["reading_tier"] = None
+        item["worth_deep_read"] = False
+
+    must_selected: list[dict[str, Any]] = []
+    used_ids: set[str] = set()
+    for bucket in MUST_BUCKET_ORDER:
+        candidates = [
+            item
+            for item in paper_items
+            if id(item) not in used_ids and must_read_eligible(item) and must_bucket(item) == bucket
+        ]
+        if not candidates:
+            continue
+        chosen = candidates[0]
+        must_selected.append(chosen)
+        used_ids.add(id(chosen))
+        if len(must_selected) >= MUST_READ_LIMIT:
+            break
+
+    if len(must_selected) < MUST_READ_LIMIT:
+        for item in paper_items:
+            if id(item) in used_ids or not must_read_eligible(item):
+                continue
+            must_selected.append(item)
+            used_ids.add(id(item))
+            if len(must_selected) >= MUST_READ_LIMIT:
+                break
+
+    for item in must_selected:
+        item["reading_tier"] = "MUST_READ"
+        item["reading_tier_reason"] = tier_reason(item, "MUST_READ")
+        item["worth_deep_read"] = True
+
+    skim_count = 0
+    for item in paper_items:
+        if item.get("reading_tier") == "MUST_READ":
+            continue
         scores = item.get("scores", {})
         reason = ignore_reason(item)
         if reason:
@@ -869,15 +1506,20 @@ def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
             item["worth_deep_read"] = False
             continue
 
-        if scores.get("personal_score", 0) >= 0.86 and must_count < MUST_READ_LIMIT:
-            tier = "MUST_READ"
-            must_count += 1
-        elif (
-            (scores.get("personal_score", 0) >= 0.72 or scores.get("global_score", 0) >= 0.85)
-            and skim_count < SKIM_LIMIT
-        ):
+        priority = editorial_priority_score(item)
+        if skim_eligible(item) and skim_count < SKIM_LIMIT:
             tier = "SKIM"
             skim_count += 1
+        elif (
+            force_min_watch(item)
+            or priority >= 0.62
+            or scores.get("research_relevance", 0) >= 0.72
+            or (
+                primary_category_group(item) in {"primary_research", "core_focus"}
+                and scores.get("personal_score", 0) >= 0.68
+            )
+        ):
+            tier = "WATCH"
         elif archive_worthy(item):
             tier = "ARCHIVE"
         else:
@@ -919,8 +1561,9 @@ def build_section_payloads(items: list[dict[str, Any]], config: dict[str, Any]) 
             item
             for item in items
             if item.get("reading_tier") != "IGNORE"
-            and section["id"] in item_section_ids(item)
-            and item.get("source", {}).get("type") != "github_search"
+            and primary_category_id(item) == section["id"]
+            and not is_repository_item(item)
+            and (section["id"] != "institutional_updates" or is_institutional_update(item))
         ]
         section_items.sort(key=score_rank_key, reverse=True)
         sections.append({**section, "items": section_items})
@@ -928,10 +1571,18 @@ def build_section_payloads(items: list[dict[str, Any]], config: dict[str, Any]) 
 
 
 def select_github_projects(items: list[dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
-    projects = [item for item in items if item.get("reading_tier") != "IGNORE" and item.get("is_open_source_project")]
+    action_rank = {
+        "clone_and_run": 6,
+        "use_as_baseline": 5,
+        "study_code": 4,
+        "read_readme": 3,
+        "save": 2,
+        "archive": 1,
+    }
+    projects = [item for item in items if item.get("reading_tier") != "IGNORE" and is_repository_item(item)]
     projects.sort(
         key=lambda item: (
-            item.get("source", {}).get("type") == "github_search",
+            action_rank.get(item.get("github_action") or item.get("reading_tier"), 0),
             item.get("scores", {}).get("actionability", 0),
             item.get("scores", {}).get("community_signal", 0),
             item.get("metrics", {}).get("stars", 0) or 0,
@@ -943,9 +1594,10 @@ def select_github_projects(items: list[dict[str, Any]], limit: int = 5) -> list[
 
 
 CLASSIC_TOPIC_ALIASES = {
-    "context_memory": "context_compression",
-    "context_compression": "context_compression",
-    "long_context": "context_compression",
+    "context_memory": "context_compression_memory",
+    "context_compression": "context_compression_memory",
+    "context_compression_memory": "context_compression_memory",
+    "long_context": "context_compression_memory",
     "agents": "agents",
     "planning": "agents",
     "tool_use": "agents",
@@ -970,13 +1622,24 @@ CLASSIC_TOPIC_ALIASES = {
 }
 
 CLASSIC_ROTATION = {
-    0: ("Context Compression / Long Context", {"context_compression", "long_context"}),
+    0: ("Context Compression / Long Context / Memory", {"context_compression_memory", "context_compression", "long_context"}),
     1: ("Agents", {"agents", "planning", "tool_use"}),
     2: ("Open-World Learning", {"open_world_learning", "open_set_recognition", "continual_learning"}),
     3: ("Distillation", {"model_distillation", "model_compression", "efficient_training"}),
     4: ("RL", {"rl"}),
     5: ("CV / NLP / Architecture", {"cv", "nlp", "model_architecture"}),
     6: ("AI Systems / Interpretability / AI for Science", {"ai_systems", "interpretability", "ai_for_science", "biology"}),
+}
+
+CLASSIC_GENERIC_TERMS = {
+    "nlp",
+    "language model",
+    "transformer",
+    "attention",
+    "model architecture",
+    "model_architecture",
+    "cv",
+    "computer vision",
 }
 
 
@@ -993,14 +1656,19 @@ def item_keywords(item: dict[str, Any]) -> set[str]:
     return {str(keyword).strip().lower() for keyword in item.get("matched_keywords", []) if str(keyword).strip()}
 
 
+def item_primary_topic(item: dict[str, Any]) -> str:
+    primary_id = primary_category_id(item).lower()
+    return CLASSIC_TOPIC_ALIASES.get(primary_id, primary_id)
+
+
 def classic_connection_terms(paper: dict[str, Any], item: dict[str, Any]) -> list[str]:
     text = item_text(item)
     keyword_hits = [
         keyword
         for keyword in related_modern_keywords(paper)
-        if keyword and (keyword in text or keyword in item_keywords(item))
+        if keyword and keyword not in CLASSIC_GENERIC_TERMS and (term_matches(keyword, text) or keyword in item_keywords(item))
     ]
-    section_hits = normalized_topic_tags(paper).intersection(item_section_ids(item))
+    section_hits = normalized_topic_tags(paper).intersection({item_primary_topic(item)})
     return sorted(set(keyword_hits + list(section_hits)))[:8]
 
 
@@ -1008,7 +1676,7 @@ def classic_relation_score(paper: dict[str, Any], item: dict[str, Any]) -> tuple
     terms = classic_connection_terms(paper, item)
     if not terms:
         return 0.0, []
-    section_bonus = 1.25 * len(normalized_topic_tags(paper).intersection(item_section_ids(item)))
+    section_bonus = 2.5 * len(normalized_topic_tags(paper).intersection({item_primary_topic(item)}))
     keyword_bonus = 0.75 * len(set(terms).intersection(related_modern_keywords(paper)))
     item_bonus = item.get("scores", {}).get("personal_score", 0.0)
     return section_bonus + keyword_bonus + item_bonus, terms
@@ -1039,11 +1707,58 @@ def paper_related_sections(paper: dict[str, Any], config: dict[str, Any]) -> lis
     return [str(tag) for tag in paper.get("topic_tags", [])[:4]]
 
 
+def concept_connection_for_classic(
+    paper: dict[str, Any],
+    related_items: list[tuple[dict[str, Any], list[str]]],
+    rotation_label: str | None = None,
+) -> dict[str, str]:
+    topics = normalized_topic_tags(paper)
+    titles = [item.get("title", "") for item, _ in related_items[:3]]
+    today = "；".join(title for title in titles if title) or (rotation_label or "今天的相关条目")
+
+    if "context_compression_memory" in topics:
+        return {
+            "inherits": f"{today} 延续了经典工作里的核心问题：有限上下文、外部记忆与状态复用如何支撑更长程的推理。",
+            "challenges": "它挑战的是静态检索、固定窗口或只读记忆的假设，转向会随新证据更新的工作记忆和缓存管理。",
+            "extends": "新场景从语言建模推进到 agent memory、动态 workflow 和长上下文服务系统。",
+        }
+    if "agents" in topics:
+        return {
+            "inherits": f"{today} 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。",
+            "challenges": "它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。",
+            "extends": "新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。",
+        }
+    if "open_world_learning" in topics:
+        return {
+            "inherits": f"{today} 继承了开放世界学习对未知类、分布漂移和持续更新的关注。",
+            "challenges": "它挑战封闭标签集和一次性训练/测试划分的假设，更强调在线发现、语义漂移和真实部署反馈。",
+            "extends": "新场景从传统视觉分类推进到多模态、开放词表和可复用 benchmark。",
+        }
+    if "model_distillation" in topics:
+        return {
+            "inherits": f"{today} 继承了经典压缩/蒸馏工作的问题：如何在更低计算成本下保留教师模型能力。",
+            "challenges": "它挑战只做 logits matching 或静态小模型压缩的假设，转向轨迹、扩散过程、排序一致性和部署约束。",
+            "extends": "新场景扩展到 few-step diffusion、VLM 预训练、量化剪枝和推理服务优化。",
+        }
+    if "rl" in topics:
+        return {
+            "inherits": f"{today} 延续了经典 RL 对序贯决策、策略优化和长期回报分配的研究问题。",
+            "challenges": "它挑战在线交互充分、环境模型简单或奖励即时可见的假设，转向离线数据、foundation policies 和长程轨迹结构。",
+            "extends": "新场景推进到多阶段规划、agentic RL 和复杂任务轨迹表示。",
+        }
+    return {
+        "inherits": f"{today} 与这篇经典论文共享一个概念问题，而不仅是关键词重合。",
+        "challenges": "需要阅读新论文后确认它是否改变了经典论文中的数据、模型或评估假设。",
+        "extends": "暂时把它作为背景坐标，用来判断新工作是否只是换任务，还是确实推进了方法边界。",
+    }
+
+
 def build_classic_result(
     paper: dict[str, Any],
     config: dict[str, Any],
     related_items: list[tuple[dict[str, Any], list[str]]],
     connection: str,
+    concept_connection: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     return {
         **paper,
@@ -1058,14 +1773,19 @@ def build_classic_result(
             for item, terms in related_items[:3]
         ],
         "modern_connection": connection,
+        "concept_connection": concept_connection or concept_connection_for_classic(paper, related_items),
         "why_now": paper.get("why_classic", "用于把今天的新结果放回经典脉络中理解。"),
     }
+
+
+def related_primary_topics(related_items: list[tuple[dict[str, Any], list[str]]]) -> set[str]:
+    return {item_primary_topic(item) for item, _ in related_items if item_primary_topic(item)}
 
 
 def select_classic_papers(
     items: list[dict[str, Any]],
     config: dict[str, Any],
-    limit: int = 2,
+    limit: int = 1,
     *,
     report_date: str | None = None,
 ) -> list[dict[str, Any]]:
@@ -1086,8 +1806,8 @@ def select_classic_papers(
             related_items.append((item, terms))
         if relation_score <= 0:
             continue
-        terms_text = "、".join(sorted({term for _, terms in related_items for term in terms})[:6])
-        connection = f"它和今日 MUST_READ 的连接在于：{terms_text}。这些新条目正在重新触发这篇经典论文中的问题设定或方法假设。"
+        concept = concept_connection_for_classic(paper, related_items)
+        connection = " ".join([concept["inherits"], concept["challenges"], concept["extends"]])
         selected.append((relation_score, int(paper.get("year", 0)), paper, related_items, connection))
 
     if not selected:
@@ -1097,9 +1817,10 @@ def select_classic_papers(
             topic_overlap = normalized_topic_tags(paper).intersection(rotation_topics)
             if not topic_overlap:
                 continue
+            concept = concept_connection_for_classic(paper, [], rotation_label)
             connection = (
-                f"今天没有足够明确的 MUST_READ 经典连接，因此按星期主题轮换到 {rotation_label}。"
-                "它为今日新论文提供背景坐标：哪些问题已经被经典工作定义过，哪些只是换了新的模型和工程约束。"
+                f"今天没有足够明确的 MUST_READ 经典连接，因此按星期主题轮换到 {rotation_label}。 "
+                + " ".join([concept["inherits"], concept["challenges"], concept["extends"]])
             )
             selected.append((float(len(topic_overlap)), int(paper.get("year", 0)), paper, [], connection))
 
@@ -1116,9 +1837,26 @@ def select_classic_papers(
         ]
 
     selected.sort(key=lambda row: (row[0], row[1]), reverse=True)
+    diverse: list[tuple[float, int, dict[str, Any], list[tuple[dict[str, Any], list[str]]], str]] = []
+    used_topics: set[str] = set()
+    for row in selected:
+        topics = related_primary_topics(row[3])
+        if topics and topics.issubset(used_topics):
+            continue
+        diverse.append(row)
+        used_topics.update(topics)
+        if len(diverse) >= limit:
+            break
+    if len(diverse) < limit:
+        for row in selected:
+            if row in diverse:
+                continue
+            diverse.append(row)
+            if len(diverse) >= limit:
+                break
     return [
         build_classic_result(paper, config, related_items, connection)
-        for _, _, paper, related_items, connection in selected[:limit]
+        for _, _, paper, related_items, connection in diverse[:limit]
     ]
 
 
@@ -1140,21 +1878,34 @@ def process_items(
     tier_counts = Counter(item.get("reading_tier", "IGNORE") for item in scored)
     sections = build_section_payloads(scored, config)
     github_projects = select_github_projects(scored)
-    classic_revisit = select_classic_papers(scored, config, report_date=report_date)
+    must_primary_mainlines = {
+        primary_category_id(item)
+        for item in scored
+        if item.get("reading_tier") == "MUST_READ" and primary_category_id(item) in MAINLINE_SECTION_IDS
+    }
+    classic_limit = 2 if len(must_primary_mainlines) >= 2 else 1
+    classic_revisit = select_classic_papers(scored, config, limit=classic_limit, report_date=report_date)
 
     return {
         "date": report_date or datetime.now().strftime("%Y-%m-%d"),
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "schema_version": 4,
+        "schema_version": 7,
         "counts": {
             "raw": len(items),
             "deduped": len(deduped),
             "processed": len(scored),
             "must_read": tier_counts.get("MUST_READ", 0),
             "skim": tier_counts.get("SKIM", 0),
+            "watch": tier_counts.get("WATCH", 0),
             "archive": tier_counts.get("ARCHIVE", 0),
             "ignore": tier_counts.get("IGNORE", 0),
             "github_projects": len(github_projects),
+            "clone_and_run": tier_counts.get("clone_and_run", 0),
+            "study_code": tier_counts.get("study_code", 0),
+            "use_as_baseline": tier_counts.get("use_as_baseline", 0),
+            "read_readme": tier_counts.get("read_readme", 0),
+            "save": tier_counts.get("save", 0),
+            "github_archive": tier_counts.get("archive", 0),
         },
         "tier_limits": {
             "MUST_READ": MUST_READ_LIMIT,

@@ -8,6 +8,13 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+try:
+    from dotenv import load_dotenv
+    # 自动加载 .env 文件（如果存在）
+    load_dotenv()
+except ImportError:
+    pass
+
 from archive import generate_index, generate_monthly_report, month_id
 from fetch import configure_logging, fetch_all, save_jsonl
 from rank import process_items, save_json
@@ -104,6 +111,7 @@ def main() -> int:
         "tiers: "
         f"MUST_READ={counts.get('must_read', 0)}, "
         f"SKIM={counts.get('skim', 0)}, "
+        f"WATCH={counts.get('watch', 0)}, "
         f"ARCHIVE={counts.get('archive', 0)}, "
         f"IGNORE={counts.get('ignore', 0)}"
     )

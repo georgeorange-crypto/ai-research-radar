@@ -12,7 +12,10 @@ from pathlib import Path
 from typing import Any
 
 import requests
+import yaml
 from jinja2 import Environment, FileSystemLoader
+
+LLM_SUMMARY_CALLS = 0
 
 
 KIND_LABELS = {
@@ -32,8 +35,15 @@ GROUP_LABELS = {
 TIER_LABELS = {
     "MUST_READ": "MUST_READ",
     "SKIM": "SKIM",
+    "WATCH": "WATCH",
     "ARCHIVE": "ARCHIVE",
     "IGNORE": "IGNORE",
+    "clone_and_run": "clone_and_run",
+    "study_code": "study_code",
+    "use_as_baseline": "use_as_baseline",
+    "read_readme": "read_readme",
+    "save": "save",
+    "archive": "archive",
 }
 
 SUMMARY_FIELDS = [
@@ -45,13 +55,27 @@ SUMMARY_FIELDS = [
     "suggested_action",
 ]
 
-ACTION_CHOICES = {"read_pdf", "skim", "save", "reproduce", "ignore"}
+ACTION_CHOICES = {
+    "read_pdf",
+    "skim",
+    "watch",
+    "save",
+    "ignore",
+    "use_as_eval",
+    "clone_and_run",
+    "study_code",
+    "use_as_baseline",
+    "read_readme",
+    "archive",
+}
 DEFAULT_TEMPLATE_PATH = Path("config") / "daily_report.md.j2"
+LLM_SUMMARY_CALLS = 0
 
 SECTION_DISPLAY_NAMES = {
+    "context_compression_memory": "上下文压缩 / 长上下文 / 记忆",
     "context_compression": "上下文压缩 / 长上下文 / 记忆",
     "context_memory": "上下文压缩 / 长上下文 / 记忆",
-    "agents": "Agent / Tool Use / Planning",
+    "agents": "Agent / Reasoning / Inference-time Scaling / Planning",
     "open_world_learning": "新类学习 / 开放世界学习",
     "open_world": "新类学习 / 开放世界学习",
     "model_distillation": "模型蒸馏 / 模型压缩",
@@ -64,6 +88,7 @@ SECTION_DISPLAY_NAMES = {
     "learning_methods": "学习方法",
     "highlights": "其他方向最耀眼成果",
     "other_highlights": "其他方向最耀眼成果",
+    "benchmark_evaluation": "Benchmark / Dataset / Evaluation",
     "github_projects": "GitHub / 开源项目推荐",
     "institutional_updates": "企业 / 大学 / 研究所动态",
 }
@@ -85,17 +110,133 @@ def openai_enabled() -> bool:
     return bool(os.getenv("OPENAI_API_KEY"))
 
 
+def ensemble_enabled() -> bool:
+    return os.getenv("MODEL_MODE") == "ensemble"
+
+
+def load_model_config() -> dict[str, Any]:
+    config_path = Path("config") / "models.yaml"
+    if not config_path.exists():
+        return {}
+    
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = yaml.safe_load(f)
+    
+    for model in config.get("models", []):
+        api_key_env = model.get("api_key", "").strip()
+        if api_key_env.startswith("${") and api_key_env.endswith("}"):
+            env_var = api_key_env[2:-1]
+            model["api_key"] = os.getenv(env_var, "")
+    
+    return config
+
+
+def get_ensemble_model():
+    try:
+        from models.ensemble import EnsembleModel
+        config = load_model_config()
+        return EnsembleModel(config)
+    except ImportError:
+        return None
+
+
+def openai_timeout_seconds() -> float:
+    return float(os.getenv("OPENAI_TIMEOUT_SECONDS", "20"))
+
+
+def openai_summary_budget() -> int:
+    return int(os.getenv("OPENAI_SUMMARY_BUDGET", "12"))
+
+
+GROUNDING_LABELS = {
+    "title_only": "title only",
+    "abstract_only": "abstract only",
+    "full_text": "full text",
+    "repo_readme": "repo README",
+}
+
+
+def metadata_dict(item: dict[str, Any]) -> dict[str, Any]:
+    metadata = item.get("metadata")
+    return metadata if isinstance(metadata, dict) else {}
+
+
+def repo_readme_summary(item: dict[str, Any]) -> str:
+    metadata = metadata_dict(item)
+    for key in ["repo_readme_summary", "readme_summary", "readme_excerpt"]:
+        value = metadata.get(key)
+        if value:
+            return str(value)
+    return ""
+
+
+def is_repository_item(item: dict[str, Any]) -> bool:
+    tier = str(item.get("reading_tier", ""))
+    source_type = item.get("source", {}).get("type")
+    return bool(item.get("is_repository_item") or item.get("is_open_source_project") or source_type == "github_search" or tier in {"clone_and_run", "study_code", "use_as_baseline", "read_readme", "save", "archive"})
+
+
+def grounding_level(item: dict[str, Any]) -> str:
+    existing = str(item.get("grounding_level") or "").strip()
+    if existing in GROUNDING_LABELS:
+        return existing
+    if is_repository_item(item):
+        return "repo_readme" if repo_readme_summary(item) else "title_only"
+    summary = str(item.get("abstract") or item.get("summary") or "").strip()
+    if not summary:
+        return "title_only"
+    source_type = str(item.get("source", {}).get("type", "")).lower()
+    if source_type in {"arxiv", "openreview", "hf_daily_papers", "hf_papers_page"}:
+        return "abstract_only"
+    return "full_text"
+
+
+def grounding_label(item: dict[str, Any]) -> str:
+    return GROUNDING_LABELS.get(grounding_level(item), "abstract only")
+
+
+def allowed_evidence_text(item: dict[str, Any]) -> str:
+    pieces = [
+        str(item.get("title", "")),
+        str(item.get("abstract") or item.get("summary") or ""),
+        json.dumps(item.get("source", {}), ensure_ascii=False),
+        str(item.get("url", "")),
+        json.dumps(metadata_dict(item), ensure_ascii=False),
+        repo_readme_summary(item),
+    ]
+    return "\n".join(piece for piece in pieces if piece.strip())
+
+
+def is_benchmark_item(item: dict[str, Any]) -> bool:
+    return item.get("primary_section", {}).get("id") == "benchmark_evaluation" or item.get("primary_category", {}).get("id") == "benchmark_evaluation"
+
+
+def benchmark_action(item: dict[str, Any]) -> str:
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    if any(term in text for term in ["agent", "workflow", "planning", "long-horizon", "long horizon", "memory", "safety"]):
+        return "use_as_eval"
+    if any(term in text for term in ["medical", "epidemic", "video", "domain generalization"]):
+        return "save"
+    if any(term in text for term in ["benchmark", "dataset", "evaluation"]):
+        return "skim"
+    return "ignore"
+
+
 def choose_action(item: dict[str, Any]) -> str:
     tier = item.get("reading_tier", "ARCHIVE")
     scores = item.get("scores", {})
+    if is_repository_item(item):
+        return item.get("github_action") or tier if tier in ACTION_CHOICES else "read_readme"
+    if is_benchmark_item(item):
+        return item.get("benchmark_action") or benchmark_action(item)
     if tier == "IGNORE":
         return "ignore"
-    if item.get("is_open_source_project") and scores.get("actionability", 0) >= 0.70:
-        return "reproduce"
     if tier == "MUST_READ":
         return "read_pdf"
     if tier == "SKIM":
         return "skim"
+    if tier == "WATCH":
+        return "watch"
     return "save"
 
 
@@ -117,49 +258,83 @@ def normalize_summary(payload: dict[str, Any] | None, item: dict[str, Any]) -> d
     return normalized
 
 
+def salient_terms(item: dict[str, Any], limit: int = 5) -> list[str]:
+    terms: list[str] = []
+    for term in item.get("matched_keywords", []):
+        text = str(term).strip()
+        if text and text.lower() not in {"benchmark", "dataset", "evaluation", "paper", "method"}:
+            terms.append(text)
+    evidence = f"{item.get('title', '')} {item.get('summary', '')}"
+    for token in re.findall(r"\b[A-Z][A-Za-z0-9]*(?:[-_][A-Za-z0-9]+)*\b", evidence):
+        if len(token) >= 3 and token not in terms:
+            terms.append(token)
+    return terms[:limit]
+
+
+def item_kind_cn(item: dict[str, Any]) -> str:
+    if is_repository_item(item):
+        return "开源项目"
+    if is_benchmark_item(item):
+        return "评测基准或数据集论文"
+    source_type = str(item.get("source", {}).get("type", "")).lower()
+    if source_type in {"arxiv", "openreview", "hf_daily_papers", "hf_papers_page"}:
+        return "研究论文"
+    return "研究动态"
+
+
+def contribution_hint_cn(item: dict[str, Any], names: list[str]) -> str:
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    name_text = "、".join(names[:4])
+    if is_repository_item(item):
+        return "这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。"
+    if any(word in text for word in ["introduce", "introduces", "present", "presents", "propose", "proposes"]):
+        if name_text:
+            return f"摘要可确认它提出或引入了 {name_text}；具体训练设置、指标和消融细节需读原文确认。"
+        return "摘要可确认它提出了新的方法、数据或评测设定；方法细节未在摘要中充分展开。"
+    if any(word in text for word in ["benchmark", "dataset", "evaluation", "evaluate"]):
+        return "摘要可确认它偏向评测或数据构建；具体任务定义、指标和样本规模需读原文确认。"
+    return "方法细节未在摘要中充分展开，细节需读原文确认。"
+
+
 def fallback_summary(item: dict[str, Any]) -> dict[str, Any]:
-    section = item.get("primary_section", {}).get("title", "相关方向")
+    section = item.get("primary_category", item.get("primary_section", {})).get("title", "相关方向")
     tier = item.get("reading_tier", "ARCHIVE")
     scores = item.get("scores", {})
-    summary_text = trim(item.get("summary", ""), 420)
-    keywords = "、".join(item.get("matched_keywords", [])[:5])
-    source_name = item.get("source", {}).get("name") or "当前来源"
+    names = salient_terms(item)
+    keywords = "、".join(names[:4])
     title = item.get("title") or "未命名条目"
 
-    if summary_text:
-        what_is_it = f"围绕“{title}”的研究或项目线索，原始摘要核心信息是：{summary_text}"
+    if grounding_level(item) == "title_only":
+        what_is_it = f"从标题可判断，这是关于“{title}”的{item_kind_cn(item)}，目前缺少摘要支撑。"
     else:
-        what_is_it = f"围绕“{title}”的条目，但来源没有给出足够摘要，需要打开原文确认。"
+        focus = f"，核心信号包括 {keywords}" if keywords else ""
+        what_is_it = f"这是一篇/项归入“{section}”的{item_kind_cn(item)}{focus}。"
 
     if keywords:
-        problem = f"它主要落在“{section}”，关键词显示关注 {keywords} 等问题。"
+        problem = f"它关注“{section}”里的 {keywords} 等问题。"
     else:
-        problem = f"它被归到“{section}”，但标题和摘要中的问题信号还不够明确。"
+        problem = f"它与“{section}”相关，但摘要中的问题表述不够具体。"
 
-    method_or_contribution = "本地摘要无法可靠抽取完整方法细节；建议以标题、摘要和原文为准。"
-    if item.get("is_open_source_project"):
-        method_or_contribution = "条目带有代码或开源信号，可能包含可直接查看的实现、工具或复现实验。"
-    elif summary_text:
-        method_or_contribution = "可从摘要中先判断研究对象、实验设置和声称贡献，具体技术路线仍需读原文确认。"
+    method_or_contribution = contribution_hint_cn(item, names)
 
-    importance_parts = []
+    importance_parts = [f"tier={tier}", f"editorial_priority={item.get('editorial_priority', 0):.2f}"]
     if tier == "MUST_READ":
-        importance_parts.append("它已进入 MUST_READ，说明个人优先级足够高，值得今天安排深读。")
+        importance_parts.append("今天安排深读。")
     elif tier == "SKIM":
-        importance_parts.append("它进入 SKIM，适合快速扫读后决定是否升级为深读。")
+        importance_parts.append("今天快速扫读。")
+    elif tier == "WATCH":
+        importance_parts.append("方向相关，先追踪不深读。")
     elif tier == "ARCHIVE":
-        importance_parts.append("它还没到深读/略读阈值，但有保留价值。")
+        importance_parts.append("归档备用。")
+    elif tier in ACTION_CHOICES:
+        importance_parts.append("按 GitHub 项目动作处理。")
     else:
-        importance_parts.append("它目前不适合进入正文阅读队列。")
+        importance_parts.append("不进入正文阅读队列。")
 
-    importance_parts.append(
-        f"personal_score={scores.get('personal_score', 0):.2f}，research_relevance={scores.get('research_relevance', 0):.2f}。"
-    )
-    if item.get("is_open_source_project"):
-        importance_parts.append("开源信号让它更适合后续复现或拆代码。")
+    importance_parts.append(f"personal={scores.get('personal_score', 0):.2f}，relevance={scores.get('research_relevance', 0):.2f}。")
 
     action = choose_action(item)
-    deep_read = "建议深读。" if action == "read_pdf" else "暂不建议深读，先快速判断或保存。"
+    deep_read = "建议今天深读。" if action == "read_pdf" else "今天不深读，先按行动建议处理。"
     if tier == "IGNORE":
         deep_read = "不建议深读。"
 
@@ -180,13 +355,19 @@ def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
 
     base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
     model = os.getenv("OPENAI_MODEL") or "gpt-4o-mini"
+    if grounding_level(item) == "title_only":
+        return None
+    evidence = trim(allowed_evidence_text(item), 2600)
     prompt = {
         "title": item.get("title"),
         "source": item.get("source", {}),
         "url": item.get("url"),
-        "abstract_or_excerpt": trim(item.get("summary", ""), 1800),
+        "metadata": metadata_dict(item),
+        "repo_readme_summary": repo_readme_summary(item),
+        "allowed_evidence": evidence,
+        "grounding_level": grounding_level(item),
         "primary_section": item.get("primary_section", {}),
-        "matched_sections": item.get("matched_sections", []),
+        "secondary_tags": item.get("secondary_tags", []),
         "reading_tier": item.get("reading_tier"),
         "matched_focus_areas": item.get("matched_focus_areas", []),
         "matched_keywords": item.get("matched_keywords", []),
@@ -198,7 +379,7 @@ def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
             "method_or_contribution": "方法或贡献是什么？",
             "why_important": "为什么对我重要？",
             "deep_read": "是否建议深读？",
-            "suggested_action": "建议行动，只能是 read_pdf / skim / save / reproduce / ignore 之一",
+            "suggested_action": "建议行动，只能是 read_pdf / skim / watch / save / use_as_eval / clone_and_run / study_code / use_as_baseline / read_readme / archive / ignore 之一",
         },
     }
     messages = [
@@ -207,11 +388,16 @@ def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
             "content": (
                 "你是严谨的 AI research radar 编辑，面向一位关注长上下文、Agent、开放世界学习和模型压缩的研究者。"
                 "用自然、具体、克制的中文写摘要，不营销，不编造，不重复套话。"
-                "只基于输入信息；信息不足时直接说明需要打开原文确认。"
+                "grounding 不是禁止总结，而是禁止编造：允许基于 title、abstract、full text 或 README 做忠实中文归纳。"
+                "禁止复制或截断英文 abstract；即使 grounding_level 是 abstract_only，也必须用中文概括。"
+                "只基于 allowed_evidence 中真实出现的信息；信息不足时直接说明“方法细节未在摘要中充分展开”，最多在末尾补一句“细节需读原文确认”。"
+                "如果写出具体数字、模型名、数据集名或 benchmark 结果，它必须能在 allowed_evidence 中逐字找到。"
+                "grounding_level 为 title_only 或 abstract_only 时，不得扩展实验结论、系统细节或未给出的因果解释。"
                 "避免模板化表达，不要按来源类型写泛泛的跟踪价值判断。"
+                "不要反复使用空泛的免责句；只在确实缺信息时简短提示。"
                 "返回严格 JSON，字段必须且只能包含："
                 "what_is_it, problem, method_or_contribution, why_important, deep_read, suggested_action。"
-                "suggested_action 只能是 read_pdf、skim、save、reproduce、ignore 之一。"
+                "suggested_action 只能是 read_pdf、skim、watch、save、use_as_eval、clone_and_run、study_code、use_as_baseline、read_readme、archive、ignore 之一。"
                 "每个字段 1-2 句，尽量指出具体方法名、任务、数据、系统或实验线索。"
             ),
         },
@@ -227,7 +413,7 @@ def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
                 "temperature": 0.2,
                 "response_format": {"type": "json_object"},
             },
-            timeout=45,
+            timeout=openai_timeout_seconds(),
         )
         response.raise_for_status()
         parsed = json.loads(response.json()["choices"][0]["message"]["content"])
@@ -239,8 +425,22 @@ def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def summarize_item(item: dict[str, Any]) -> dict[str, Any]:
-    if openai_enabled():
+    global LLM_SUMMARY_CALLS
+    
+    if ensemble_enabled():
+        ensemble_model = get_ensemble_model()
+        if ensemble_model:
+            try:
+                result = ensemble_model.summarize(item)
+                if result:
+                    return normalize_summary(result, item)
+            except Exception as e:
+                print(f"Ensemble model error: {e}")
+    
+    if openai_enabled() and LLM_SUMMARY_CALLS < openai_summary_budget():
+        LLM_SUMMARY_CALLS += 1
         return normalize_summary(summarize_with_openai(item), item)
+    
     return fallback_summary(item)
 
 
@@ -263,16 +463,20 @@ def item_block(item: dict[str, Any], idx: int) -> str:
     kind = source.get("kind", "primary")
     published = item.get("published_at") or "未知"
     keywords = "、".join(item.get("matched_keywords", [])[:10]) or "无明显关键词"
-    focus = "、".join(item.get("matched_focus_areas", [])[:5]) or item.get("primary_section", {}).get("title", "未分类")
+    primary = item.get("primary_category") or item.get("primary_section", {})
+    focus = section_display_name(primary.get("id", ""), primary.get("title", "未分类"))
+    secondary_tags = "、".join(str(tag.get("title") or tag.get("id")) for tag in item.get("secondary_tags", [])[:8] if isinstance(tag, dict)) or "无"
     duplicate_names = sorted({s.get("name", "") for s in item.get("duplicate_sources", []) if s.get("name")})
     duplicate_text = "、".join(duplicate_names[:5]) if len(duplicate_names) > 1 else ""
     summary = summarize_item(item)
+    tier_caption = "行动标签" if is_repository_item(item) else "阅读层级"
 
     lines = [
         f"##### {idx}. [{item.get('title')}]({item.get('url')})",
-        f"- 阅读层级：{TIER_LABELS.get(item.get('reading_tier'), item.get('reading_tier', 'ARCHIVE'))}",
+        f"- {tier_caption}：{TIER_LABELS.get(item.get('reading_tier'), item.get('reading_tier', 'ARCHIVE'))}",
         f"- 来源：{source.get('name', '未知')}",
         f"- 来源类型：{KIND_LABELS.get(kind, kind)}",
+        f"- 证据来源：{grounding_label(item)}",
         f"- 原文链接：{item.get('url')}",
         f"- 发布时间：{published}",
         f"- 这是什么？{summary.get('what_is_it', '').strip()}",
@@ -283,6 +487,7 @@ def item_block(item: dict[str, Any], idx: int) -> str:
         f"- 建议行动：{summary.get('suggested_action', choose_action(item)).strip()}",
         f"- 评分：{score_line(item)}",
         f"- 命中方向：{focus}",
+        f"- 相关标签：{secondary_tags}",
         f"- 命中关键词：{keywords}",
     ]
     if item.get("is_open_source_project"):
@@ -304,7 +509,7 @@ def compact_item(item: dict[str, Any]) -> str:
     tier = item.get("reading_tier", "ARCHIVE")
     return (
         f"- [{item.get('title')}]({item.get('url')})"
-        f"（{tier}，{section}，personal {scores.get('personal_score', 0):.2f}，global {scores.get('global_score', 0):.2f}）"
+        f"（{tier}，{section}，证据 {grounding_label(item)}，personal {scores.get('personal_score', 0):.2f}，global {scores.get('global_score', 0):.2f}）"
     )
 
 
@@ -332,10 +537,10 @@ def score_rank(item: dict[str, Any]) -> tuple[float, float, float]:
     )
 
 
-def render_archive_titles(items: list[dict[str, Any]], limit: int = 8) -> list[str]:
+def render_archive_titles(items: list[dict[str, Any]], limit: int = 8, label: str = "归档候选") -> list[str]:
     if not items:
         return []
-    lines = ["", "归档候选："]
+    lines = ["", f"{label}："]
     for item in sorted(items, key=score_rank, reverse=True)[:limit]:
         lines.append(compact_item(item))
     return lines
@@ -354,6 +559,7 @@ def render_research_group(title: str, sections: list[dict[str, Any]]) -> list[st
         )
         must_items = [item for item in items if item.get("reading_tier") == "MUST_READ"]
         skim_items = [item for item in items if item.get("reading_tier") == "SKIM"]
+        watch_items = [item for item in items if item.get("reading_tier") == "WATCH"]
         archive_items = [item for item in items if item.get("reading_tier") == "ARCHIVE"]
 
         lines.append("")
@@ -368,15 +574,16 @@ def render_research_group(title: str, sections: list[dict[str, Any]]) -> list[st
                     lines.append("")
             else:
                 lines.append("- 今日没有 MUST_READ / SKIM 条目。")
+            lines.extend(render_archive_titles(watch_items, limit=6, label="WATCH 跟踪"))
             lines.extend(render_archive_titles(archive_items))
             continue
 
         if group in {"traditional_ai", "traditional_fields"}:
-            shown_items = (must_items + skim_items + archive_items)[:2]
+            shown_items = (must_items + skim_items + watch_items + archive_items)[:2]
         elif group == "other" or section_id == "highlights":
-            shown_items = (must_items + skim_items + archive_items)[:5]
+            shown_items = (must_items + skim_items + watch_items + archive_items)[:5]
         else:
-            shown_items = must_items + skim_items + archive_items
+            shown_items = must_items + skim_items + watch_items + archive_items
 
         if shown_items:
             for idx, item in enumerate(shown_items, 1):
@@ -447,9 +654,15 @@ def render_classics(classics: list[dict[str, Any]]) -> list[str]:
                 f"- topic_tags：{topic_tags or '未标注'}",
                 f"- 关联方向：{related_sections}",
                 f"- 为什么经典：{paper.get('why_classic') or paper.get('why_now')}",
-                f"- 它和今日新论文的连接：{paper.get('modern_connection', '今天没有足够明确的新论文连接；作为基础脉络复习。')}",
             ]
         )
+        concept = paper.get("concept_connection") or {}
+        if concept:
+            lines.append(f"- 今日新论文继承了什么问题：{concept.get('inherits', '需要打开今日论文确认。')}")
+            lines.append(f"- 它挑战了什么经典假设：{concept.get('challenges', '需要打开今日论文确认。')}")
+            lines.append(f"- 它推进到什么新场景：{concept.get('extends', '需要打开今日论文确认。')}")
+        else:
+            lines.append(f"- 它和今日新论文的概念连接：{paper.get('modern_connection', '今天没有足够明确的新论文连接；作为基础脉络复习。')}")
         if paper.get("prerequisite"):
             lines.append(f"- 预备知识：{paper.get('prerequisite')}")
         related_today = paper.get("related_today", [])
@@ -509,20 +722,235 @@ def render_primary_section(processed: dict[str, Any], section_ids: list[str]) ->
     return {
         "must_read": render_full_items(items_by_tier(items, "MUST_READ"), limit=1),
         "skim": render_full_items(items_by_tier(items, "SKIM"), limit=2),
+        "watch": render_compact_items(items_by_tier(items, "WATCH"), limit=3),
         "archive": render_compact_items(items_by_tier(items, "ARCHIVE"), limit=8),
     }
 
 
 def render_traditional_section(processed: dict[str, Any], section_id: str) -> str:
     items = items_for_section(processed, [section_id])
-    shown = items_by_tier(items, "MUST_READ") + items_by_tier(items, "SKIM") + items_by_tier(items, "ARCHIVE")
+    shown = items_by_tier(items, "MUST_READ") + items_by_tier(items, "SKIM") + items_by_tier(items, "WATCH") + items_by_tier(items, "ARCHIVE")
     return render_compact_items(shown, limit=2, empty="- 今日无明显条目。")
+
+
+def has_official_or_multi_source_signal(item: dict[str, Any]) -> bool:
+    source = item.get("source", {})
+    text = " ".join(
+        [
+            str(source.get("id", "")),
+            str(source.get("name", "")),
+            str(source.get("url", "")),
+            str(item.get("url", "")),
+        ]
+    ).lower()
+    official = any(
+        token in text
+        for token in [
+            "openai",
+            "anthropic",
+            "deepmind",
+            "google",
+            "meta",
+            "microsoft",
+            "nvidia",
+            "apple",
+            "stanford",
+            "mit",
+            "berkeley",
+            "neurips",
+            "icml",
+            "iclr",
+            "thecvf",
+        ]
+    )
+    return official or len(item.get("duplicate_sources", []) or []) > 1 or item.get("is_open_source_project")
+
+
+def is_strict_other_highlight(item: dict[str, Any]) -> bool:
+    scores = item.get("scores", {})
+    source_type = str(item.get("source", {}).get("type", "")).lower()
+    plain_arxiv = source_type in {"arxiv", "hf_daily_papers", "hf_papers_page"}
+    strong_signal = (
+        has_official_or_multi_source_signal(item)
+        or scores.get("community_signal", 0) >= 0.25
+        or scores.get("actionability", 0) >= 0.72
+    )
+    if plain_arxiv and not strong_signal:
+        return False
+    return (
+        scores.get("global_score", 0) >= 0.78
+        and scores.get("credibility", 0) >= 0.75
+        and scores.get("evidence_strength", 0) >= 0.65
+        and strong_signal
+    )
 
 
 def render_other_section(processed: dict[str, Any], section_ids: list[str], *, limit: int = 5) -> str:
     items = items_for_section(processed, section_ids)
-    shown = items_by_tier(items, "MUST_READ") + items_by_tier(items, "SKIM") + items_by_tier(items, "ARCHIVE")
+    if any(section_id in {"highlights", "other_highlights"} for section_id in section_ids):
+        strict = [
+            item
+            for item in items
+            if item.get("reading_tier") in {"MUST_READ", "SKIM", "WATCH"} and is_strict_other_highlight(item)
+        ]
+        other_watch = [
+            item
+            for item in items
+            if item not in strict and item.get("reading_tier") in {"WATCH", "ARCHIVE"}
+        ]
+        lines = [render_full_items(strict, limit=limit, empty="- 今日没有达到高影响阈值的 Other Highlights。")]
+        if other_watch:
+            lines.append("")
+            lines.append("Other Watch / Archive：")
+            lines.append(render_compact_items(other_watch, limit=8))
+        return "\n".join(lines)
+    shown = items_by_tier(items, "MUST_READ") + items_by_tier(items, "SKIM") + items_by_tier(items, "WATCH") + items_by_tier(items, "ARCHIVE")
     return render_full_items(shown, limit=limit, empty="- 今日无明显条目。")
+
+
+def benchmark_ability(item: dict[str, Any]) -> str:
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    if "workflow fidelity" in text or "payment" in text:
+        return "评估 LLM agent 在真实/拟真 workflow 中是否按预期完成轨迹与关键步骤。"
+    if "video action" in text or "viddiff" in text:
+        return "评估多模态模型区分同一动作视频之间细粒度语义差异的能力。"
+    if "spatialepi" in text or "epidemic" in text:
+        return "评估时空流行病预测中空间信息、流行病先验和滚动预测协议的有效性。"
+    if "medarabench" in text or "arabic medical" in text:
+        return "评估阿拉伯语医学多项选择问答与多语言医学能力。"
+    if "agent" in text or "planning" in text:
+        return "评估 agent 规划、执行或环境交互能力。"
+    if "dataset" in text or "benchmark" in text or "evaluation" in text:
+        return "评估摘要中描述的任务能力；具体指标需打开原文确认。"
+    return "标题信号不足，需打开原文确认评估对象。"
+
+
+def benchmark_fit(item: dict[str, Any]) -> str:
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    if "workflow fidelity" in text or "payment" in text:
+        return "适合用于 agent evaluation、long-horizon workflow、轨迹保真度和安全执行研究。"
+    if "video action" in text or "viddiff" in text:
+        return "适合用于 VLM/视频理解中的细粒度动作差异评测，不是当前四条主线的核心实验。"
+    if "spatialepi" in text or "epidemic" in text:
+        return "适合用于 AI for science、时空预测和科学 benchmark 设计参考。"
+    if "medarabench" in text or "arabic medical" in text:
+        return "适合用于多语言医学 QA、低资源语言评测和领域安全性测试。"
+    if any(term in text for term in ["agent", "planning", "memory", "long context", "safety"]):
+        return "适合用于 agent evaluation / memory / long-horizon planning 相关实验。"
+    if any(term in text for term in ["domain generalization", "multimodal"]):
+        return "适合用于多模态泛化或跨域评测设计参考。"
+    return "适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。"
+
+
+def benchmark_baseline_use(item: dict[str, Any]) -> str:
+    action = benchmark_action(item)
+    if action == "use_as_eval":
+        return "可以优先评估是否作为实验基准。"
+    if action in {"skim", "save"}:
+        return "暂不作为核心基准，先保存评测协议和指标设计。"
+    return "不建议作为当前实验基准。"
+
+
+def benchmark_layer(item: dict[str, Any]) -> str:
+    text = f"{item.get('title', '')} {item.get('summary', '')}".lower()
+    scores = item.get("scores", {})
+    core_terms = [
+        "agent",
+        "workflow",
+        "planning",
+        "long-horizon",
+        "long horizon",
+        "memory",
+        "safety",
+        "ood",
+        "open-world",
+        "distillation",
+        "compression",
+    ]
+    if any(term in text for term in core_terms) and (
+        scores.get("personal_score", 0) >= 0.62 or scores.get("research_relevance", 0) >= 0.65
+    ):
+        return "core"
+    if scores.get("global_score", 0) >= 0.62 or scores.get("actionability", 0) >= 0.55:
+        return "interesting"
+    return "other"
+
+
+def benchmark_block(item: dict[str, Any], idx: int) -> str:
+    source = item.get("source", {})
+    tier = item.get("reading_tier", "ARCHIVE")
+    action = benchmark_action(item)
+    return "\n".join(
+        [
+            f"##### {idx}. [{item.get('title')}]({item.get('url')})",
+            f"- 阅读层级：{tier}",
+            f"- 来源：{source.get('name', '未知')}",
+            f"- 证据来源：{grounding_label(item)}",
+            f"- benchmark 评估什么能力：{benchmark_ability(item)}",
+            f"- 适合用于什么研究：{benchmark_fit(item)}",
+            f"- 可否作为实验基准：{benchmark_baseline_use(item)}",
+            f"- 建议行动：{action}",
+        ]
+    )
+
+
+def benchmark_items(processed: dict[str, Any]) -> list[dict[str, Any]]:
+    items = items_for_section(processed, ["benchmark_evaluation"])
+    shown = items_by_tier(items, "MUST_READ") + items_by_tier(items, "SKIM") + items_by_tier(items, "WATCH") + items_by_tier(items, "ARCHIVE")
+    return shown
+
+
+def benchmark_appendix_path(report_date: str) -> Path:
+    return Path("reports") / "appendix" / f"{report_date}-benchmarks.md"
+
+
+def write_benchmark_appendix(processed: dict[str, Any], report_date: str) -> str:
+    other = [item for item in benchmark_items(processed) if benchmark_layer(item) == "other"]
+    if not other:
+        return ""
+    path = benchmark_appendix_path(report_date)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        f"# Other Benchmarks - {report_date}",
+        "",
+        "以下条目只列标题，未在日报正文展开。",
+        "",
+    ]
+    for item in other:
+        lines.append(compact_item(item))
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return str(path).replace("\\", "/")
+
+
+def render_benchmark_section(processed: dict[str, Any], *, report_date: str, limit: int | None = None) -> str:
+    shown = benchmark_items(processed)
+    if not shown:
+        return "- 今日无明显 benchmark / dataset / evaluation 条目。"
+    core = [item for item in shown if benchmark_layer(item) == "core"][:5]
+    interesting = [item for item in shown if benchmark_layer(item) == "interesting"][:5]
+    other = [item for item in shown if benchmark_layer(item) == "other"]
+    if limit is not None:
+        core = core[:limit]
+        interesting = interesting[: max(0, limit - len(core))]
+    lines: list[str] = ["### Core Benchmarks for My Research"]
+    lines.append(
+        "\n\n".join(benchmark_block(item, idx) for idx, item in enumerate(core, 1))
+        if core
+        else "- 今日没有核心 benchmark。"
+    )
+    lines.extend(["", "### Interesting Benchmarks"])
+    lines.append(
+        "\n\n".join(benchmark_block(item, idx) for idx, item in enumerate(interesting, 1))
+        if interesting
+        else "- 今日没有额外值得展开的 benchmark。"
+    )
+    lines.extend(["", "### Other Benchmarks"])
+    appendix = benchmark_appendix_path(report_date)
+    if other:
+        lines.append(f"- 其余 {len(other)} 个只进入附录标题列表：{str(appendix).replace(chr(92), '/')}")
+    else:
+        lines.append("- 无。")
+    return "\n".join(lines)
 
 
 def source_count(processed: dict[str, Any]) -> int:
@@ -557,11 +985,14 @@ def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
     items = processed.get("items", [])
     must = [item for item in items if item.get("reading_tier") == "MUST_READ"]
     skim = [item for item in items if item.get("reading_tier") == "SKIM"]
+    watch = [item for item in items if item.get("reading_tier") == "WATCH"]
+    watch_display = sorted(watch, key=score_rank, reverse=True)[:12]
     tracked = must + skim
     section_counter = Counter(section_title_from_item(item) for item in tracked or items[:20])
     direction = section_counter.most_common(1)[0][0] if section_counter else "今日信号分散"
     must_titles = "；".join(item.get("title", "") for item in must[:3])
     skim_titles = "；".join(item.get("title", "") for item in skim[:5])
+    watch_titles = "；".join(item.get("title", "") for item in watch_display[:5])
     keywords = top_keywords(tracked or items, limit=8)
     if must:
         judgement = f"今天优先围绕“{direction}”深读，先处理 MUST_READ，再把 SKIM 中与当前课题直接相关的条目升级。"
@@ -575,6 +1006,8 @@ def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
         "must_read_titles": must_titles,
         "skim_count": len(skim),
         "skim_titles": skim_titles,
+        "watch_count": len(watch_display),
+        "watch_titles": watch_titles,
         "keywords": keywords,
         "judgement": judgement,
     }
@@ -582,7 +1015,7 @@ def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
 
 def reading_purpose(item: dict[str, Any]) -> str:
     section_id = item.get("primary_section", {}).get("id", "")
-    if section_id in {"context_compression", "context_memory"}:
+    if section_id in {"context_compression_memory", "context_compression", "context_memory"}:
         return "判断其长上下文、记忆或压缩机制是否能迁移到你的研究主线。"
     if section_id == "agents":
         return "提取 Agent 任务设定、工具使用方式、规划机制和评测指标。"
@@ -609,7 +1042,7 @@ def render_classic_revisit(classics: list[dict[str, Any]]) -> str:
     if not classics:
         return "- 今日没有足够明确的主题连接，暂不推荐经典论文。"
     lines: list[str] = []
-    for idx, paper in enumerate(classics[:2], 1):
+    for idx, paper in enumerate(classics[:3], 1):
         related_sections = "、".join(paper.get("related_sections", [])) or "相关方向"
         authors = "、".join(str(author) for author in paper.get("authors", [])[:8])
         if len(paper.get("authors", [])) > 8:
@@ -620,7 +1053,13 @@ def render_classic_revisit(classics: list[dict[str, Any]]) -> str:
         lines.append(f"- topic_tags：{topic_tags or '未标注'}")
         lines.append(f"- 关联方向：{related_sections}")
         lines.append(f"- 为什么经典：{paper.get('why_classic') or paper.get('why_now')}")
-        lines.append(f"- 它和今日新论文的连接：{paper.get('modern_connection', '今天没有足够明确的新论文连接；作为基础脉络复习。')}")
+        concept = paper.get("concept_connection") or {}
+        if concept:
+            lines.append(f"- 今日新论文继承了什么问题：{concept.get('inherits', '需要打开今日论文确认。')}")
+            lines.append(f"- 它挑战了什么经典假设：{concept.get('challenges', '需要打开今日论文确认。')}")
+            lines.append(f"- 它推进到什么新场景：{concept.get('extends', '需要打开今日论文确认。')}")
+        else:
+            lines.append(f"- 它和今日新论文的概念连接：{paper.get('modern_connection', '今天没有足够明确的新论文连接；作为基础脉络复习。')}")
         if paper.get("prerequisite"):
             lines.append(f"- 预备知识：{paper.get('prerequisite')}")
         related_today = paper.get("related_today", [])
@@ -647,11 +1086,12 @@ def previous_report_link(report_date: str) -> str:
 def build_template_context(processed: dict[str, Any], report_date: str, report_path: Path) -> dict[str, Any]:
     items = processed.get("items", [])
     collection_time = processed.get("generated_at") or datetime.now().isoformat(timespec="seconds")
+    benchmark_appendix = write_benchmark_appendix(processed, report_date)
     return {
         "report_date": report_date,
         "overview": build_overview(processed),
         "primary": {
-            "context_compression": render_primary_section(processed, ["context_compression", "context_memory"]),
+            "context_compression": render_primary_section(processed, ["context_compression_memory", "context_compression", "context_memory"]),
             "agents": render_primary_section(processed, ["agents"]),
             "open_world_learning": render_primary_section(processed, ["open_world_learning", "open_world"]),
             "model_distillation": render_primary_section(processed, ["model_distillation", "distillation_efficiency"]),
@@ -664,6 +1104,7 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "learning_methods": render_traditional_section(processed, "learning_methods"),
         },
         "other_highlights": render_other_section(processed, ["highlights", "other_highlights"], limit=5),
+        "benchmark_evaluation": render_benchmark_section(processed, report_date=report_date),
         "github_projects": render_full_items(processed.get("github_projects", []), limit=5, empty="- 今日没有进入正文的开源项目候选。"),
         "institutional_updates": render_other_section(processed, ["institutional_updates"], limit=5),
         "classic_revisit": render_classic_revisit(processed.get("classic_revisit", [])),
@@ -675,6 +1116,7 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "dedup_count": processed.get("counts", {}).get("deduped", 0),
             "summary_mode": "LLM summary mode" if openai_enabled() else "local summary mode",
             "local_summary_notice": "" if openai_enabled() else "当前为本地摘要模式，解释质量有限",
+            "benchmark_appendix": benchmark_appendix,
             "report_path": str(report_path).replace("\\", "/"),
             "previous_report_link": previous_report_link(report_date),
         },

@@ -6,7 +6,7 @@ classification:
   fallback_section: highlights
 
 sections:
-  - id: context_compression
+  - id: context_compression_memory
     title: Context Compression / Long Context / Memory
     group: primary_research
     order: 10
@@ -32,7 +32,7 @@ sections:
       - token efficiency
 
   - id: agents
-    title: LLM Agents / Tool Use / Planning / Multi-Agent
+    title: Agent / Reasoning / Inference-time Scaling / Planning
     group: primary_research
     order: 20
     weight: 1.2
@@ -43,6 +43,10 @@ sections:
       - tool use
       - function calling
       - planning
+      - reasoning
+      - parallel reasoning
+      - inference-time scaling
+      - test-time scaling
       - multi-agent
       - workflow
       - web agent
@@ -50,10 +54,11 @@ sections:
       - computer use
       - recursive agent
       - agentic RL
+      - agent evaluation
       - long-horizon
+      - long horizon
       - trajectory
       - environment
-      - benchmark
       - self-evolving agent
       - skill learning
       - memory agent
@@ -93,6 +98,9 @@ sections:
       - consistency distillation
       - diffusion distillation
       - DMD
+      - DINOv3 distillation
+      - ranking consistency
+      - DINORANKCLIP
       - quantization
       - pruning
       - low-rank
@@ -232,6 +240,29 @@ sections:
       - privacy
       - watermark
       - jailbreak
+
+  - id: benchmark_evaluation
+    title: Benchmark / Dataset / Evaluation
+    group: other
+    order: 205
+    weight: 0.95
+    terms:
+      - benchmark
+      - dataset
+      - evaluation
+      - eval
+      - leaderboard
+      - question answering dataset
+      - workflow fidelity
+      - agent benchmark
+      - safety benchmark
+      - medical question answering
+      - video action
+      - spatial epidemiology
+      - payment workflow
+      - test set
+      - annotation
+      - metrics
 
   - id: github_projects
     title: GitHub / Open Source Projects
