@@ -117,6 +117,14 @@ def ensemble_enabled() -> bool:
     return os.getenv("MODEL_MODE") == "ensemble"
 
 
+def _replace_env_var(value: str) -> str:
+    """替换字符串中的环境变量引用 ${VAR_NAME}"""
+    if isinstance(value, str) and value.startswith("${") and value.endswith("}"):
+        env_var = value[2:-1]
+        return os.getenv(env_var, value)
+    return value
+
+
 def load_model_config() -> dict[str, Any]:
     config_path = Path("config") / "models.yaml"
     if not config_path.exists():
@@ -126,10 +134,14 @@ def load_model_config() -> dict[str, Any]:
         config = yaml.safe_load(f)
     
     for model in config.get("models", []):
-        api_key_env = model.get("api_key", "").strip()
-        if api_key_env.startswith("${") and api_key_env.endswith("}"):
-            env_var = api_key_env[2:-1]
-            model["api_key"] = os.getenv(env_var, "")
+        for key in ["api_key", "base_url", "model"]:
+            if key in model:
+                model[key] = _replace_env_var(model[key])
+    
+    editor_config = config.get("editor", {})
+    for key in ["api_key", "base_url", "model"]:
+        if key in editor_config:
+            editor_config[key] = _replace_env_var(editor_config[key])
     
     return config
 
