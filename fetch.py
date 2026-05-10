@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import logging
@@ -298,22 +299,98 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
     pushed_after = (datetime.now(timezone.utc) - timedelta(days=pushed_after_days)).strftime("%Y-%m-%d")
     per_query = int(source.get("max_items_per_query", 5))
 
-    def readme_excerpt(full_name: str) -> str:
+    def decode_readme_response(response: requests.Response) -> str:
+        try:
+            payload = response.json()
+        except ValueError:
+            return response.text
+        content = payload.get("content", "")
+        if payload.get("encoding") == "base64" and content:
+            try:
+                return base64.b64decode(content).decode("utf-8", errors="replace")
+            except (ValueError, TypeError):
+                return ""
+        return str(content or response.text)
+
+    def readme_text(full_name: str, default_branch: str = "main") -> str:
         if not full_name:
             return ""
-        readme_headers = {**headers, "Accept": "application/vnd.github.raw"}
+        readme_headers = {**headers, "Accept": "application/vnd.github.raw+json"}
         try:
             response = http.get(
                 f"https://api.github.com/repos/{full_name}/readme",
                 headers=readme_headers,
                 timeout=source.get("timeout", DEFAULT_TIMEOUT),
             )
-            if response.status_code != 200:
-                return ""
-            text = normalize_space(response.text)
-            return text[:1800]
+            if response.status_code == 200:
+                return decode_readme_response(response)
         except requests.RequestException:
-            return ""
+            pass
+
+        for filename in ["README.md", "Readme.md", "readme.md", "README.rst", "README"]:
+            try:
+                response = http.get(
+                    f"https://raw.githubusercontent.com/{full_name}/{default_branch}/{filename}",
+                    timeout=source.get("timeout", DEFAULT_TIMEOUT),
+                )
+                if response.status_code == 200 and response.text.strip():
+                    return response.text
+            except requests.RequestException:
+                continue
+        return ""
+
+    def repo_root_names(full_name: str, default_branch: str = "main") -> set[str]:
+        if not full_name:
+            return set()
+        try:
+            response = http.get(
+                f"https://api.github.com/repos/{full_name}/contents",
+                params={"ref": default_branch},
+                headers=headers,
+                timeout=source.get("timeout", DEFAULT_TIMEOUT),
+            )
+            if response.status_code != 200:
+                return set()
+            payload = response.json()
+        except (requests.RequestException, ValueError):
+            return set()
+        if not isinstance(payload, list):
+            return set()
+        return {str(entry.get("name", "")).lower() for entry in payload if isinstance(entry, dict)}
+
+    def summarize_readme(text: str, limit: int = 900) -> str:
+        lines: list[str] = []
+        in_code = False
+        for raw_line in text.splitlines():
+            line = raw_line.strip()
+            if line.startswith("```"):
+                in_code = not in_code
+                continue
+            if in_code or not line:
+                continue
+            if line.startswith(("#", "!", "[!", "<", "|", "---")):
+                continue
+            line = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", line)
+            line = re.sub(r"`([^`]+)`", r"\1", line)
+            line = normalize_space(line)
+            if len(line) >= 24:
+                lines.append(line)
+            if len(" ".join(lines)) >= limit:
+                break
+        summary = normalize_space(" ".join(lines))
+        return summary[:limit].rstrip()
+
+    def first_paper_link(text: str) -> str:
+        pattern = re.compile(
+            r"https?://(?:arxiv\.org/(?:abs|pdf)/[^\s)\]]+|openreview\.net/forum\?id=[^\s)\]]+|doi\.org/[^\s)\]]+|aclanthology\.org/[^\s)\]]+|proceedings\.mlr\.press/[^\s)\]]+)",
+            re.IGNORECASE,
+        )
+        match = pattern.search(text)
+        return match.group(0).rstrip(".,;") if match else ""
+
+    def has_readme_signal(readme: str, root_names: set[str], terms: set[str]) -> bool:
+        text = readme.lower()
+        return bool(root_names.intersection(terms) or any(term in text for term in terms))
 
     for query in source.get("queries", []):
         q = str(query)
@@ -337,13 +414,35 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
             seen.add(url)
             topics = repo.get("topics") or []
             full_name = repo.get("full_name") or repo.get("name") or ""
+            default_branch = repo.get("default_branch") or "main"
             description = repo.get("description") or ""
+            readme = readme_text(full_name, default_branch)
+            readme_summary = summarize_readme(readme)
+            root_names = repo_root_names(full_name, default_branch)
+            license_payload = repo.get("license") or {}
+            license_name = (
+                license_payload.get("spdx_id")
+                if license_payload.get("spdx_id") and license_payload.get("spdx_id") != "NOASSERTION"
+                else license_payload.get("name")
+            ) or ""
+            last_updated = repo.get("updated_at") or repo.get("pushed_at") or ""
+            has_examples = has_readme_signal(
+                readme,
+                root_names,
+                {"examples", "example", "demo", "demos", "notebooks", "tutorials", "quickstart", "usage"},
+            )
+            has_docs = has_readme_signal(
+                readme,
+                root_names,
+                {"docs", "doc", "documentation", "readthedocs", "api reference"},
+            )
+            paper_link = first_paper_link(f"{description}\n{readme}")
             summary_bits = [
                 description,
+                readme_summary,
                 f"Stars: {repo.get('stargazers_count', 0)}",
                 f"Language: {repo.get('language') or 'Unknown'}",
             ]
-            readme = readme_excerpt(full_name)
             item = make_item(
                 source=source,
                 title=full_name,
@@ -358,10 +457,19 @@ def fetch_github_search_source(source: dict[str, Any], http: requests.Session) -
                     "open_issues": repo.get("open_issues_count", 0),
                     "language": repo.get("language"),
                     "pushed_at": repo.get("pushed_at"),
+                    "last_updated": last_updated,
                 },
                 metadata={
+                    "repo_description": description,
                     "github_description": description,
-                    "repo_readme_summary": readme,
+                    "repo_readme_summary": readme_summary,
+                    "readme_excerpt": normalize_space(readme)[:1800],
+                    "license": license_name,
+                    "has_examples": has_examples,
+                    "has_docs": has_docs,
+                    "paper_link": paper_link,
+                    "last_updated": last_updated,
+                    "default_branch": default_branch,
                     "topics": topics,
                 },
             )

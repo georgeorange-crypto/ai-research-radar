@@ -15,6 +15,8 @@ import requests
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+from md_to_html import archive_report_with_timestamp, generate_html_report
+
 LLM_SUMMARY_CALLS = 0
 
 
@@ -242,18 +244,22 @@ def apply_action_constraints(action: str, item: dict[str, Any]) -> str:
     应用 suggested_action 的硬约束：
     
     1. 如果 reading_tier 是 WATCH 或 ARCHIVE，则 suggested_action 不得为 read_pdf
-    2. 如果 is_open_source_project=true，则 suggested_action 只能是：
+    2. 如果 reading_tier 是 SKIM，则 suggested_action 不得为 read_pdf（除非 explicit_override=true）
+    3. 如果 is_open_source_project=true，则 suggested_action 只能是：
        study_code / use_as_baseline / clone_and_run / read_readme / save / archive
-    3. 如果 grounding_level=title_only，则 suggested_action 不得为 read_pdf
-    4. 如果 primary_category 是 GitHub / Open Source Projects，则不得进入今日深读清单
+    4. 如果 grounding_level=title_only，则 suggested_action 不得为 read_pdf
+    5. 如果 primary_category 是 GitHub / Open Source Projects，则不得进入今日深读清单
     """
     tier = item.get("reading_tier", "").upper()
     is_open_source = item.get("is_open_source_project", False)
     ground_level = grounding_level(item)
+    explicit_override = item.get("explicit_override", False)
     
     if action == "read_pdf":
         if tier in {"WATCH", "ARCHIVE"}:
             return "watch" if tier == "WATCH" else "save"
+        if tier == "SKIM" and not explicit_override:
+            return "skim"
         if is_open_source:
             return "read_readme"
         if ground_level == "title_only":
@@ -542,9 +548,23 @@ def item_block(item: dict[str, Any], idx: int) -> str:
         f"- 命中关键词：{keywords}",
     ]
     if item.get("is_open_source_project"):
+        metadata = item.get("metadata", {})
         metrics = item.get("metrics", {})
         if metrics.get("stars") is not None:
-            lines.append(f"- 开源信号：stars {metrics.get('stars', 0)}；forks {metrics.get('forks', 0)}；language {metrics.get('language') or '未知'}")
+            stars = metrics.get("stars", 0)
+            forks = metrics.get("forks", 0)
+            license_info = metadata.get("license", "") or "未知"
+            has_examples = "✅" if metadata.get("has_examples") else "❌"
+            has_docs = "✅" if metadata.get("has_docs") else "❌"
+            paper_link = metadata.get("paper_link", "")
+            readme_summary = metadata.get("repo_readme_summary", "") or metadata.get("readme_excerpt", "")[:300]
+            
+            lines.append(f"- 开源信号：⭐ {stars} | 🍴 {forks} | 📜 {license_info}")
+            lines.append(f"- 示例/文档：示例 {has_examples} | 文档 {has_docs}")
+            if paper_link:
+                lines.append(f"- 关联论文：{paper_link}")
+            if readme_summary:
+                lines.append(f"- README 摘要：{readme_summary[:300]}")
         else:
             lines.append("- 开源信号：标题、摘要或来源中出现代码/开源线索。")
     if item.get("link_quality") == "low":
@@ -1032,6 +1052,54 @@ def section_title_from_item(item: dict[str, Any]) -> str:
     return section_display_name(section.get("id", ""), section.get("title", "未分类"))
 
 
+def _extract_trend_keywords(items: list[dict[str, Any]]) -> list[str]:
+    keywords = []
+    for item in items:
+        title = item.get("title", "").lower()
+        summary = item.get("summary", "").lower()
+        matched_kw = [str(k).lower() for k in item.get("matched_keywords", [])]
+        combined = title + " " + summary + " " + " ".join(matched_kw)
+        if "agent" in combined and ("memory" in combined or "retrieval" in combined or "knowledge" in combined):
+            keywords.append("Agent记忆/检索")
+        if "vlm" in combined or "vision" in combined or "distill" in combined:
+            keywords.append("VLM蒸馏")
+        if "ranking" in combined or "clip" in combined or "dinov" in combined or "dino" in combined:
+            keywords.append("多模态排序")
+        if "reasoning" in combined and ("llm" in combined or "model" in combined):
+            keywords.append("LLM推理")
+        if "fine-tun" in combined or "lora" in combined or "parameter-eff" in combined:
+            keywords.append("参数高效微调")
+        if "long-context" in combined or "context-window" in combined:
+            keywords.append("长上下文")
+        if "reward" in combined and ("model" in combined or "rl" in combined):
+            keywords.append("奖励模型/RL")
+        if "world-model" in combined or "plann" in combined:
+            keywords.append("世界模型/规划")
+        if "multi-agent" in combined or ("multi" in combined and "agent" in combined):
+            keywords.append("多智能体")
+    return keywords
+
+
+def _generate_trend_judgement(must: list[dict[str, Any]], direction: str) -> str:
+    if not must:
+        return "今天没有强制深读项，建议归档观察。"
+    titles = [item.get("title", "") for item in must]
+    trend_keywords = _extract_trend_keywords(must)
+    unique_trends = list(dict.fromkeys(trend_keywords))
+    if len(must) == 1:
+        title = must[0].get("title", "")[:60]
+        return f"今天仅 1 篇 Must Read——{title}。"
+    if unique_trends:
+        if len(unique_trends) == 1:
+            return f"今天的 Must Read 集中在 {unique_trends[0]} 方向。"
+        elif len(unique_trends) == 2:
+            return f"今天的 Must Read 呈现 {unique_trends[0]} 和 {unique_trends[1]} 双重主线。"
+        else:
+            main_trends = "、".join(unique_trends[:3])
+            return f"今天的 Must Read 呈现 {main_trends} 等多个研究方向。"
+    return f"今天 {len(must)} 篇 Must Read，重点关注方向：{direction}。"
+
+
 def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
     items = processed.get("items", [])
     must = [item for item in items if item.get("reading_tier") == "MUST_READ"]
@@ -1045,12 +1113,7 @@ def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
     skim_titles = "；".join(item.get("title", "") for item in skim[:5])
     watch_titles = "；".join(item.get("title", "") for item in watch_display[:5])
     keywords = top_keywords(tracked or items, limit=8)
-    if must:
-        judgement = f"今天优先围绕“{direction}”深读，先处理 MUST_READ，再把 SKIM 中与当前课题直接相关的条目升级。"
-    elif skim:
-        judgement = f"今天没有强制深读项，建议围绕“{direction}”快速扫读，保留可复现或可引用线索。"
-    else:
-        judgement = "今天没有明显高优先级条目，日报主要用于归档和趋势观察。"
+    judgement = _generate_trend_judgement(must, direction)
     return {
         "most_important_direction": direction,
         "must_read_count": len(must),
@@ -1062,6 +1125,7 @@ def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
         "keywords": keywords,
         "judgement": judgement,
     }
+
 
 
 def reading_purpose(item: dict[str, Any]) -> str:
@@ -1225,6 +1289,8 @@ def generate_report(
     *,
     report_date: str | None = None,
     latest_path: str | Path | None = "report.md",
+    archive_latest: bool = True,
+    generate_html: bool = True,
 ) -> str:
     if isinstance(processed, list):
         processed = {
@@ -1242,8 +1308,32 @@ def generate_report(
     rendered = render_daily_template(context)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(rendered, encoding="utf-8")
+
+    # Archive previous latest.md before overwriting
+    if archive_latest and latest_path and Path(latest_path).exists():
+        archive_report_with_timestamp(
+            latest_path,
+            archive_dir="reports/history",
+            suffix="latest",
+        )
+
     if latest_path:
         shutil.copyfile(output_path, latest_path)
+
+    # Auto-generate HTML from the generated Markdown
+    if generate_html:
+        try:
+            html_path = generate_html_report(output_path)
+            print(f"Generated HTML report: {html_path}")
+
+            # Also generate HTML for report.md (root level)
+            if latest_path and Path(latest_path).exists():
+                root_html_path = Path("report.html")
+                generate_html_report(latest_path, root_html_path)
+                print(f"Generated root HTML report: {root_html_path}")
+        except Exception as e:
+            print(f"HTML generation warning: {e}")
+
     return rendered
 
 

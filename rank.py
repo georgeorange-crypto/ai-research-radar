@@ -52,7 +52,7 @@ MUST_READ_LIMIT = 3
 SKIM_LIMIT = 8
 
 PAPER_TIERS = {"MUST_READ", "SKIM", "WATCH", "ARCHIVE", "IGNORE"}
-GITHUB_ACTIONS = {"clone_and_run", "study_code", "use_as_baseline", "read_readme", "save", "archive"}
+GITHUB_ACTIONS = {"study_code", "use_as_baseline", "read_readme", "save"}
 CONTEXT_SECTION_IDS = {"context_compression_memory", "context_compression", "context_memory"}
 MAINLINE_SECTION_IDS = {"context_compression_memory", "context_compression", "agents", "open_world_learning", "model_distillation"}
 GROUNDING_LEVELS = {"title_only", "abstract_only", "full_text", "repo_readme"}
@@ -1429,7 +1429,7 @@ def github_project_action(item: dict[str, Any]) -> str:
     if any(term in text for term in ["model-optimizer", "model optimizer", "quantization", "pruning", "compression", "optimizer"]):
         return "study_code" if stars >= 500 or "library" in text or "toolkit" in text else "save"
     if stars >= 5000 and any(term in text for term in ["demo", "examples", "benchmark", "inference", "training"]):
-        return "clone_and_run"
+        return "study_code"
     if primary_id in {"model_distillation", *CONTEXT_SECTION_IDS} or any(term in text for term in ["baseline", "evaluation suite", "benchmark suite"]):
         return "use_as_baseline"
     if stars >= 1000 or any(term in text for term in ["framework", "library", "toolkit"]):
@@ -1439,7 +1439,7 @@ def github_project_action(item: dict[str, Any]) -> str:
     if scores := item.get("scores", {}):
         if scores.get("actionability", 0) >= 0.55:
             return "save"
-    return "archive"
+    return "save"
 
 
 def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
@@ -1572,12 +1572,10 @@ def build_section_payloads(items: list[dict[str, Any]], config: dict[str, Any]) 
 
 def select_github_projects(items: list[dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
     action_rank = {
-        "clone_and_run": 6,
         "use_as_baseline": 5,
         "study_code": 4,
         "read_readme": 3,
         "save": 2,
-        "archive": 1,
     }
     projects = [item for item in items if item.get("reading_tier") != "IGNORE" and is_repository_item(item)]
     projects.sort(
@@ -1679,7 +1677,34 @@ def classic_relation_score(paper: dict[str, Any], item: dict[str, Any]) -> tuple
     section_bonus = 2.5 * len(normalized_topic_tags(paper).intersection({item_primary_topic(item)}))
     keyword_bonus = 0.75 * len(set(terms).intersection(related_modern_keywords(paper)))
     item_bonus = item.get("scores", {}).get("personal_score", 0.0)
-    return section_bonus + keyword_bonus + item_bonus, terms
+    specific_bonus = classic_specific_bonus(paper, item, terms)
+    return section_bonus + keyword_bonus + item_bonus + specific_bonus, terms
+
+
+def classic_specific_bonus(paper: dict[str, Any], item: dict[str, Any], terms: list[str]) -> float:
+    item_text_value = item_text(item)
+    paper_text = " ".join(
+        [
+            normalize_title(str(paper.get("title", ""))),
+            normalize_title(str(paper.get("bibtex", ""))),
+            " ".join(related_modern_keywords(paper)),
+        ]
+    )
+    if "dinorankclip" in item_text_value:
+        if "rankclip" in paper_text:
+            return 4.0
+        if "clip" in paper_text and "rankclip" not in paper_text:
+            return 3.4
+        if "dino" in paper_text:
+            return 3.2
+        if "knowledge distillation" in paper_text or "distilling" in paper_text:
+            return 3.0
+        if "lora" in paper_text or "low rank" in paper_text:
+            return -2.0
+    if any(term in {"knowledge distillation", "distillation", "teacher student"} for term in terms):
+        if "lora" in paper_text or "low rank" in paper_text:
+            return -0.8
+    return 0.0
 
 
 def parse_report_date(report_date: str | None) -> datetime:

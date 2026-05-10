@@ -16,6 +16,7 @@ except ImportError:
 
 from archive import generate_index, generate_monthly_report, month_id
 from fetch import configure_logging, fetch_all, save_jsonl
+from md_to_html import archive_report_with_timestamp
 from rank import process_items, save_json
 from summarize import generate_report
 from weekly import generate_weekly_report, week_id
@@ -84,13 +85,22 @@ def main() -> int:
     )
     save_json(processed_path, processed)
 
+    # Archive previous report.md before overwriting
+    root_md_path = Path("report.md")
+    if root_md_path.exists():
+        archive_report_with_timestamp(
+            root_md_path,
+            archive_dir="reports/history",
+            suffix="root",
+        )
+
     rendered = generate_report(
         processed,
         report_path,
         report_date=report_date,
         latest_path=latest_path,
     )
-    shutil.copyfile(report_path, "report.md")
+    shutil.copyfile(report_path, root_md_path)
 
     if QUALITY_ENABLED and not args.skip_quality:
         try:
