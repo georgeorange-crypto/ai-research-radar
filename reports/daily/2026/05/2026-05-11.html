@@ -156,6 +156,8 @@
 <body>
 <h1>AI Research Radar - 2026-05-11</h1>
 
+<blockquote>当前为本地摘要模式，解释质量有限</blockquote>
+
 
 <h2>0. 今日总览</h2>
 <ul>
@@ -180,11 +182,11 @@
 <li>证据来源：abstract only</li>
 <li>原文链接：https://arxiv.org/abs/2605.06527v1</li>
 <li>发布时间：2026-05-07T16:31:15+00:00</li>
-<li>这是什么？STALE是一个评估LLM Agent在长期记忆中检测与更新过期信念的基准，包含400个冲突场景（1,200条查询）和150K tokens上下文，并附带CUPMem原型。</li>
-<li>解决了什么问题？现有记忆基准仅测静态事实检索，忽略了当新证据隐含地使旧记忆失效时，Agent能否感知并更新状态的问题。</li>
-<li>方法或贡献是什么？定义了Implicit Conflict失败模式，提出三维探测框架（State Resolution、Premise Resistance、Implicit Policy Adaptation），构建STALE基准；并提出CUPMem，通过结构化状态合并和传播感知搜索实现写时修订。</li>
-<li>为什么对我重要？该工作直接指向Agent记忆的核心短板——即使检索到更新证据，模型也常未在实际推理中运用（最佳模型仅55.2%准确率），对设计鲁棒的长上下文Agent有明确评估价值。</li>
-<li>是否建议深读？建议深读，尤其是STALE的探测维度和CUPMem的写时修订机制。</li>
+<li>这是什么？STALE: Can LLM Agents Know When Their Memories Are No Longer Valid?：研究论文，方向为“Context Compression / Long Context / Memory”；主要线索：agentic、cs.CL、framework、inference。</li>
+<li>解决了什么问题？它关注“Context Compression / Long Context / Memory”里的 agentic、cs.CL、framework、inference 等问题。</li>
+<li>方法或贡献是什么？摘要可确认它提出或引入了 agentic、cs.CL、framework、inference；具体训练设置、指标和消融细节需读原文确认。</li>
+<li>为什么对我重要？tier=MUST<em>READ editorial</em>priority=0.79 今天安排深读。 personal=0.96，relevance=0.96。</li>
+<li>是否建议深读？建议今天深读。</li>
 <li>建议行动：read_pdf</li>
 <li>评分：global<em>score 0.36；personal</em>score 0.96；credibility 1.00；conference 0.00；institution 0.00；multi<em>source 0.00；community</em>signal 0.08；actionability 0.69；research<em>relevance 0.96；hype</em>risk 0.00</li>
 <li>多源信号：论文:arXiv AI/ML/NLP/Vision/Robotics</li>
@@ -203,11 +205,11 @@
 <li>证据来源：full text</li>
 <li>原文链接：https://machinelearning.apple.com/research/stochastic-kv-routing</li>
 <li>发布时间：2026-05-05T00:00:00+00:00</li>
-<li>这是什么？一种用于 Transformer 语言模型的深度维度KV缓存共享方法，称为随机KV路由（Stochastic KV Routing）。</li>
-<li>解决了什么问题？KV缓存内存占用大，显著增加服务成本；现有压缩和驱逐策略主要沿时间轴进行，忽略了深度维度的优化潜力。</li>
-<li>方法或贡献是什么？提出利用深度维度进行正交优化，通过随机路由实现层间自适应缓存共享，减少每层独立缓存的冗余。</li>
-<li>为什么对我重要？该方法可能显著降低KV缓存的内存开销，从而降低推理成本，对关注长上下文和高效推理的研究者具有实质价值。</li>
-<li>是否建议深读？是</li>
+<li>这是什么？Stochastic KV Routing: Enabling Adaptive Depth-Wise Cache Sharing 是一篇围绕 Context Compression / Long Context / Memory 的研究或技术文章；从正文摘要看，重点是：Serving transformer language models with high throughput requires caching Key-Values (KVs) to avoid redundant computation during autoregressive generation. The memory footprint of KV caching is significant and heavily impacts serving costs. This work proposes to lessen these memory requirements. While recent work has largely addressed KV cache reduction via compression and eviction along the temporal axis, we argue that the depth dimension offers an orthogonal and robust avenue for optimization. Although prior res…</li>
+<li>解决了什么问题？它关注 Context Compression / Long Context / Memory 中尚未被充分解决的建模、推理、系统或评测问题，具体问题线索来自原文正文而不是标题关键词。</li>
+<li>方法或贡献是什么？它的贡献需要按正文脉络理解：先界定问题，再给出方法、系统设计、实验观察或研究范式，而不是只用关键词归类。</li>
+<li>为什么对我重要？该来源具备 full text grounding，适合用作当天判断 Context Compression / Long Context / Memory 方向变化的实质材料；personal=0.75, relevance=0.68。</li>
+<li>是否建议深读？建议略读正文，先抓住问题定义和方法框架。</li>
 <li>建议行动：skim</li>
 <li>评分：global<em>score 0.34；personal</em>score 0.75；credibility 1.00；conference 0.00；institution 0.00；multi<em>source 0.00；community</em>signal 0.08；actionability 0.49；research<em>relevance 0.68；hype</em>risk 0.00</li>
 <li>多源信号：机构:Apple Machine Learning Research</li>
@@ -239,11 +241,11 @@
 <li>证据来源：full text</li>
 <li>原文链接：http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/</li>
 <li>发布时间：2026-05-08T09:00:00+00:00</li>
-<li>这是什么？Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling：研究动态，方向为“Agent / Reasoning / Inference-time Scaling / Planning”；主要线索：KV cache、agentic、attention、berkeley.edu。</li>
-<li>解决了什么问题？它关注“Agent / Reasoning / Inference-time Scaling / Planning”里的 KV cache、agentic、attention、berkeley.edu 等问题。</li>
-<li>方法或贡献是什么？摘要可确认它提出或引入了 KV cache、agentic、attention、berkeley.edu；具体训练设置、指标和消融细节需读原文确认。</li>
-<li>为什么对我重要？tier=MUST<em>READ editorial</em>priority=0.97 今天安排深读。 personal=0.99，relevance=1.00。</li>
-<li>是否建议深读？建议今天深读。</li>
+<li>这是什么？Adaptive Parallel Reasoning 讨论如何把推理时计算从单一路径扩展为多条并行候选路径，并在搜索、验证或聚合后得到更稳的答案。</li>
+<li>解决了什么问题？它针对的是复杂问题中串行 chain-of-thought 容易早早走偏、单次采样难以覆盖多种解法的问题。</li>
+<li>方法或贡献是什么？方法范式是 inference-time scaling：并行生成多个推理分支，再用选择、交叉检查或自适应预算分配把计算集中到更有希望的路径上。</li>
+<li>为什么对我重要？这类工作直接关系到 agent planning、长上下文任务和测试时计算分配，说明提升推理能力不只依赖更大模型，也依赖更好的推理组织方式。</li>
+<li>是否建议深读？建议今天深读，重点看问题设定、方法范式和实验是否能迁移到自己的研究主线。</li>
 <li>建议行动：read_pdf</li>
 <li>评分：global<em>score 0.52；personal</em>score 0.99；credibility 1.00；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.08；actionability 0.72；research<em>relevance 1.00；hype</em>risk 0.00</li>
 <li>多源信号：机构:BAIR Blog</li>
@@ -262,11 +264,11 @@
 <li>证据来源：full text</li>
 <li>原文链接：http://bair.berkeley.edu/blog/2025/07/01/peva/</li>
 <li>发布时间：2025-07-01T09:00:00+00:00</li>
-<li>这是什么？BAIR Blog 介绍 PEVA 模型，用于全身条件自我中心视频预测。</li>
-<li>解决了什么问题？现有世界模型缺乏对具身智能体的支持，无法处理真实环境中的全身动作、复杂任务和第一人称视角的长程预测。</li>
-<li>方法或贡献是什么？PEVA 以人体运动轨迹（全身控制）为条件，根据过去帧和指定 3D 姿态变化的动作预测下一帧，并支持原子动作生成、反事实模拟和长视频生成。</li>
-<li>为什么对我重要？将世界模型的动作空间从抽象控制扩展到真实全身运动，结合自我中心视角，有助于设计能自主规划与控制的具身智能体。</li>
-<li>是否建议深读？方法细节未在博客中充分展开，建议阅读原文以获取模型架构和训练细节。</li>
+<li>这是什么？Whole-Body Conditioned Egocentric Video Prediction 是一篇围绕 Agent / Reasoning / Inference-time Scaling / Planning 的研究或技术文章；从正文摘要看，重点是：× Predicting Ego-centric Video from human Actions (PEVA) . Given past video frames and an action specifying a desired change in 3D pose, PEVA predicts the next video frame. Our results show that, given the first frame and a sequence of actions, our model can generate videos of atomic actions (a), simulate counterfactuals (b), and support long video generation (c). Recent years have brought significant advances in world models that learn to simulate future outcomes for planning and control. From intuitive physics t…</li>
+<li>解决了什么问题？它关注 Agent / Reasoning / Inference-time Scaling / Planning 中尚未被充分解决的建模、推理、系统或评测问题，具体问题线索来自原文正文而不是标题关键词。</li>
+<li>方法或贡献是什么？它的贡献需要按正文脉络理解：先界定问题，再给出方法、系统设计、实验观察或研究范式，而不是只用关键词归类。</li>
+<li>为什么对我重要？该来源具备 full text grounding，适合用作当天判断 Agent / Reasoning / Inference-time Scaling / Planning 方向变化的实质材料；personal=0.98, relevance=1.00。</li>
+<li>是否建议深读？建议略读正文，先抓住问题定义和方法框架。</li>
 <li>建议行动：skim</li>
 <li>评分：global<em>score 0.38；personal</em>score 0.98；credibility 1.00；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.08；actionability 0.73；research<em>relevance 1.00；hype</em>risk 0.00</li>
 <li>多源信号：机构:BAIR Blog</li>
@@ -284,11 +286,11 @@
 <li>证据来源：full text</li>
 <li>原文链接：http://bair.berkeley.edu/blog/2026/04/20/grasp/</li>
 <li>发布时间：2026-04-20T09:00:00+00:00</li>
-<li>这是什么？GRASP，一种基于梯度的规划器，用于长时域世界模型规划。</li>
-<li>解决了什么问题？长时域规划在现代世界模型中仍然脆弱，表现为优化病态、局部极小值和高维潜在空间的隐藏失败模式。</li>
-<li>方法或贡献是什么？GRASP 通过三个关键设计使长时域规划更鲁棒：(1) 将轨迹提升到虚拟状态实现并行优化；(2) 在状态迭代中直接注入随机性促进探索；(3) 重塑梯度以避免通过高维视觉模型传播脆弱的“状态-输入”梯度。</li>
-<li>为什么对我重要？世界模型正变得像通用模拟器，但长时域规划仍是一个瓶颈；GRASP 使得基于梯度的规划在长时域上变得实际和鲁棒，对Agent和规划研究有直接价值。</li>
-<li>是否建议深读？建议深读，方法动机清晰，且提供了对长时域规划核心挑战的深入分析和解决思路。</li>
+<li>这是什么？Gradient-based Planning for World Models at Longer Horizons 是一篇围绕 Agent / Reasoning / Inference-time Scaling / Planning 的研究或技术文章；从正文摘要看，重点是：GRASP is a new gradient-based planner for learned dynamics (a "world model") that makes long-horizon planning practical by (1) lifting the trajectory into virtual states so optimization is parallel across time, (2) adding stochasticity directly to the state iterates for exploration, and (3) reshaping gradients so actions get clean signals while we avoid brittle "state-input" gradients through high-dimensional vision models. Large, learned world models are becoming increasingly capable. They can predict long sequen…</li>
+<li>解决了什么问题？它关注 Agent / Reasoning / Inference-time Scaling / Planning 中尚未被充分解决的建模、推理、系统或评测问题，具体问题线索来自原文正文而不是标题关键词。</li>
+<li>方法或贡献是什么？它的贡献需要按正文脉络理解：先界定问题，再给出方法、系统设计、实验观察或研究范式，而不是只用关键词归类。</li>
+<li>为什么对我重要？该来源具备 full text grounding，适合用作当天判断 Agent / Reasoning / Inference-time Scaling / Planning 方向变化的实质材料；personal=0.95, relevance=1.00。</li>
+<li>是否建议深读？建议略读正文，先抓住问题定义和方法框架。</li>
 <li>建议行动：skim</li>
 <li>评分：global<em>score 0.42；personal</em>score 0.95；credibility 1.00；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.08；actionability 0.56；research<em>relevance 1.00；hype</em>risk 0.00</li>
 <li>多源信号：机构:BAIR Blog</li>
@@ -353,11 +355,11 @@
 <li>证据来源：abstract only</li>
 <li>原文链接：https://arxiv.org/abs/2605.06592v1</li>
 <li>发布时间：2026-05-07T17:19:52+00:00</li>
-<li>这是什么？一个改进的视觉-语言预训练框架，结合 DINOv3 蒸馏和高阶排序一致性损失。</li>
-<li>解决了什么问题？CLIP 的对称 InfoNCE 损失忽略未匹配对的相对排序，且全局池化丢失细粒度局部结构。</li>
-<li>方法或贡献是什么？双分支轻量学生从冻结 DINOv3 教师蒸馏，多尺度融合模块含通道-空间注意力、自注意力精炼器和冲突感知门；提出高阶 Plackett-Luce 排序模型（最优阶数 R*=3）。</li>
-<li>为什么对我重要？在相同算力下一致超越 CLIP 等基线，在细粒度和分布外评估上提升最大，且论文提供了完整消融和模态差距分析。</li>
-<li>是否建议深读？方法设计巧妙，高阶排序模型有理论嵌套性，实验充分，建议深读。</li>
+<li>这是什么？DINORANKCLIP: DINOv3 Distillation and Injection for Vision-Language Pretraining with High-Order Ranking Consistency：研究论文，方向为“Model Distillation / Model Compression / Efficient Training”；主要线索：DINORANKCLIP、DINOv3 distillation、alignment、attention。</li>
+<li>解决了什么问题？它关注“Model Distillation / Model Compression / Efficient Training”里的 DINORANKCLIP、DINOv3 distillation、alignment、attention 等问题。</li>
+<li>方法或贡献是什么？摘要可确认它提出或引入了 DINORANKCLIP、DINOv3 distillation、alignment、attention；具体训练设置、指标和消融细节需读原文确认。</li>
+<li>为什么对我重要？tier=MUST<em>READ editorial</em>priority=0.99 今天安排深读。 personal=0.98，relevance=0.99。</li>
+<li>是否建议深读？建议今天深读。</li>
 <li>建议行动：read_pdf</li>
 <li>评分：global<em>score 0.36；personal</em>score 0.98；credibility 1.00；conference 0.00；institution 0.00；multi<em>source 0.00；community</em>signal 0.08；actionability 0.69；research<em>relevance 0.99；hype</em>risk 0.00</li>
 <li>多源信号：论文:arXiv AI/ML/NLP/Vision/Robotics</li>
@@ -379,20 +381,19 @@
 <li>这是什么？Continuous-Time Distribution Matching for Few-Step Diffusion Distillation：研究论文，方向为“Model Distillation / Model Compression / Efficient Training”；主要线索：DMD、alignment、consistency distillation、diffusion。</li>
 <li>解决了什么问题？它关注“Model Distillation / Model Compression / Efficient Training”里的 DMD、alignment、consistency distillation、diffusion 等问题。</li>
 <li>方法或贡献是什么？摘要可确认它提出或引入了 DMD、alignment、consistency distillation、diffusion；具体训练设置、指标和消融细节需读原文确认。</li>
-<li>为什么对我重要？tier=SKIM editorial_priority=0.93 今天快速扫读。 personal=1.00，relevance=1.00。</li>
+<li>为什么对我重要？tier=SKIM editorial_priority=0.90 今天快速扫读。 personal=0.98，relevance=1.00。</li>
 <li>是否建议深读？今天不深读，先按行动建议处理。</li>
 <li>建议行动：skim</li>
-<li>评分：global<em>score 0.51；personal</em>score 1.00；credibility 0.92；conference 0.00；institution 0.92；multi<em>source 0.05；community</em>signal 0.28；actionability 0.80；research<em>relevance 1.00；hype</em>risk 0.00</li>
-<li>多源信号：论文:Hugging Face Daily Papers/Papers with Code Trending (HF redirect)；代码:Papers with Code Trending (HF redirect)</li>
+<li>评分：global<em>score 0.49；personal</em>score 0.98；credibility 0.87；conference 0.00；institution 0.92；multi<em>source 0.00；community</em>signal 0.26；actionability 0.69；research<em>relevance 1.00；hype</em>risk 0.00</li>
+<li>多源信号：论文:Hugging Face Daily Papers</li>
 <li>命中方向：模型蒸馏 / 模型压缩</li>
 <li>相关标签：Diffusion Distillation、Efficient Generation、CV</li>
 <li>命中关键词：DMD、alignment、consistency distillation、diffusion、diffusion distillation、distillation、framework、generalization、github、image</li>
-<li>去重信息：同一内容也出现在 Hugging Face Daily Papers、Papers with Code Trending (HF redirect)</li>
 </ul>
 
 <h4>Watch</h4>
 <ul>
-<li><a href="https://arxiv.org/abs/2605.06628v1">LiVeAction: a Lightweight, Versatile, and Asymmetric Neural Codec Design for Real-time Operation</a>（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.81，global 0.40）</li>
+<li><a href="https://arxiv.org/abs/2605.06628v1">LiVeAction: a Lightweight, Versatile, and Asymmetric Neural Codec Design for Real-time Operation</a>（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.80，global 0.36）</li>
 <li><a href="https://arxiv.org/abs/2605.06505v1">PACZero: PAC-Private Fine-Tuning of Language Models via Sign Quantization</a>（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.80，global 0.35）</li>
 <li><a href="https://openreview.net/forum?id=l4F50jpiVH">Q-Palette: Fractional-Bit Quantizers Toward Optimal Bit Allocation for Efficient LLM Deployment</a>（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.78，global 0.38）</li>
 </ul>
@@ -418,13 +419,13 @@
 <h3>RL</h3>
 <ul>
 <li><a href="https://arxiv.org/abs/2605.06470v1">Hitting Time Isomorphism for Multi-Stage Planning with Foundation Policies</a>（WATCH，RL，证据 abstract only，personal 0.91，global 0.36）</li>
-<li><a href="https://arxiv.org/abs/2605.06650v1">Beyond Negative Rollouts: Positive-Only Policy Optimization with Implicit Negative Gradients</a>（WATCH，RL，证据 abstract only，personal 0.79，global 0.38）</li>
+<li><a href="https://arxiv.org/abs/2605.06650v1">Beyond Negative Rollouts: Positive-Only Policy Optimization with Implicit Negative Gradients</a>（WATCH，RL，证据 abstract only，personal 0.78，global 0.35）</li>
 </ul>
 
 <h3>模型架构</h3>
 <ul>
-<li><a href="https://arxiv.org/abs/2605.06665v1">UniPool: A Globally Shared Expert Pool for Mixture-of-Experts</a>（WATCH，Model Architecture，证据 abstract only，personal 0.66，global 0.38）</li>
 <li><a href="https://openreview.net/forum?id=5bu1IOOvf0">Self-Supervised Learning of Graph Representations for Network Intrusion Detection</a>（ARCHIVE，Model Architecture，证据 abstract only，personal 0.69，global 0.28）</li>
+<li><a href="https://arxiv.org/abs/2605.06501v1">Cubit: Token Mixer with Kernel Ridge Regression</a>（ARCHIVE，Model Architecture，证据 abstract only，personal 0.67，global 0.34）</li>
 </ul>
 
 <h3>学习方法</h3>
@@ -443,10 +444,10 @@
 <li><a href="http://bair.berkeley.edu/blog/2025/04/08/plaid/">Repurposing Protein Folding Models for Generation with Latent Diffusion</a>（WATCH，Other Highlights，证据 full text，personal 0.74，global 0.36）</li>
 <li><a href="https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots">MIT simulator lets users design wide range of functional soft robots</a>（ARCHIVE，Other Highlights，证据 full text，personal 0.70，global 0.36）</li>
 <li><a href="https://arxiv.org/abs/2605.06571v1">CLAD: A Clustered Label-Agnostic Federated Learning Framework for Joint Anomaly Detection and Attack Classification</a>（WATCH，Other Highlights，证据 abstract only，personal 0.69，global 0.35）</li>
-<li><a href="https://arxiv.org/abs/2605.06662v1">Multi-Robot Coordination in V2X Environments</a>（WATCH，Other Highlights，证据 abstract only，personal 0.66，global 0.38）</li>
+<li><a href="https://arxiv.org/abs/2605.06662v1">Multi-Robot Coordination in V2X Environments</a>（ARCHIVE，Other Highlights，证据 abstract only，personal 0.65，global 0.34）</li>
 <li><a href="https://arxiv.org/abs/2605.06610v1">SoftSAE: Dynamic Top-K Selection for Adaptive Sparse Autoencoders</a>（ARCHIVE，Other Highlights，证据 abstract only，personal 0.62，global 0.35）</li>
 <li><a href="https://arxiv.org/abs/2605.06596v1">FedAttr: Towards Privacy-preserving Client-Level Attribution in Federated LLM Fine-tuning</a>（ARCHIVE，Other Highlights，证据 abstract only，personal 0.59，global 0.34）</li>
-<li><a href="https://arxiv.org/abs/2605.06629v1">Hybrid Quantum-Classical GANs for the Generation of Adversarial Network Flows</a>（ARCHIVE，Other Highlights，证据 abstract only，personal 0.57，global 0.38）</li>
+<li><a href="https://arxiv.org/abs/2605.06629v1">Hybrid Quantum-Classical GANs for the Generation of Adversarial Network Flows</a>（ARCHIVE，Other Highlights，证据 abstract only，personal 0.56，global 0.34）</li>
 <li><a href="https://arxiv.org/abs/2605.06604v1">A Geometry-Aware Residual Correction of Hagan's SABR Implied Volatility Formula</a>（ARCHIVE，Other Highlights，证据 abstract only，personal 0.54，global 0.34）</li>
 </ul>
 
@@ -530,18 +531,7 @@
 <li>建议行动：skim</li>
 </ul>
 
-<h5>3. <a href="https://arxiv.org/abs/2605.06641v1">GlazyBench: A Benchmark for Ceramic Glaze Property Prediction and Image Generation</a></h5>
-<ul>
-<li>阅读层级：WATCH</li>
-<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
-<li>证据来源：abstract only</li>
-<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
-<li>适合用于什么研究：适合用于多模态泛化或跨域评测设计参考。</li>
-<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
-<li>建议行动：skim</li>
-</ul>
-
-<h5>4. <a href="https://arxiv.org/abs/2605.06535v1">Sparkle: Realizing Lively Instruction-Guided Video Background Replacement via Decoupled Guidance</a></h5>
+<h5>3. <a href="https://arxiv.org/abs/2605.06535v1">Sparkle: Realizing Lively Instruction-Guided Video Background Replacement via Decoupled Guidance</a></h5>
 <ul>
 <li>阅读层级：WATCH</li>
 <li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
@@ -552,7 +542,7 @@
 <li>建议行动：save</li>
 </ul>
 
-<h5>5. <a href="https://arxiv.org/abs/2605.06643v1">Are We Making Progress in Multimodal Domain Generalization? A Comprehensive Benchmark Study</a></h5>
+<h5>4. <a href="https://arxiv.org/abs/2605.06641v1">GlazyBench: A Benchmark for Ceramic Glaze Property Prediction and Image Generation</a></h5>
 <ul>
 <li>阅读层级：WATCH</li>
 <li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
@@ -560,7 +550,18 @@
 <li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
 <li>适合用于什么研究：适合用于多模态泛化或跨域评测设计参考。</li>
 <li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
-<li>建议行动：save</li>
+<li>建议行动：skim</li>
+</ul>
+
+<h5>5. <a href="https://arxiv.org/abs/2605.06467v1">No Triangulation Without Representation: Generalization in Topological Deep Learning</a></h5>
+<ul>
+<li>阅读层级：ARCHIVE</li>
+<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
+<li>证据来源：abstract only</li>
+<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
+<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
+<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
+<li>建议行动：skim</li>
 </ul>
 
 <h3>Other Benchmarks</h3>
@@ -578,19 +579,19 @@
 <li>source<em>role：code</em>actionability</li>
 <li>证据来源：repo README</li>
 <li>原文链接：https://github.com/chopratejas/headroom</li>
-<li>发布时间：2026-05-10T16:06:11+00:00</li>
-<li>这是什么？Headroom 是一个开源上下文优化层，专门压缩 LLM 应用（尤其是 AI Agent）的输入内容，如工具调用、日志、数据库读取和 RAG 块。</li>
-<li>解决了什么问题？Agent 在执行任务时向 prompt 注入大量模板化或冗余文本，导致 token 浪费和成本增加，且可能影响响应质量。</li>
-<li>方法或贡献是什么？提供无损、本地、不牺牲准确性的压缩，声称可将 token 数减少约 87%（例如 10,144 → 1,260）。支持 Python/TypeScript SDK 以及作为独立代理运行（无需代码改动），兼容 Anthropic、OpenAI、Google 等主流模型服务。方法细节未在摘要中充分展开。</li>
-<li>为什么对我重要？对于长上下文和 Agent 密集型应用，能显著降低 token 消耗和延迟，同时保持答案准确性。其 needle-in-haystack 测试验证了关键信息检索能力不损失。</li>
-<li>是否建议深读？不建议深读论文（无关联论文）；建议直接尝试工具，特别是关注上下文压缩和 Agent 优化的研究者。</li>
+<li>发布时间：2026-05-10T20:38:53+00:00</li>
+<li>这是什么？chopratejas/headroom：开源项目，方向为“GitHub / Open Source Projects”；主要线索：RAG、github、github.com、open-source。</li>
+<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 RAG、github、github.com、open-source 等问题。</li>
+<li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
+<li>为什么对我重要？tier=clone<em>and</em>run editorial_priority=0.31 按 GitHub 项目动作处理。 personal=0.72，relevance=0.62。</li>
+<li>是否建议深读？今天不深读，先按行动建议处理。</li>
 <li>建议行动：clone<em>and</em>run</li>
 <li>评分：global<em>score 0.62；personal</em>score 0.72；credibility 0.88；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.78；actionability 1.00；research<em>relevance 0.62；hype</em>risk 0.00</li>
 <li>多源信号：代码:GitHub AI Research Projects</li>
 <li>命中方向：GitHub / 开源项目推荐</li>
 <li>相关标签：Context Compression / Long Context / Memory、Learning Methods / Optimization / Representation Learning、Tool Library</li>
 <li>命中关键词：RAG、github、github.com、open-source、optimization、release</li>
-<li>开源信号：⭐ 1715 | 🍴 154 | 📜 Apache-2.0</li>
+<li>开源信号：⭐ 1716 | 🍴 154 | 📜 Apache-2.0</li>
 <li>示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ✅</li>
 <li>README 摘要：<strong>Compress everything your AI agent reads. Same answers, fraction of the tokens.</strong> Every tool call, log line, DB read, RAG chunk, and file your agent injects into a prompt is mostly boilerplate. Headroom strips the noise and keeps the signal — <strong>losslessly, locally, and without touching accuracy.</strong> </li>
 </ul>
@@ -604,18 +605,18 @@
 <li>证据来源：repo README</li>
 <li>原文链接：https://github.com/Shubhamsaboo/awesome-llm-apps</li>
 <li>发布时间：2026-05-09T20:59:06+00:00</li>
-<li>这是什么？一个包含 100 多个 AI Agent 和 RAG 应用模板的开源仓库，每个模板都是自包含的完整源代码，可直接克隆、定制和部署。</li>
-<li>解决了什么问题？研究人员和开发者每次启动新 LLM 项目时，需要重复搭建 RAG 流水线、Agent 循环或 MCP 集成，缺乏可直接运行的起点代码。</li>
-<li>方法或贡献是什么？提供了一个现成模板集合，涵盖 AI Agent、多 Agent 团队、MCP Agent、语音 Agent、RAG、Agent 微调等；模板经过端到端测试，三条命令即可运行，且支持 Claude、GPT、Llama 等多种模型提供者。</li>
-<li>为什么对我重要？如果你需要快速实验或部署 Agent/RAG 应用，这个仓库提供了可复用的、生产就绪的样板代码，免去从零构建的重复劳动，且所有模板均为原创并附带教程（Unwind AI）。</li>
-<li>是否建议深读？不适合深读（无学术论文），适合直接 clone 运行和参考代码实现。</li>
+<li>这是什么？Shubhamsaboo/awesome-llm-apps：开源项目，方向为“GitHub / Open Source Projects”；主要线索：RAG、github、github.com、multi-agent。</li>
+<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 RAG、github、github.com、multi-agent 等问题。</li>
+<li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
+<li>为什么对我重要？tier=clone<em>and</em>run editorial_priority=0.27 按 GitHub 项目动作处理。 personal=0.70，relevance=0.60。</li>
+<li>是否建议深读？今天不深读，先按行动建议处理。</li>
 <li>建议行动：clone<em>and</em>run</li>
-<li>评分：global<em>score 0.62；personal</em>score 0.70；credibility 0.89；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.78；actionability 1.00；research<em>relevance 0.60；hype</em>risk 0.00</li>
+<li>评分：global<em>score 0.59；personal</em>score 0.70；credibility 0.89；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.78；actionability 1.00；research<em>relevance 0.60；hype</em>risk 0.00</li>
 <li>多源信号：代码:GitHub AI Research Projects</li>
 <li>命中方向：GitHub / 开源项目推荐</li>
 <li>相关标签：Context Compression / Long Context / Memory、Agent / Reasoning / Inference-time Scaling / Planning、Tool Library</li>
 <li>命中关键词：RAG、github、github.com、multi-agent、open-source</li>
-<li>开源信号：⭐ 109580 | 🍴 16206 | 📜 Apache-2.0</li>
+<li>开源信号：⭐ 109611 | 🍴 16219 | 📜 Apache-2.0</li>
 <li>示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ❌</li>
 <li>README 摘要：AI Agents · Multi-agent Teams · MCP Agents · RAG · Voice Agents · Agent Skills · Fine-tuning You shouldn't have to rebuild the same RAG pipeline, agent loop, or MCP integration from scratch every time you start a new LLM project. <strong>Awesome LLM Apps is a cookbook of ready-to-run templates</strong> - starter</li>
 </ul>
@@ -628,19 +629,19 @@
 <li>source<em>role：code</em>actionability</li>
 <li>证据来源：repo README</li>
 <li>原文链接：https://github.com/NousResearch/hermes-agent</li>
-<li>发布时间：2026-05-10T16:13:10+00:00</li>
-<li>这是什么？这是一个由 Nous Research 构建的自改进 AI agent，具有内置学习循环，能创建技能、改进技能、持久化知识并建模用户。</li>
-<li>解决了什么问题？现有 AI agent 缺乏持续学习和自我改进能力，且常绑定特定模型或平台。</li>
-<li>方法或贡献是什么？提出闭环学习系统：agent 从经验中自主创建技能，在使用中自我改进，通过 nudge 机制持久化知识，使用 FTS5 会话搜索实现跨会话回忆，并建立 Honcho 辩证用户模型。支持多种模型后端（OpenRouter 200+ 模型、NVIDIA NIM 等）和部署方式（低至 $5 VPS 或 serverless）。</li>
-<li>为什么对我重要？对于关注开放世界学习和 Agent 的研究者，这是一个可实操的自改进框架，其学习循环设计、跨平台通信（Telegram、Discord 等）和模型无关性有参考价值。</li>
-<li>是否建议深读？建议阅读 README 了解架构和部署细节，代码实现可进一步分析其学习循环机制。</li>
+<li>发布时间：2026-05-10T23:25:50+00:00</li>
+<li>这是什么？NousResearch/hermes-agent：开源项目，方向为“GitHub / Open Source Projects”；主要线索：github、github.com、open-source、NousResearch。</li>
+<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 github、github.com、open-source、NousResearch 等问题。</li>
+<li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
+<li>为什么对我重要？tier=clone<em>and</em>run editorial_priority=0.26 按 GitHub 项目动作处理。 personal=0.62，relevance=0.51。</li>
+<li>是否建议深读？今天不深读，先按行动建议处理。</li>
 <li>建议行动：clone<em>and</em>run</li>
 <li>评分：global<em>score 0.62；personal</em>score 0.62；credibility 0.89；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.78；actionability 1.00；research<em>relevance 0.51；hype</em>risk 0.00</li>
 <li>多源信号：代码:GitHub AI Research Projects</li>
 <li>命中方向：GitHub / 开源项目推荐</li>
 <li>相关标签：Tool Library</li>
 <li>命中关键词：github、github.com、open-source</li>
-<li>开源信号：⭐ 142117 | 🍴 22140 | 📜 MIT</li>
+<li>开源信号：⭐ 142436 | 🍴 22206 | 📜 MIT</li>
 <li>示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ✅</li>
 <li>README 摘要：<strong>The self-improving AI agent built by Nous Research.</strong> It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across session</li>
 </ul>
@@ -655,12 +656,12 @@
 <li>证据来源：repo README</li>
 <li>原文链接：https://github.com/deepseek-ai/DeepSeek-OCR</li>
 <li>发布时间：2026-01-27T03:45:14+00:00</li>
-<li>这是什么？DeepSeek-OCR是一种视觉-文本压缩模型，旨在从LLM中心视角探索视觉编码器的作用。</li>
-<li>解决了什么问题？传统视觉编码器在大型语言模型中的角色尚未充分理解，需要从LLM视角重新审视视觉表示压缩。</li>
-<li>方法或贡献是什么？提出上下文光学压缩方法，支持图像流式输出和PDF处理，基于vLLM和Transformers推理，并发速度约2500 tokens/s（A100-40G）。</li>
-<li>为什么对我重要？直接涉及模型压缩与长上下文视觉理解，对开放世界学习和Agent中的视觉输入处理有潜在价值。</li>
-<li>是否建议深读？README提供了安装和使用说明，方法细节需阅读论文（arXiv:2510.18234）以了解完整设计。</li>
-<li>建议行动：read_readme</li>
+<li>这是什么？deepseek-ai/DeepSeek-OCR：开源项目，方向为“GitHub / Open Source Projects”；主要线索：environment、eval、github、github.com。</li>
+<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 environment、eval、github、github.com 等问题。</li>
+<li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
+<li>为什么对我重要？tier=study<em>code editorial</em>priority=0.18 按 GitHub 项目动作处理。 personal=0.74，relevance=0.67。</li>
+<li>是否建议深读？今天不深读，先按行动建议处理。</li>
+<li>建议行动：study_code</li>
 <li>评分：global<em>score 0.48；personal</em>score 0.74；credibility 0.89；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.78；actionability 1.00；research<em>relevance 0.67；hype</em>risk 0.00</li>
 <li>多源信号：代码:GitHub AI Research Projects</li>
 <li>命中方向：GitHub / 开源项目推荐</li>
@@ -672,7 +673,33 @@
 <li>README 摘要：- [2026/01/27]🚀🚀🚀🚀🚀🚀 We present DeepSeek-OCR2 - [2025/10/23]🚀🚀🚀 DeepSeek-OCR is now officially supported in upstream vLLM. Thanks to the vLLM team for their help. - [2025/10/20]🚀🚀🚀 We release DeepSeek-OCR, a model to investigate the role of vision encoders from an LLM-centric viewpoint. - Transforme</li>
 </ul>
 
-<h5>2. <a href="https://github.com/THUDM/LongWriter">THUDM/LongWriter</a></h5>
+<h5>2. <a href="https://github.com/ycwang-libra/CDNCD</em>repo">ycwang-libra/CDNCD<em>repo</a></h5>
+<ul>
+<li>行动标签：study_code</li>
+<li>来源：GitHub AI Research Projects</li>
+<li>来源类型：聚合/摘要</li>
+<li>source<em>role：code</em>actionability</li>
+<li>证据来源：repo README</li>
+<li>原文链接：https://github.com/ycwang-libra/CDNCD_repo</li>
+<li>发布时间：2025-06-23T14:41:56+00:00</li>
+<li>这是什么？ycwang-libra/CDNCD_repo：开源项目，方向为“GitHub / Open Source Projects”；主要线索：environment、github、github.com、image。</li>
+<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 environment、github、github.com、image 等问题。</li>
+<li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
+<li>为什么对我重要？tier=study<em>code editorial</em>priority=0.13 按 GitHub 项目动作处理。 personal=0.74，relevance=0.69。</li>
+<li>是否建议深读？今天不深读，先按行动建议处理。</li>
+<li>建议行动：study_code</li>
+<li>评分：global<em>score 0.38；personal</em>score 0.74；credibility 0.79；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.16；actionability 1.00；research<em>relevance 0.69；hype</em>risk 0.00</li>
+<li>多源信号：代码:GitHub AI Research Projects</li>
+<li>命中方向：GitHub / 开源项目推荐</li>
+<li>相关标签：Agent / Reasoning / Inference-time Scaling / Planning、Novel Class Discovery / Open-World Learning / OOD / Continual Learning、CV、Tool Library</li>
+<li>命中关键词：environment、github、github.com、image、implementation、novel class discovery、open-source、repo</li>
+<li>开源信号：⭐ 0 | 🍴 0 | 📜 MIT</li>
+<li>示例/文档/复现：示例 ✅ | 文档 ❌ | 脚本 ✅ | 权重 ❌</li>
+<li>关联论文：https://arxiv.org/abs/2406.18140</li>
+<li>README 摘要：This is an implementation of our paper "Exclusive Style Removal for Cross Domain Novel Class Discovery" - Create a Conda virtual environment and activate it: - Install frameworks: PyTorch==1.13 and torchvision==0.14 with CUDA==11.6 - Install toolboxes: numpy==1.24.4, matplotlab==3.7.5, scikit-learn=</li>
+</ul>
+
+<h5>3. <a href="https://github.com/THUDM/LongWriter">THUDM/LongWriter</a></h5>
 <ul>
 <li>行动标签：clone<em>and</em>run</li>
 <li>来源：GitHub AI Research Projects</li>
@@ -681,11 +708,11 @@
 <li>证据来源：repo README</li>
 <li>原文链接：https://github.com/THUDM/LongWriter</li>
 <li>发布时间：2025-06-24T06:41:41+00:00</li>
-<li>这是什么？开源项目，包含 LongWriter 和 LongWriter-Zero 模型及代码，旨在让长上下文 LLM 生成长达 10,000+ 词的文本。</li>
-<li>解决了什么问题？现有长上下文 LLM 在生成长篇文本（如超过 10,000 词）时能力不足，生成质量或长度受限。</li>
-<li>方法或贡献是什么？提出 LongWriter 系列模型，基于 GLM-4-9B 和 Llama-3.1-8B 微调；后续 LongWriter-Zero 采用纯强化学习训练，无需合成或标注数据，在长篇写作任务上显著超越 LongWriter 及 DeepSeek-R1、Qwen3 等 100B+ 模型。</li>
-<li>为什么对我重要？如果你关注长文本生成或长上下文模型训练，这个项目提供了可直接部署的 9B/8B 级模型，且 LongWriter-Zero 展示了纯 RL 路径的潜力，性能甚至优于更大规模模型。</li>
-<li>是否建议深读？True</li>
+<li>这是什么？THUDM/LongWriter：开源项目，方向为“GitHub / Open Source Projects”；主要线索：github、github.com、inference、long context。</li>
+<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 github、github.com、inference、long context 等问题。</li>
+<li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
+<li>为什么对我重要？tier=clone<em>and</em>run editorial_priority=0.19 按 GitHub 项目动作处理。 personal=0.82，relevance=0.79。</li>
+<li>是否建议深读？今天不深读，先按行动建议处理。</li>
 <li>建议行动：clone<em>and</em>run</li>
 <li>评分：global<em>score 0.45；personal</em>score 0.82；credibility 0.88；conference 0.00；institution 0.96；multi<em>source 0.00；community</em>signal 0.78；actionability 1.00；research<em>relevance 0.79；hype</em>risk 0.00</li>
 <li>多源信号：代码:GitHub AI Research Projects</li>
@@ -696,32 +723,6 @@
 <li>示例/文档/复现：示例 ✅ | 文档 ❌ | 脚本 ❌ | 权重 ✅</li>
 <li>关联论文：https://arxiv.org/abs/2408.07055"</li>
 <li>README 摘要：🤗 LongWriter • 📃 LongWriter Paper 🤗 LongWriter-Zero • 📜 LongWriter-Zero Paper https://github.com/user-attachments/assets/c7eedeca-98ed-43ec-8619-25137987bcde Left: LongWriter-glm4-9b; Right: GLM-4-9B-chat <strong>[2025/06/23]</strong> Introducing <strong>LongWriter-Zero</strong>, trained with pure RL for ultra-long text gene</li>
-</ul>
-
-<h5>3. <a href="https://github.com/OpenHands/OpenHands">OpenHands/OpenHands</a></h5>
-<ul>
-<li>行动标签：clone<em>and</em>run</li>
-<li>来源：GitHub AI Research Projects</li>
-<li>来源类型：聚合/摘要</li>
-<li>source<em>role：code</em>actionability</li>
-<li>证据来源：repo README</li>
-<li>原文链接：https://github.com/OpenHands/OpenHands</li>
-<li>发布时间：2026-05-10T16:53:45+00:00</li>
-<li>这是什么？OpenHands/OpenHands：开源项目，方向为“GitHub / Open Source Projects”；主要线索：agentic、github、github.com、library。</li>
-<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 agentic、github、github.com、library 等问题。</li>
-<li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
-<li>为什么对我重要？tier=clone<em>and</em>run editorial_priority=0.32 按 GitHub 项目动作处理。 personal=0.74，relevance=0.65。</li>
-<li>是否建议深读？今天不深读，先按行动建议处理。</li>
-<li>建议行动：clone<em>and</em>run</li>
-<li>评分：global<em>score 0.62；personal</em>score 0.74；credibility 0.89；conference 0.00；institution 0.92；multi<em>source 0.00；community</em>signal 0.78；actionability 1.00；research<em>relevance 0.65；hype</em>risk 0.00</li>
-<li>多源信号：代码:GitHub AI Research Projects</li>
-<li>命中方向：GitHub / 开源项目推荐</li>
-<li>相关标签：Agent / Reasoning / Inference-time Scaling / Planning、Tool Library</li>
-<li>命中关键词：agentic、github、github.com、library、open-source、repo</li>
-<li>开源信号：⭐ 73054 | 🍴 9249 | 📜 Other</li>
-<li>示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ❌</li>
-<li>关联论文：https://arxiv.org/abs/2511.03690"><img</li>
-<li>README 摘要：🙌 Welcome to OpenHands, a community focused on AI-driven development. We'd love for you to join us on Slack. There are a few ways to work with OpenHands: The SDK is a composable Python library that contains all of our agentic tech. It's the engine that powers everything else below. Define agents in </li>
 </ul>
 
 <h3>Evergreen Toolkits</h3>
@@ -745,34 +746,34 @@
 <li>命中方向：GitHub / 开源项目推荐</li>
 <li>相关标签：Context Compression / Long Context / Memory、Agent / Reasoning / Inference-time Scaling / Planning、Tool Library</li>
 <li>命中关键词：RAG、framework、github、github.com、library、open-source、planning</li>
-<li>开源信号：⭐ 136312 | 🍴 22529 | 📜 MIT</li>
+<li>开源信号：⭐ 136322 | 🍴 22527 | 📜 MIT</li>
 <li>示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ❌</li>
 <li>README 摘要：LangChain is a framework for building agents and LLM-powered applications. It helps you chain together interoperable components and third-party integrations to simplify AI application development — all while future-proofing decisions as the underlying technology evolves. > Just getting started? Chec</li>
 </ul>
 
-<h5>2. <a href="https://github.com/caspianmoon/memoripy">caspianmoon/memoripy</a></h5>
+<h5>2. <a href="https://github.com/Chirsycy/CRPD-PCP">Chirsycy/CRPD-PCP</a></h5>
 <ul>
-<li>行动标签：clone<em>and</em>run</li>
+<li>行动标签：study_code</li>
 <li>来源：GitHub AI Research Projects</li>
 <li>来源类型：聚合/摘要</li>
 <li>source<em>role：code</em>actionability</li>
 <li>证据来源：repo README</li>
-<li>原文链接：https://github.com/caspianmoon/memoripy</li>
-<li>发布时间：2026-03-18T08:59:51+00:00</li>
-<li>这是什么？caspianmoon/memoripy：开源项目，方向为“GitHub / Open Source Projects”；主要线索：clustering、github、github.com、library。</li>
-<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 clustering、github、github.com、library 等问题。</li>
+<li>原文链接：https://github.com/Chirsycy/CRPD-PCP</li>
+<li>发布时间：2025-08-16T14:51:11+00:00</li>
+<li>这是什么？Chirsycy/CRPD-PCP：开源项目，方向为“GitHub / Open Source Projects”；主要线索：clustering、distillation、environment、framework。</li>
+<li>解决了什么问题？它关注“GitHub / Open Source Projects”里的 clustering、distillation、environment、framework 等问题。</li>
 <li>方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。</li>
-<li>为什么对我重要？tier=clone<em>and</em>run editorial_priority=0.15 按 GitHub 项目动作处理。 personal=0.68，relevance=0.59。</li>
+<li>为什么对我重要？tier=study<em>code editorial</em>priority=0.17 按 GitHub 项目动作处理。 personal=0.87，relevance=0.87。</li>
 <li>是否建议深读？今天不深读，先按行动建议处理。</li>
-<li>建议行动：clone<em>and</em>run</li>
-<li>评分：global<em>score 0.47；personal</em>score 0.68；credibility 0.87；conference 0.00；institution 0.92；multi<em>source 0.00；community</em>signal 0.75；actionability 1.00；research<em>relevance 0.59；hype</em>risk 0.00</li>
+<li>建议行动：study_code</li>
+<li>评分：global<em>score 0.28；personal</em>score 0.87；credibility 0.80；conference 0.00；institution 0.00；multi<em>source 0.00；community</em>signal 0.24；actionability 1.00；research<em>relevance 0.87；hype</em>risk 0.00</li>
 <li>多源信号：代码:GitHub AI Research Projects</li>
 <li>命中方向：GitHub / 开源项目推荐</li>
-<li>相关标签：Novel Class Discovery / Open-World Learning / OOD / Continual Learning、Tool Library</li>
-<li>命中关键词：clustering、github、github.com、library、open-source</li>
-<li>开源信号：⭐ 689 | 🍴 62 | 📜 Apache-2.0</li>
-<li>示例/文档/复现：示例 ✅ | 文档 ❌ | 脚本 ❌ | 权重 ❌</li>
-<li>README 摘要：<strong>Memoripy</strong> is a Python library designed to manage and retrieve context-aware memory interactions using both short-term and long-term storage. It supports AI-driven applications requiring memory management, with compatibility for OpenAI, Azure OpenAI, OpenRouter and Ollama APIs. Features include co</li>
+<li>相关标签：Novel Class Discovery / Open-World Learning / OOD / Continual Learning、Agent / Reasoning / Inference-time Scaling / Planning、Model Distillation / Model Compression / Efficient Training、Benchmark / Dataset / Evaluation、Tool Library</li>
+<li>命中关键词：clustering、dataset、distillation、environment、framework、github、github.com、image、novel class discovery、open-source</li>
+<li>开源信号：⭐ 2 | 🍴 0 | 📜 未知</li>
+<li>示例/文档/复现：示例 ✅ | 文档 ❌ | 脚本 ✅ | 权重 ❌</li>
+<li>README 摘要：Confronted with the increasing emergency of hyperspectral remote sensing categories in the dynamic environment, traditional classification models that depend on fixed-category labeled data encounter difficulties on new classes recognition. Novel class discovery (NCD) aims to discover unknown class-d</li>
 </ul>
 
 
@@ -796,14 +797,19 @@
 
 <li><a href="https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api">Advancing voice intelligence with new models in the API</a></li>
 
-<li>... 还有 4 条</li>
+<li>... 还有 9 条</li>
 </ul>
 
 <h3>Partnership / Policy</h3>
 <ul>
 <li><a href="https://deepmind.google/blog/announcing-our-partnership-with-the-republic-of-korea/">Announcing our partnership with the Republic of Korea</a></li>
-</ul>
 
+<li><a href="https://www.anthropic.com/news/higher-limits-spacex">May 6, 2026 Announcements Higher usage limits for Claude and a compute deal with SpaceX</a></li>
+
+<li><a href="https://www.anthropic.com/news/claude-for-creative-work">Apr 28, 2026 Announcements Claude for Creative Work</a></li>
+
+<li>... 还有 3 条</li>
+</ul>
 
 <h3>Low-signal PR</h3>
 <ul>
@@ -956,15 +962,21 @@
 
 <h2>12. 采集说明</h2>
 <ul>
-<li>采集时间：2026-05-10T17:37:51.002625+00:00</li>
-<li>source count：30</li>
-<li>raw item count：649</li>
-<li>dedup item count：585</li>
-<li>LLM summary mode or local summary mode：LLM summary mode</li>
+<li>采集时间：2026-05-10T23:30:47.127339+00:00</li>
+<li>source count：31</li>
+<li>raw item count：669</li>
+<li>dedup item count：605</li>
+<li>LLM summary mode or local summary mode：local summary mode</li>
 <li>benchmark appendix：reports/appendix/2026-05-11-benchmarks.md</li>
 
 <li>report path：reports/daily/2026/05/2026-05-11.md</li>
 <li>previous report link：reports/daily/2026/05/2026-05-10.md</li>
+</ul>
+
+<h2>Source Health</h2>
+<ul>
+<li>GitHub AI Research Projects: time budget exhausted (23 items) - time budget exhausted after 23 items</li>
+<li>Meta AI Blog: 0 items (0 items) - fetch completed with 0 items</li>
 </ul>
 
 </body>

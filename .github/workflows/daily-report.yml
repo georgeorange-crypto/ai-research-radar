@@ -15,8 +15,19 @@ jobs:
     env:
       RADAR_TIMEZONE: Asia/Shanghai
       RADAR_RANK_LIMIT: "0"
+      MODEL_MODE: single
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
       OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      DEEPSEEK_BASE_URL: ${{ secrets.DEEPSEEK_BASE_URL }}
+      DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL }}
+      KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
+      KIMI_BASE_URL: ${{ vars.KIMI_BASE_URL }}
+      KIMI_MODEL: ${{ vars.KIMI_MODEL }}
+      GLM_API_KEY: ${{ secrets.GLM_API_KEY }}
+      GLM_BASE_URL: ${{ vars.GLM_BASE_URL }}
+      GLM_MODEL: ${{ vars.GLM_MODEL }}
 
     steps:
       - name: Checkout
@@ -38,7 +49,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add report.md reports data/raw data/processed
+          git add report.md report.html reports data/raw data/processed
           if git diff --cached --quiet; then
             echo "No report changes to commit."
           else

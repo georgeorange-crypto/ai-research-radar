@@ -13,9 +13,13 @@ from typing import Any
 
 import requests
 import yaml
+from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader
 
 from md_to_html import archive_report_with_timestamp, generate_html_report
+
+# 加载 .env 环境变量
+load_dotenv()
 
 LLM_SUMMARY_CALLS = 0
 
