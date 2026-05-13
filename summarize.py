@@ -13,15 +13,31 @@ from typing import Any
 
 import requests
 import yaml
-from dotenv import load_dotenv
+from dotenv import dotenv_values, load_dotenv
 from jinja2 import Environment, FileSystemLoader
 
 from md_to_html import archive_report_with_timestamp, generate_html_report
 
 # 加载 .env 环境变量
-load_dotenv()
+DOTENV_PATH = Path(".env")
+DOTENV_VALUES = dotenv_values(DOTENV_PATH) if DOTENV_PATH.exists() else {}
+load_dotenv(override=False)
+
+if (
+    os.getenv("GITHUB_ACTIONS") == "true"
+    and "OPENAI_API_KEY" in os.environ
+    and not os.environ.get("OPENAI_API_KEY")
+    and DOTENV_VALUES.get("OPENAI_API_KEY")
+):
+    print(
+        "Warning: .env contains OPENAI_API_KEY, but GitHub Actions provided OPENAI_API_KEY as an empty string; "
+        "using the .env fallback for LLM config.",
+        file=sys.stderr,
+        flush=True,
+    )
 
 LLM_SUMMARY_CALLS = 0
+LAST_LLM_ERROR = ""
 
 
 KIND_LABELS = {
@@ -78,7 +94,6 @@ ACTION_CHOICES = {
 OPEN_SOURCE_ACTIONS = {"study_code", "use_as_baseline", "clone_and_run", "read_readme", "save", "archive"}
 
 DEFAULT_TEMPLATE_PATH = Path("config") / "daily_report.md.j2"
-LLM_SUMMARY_CALLS = 0
 
 SECTION_DISPLAY_NAMES = {
     "context_compression_memory": "上下文压缩 / 长上下文 / 记忆",
@@ -115,19 +130,80 @@ def trim(text: str, limit: int = 360) -> str:
     return text[: limit - 1].rstrip() + "…"
 
 
-def openai_enabled() -> bool:
-    return bool(os.getenv("OPENAI_API_KEY"))
+def getenv_nonempty(name: str, default: str = "") -> str:
+    return os.getenv(name) or default
+
+
+def dotenv_nonempty(name: str, default: str = "") -> str:
+    value = DOTENV_VALUES.get(name)
+    if value is None:
+        return default
+    return str(value) or default
+
+
+def config_env(name: str, default: str = "") -> str:
+    return getenv_nonempty(name, dotenv_nonempty(name, default))
+
+
+def get_single_llm_config() -> dict[str, str]:
+    openai_api_key = config_env("OPENAI_API_KEY")
+    if openai_api_key:
+        base_url = config_env("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+        return {
+            "provider": "openai",
+            "api_key": openai_api_key,
+            "base_url": base_url,
+            "model": config_env("OPENAI_MODEL", "gpt-4o-mini"),
+        }
+
+    deepseek_api_key = config_env("DEEPSEEK_API_KEY")
+    if deepseek_api_key:
+        return {
+            "provider": "deepseek",
+            "api_key": deepseek_api_key,
+            "base_url": config_env("DEEPSEEK_BASE_URL", "https://api.deepseek.com").rstrip("/"),
+            "model": config_env("DEEPSEEK_MODEL", "deepseek-v4-flash"),
+        }
+
+    kimi_api_key = config_env("KIMI_API_KEY")
+    if kimi_api_key:
+        return {
+            "provider": "kimi",
+            "api_key": kimi_api_key,
+            "base_url": config_env("KIMI_BASE_URL", "https://api.moonshot.cn/v1").rstrip("/"),
+            "model": config_env("KIMI_MODEL", "moonshot-v1-8k"),
+        }
+
+    glm_api_key = config_env("GLM_API_KEY")
+    if glm_api_key:
+        return {
+            "provider": "glm",
+            "api_key": glm_api_key,
+            "base_url": config_env("GLM_BASE_URL", "https://open.bigmodel.cn/api/paas/v4").rstrip("/"),
+            "model": config_env("GLM_MODEL", "glm-4.7-flash"),
+        }
+
+    return {
+        "provider": "local",
+        "api_key": "",
+        "base_url": "",
+        "model": "local fallback",
+    }
+
+
+def has_any_llm_api_key() -> bool:
+    return bool(get_single_llm_config().get("api_key"))
 
 
 def ensemble_enabled() -> bool:
-    return os.getenv("MODEL_MODE") == "ensemble"
+    return config_env("MODEL_MODE") == "ensemble"
 
 
 def _replace_env_var(value: str) -> str:
     """替换字符串中的环境变量引用 ${VAR_NAME}"""
     if isinstance(value, str) and value.startswith("${") and value.endswith("}"):
         env_var = value[2:-1]
-        return os.getenv(env_var, value)
+        return config_env(env_var, value)
     return value
 
 
@@ -162,11 +238,11 @@ def get_ensemble_model():
 
 
 def openai_timeout_seconds() -> float:
-    return float(os.getenv("OPENAI_TIMEOUT_SECONDS", "20"))
+    return float(config_env("OPENAI_TIMEOUT_SECONDS", "20"))
 
 
 def openai_summary_budget() -> int:
-    return int(os.getenv("OPENAI_SUMMARY_BUDGET", "12"))
+    return int(config_env("OPENAI_SUMMARY_BUDGET", "12"))
 
 
 GROUNDING_LABELS = {
@@ -463,13 +539,29 @@ def fallback_summary(item: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
-    api_key = os.getenv("OPENAI_API_KEY")
+def record_llm_error(provider: str, model: str, base_url: str, status: int | str | None, error_text: str) -> None:
+    global LAST_LLM_ERROR
+
+    status_label = str(status) if status else "n/a"
+    snippet = trim(error_text or "", 500)
+    LAST_LLM_ERROR = (
+        f"provider={provider}; model={model}; base_url={base_url}; "
+        f"HTTP status={status_label}; error={snippet or 'n/a'}"
+    )
+    print(f"LLM API error: {LAST_LLM_ERROR}", file=sys.stderr, flush=True)
+
+
+def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
+    global LLM_SUMMARY_CALLS
+
+    config = get_single_llm_config()
+    api_key = config.get("api_key", "")
     if not api_key:
         return None
 
-    base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
-    model = os.getenv("OPENAI_MODEL") or "gpt-4o-mini"
+    provider = config.get("provider", "openai")
+    base_url = config.get("base_url", "").rstrip("/")
+    model = config.get("model", "gpt-4o-mini")
     if grounding_level(item) == "title_only":
         return None
     evidence = trim(allowed_evidence_text(item), 2600)
@@ -519,6 +611,7 @@ def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
         {"role": "user", "content": json.dumps(prompt, ensure_ascii=False)},
     ]
     try:
+        LLM_SUMMARY_CALLS += 1
         response = requests.post(
             f"{base_url}/chat/completions",
             headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
@@ -530,11 +623,22 @@ def summarize_with_openai(item: dict[str, Any]) -> dict[str, Any] | None:
             },
             timeout=openai_timeout_seconds(),
         )
-        response.raise_for_status()
+        if not response.ok:
+            record_llm_error(provider, model, base_url, response.status_code, response.text[:500])
+            return None
         parsed = json.loads(response.json()["choices"][0]["message"]["content"])
         if all(key in parsed for key in SUMMARY_FIELDS):
             return normalize_summary(parsed, item)
-    except Exception:
+        record_llm_error(provider, model, base_url, "n/a", "Response JSON did not include all required summary fields.")
+    except requests.RequestException as e:
+        response = getattr(e, "response", None)
+        status = getattr(response, "status_code", None)
+        error_text = getattr(response, "text", None) or str(e)
+        record_llm_error(provider, model, base_url, status, error_text[:500])
+    except (KeyError, TypeError, ValueError, json.JSONDecodeError) as e:
+        record_llm_error(provider, model, base_url, "n/a", str(e)[:500])
+    except Exception as e:
+        record_llm_error(provider, model, base_url, "n/a", str(e)[:500])
         return None
     return None
 
@@ -552,9 +656,8 @@ def summarize_item(item: dict[str, Any]) -> dict[str, Any]:
             except Exception as e:
                 print(f"Ensemble model error: {e}")
     
-    if openai_enabled() and LLM_SUMMARY_CALLS < openai_summary_budget():
-        LLM_SUMMARY_CALLS += 1
-        return normalize_summary(summarize_with_openai(item), item)
+    if has_any_llm_api_key() and LLM_SUMMARY_CALLS < openai_summary_budget():
+        return normalize_summary(summarize_with_single_llm(item), item)
     
     return fallback_summary(item)
 
@@ -1947,11 +2050,7 @@ def generate_report(
 
     report_date = report_date or processed.get("date") or datetime.now().strftime("%Y-%m-%d")
     output_path = Path(output)
-    context = build_template_context(processed, report_date, output_path)
-    rendered = render_daily_template(context)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(rendered, encoding="utf-8")
-
+    
     # Archive previous latest.md before overwriting
     if archive_latest and latest_path and Path(latest_path).exists():
         archive_report_with_timestamp(
@@ -1959,6 +2058,19 @@ def generate_report(
             archive_dir="reports/history",
             suffix="latest",
         )
+
+    # Generate new report
+    context = build_template_context(processed, report_date, output_path)
+    rendered = render_daily_template(context)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(rendered, encoding="utf-8")
+
+    # Archive the newly generated report (LLM summary version)
+    archive_report_with_timestamp(
+        output_path,
+        archive_dir="reports/history",
+        suffix="daily",
+    )
 
     if latest_path:
         shutil.copyfile(output_path, latest_path)
