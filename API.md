@@ -1,5 +1,7 @@
 # 多模型协作 API 文档
 
+> 当前推荐模式是 `role_pipeline`：DeepSeek = Technical Extractor / Editor，Kimi = Relevance & Priority Judge，GLM = Critic / Grounding Auditor。本文后半部分仍保留旧 `ensemble` 两阶段投票机制说明，主要用于兼容路径参考。
+
 ## Author: 陈子聪 (Chen Zicong)
 ## Date: 2026-05-10
 ## Purpose: 详细说明多模型协作的两阶段工作机制和综合流程

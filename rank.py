@@ -71,6 +71,7 @@ MUST_READ_RESEARCH_RELEVANCE_MIN = 0.85
 
 PAPER_TIERS = {"MUST_READ", "SKIM", "WATCH", "ARCHIVE", "IGNORE"}
 GITHUB_ACTIONS = {"study_code", "use_as_baseline", "read_readme", "save", "clone_and_run"}
+TIER_ORDER = ["IGNORE", "ARCHIVE", "WATCH", "SKIM", "MUST_READ"]
 CONTEXT_SECTION_IDS = {"context_compression_memory", "context_compression", "context_memory"}
 MAINLINE_SECTION_IDS = {"context_compression_memory", "context_compression", "agents", "open_world_learning", "model_distillation"}
 GROUNDING_LEVELS = {"title_only", "abstract_only", "full_text", "repo_readme"}
@@ -1889,6 +1890,71 @@ def primary_matched_terms(item: dict[str, Any]) -> list[str]:
     return [str(term).lower() for term in item.get("matched_keywords", [])]
 
 
+def role_pipeline_payload(item: dict[str, Any]) -> dict[str, Any]:
+    metadata = item.get("metadata") if isinstance(item.get("metadata"), dict) else {}
+    role_pipeline = metadata.get("role_pipeline") if isinstance(metadata.get("role_pipeline"), dict) else {}
+    payload = role_pipeline.get("role_payload")
+    return payload if isinstance(payload, dict) else {}
+
+
+def role_relevance(item: dict[str, Any]) -> dict[str, Any]:
+    payload = role_pipeline_payload(item)
+    value = payload.get("relevance_judge")
+    return value if isinstance(value, dict) else {}
+
+
+def role_critic(item: dict[str, Any]) -> dict[str, Any]:
+    payload = role_pipeline_payload(item)
+    value = payload.get("critic")
+    return value if isinstance(value, dict) else {}
+
+
+def normalize_role_tier(value: Any) -> str | None:
+    tier = str(value or "").strip().upper()
+    return tier if tier in TIER_ORDER else None
+
+
+def role_tier_candidate(item: dict[str, Any]) -> str | None:
+    relevance = role_relevance(item)
+    return normalize_role_tier(relevance.get("reading_tier_candidate"))
+
+
+def role_blocks_must_read(item: dict[str, Any]) -> bool:
+    critic = role_critic(item)
+    source_warning = str(critic.get("source_quality_warning") or "").lower()
+    metadata = item.get("metadata") if isinstance(item.get("metadata"), dict) else {}
+    url_text = " ".join([str(item.get("url", "")), str(metadata.get("paper_link", ""))]).lower()
+    has_primary_paper = any(hint in url_text for hint in ["arxiv.org", "openreview.net", "doi.org", "paper"])
+    try:
+        hype_risk = float(critic.get("hype_risk") or 0.0)
+    except (TypeError, ValueError):
+        hype_risk = 0.0
+    return (
+        str(critic.get("category_risk") or "").lower() == "high"
+        or bool(critic.get("unsupported_claims"))
+        or hype_risk > 0.6
+        or (source_warning == "media_only" and not has_primary_paper)
+    )
+
+
+def apply_role_pipeline_tier_constraints(item: dict[str, Any]) -> None:
+    candidate = role_tier_candidate(item)
+    critic = role_critic(item)
+    current = normalize_role_tier(item.get("reading_tier"))
+    if not current or not candidate:
+        return
+    if role_blocks_must_read(item) and current == "MUST_READ":
+        item["reading_tier"] = "SKIM"
+        item["reading_tier_reason"] = "RolePipeline critic blocked MUST_READ; downgraded to SKIM."
+    elif critic.get("should_downgrade") is True and current != "IGNORE":
+        item["reading_tier"] = TIER_ORDER[max(0, TIER_ORDER.index(current) - 1)]
+        item["reading_tier_reason"] = "RolePipeline critic suggested downgrade."
+    elif TIER_ORDER.index(candidate) < TIER_ORDER.index(current):
+        item["reading_tier"] = candidate
+        item["reading_tier_reason"] = "RolePipeline relevance judge lowered the priority."
+    item["worth_deep_read"] = item.get("reading_tier") == "MUST_READ"
+
+
 def is_keyword_only_match(item: dict[str, Any]) -> bool:
     terms = primary_matched_terms(item)
     if not terms:
@@ -1987,6 +2053,18 @@ def editorial_priority_score(item: dict[str, Any]) -> float:
         priority -= 0.10
     if force_watch(item):
         priority -= 0.15
+    relevance = role_relevance(item)
+    relevance_scores = relevance.get("relevance_to_user") if isinstance(relevance.get("relevance_to_user"), dict) else {}
+    if relevance_scores:
+        mainline_fit = max(
+            float(relevance_scores.get(key, 0.0) or 0.0)
+            for key in ["context_compression_memory", "agents", "open_world_learning", "model_distillation", "rl"]
+        )
+        priority += min(0.10, mainline_fit * 0.10)
+    if str(relevance.get("risk_of_topic_drift") or "").lower() == "high":
+        priority -= 0.12
+    if role_blocks_must_read(item):
+        priority -= 0.18
     return clamp_score(priority)
 
 
@@ -2088,6 +2166,11 @@ def must_read_eligible(item: dict[str, Any]) -> bool:
     direct_mainline = must_bucket(item) in MUST_BUCKET_LABELS
     override = explicit_editorial_override(item)
     if ignore_reason(item):
+        return False
+    if role_blocks_must_read(item):
+        return False
+    candidate = role_tier_candidate(item)
+    if candidate and candidate != "MUST_READ":
         return False
     if primary_category_group(item) not in {"primary_research", "core_focus"}:
         return False
@@ -2276,6 +2359,9 @@ def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
         item["reading_tier"] = tier
         item["reading_tier_reason"] = tier_reason(item, tier)
         item["worth_deep_read"] = tier == "MUST_READ"
+
+    for item in paper_items:
+        apply_role_pipeline_tier_constraints(item)
 
 
 def section_catalog(config: dict[str, Any]) -> list[dict[str, Any]]:

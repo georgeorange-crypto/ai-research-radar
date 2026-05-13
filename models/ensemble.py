@@ -1,9 +1,9 @@
 from .base import BaseModel
+from .client import ChatModelClient, log_model_error
+from .summary_model import ACTION_CHOICES
 from typing import Any, Dict, List, Optional
 from collections import Counter
 import json
-import os
-import requests
 
 
 class EnsembleModel(BaseModel):
@@ -11,13 +11,7 @@ class EnsembleModel(BaseModel):
     
     STRATEGIES = ["voting", "weighted", "consensus", "editor"]
     
-    VOTABLE_FIELDS = [
-        "primary_category",
-        "reading_tier", 
-        "suggested_action",
-        "is_benchmark",
-        "is_open_source_project"
-    ]
+    VOTABLE_FIELDS = ["suggested_action"]
     
     EDITOR_FIELDS = [
         "what_is_it",
@@ -119,7 +113,7 @@ class EnsembleModel(BaseModel):
             if value and len(value) >= 10:
                 score += 0.15
         
-        if result.get("suggested_action") in {"read_pdf", "skim", "save", "ignore"}:
+        if result.get("suggested_action") in ACTION_CHOICES:
             score += 0.1
         
         return min(1.0, score)
@@ -261,7 +255,19 @@ class EnsembleModel(BaseModel):
     
     def _vote_action(self, values: List[str]) -> str:
         """投票决定行动建议"""
-        action_order = {"read_pdf": 5, "reproduce": 4, "skim": 3, "save": 2, "ignore": 1}
+        action_order = {
+            "read_pdf": 11,
+            "clone_and_run": 10,
+            "study_code": 9,
+            "use_as_baseline": 8,
+            "use_as_eval": 7,
+            "skim": 6,
+            "watch": 5,
+            "read_readme": 4,
+            "save": 3,
+            "archive": 2,
+            "ignore": 1,
+        }
         counter = Counter(values)
         
         best_action = "save"
@@ -315,46 +321,23 @@ class EnsembleModel(BaseModel):
         if not self.editor_model:
             return None
         
-        api_key = self.editor_model.get("api_key") or os.getenv("OPENAI_API_KEY")
+        api_key = self.editor_model.get("api_key") or ""
         base_url = self.editor_model.get("base_url", "https://api.openai.com/v1").rstrip("/")
         model = self.editor_model.get("model", "gpt-4o-mini")
         
         if not api_key:
             return None
-        
-        try:
-            response = requests.post(
-                f"{base_url}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "model": model,
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": self._editor_system_prompt()
-                        },
-                        {
-                            "role": "user",
-                            "content": json.dumps(editor_input, ensure_ascii=False)
-                        }
-                    ],
-                    "temperature": 0.2,
-                    "response_format": {"type": "json_object"},
-                    "timeout": 60
-                },
-                timeout=60
-            )
-            response.raise_for_status()
-            parsed = json.loads(response.json()["choices"][0]["message"]["content"])
-            
-            if all(key in parsed for key in self.EDITOR_FIELDS):
-                return parsed
-            
-        except Exception as e:
-            print(f"Editor model failed: {e}")
+
+        provider = self.editor_model.get("provider") or self.editor_model.get("type") or "editor"
+        client = ChatModelClient(provider=provider, api_key=api_key, base_url=base_url, model=model)
+        parsed = client.call_json(
+            system_prompt=self._editor_system_prompt(),
+            user_payload=editor_input,
+            temperature=0.2,
+        )
+        if parsed and all(key in parsed for key in self.EDITOR_FIELDS):
+            return parsed
+        log_model_error(provider, model, base_url, "n/a", "Editor response did not include all required summary fields.")
         
         return None
     

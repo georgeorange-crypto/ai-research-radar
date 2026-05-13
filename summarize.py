@@ -38,6 +38,8 @@ if (
 
 LLM_SUMMARY_CALLS = 0
 LAST_LLM_ERROR = ""
+MULTI_MODEL_INSTANCE = None
+MULTI_MODEL_MODE = ""
 
 
 KIND_LABELS = {
@@ -195,16 +197,34 @@ def has_any_llm_api_key() -> bool:
     return bool(get_single_llm_config().get("api_key"))
 
 
+def configured_model_mode(config: dict[str, Any] | None = None) -> str:
+    if config is None:
+        config = load_model_config()
+    config_mode = str(config.get("mode") or "").strip()
+    if config_mode:
+        return config_mode
+    env_mode = config_env("MODEL_MODE")
+    if env_mode:
+        return env_mode.strip()
+    return "single"
+
+
 def ensemble_enabled() -> bool:
-    return config_env("MODEL_MODE") == "ensemble"
+    return configured_model_mode() in {"ensemble", "role_pipeline"}
 
 
 def _replace_env_var(value: str) -> str:
     """替换字符串中的环境变量引用 ${VAR_NAME}"""
     if isinstance(value, str) and value.startswith("${") and value.endswith("}"):
         env_var = value[2:-1]
-        return config_env(env_var, value)
+        return config_env(env_var, "")
     return value
+
+
+def _replace_model_env_values(mapping: dict[str, Any], keys: list[str]) -> None:
+    for key in keys:
+        if key in mapping:
+            mapping[key] = _replace_env_var(mapping[key])
 
 
 def load_model_config() -> dict[str, Any]:
@@ -213,12 +233,21 @@ def load_model_config() -> dict[str, Any]:
         return {}
     
     with open(config_path, "r", encoding="utf-8") as f:
-        config = yaml.safe_load(f)
+        config = yaml.safe_load(f) or {}
     
-    for model in config.get("models", []):
-        for key in ["api_key", "base_url", "model"]:
-            if key in model:
-                model[key] = _replace_env_var(model[key])
+    configured_models = []
+    for model in config.get("models", []) or []:
+        _replace_model_env_values(model, ["api_key", "base_url", "model"])
+        if model.get("api_key"):
+            configured_models.append(model)
+    if "models" in config:
+        config["models"] = configured_models
+
+    roles = config.get("roles", {})
+    if isinstance(roles, dict):
+        for role_config in roles.values():
+            if isinstance(role_config, dict):
+                _replace_model_env_values(role_config, ["api_key", "base_url", "model"])
     
     editor_config = config.get("editor", {})
     for key in ["api_key", "base_url", "model"]:
@@ -229,12 +258,101 @@ def load_model_config() -> dict[str, Any]:
 
 
 def get_ensemble_model():
+    global MULTI_MODEL_INSTANCE, MULTI_MODEL_MODE
+
+    config = load_model_config()
+    mode = configured_model_mode(config)
+    if MULTI_MODEL_INSTANCE is not None and MULTI_MODEL_MODE == mode:
+        return MULTI_MODEL_INSTANCE
+
     try:
-        from models.ensemble import EnsembleModel
-        config = load_model_config()
-        return EnsembleModel(config)
+        if mode == "role_pipeline":
+            from models.role_pipeline import RolePipeline
+
+            model = RolePipeline(config)
+            if not model.available:
+                return None
+        elif mode == "ensemble":
+            from models.ensemble import EnsembleModel
+
+            model = EnsembleModel(config)
+        else:
+            return None
+        MULTI_MODEL_INSTANCE = model
+        MULTI_MODEL_MODE = mode
+        return model
     except ImportError:
         return None
+
+
+def role_pipeline_configured(config: dict[str, Any]) -> bool:
+    roles = config.get("roles", {})
+    if not isinstance(roles, dict):
+        return False
+    required = ["technical_extractor", "relevance_judge", "critic", "editor"]
+    return all(
+        isinstance(roles.get(role), dict)
+        and roles[role].get("api_key")
+        and roles[role].get("base_url")
+        and roles[role].get("model")
+        for role in required
+    )
+
+
+def role_summary_lines(config: dict[str, Any]) -> str:
+    roles = config.get("roles", {})
+    if not isinstance(roles, dict):
+        return ""
+    labels = {
+        "technical_extractor": "technical_extractor",
+        "relevance_judge": "relevance_judge",
+        "critic": "critic",
+        "editor": "editor",
+    }
+    lines = []
+    for role, label in labels.items():
+        role_config = roles.get(role, {})
+        if not isinstance(role_config, dict):
+            continue
+        provider = role_config.get("provider") or role_config.get("type") or "unconfigured"
+        model = role_config.get("model") or "unconfigured"
+        suffix = "" if role_config.get("api_key") else " (missing api_key)"
+        lines.append(f"- {label}: {model} ({provider}){suffix}")
+    return "\n".join(lines)
+
+
+def active_summary_backend() -> dict[str, str]:
+    config = load_model_config()
+    mode = configured_model_mode(config)
+    single_config = get_single_llm_config()
+    if mode == "role_pipeline" and role_pipeline_configured(config):
+        return {
+            "summary_mode": "role_pipeline",
+            "provider": "role_pipeline",
+            "model": "role-based multi-model",
+            "roles": role_summary_lines(config),
+        }
+    if mode == "ensemble" and config.get("models"):
+        names = [f"{m.get('type') or m.get('provider')}:{m.get('model')}" for m in config.get("models", [])]
+        return {
+            "summary_mode": "ensemble",
+            "provider": "ensemble",
+            "model": ", ".join(names) or "ensemble",
+            "roles": "",
+        }
+    if single_config.get("api_key"):
+        return {
+            "summary_mode": "single",
+            "provider": single_config.get("provider", "local"),
+            "model": single_config.get("model", "local fallback"),
+            "roles": "",
+        }
+    return {
+        "summary_mode": "local",
+        "provider": "local",
+        "model": "local fallback",
+        "roles": "",
+    }
 
 
 def openai_timeout_seconds() -> float:
@@ -611,25 +729,42 @@ def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
         {"role": "user", "content": json.dumps(prompt, ensure_ascii=False)},
     ]
     try:
+        from models.client import parse_json_object
+
         LLM_SUMMARY_CALLS += 1
-        response = requests.post(
-            f"{base_url}/chat/completions",
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-            json={
+        supports_response_format = provider.lower() not in {"glm"}
+        attempts = [supports_response_format, False]
+        seen: set[bool] = set()
+        for use_response_format in attempts:
+            if use_response_format in seen:
+                continue
+            seen.add(use_response_format)
+            payload: dict[str, Any] = {
                 "model": model,
                 "messages": messages,
                 "temperature": 0.2,
-                "response_format": {"type": "json_object"},
-            },
-            timeout=openai_timeout_seconds(),
-        )
-        if not response.ok:
-            record_llm_error(provider, model, base_url, response.status_code, response.text[:500])
+            }
+            if use_response_format:
+                payload["response_format"] = {"type": "json_object"}
+            response = requests.post(
+                f"{base_url}/chat/completions",
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                json=payload,
+                timeout=openai_timeout_seconds(),
+            )
+            if not response.ok:
+                record_llm_error(provider, model, base_url, response.status_code, response.text[:500])
+                if use_response_format:
+                    continue
+                return None
+            content = response.json()["choices"][0]["message"]["content"]
+            parsed = parse_json_object(content)
+            if parsed and all(key in parsed for key in SUMMARY_FIELDS):
+                return normalize_summary(parsed, item)
+            record_llm_error(provider, model, base_url, "n/a", "Response JSON did not include all required summary fields.")
+            if use_response_format:
+                continue
             return None
-        parsed = json.loads(response.json()["choices"][0]["message"]["content"])
-        if all(key in parsed for key in SUMMARY_FIELDS):
-            return normalize_summary(parsed, item)
-        record_llm_error(provider, model, base_url, "n/a", "Response JSON did not include all required summary fields.")
     except requests.RequestException as e:
         response = getattr(e, "response", None)
         status = getattr(response, "status_code", None)
@@ -645,6 +780,10 @@ def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
 
 def summarize_item(item: dict[str, Any]) -> dict[str, Any]:
     global LLM_SUMMARY_CALLS
+
+    cached_summary = item.get("_cached_summary")
+    if isinstance(cached_summary, dict):
+        return normalize_summary(cached_summary, item)
     
     if ensemble_enabled():
         ensemble_model = get_ensemble_model()
@@ -652,6 +791,8 @@ def summarize_item(item: dict[str, Any]) -> dict[str, Any]:
             try:
                 result = ensemble_model.summarize(item)
                 if result:
+                    if configured_model_mode() == "role_pipeline":
+                        LLM_SUMMARY_CALLS += len(getattr(ensemble_model, "clients", {})) or 1
                     return normalize_summary(result, item)
             except Exception as e:
                 print(f"Ensemble model error: {e}")
@@ -1977,8 +2118,8 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
     items = processed.get("items", [])
     collection_time = processed.get("generated_at") or datetime.now().isoformat(timespec="seconds")
     benchmark_appendix = write_benchmark_appendix(processed, report_date)
-    llm_config = get_single_llm_config()
-    llm_enabled = bool(llm_config.get("api_key"))
+    backend = active_summary_backend()
+    llm_enabled = backend.get("summary_mode") != "local"
     return {
         "report_date": report_date,
         "overview": build_overview(processed),
@@ -2010,9 +2151,10 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "source_health": render_source_health(processed),
             "raw_count": processed.get("counts", {}).get("raw", 0),
             "dedup_count": processed.get("counts", {}).get("deduped", 0),
-            "summary_mode": "LLM" if llm_enabled else "local",
-            "provider": llm_config.get("provider", "local"),
-            "model": llm_config.get("model", "local fallback"),
+            "summary_mode": backend.get("summary_mode", "local"),
+            "provider": backend.get("provider", "local"),
+            "model": backend.get("model", "local fallback"),
+            "roles": backend.get("roles", ""),
             "llm_summary_calls": LLM_SUMMARY_CALLS,
             "last_llm_error": LAST_LLM_ERROR or "none",
             "local_summary_notice": "" if llm_enabled else "当前为本地摘要模式，解释质量有限",

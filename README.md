@@ -273,16 +273,18 @@ python run.py --verbose
 | Kimi (Moonshot) | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` |
 | GLM | `https://open.bigmodel.cn/api/paas/v4` | `glm-4.7-flash` |
 
-### 单模型 vs 多模型协作
+### 单模型 vs 角色协作
 
 ```env
+# config/models.yaml 的 mode 优先生效；这里作为未配置时的兜底。
 # 单模型模式（默认）
 MODEL_MODE=single
 
-# 多模型协作模式（投票决策）
-MODEL_MODE=ensemble
-ENSEMBLE_STRATEGY=voting  # voting | weighted | consensus | editor
+# 角色协作模式
+MODEL_MODE=role_pipeline
 ```
+
+`role_pipeline` 使用 `config/models.yaml` 中的角色分工：DeepSeek 做技术事实抽取和最终编辑，Kimi 做 George 研究相关性与优先级判断，GLM 做 grounding / hype / 分类风险质检。旧 `ensemble` 兼容路径仍保留，但不再是推荐模式。
 
 ---
 

@@ -2,6 +2,9 @@
 - Summary mode: {{ collection.summary_mode }}
 - Provider: {{ collection.provider }}
 - Model: {{ collection.model }}
+{% if collection.roles %}- Roles:
+{{ collection.roles }}
+{% endif %}
 - LLM summary calls: {{ collection.llm_summary_calls }}
 - Last LLM error: {{ collection.last_llm_error }}
 
@@ -124,6 +127,9 @@
 - Summary mode：{{ collection.summary_mode }}
 - Provider：{{ collection.provider }}
 - Model：{{ collection.model }}
+{% if collection.roles %}- Roles：
+{{ collection.roles }}
+{% endif %}
 - LLM summary calls：{{ collection.llm_summary_calls }}
 - Last LLM error：{{ collection.last_llm_error }}
 {% if collection.benchmark_appendix %}- benchmark appendix：{{ collection.benchmark_appendix }}

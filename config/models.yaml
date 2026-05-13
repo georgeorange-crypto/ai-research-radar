@@ -1,31 +1,33 @@
-mode: ensemble
-strategy: editor
-primary_model: deepseek
+mode: role_pipeline
 
-models:
-  - type: deepseek
-    name: deepseek
+roles:
+  technical_extractor:
+    provider: deepseek
     api_key: ${DEEPSEEK_API_KEY}
     base_url: https://api.deepseek.com
     model: deepseek-v4-flash
-    weight: 1.0
 
-  - type: kimi
-    name: kimi
+  relevance_judge:
+    provider: kimi
     api_key: ${KIMI_API_KEY}
     base_url: https://api.moonshot.cn/v1
     model: moonshot-v1-8k
-    weight: 1.0
 
-  - type: glm
-    name: glm
+  critic:
+    provider: glm
     api_key: ${GLM_API_KEY}
     base_url: https://open.bigmodel.cn/api/paas/v4
     model: glm-4.7-flash
-    weight: 1.0
 
-editor:
-  enabled: true
-  api_key: ${OPENAI_API_KEY}
-  base_url: ${OPENAI_BASE_URL}
-  model: ${OPENAI_MODEL}
+  editor:
+    provider: deepseek
+    api_key: ${DEEPSEEK_API_KEY}
+    base_url: https://api.deepseek.com
+    model: deepseek-v4-flash
+
+fallback:
+  single_provider_order:
+    - openai
+    - deepseek
+    - kimi
+    - glm
