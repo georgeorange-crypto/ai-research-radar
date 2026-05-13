@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-05
 
-- 纳入日报：4 份
-- 跟踪条目：824；MUST_READ 7；SKIM 24；ARCHIVE 395
+- 纳入日报：5 份
+- 跟踪条目：841；MUST_READ 7；SKIM 25；ARCHIVE 402
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,31 +27,31 @@
 - [FocuSFT: Bilevel Optimization for Dilution-Aware Long-Context Fine-Tuning](https://arxiv.org/abs/2605.09932)（SKIM，Context Compression / Long Context / Memory，score 0.92）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：159 条进入跟踪；高频信号：nlp、framework、robotics、reasoning、language model、agentic、cs.LG、systems。
+- Agent / Reasoning / Inference-time Scaling / Planning：167 条进入跟踪；高频信号：nlp、framework、reasoning、robotics、language model、agentic、cs.LG、environment。
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [PriorZero: Bridging Language Priors and World Models for Decision Making](https://arxiv.org/abs/2605.12289v1)
   - [C-CoT: Counterfactual Chain-of-Thought with Vision-Language Models for Safe Autonomous Driving](https://arxiv.org/abs/2605.10744v1)
   - [RubricEM: Meta-RL with Rubric-guided Policy Decomposition beyond Verifiable Rewards](https://arxiv.org/abs/2605.10899v1)
   - [TMAS: Scaling Test-Time Compute via Multi-Agent Synergy](https://arxiv.org/abs/2605.10344)
-- Benchmark / Dataset / Evaluation：110 条进入跟踪；高频信号：benchmark、evaluation、nlp、dataset、robotics、language model、framework、cs.LG。
+- Benchmark / Dataset / Evaluation：112 条进入跟踪；高频信号：benchmark、evaluation、nlp、dataset、robotics、language model、framework、cs.LG。
   - [LITMUS: Benchmarking Behavioral Jailbreaks of LLM Agents in Real OS Environments](https://arxiv.org/abs/2605.10779v1)
   - [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)
   - [WildClawBench: A Benchmark for Real-World, Long-Horizon Agent Evaluation](https://arxiv.org/abs/2605.10912v1)
   - [Beyond Task Success: Measuring Workflow Fidelity in LLM-Based Agentic Payment Systems](https://arxiv.org/abs/2605.06457v1)
   - [TrajPrism: A Multi-Task Benchmark for Language-Grounded Urban Trajectory Understanding](https://arxiv.org/abs/2605.10782v1)
-- Other Highlights：110 条进入跟踪；高频信号：robotics、framework、nlp、cmu.edu、systems、stanford.edu、cs.LG、privacy。
+- Other Highlights：111 条进入跟踪；高频信号：robotics、framework、nlp、cmu.edu、systems、stanford.edu、cs.LG、privacy。
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
   - [HarmoWAM: Harmonizing Generalizable and Precise Manipulation via Adaptive World Action Models](https://arxiv.org/abs/2605.10942v1)
   - [CLAD: A Clustered Label-Agnostic Federated Learning Framework for Joint Anomaly Detection and Attack Classification](https://arxiv.org/abs/2605.06571v1)
   - [GuidedVLA: Specifying Task-Relevant Factors via Plug-and-Play Action Attention Specialization](https://arxiv.org/abs/2605.12369v1)
   - [Multi-Robot Coordination in V2X Environments](https://arxiv.org/abs/2605.06662v1)
-- CV：94 条进入跟踪；高频信号：nlp、cs.CV、image、framework、robotics、diffusion、multimodal、attention。
+- CV：95 条进入跟踪；高频信号：nlp、cs.CV、image、framework、robotics、diffusion、multimodal、attention。
   - [Large-Small Model Collaboration for Farmland Semantic Change Detection](https://arxiv.org/abs/2605.12282v1)
   - [VIP: Visual-guided Prompt Evolution for Efficient Dense Vision-Language Inference](https://arxiv.org/abs/2605.12325v1)
   - [Count Anything at Any Granularity](https://arxiv.org/abs/2605.10887v1)
   - [Dynamic Cross-Modal Prompt Generation for Multimodal Continual Instruction Tuning](https://arxiv.org/abs/2605.10765v1)
   - [Images in Sentences: Scaling Interleaved Instructions for Unified Visual Generation](https://arxiv.org/abs/2605.12305v1)
-- NLP：78 条进入跟踪；高频信号：nlp、language model、cs.CL、robotics、framework、cs.LG、inference、reasoning。
+- NLP：79 条进入跟踪；高频信号：language model、nlp、cs.CL、robotics、framework、cs.LG、inference、reasoning。
   - [Grounded or Guessing? LVLM Confidence Estimation via Blind-Image Contrastive Ranking](https://arxiv.org/abs/2605.10893v1)
   - [MASPO: Joint Prompt Optimization for LLM-based Multi-Agent Systems](https://arxiv.org/abs/2605.06623v1)
   - [Grounded Satirical Generation with RAG](https://arxiv.org/abs/2605.10853v1)
@@ -63,18 +63,18 @@
   - [Transformers Efficiently Perform In-Context Logistic Regression via Normalized Gradient Descent](https://arxiv.org/abs/2605.06609v1)
   - [DynaMiCS: Fine-tuning LLMs with Performance Constraints using Dynamic Mixtures](https://arxiv.org/abs/2605.10770v1)
   - [MARBLE: Multi-Aspect Reward Balance for Diffusion RL](https://arxiv.org/abs/2605.06507v1)
-- Institutional Updates：54 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、nvidia.com、research.google、microsoft.com、partnership、university。
+- Institutional Updates：57 条进入跟踪；高频信号：openai.com、anthropic.com、deepmind.google、nvidia.com、research.google、microsoft.com、partnership、university。
   - [Announcing our partnership with the Republic of Korea](https://deepmind.google/blog/announcing-our-partnership-with-the-republic-of-korea/)
   - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
   - [SocialReasoning-Bench: Measuring whether AI agents act in users' best interests](https://www.microsoft.com/en-us/research/blog/socialreasoning-bench-measuring-whether-ai-agents-act-in-users-best-interests/)
+  - [GridSFM: A new, small foundation model for the electric grid](https://www.microsoft.com/en-us/research/blog/gridsfm-a-new-small-foundation-model-for-the-electric-grid/)
   - [AutoScout24 scales engineering with AI-powered workflows](https://openai.com/index/autoscout24)
-  - [OpenAI launches DeployCo to help businesses build around intelligence](https://openai.com/index/openai-launches-the-deployment-company)
-- GitHub / Open Source Projects：26 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、library、nlp、attention。
+- GitHub / Open Source Projects：27 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、library、nlp、context window。
   - [EgoForce: Forearm-Guided Camera-Space 3D Hand Pose from a Monocular Egocentric Camera](https://arxiv.org/abs/2605.12498v1)
   - [On the Security of Research Artifacts](https://arxiv.org/abs/2605.06508v1)
+  - [lambda-calculus-LLM/lambda-RLM](https://github.com/lambda-calculus-LLM/lambda-RLM)
   - [dipampaul17/KVSplit](https://github.com/dipampaul17/KVSplit)
   - [Chirsycy/CRPD-PCP](https://github.com/Chirsycy/CRPD-PCP)
-  - [infiniflow/ragflow](https://github.com/infiniflow/ragflow)
 - Model Distillation / Model Compression / Efficient Training：25 条进入跟踪；高频信号：language model、nlp、cs.LG、distillation、framework、robotics、quantization、inference。
   - [DINORANKCLIP: DINOv3 Distillation and Injection for Vision-Language Pretraining with High-Order Ranking Consistency](https://arxiv.org/abs/2605.06592v1)
   - [Continuous-Time Distribution Matching for Few-Step Diffusion Distillation](https://arxiv.org/abs/2605.06376)
