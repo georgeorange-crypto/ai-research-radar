@@ -11,7 +11,7 @@ import fetch as fetch_module
 
 try:
     from dotenv import load_dotenv
-    load_dotenv()
+    load_dotenv(override=False)
 except ImportError:
     pass
 

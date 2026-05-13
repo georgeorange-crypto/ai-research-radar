@@ -1977,6 +1977,8 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
     items = processed.get("items", [])
     collection_time = processed.get("generated_at") or datetime.now().isoformat(timespec="seconds")
     benchmark_appendix = write_benchmark_appendix(processed, report_date)
+    llm_config = get_single_llm_config()
+    llm_enabled = bool(llm_config.get("api_key"))
     return {
         "report_date": report_date,
         "overview": build_overview(processed),
@@ -2008,8 +2010,12 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "source_health": render_source_health(processed),
             "raw_count": processed.get("counts", {}).get("raw", 0),
             "dedup_count": processed.get("counts", {}).get("deduped", 0),
-            "summary_mode": "LLM summary mode" if openai_enabled() else "local summary mode",
-            "local_summary_notice": "" if openai_enabled() else "当前为本地摘要模式，解释质量有限",
+            "summary_mode": "LLM" if llm_enabled else "local",
+            "provider": llm_config.get("provider", "local"),
+            "model": llm_config.get("model", "local fallback"),
+            "llm_summary_calls": LLM_SUMMARY_CALLS,
+            "last_llm_error": LAST_LLM_ERROR or "none",
+            "local_summary_notice": "" if llm_enabled else "当前为本地摘要模式，解释质量有限",
             "benchmark_appendix": benchmark_appendix,
             "report_path": str(report_path).replace("\\", "/"),
             "previous_report_link": previous_report_link(report_date),
@@ -2081,9 +2087,9 @@ def generate_report(
             html_path = generate_html_report(output_path)
             print(f"Generated HTML report: {html_path}")
 
-            # Also generate HTML for report.md (root level)
+            # Also generate HTML for report.md (root level) as index.html for GitHub Pages
             if latest_path and Path(latest_path).exists():
-                root_html_path = Path("report.html")
+                root_html_path = Path("index.html")
                 generate_html_report(latest_path, root_html_path)
                 print(f"Generated root HTML report: {root_html_path}")
         except Exception as e:

@@ -94,7 +94,7 @@ def check_summary_mode_consistency(content: str) -> None:
     model_mode = os.getenv("MODEL_MODE", "").strip().lower()
     
     if model_mode == "ensemble":
-        if "local summary mode" in content:
+        if "local summary mode" in content or "Summary mode: local" in content or "Summary mode：local" in content:
             raise QualityError(
                 "MODEL_MODE=ensemble 但报告显示 'local summary mode'。"
                 "Ensemble 模式应该使用 LLM summary，而不是本地摘要模式。"

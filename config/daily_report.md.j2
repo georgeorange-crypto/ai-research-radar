@@ -1,4 +1,10 @@
 # AI Research Radar - {{ report_date }}
+- Summary mode: {{ collection.summary_mode }}
+- Provider: {{ collection.provider }}
+- Model: {{ collection.model }}
+- LLM summary calls: {{ collection.llm_summary_calls }}
+- Last LLM error: {{ collection.last_llm_error }}
+
 {% if collection.local_summary_notice %}
 > {{ collection.local_summary_notice }}
 {% endif %}
@@ -115,7 +121,11 @@
 - source count：{{ collection.source_count }}
 - raw item count：{{ collection.raw_count }}
 - dedup item count：{{ collection.dedup_count }}
-- LLM summary mode or local summary mode：{{ collection.summary_mode }}
+- Summary mode：{{ collection.summary_mode }}
+- Provider：{{ collection.provider }}
+- Model：{{ collection.model }}
+- LLM summary calls：{{ collection.llm_summary_calls }}
+- Last LLM error：{{ collection.last_llm_error }}
 {% if collection.benchmark_appendix %}- benchmark appendix：{{ collection.benchmark_appendix }}
 {% endif %}
 - report path：{{ collection.report_path }}
