@@ -1,4 +1,4 @@
-mode: role_pipeline
+mode: single
 
 roles:
   technical_extractor:
