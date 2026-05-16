@@ -1,9 +1,9 @@
-# AI Research Radar - 2026-05-16
+# AI Research Radar - 2026-05-17
 - Summary mode: single
 - Provider: openai
 - Model: moonshot-v1-8k
 
-- LLM summary calls: 9
+- LLM summary calls: 10
 - Last LLM error: none
 
 
@@ -11,8 +11,8 @@
 ## 0. 今日总览
 - 今日最重要方向：Agent / Reasoning / Inference-time Scaling / Planning
 - 今日必须深读：3 篇（Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；CLOVER: Closed-Loop Value Estimation \& Ranking for End-to-End Autonomous Driving Planning；Causal Forcing++: Scalable Few-Step Autoregressive Diffusion Distillation for Real-Time Interactive Video Generation）
-- 今日值得略读：8 篇（Self-Distilled Agentic Reinforcement Learning；Learning from Language Feedback via Variational Policy Distillation；Hand-in-the-Loop: Improving Dexterous VLA via Seamless Interventional Correction；From Plans to Pixels: Learning to Plan and Orchestrate for Open-Ended Image Editing；Behavioral Data-Driven Optimal Trajectory Generation for Rotary Cranes）
-- 今日值得跟踪：12 篇展示（Orchard: An Open-Source Agentic Modeling Framework；Whole-Body Conditioned Egocentric Video Prediction；ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning；Unlocking Complex Visual Generation via Closed-Loop Verified Reasoning；Scaling Up Reinforcement Learning for Traffic Smoothing: A 100-AV Highway Deployment）
+- 今日值得略读：8 篇（Self-Distilled Agentic Reinforcement Learning；Learning from Language Feedback via Variational Policy Distillation；Gradient-based Planning for World Models at Longer Horizons；Hand-in-the-Loop: Improving Dexterous VLA via Seamless Interventional Correction；From Plans to Pixels: Learning to Plan and Orchestrate for Open-Ended Image Editing）
+- 今日值得跟踪：12 篇展示（Orchard: An Open-Source Agentic Modeling Framework；Whole-Body Conditioned Egocentric Video Prediction；ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning；Scaling Up Reinforcement Learning for Traffic Smoothing: A 100-AV Highway Deployment；Unlocking Complex Visual Generation via Closed-Loop Verified Reasoning）
 - 今日关键词：nlp、robotics、framework、long-horizon、agentic、evaluation、distillation、cs.LG
 - 今日判断：今日主线：推理时扩展正在从顺序 CoT 转向自适应并行推理与可选择的搜索路径；同时 模型蒸馏在 diffusion 方向从离散步监督走向连续时间分布匹配。
 
@@ -31,7 +31,7 @@
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)（WATCH，Context Compression / Long Context / Memory，证据 full text，personal 0.93，global 0.41）
 
 #### Archive
-- [Understanding and Coding the KV Cache in LLMs from Scratch](https://magazine.sebastianraschka.com/p/coding-the-kv-cache-in-llms)（ARCHIVE，Context Compression / Long Context / Memory，证据 full text，personal 0.59，global 0.17）
+- [Recent Developments in LLM Architectures: KV Sharing, mHC, and Compressed Attention](https://magazine.sebastianraschka.com/p/recent-developments-in-llm-architectures)（ARCHIVE，Context Compression / Long Context / Memory，证据 full text，personal 0.58，global 0.33）
 
 ### 1.2 Agent / Tool Use / Planning
 #### Must Read
@@ -44,10 +44,10 @@
 - 原文链接：http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/
 - 发布时间：2026-05-08T09:00:00+00:00
 - 这是什么？这篇文章介绍了自适应并行推理（Adaptive Parallel Reasoning），这是一种新兴的推理模型范式，它能够根据手头的问题自行决定何时分解和并行化独立的子任务，产生多少并发线程，以及如何协调它们。
-- 解决了什么问题？文章指出，尽管大型语言模型在推理能力上取得了进展，但这些进展主要依赖于推理时的扩展，包括数据和参数规模的扩展。然而，随着探索的增加，模型性能会因为上下文限制和所谓的上下文旋转（context-rot）而下降，导致推理的延迟增加，推理变得缓慢、不可靠且计算密集。
-- 方法或贡献是什么？文章讨论了并行推理作为一种解决方案，它允许模型独立并并发地探索多个线程，而不是顺序地累积上下文窗口。特别提到了ThreadWeaver方法，这是其中的一个研究案例。
-- 为什么对我重要？对于研究者而言，这篇文章提供了对自适应并行推理领域的深入分析，这对于理解和改进大型语言模型的推理能力至关重要，尤其是在面对需要大量探索和规划的复杂任务时。
-- 是否建议深读？鉴于文章的深度和对自适应并行推理领域的全面覆盖，建议深读这篇文章以获得对该领域的深入理解。
+- 解决了什么问题？文章指出，尽管大型语言模型（LLM）在推理能力上取得了进展，但这些模型在探索时是线性扩展的，这导致了模型性能下降（称为上下文衰减）和推理延迟增加。
+- 方法或贡献是什么？文章详细分析了并行推理的最新进展，特别是自适应并行推理。这种方法允许模型独立并并发地探索多个推理路径，而不是顺序探索，以提高效率和可靠性。
+- 为什么对我重要？对于需要大量推理和规划的复杂任务，自适应并行推理可以显著减少用户等待时间，并降低计算成本，这对于提高模型的实用性和可扩展性至关重要。
+- 是否建议深读？鉴于文章的深度和对自适应并行推理领域的贡献，如果你对推理模型的高效推理扩展感兴趣，建议深读。
 - 建议行动：read_pdf
 - 评分：global_score 0.43；personal_score 0.98；credibility 1.00；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.08；actionability 0.72；research_relevance 1.00；hype_risk 0.00
 - 多源信号：机构:BAIR Blog
@@ -65,10 +65,10 @@
 - 原文链接：https://arxiv.org/abs/2605.15155v1
 - 发布时间：2026-05-14T17:51:26+00:00
 - 这是什么？这篇文章介绍了一种名为Self-Distilled Agentic Reinforcement Learning (SDAR)的新方法。
-- 解决了什么问题？文章针对的是强化学习(RL)在长时序交互中只能提供粗略的轨迹级奖励信号的问题，这限制了对复杂任务的精细控制。
-- 方法或贡献是什么？SDAR通过将OPSD（On-Policy Self-Distillation）作为辅助目标，并保持RL作为主要优化目标，通过sigmoid门控制强化学习中的蒸馏强度，以增强教师认可的正差距标记的蒸馏，并软化教师拒绝的负标记。
-- 为什么对我重要？SDAR在Qwen2.5和Qwen3系列模型上取得了显著的性能提升，并在不同模型规模上一致性地超越了混合RL-OPSD基线。
-- 是否建议深读？由于该研究在多个任务上显示出了性能提升，对于关注强化学习、模型蒸馏和长时序交互的研究者来说，建议深读。
+- 解决了什么问题？该方法旨在解决强化学习(RL)在训练大型语言模型(LLM)代理时，由于轨迹级奖励信号提供的监督过于粗糙，导致长时序交互中的挑战。
+- 方法或贡献是什么？SDAR通过将OPSD（On-Policy Self-Distillation）作为辅助目标，并保持RL作为主要优化框架，引入了从具有特权上下文的教师分支得到的密集的token级指导。
+- 为什么对我重要？SDAR在Qwen2.5和Qwen3系列模型上取得了显著的性能提升，并避免了简单结合RL和OPSD时出现的不稳定性问题。
+- 是否建议深读？由于该方法在多个任务上显示出性能提升，对于研究长上下文交互和Agent训练的研究者来说，建议深入阅读。
 - 建议行动：skim
 - 评分：global_score 0.40；personal_score 0.98；credibility 1.00；conference 0.00；institution 0.00；multi_source 0.05；community_signal 0.10；actionability 0.62；research_relevance 1.00；hype_risk 0.00
 - 多源信号：论文:arXiv AI/ML/NLP/Vision/Robotics/Papers with Code Trending (HF redirect)；代码:Papers with Code Trending (HF redirect)
@@ -85,11 +85,11 @@
 - 证据来源：abstract only
 - 原文链接：https://arxiv.org/abs/2605.15113v1
 - 发布时间：2026-05-14T17:27:34+00:00
-- 这是什么？这篇文章介绍了一种名为变分策略蒸馏（Variational Policy Distillation, VPD）的新框架，旨在解决从语言反馈中学习的强化学习问题。
+- 这是什么？这篇文章介绍了一种名为变分策略蒸馏（Variational Policy Distillation, VPD）的新框架，旨在解决强化学习中从语言反馈中学习的问题。
 - 解决了什么问题？强化学习从可验证奖励（RLVR）中学习时，由于结果信号稀疏，导致复杂推理任务上的探索瓶颈。
-- 方法或贡献是什么？VPD框架将学习语言反馈问题形式化为变分期望最大化（EM）问题，通过自适应信任域更新在E步中主动改进教师策略，将文本反馈转化为动态改进的目标标记分布，并在M步中让学生策略内化这一密集的分布引导。
-- 为什么对我重要？VPD通过持续改进教师从文本批评中提取可操作信号的能力，克服了被动蒸馏的局限性，并在科学推理和代码生成任务上超越了标准RLVR和现有自蒸馏基线。
-- 是否建议深读？由于该研究在多个任务上显示出性能提升，并且探讨了反馈驱动的自蒸馏与纯环境驱动RL之间的基本界限，建议深入阅读以获取更多细节。
+- 方法或贡献是什么？VPD框架将学习语言反馈问题形式化为变分期望最大化（EM）问题，通过自适应信任域更新动态改进教师策略，将文本反馈转化为动态改进的目标标记分布，并在M步中让学生策略在自身的策略中内化这种密集的分布指导。
+- 为什么对我重要？VPD通过持续改进教师从文本批评中提取可操作信号的能力，克服了被动蒸馏的局限性，并在科学推理和代码生成任务上一致性地超越了标准RLVR和现有的自蒸馏基线。
+- 是否建议深读？鉴于该研究在强化学习领域的重要性和创新性，建议对相关领域的研究者进行深入阅读。
 - 建议行动：skim
 - 评分：global_score 0.39；personal_score 0.95；credibility 1.00；conference 0.00；institution 0.00；multi_source 0.00；community_signal 0.08；actionability 0.61；research_relevance 0.96；hype_risk 0.00
 - 多源信号：论文:arXiv AI/ML/NLP/Vision/Robotics
@@ -104,13 +104,13 @@
 
 #### Archive
 - [World Action Models: The Next Frontier in Embodied AI](https://arxiv.org/abs/2605.12090)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.68，global 0.42）
+- [DataFlow: An LLM-Driven Framework for Unified Data Preparation and Workflow Automation in the Era of Data-Centric AI](https://arxiv.org/abs/2512.16676)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.68，global 0.42）
 - [Adaptive Teacher Exposure for Self-Distillation in LLM Reasoning](https://arxiv.org/abs/2605.11458)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.67，global 0.45）
-- [Designing synthetic datasets for the real world: Mechanism design and reasoning from first principles](https://research.google/blog/designing-synthetic-datasets-for-the-real-world-mechanism-design-and-reasoning-from-first-principles/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.67，global 0.40）
+- [Designing synthetic datasets for the real world: Mechanism design and reasoning from first principles](https://research.google/blog/designing-synthetic-datasets-for-the-real-world-mechanism-design-and-reasoning-from-first-principles/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.67，global 0.37）
 - [As AI Grows More Complex, Model Builders Rely on NVIDIA](https://blogs.nvidia.com/blog/leading-models-nvidia/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.66，global 0.38）
 - [Improving the academic workflow: Introducing two AI agents for better figures and peer review](https://research.google/blog/improving-the-academic-workflow-introducing-two-ai-agents-for-better-figures-and-peer-review/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.66，global 0.36）
 - [Gemini Robotics-ER 1.6: Powering real-world robotics tasks through enhanced embodied reasoning](https://deepmind.google/blog/gemini-robotics-er-1-6/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.66，global 0.36）
 - [Very Large-Scale Multi-Agent Simulation in AgentScope](https://arxiv.org/abs/2407.17789)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.65，global 0.42）
-- [NVIDIA CEO Drops the Blueprint for Europe's AI Boom](https://blogs.nvidia.com/blog/gtc-paris-2025/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.64，global 0.36）
 
 ### 1.3 新类学习 / 开放世界学习
 #### Must Read
@@ -140,11 +140,11 @@
 - 证据来源：abstract only
 - 原文链接：https://arxiv.org/abs/2605.15141v1
 - 发布时间：2026-05-14T17:46:36+00:00
-- 这是什么？这篇文章介绍了一个名为'Causal Forcing++'的新方法，用于实时交互式视频生成。
-- 解决了什么问题？实时交互视频生成需要低延迟、流式传输和可控的输出，但现有方法在帧级别的自回归（AR）扩散蒸馏中存在响应粒度粗糙和采样延迟的问题。
-- 方法或贡献是什么？文章提出了一种基于'因果一致性蒸馏'（causal CD）的框架，用于在1-2步采样步骤中初始化AR学生模型，提高了效率和优化的易用性。
-- 为什么对我重要？该方法在帧级别的2步设置下超越了现有4步块级方法的性能，同时降低了首帧延迟和训练成本，对实时视频生成领域具有重要意义。
-- 是否建议深读？由于该研究在实时视频生成领域取得了显著的性能提升，并且提出了创新的蒸馏方法，建议深读。
+- 这是什么？这篇文章介绍了一种名为'Causal Forcing++'的新方法，用于实时交互式视频生成。
+- 解决了什么问题？实时交互视频生成需要低延迟、流式传输和可控的输出，但现有方法在帧级别的自回归模型中存在初始化效率低下和采样延迟的问题。
+- 方法或贡献是什么？文章提出了一种基于'因果一致性蒸馏'(causal CD)的方法来初始化少步骤自回归模型，通过在线教师ODE步骤获得监督，避免了预先计算和存储完整的PF-ODE轨迹，提高了初始化效率。
+- 为什么对我重要？该方法在帧级别的2步设置下超过了现有4步方法的性能，同时降低了首帧延迟和训练成本，对实时视频生成领域具有重要意义。
+- 是否建议深读？建议深读，特别是对实时视频生成和模型蒸馏感兴趣的研究者。
 - 建议行动：read_pdf
 - 评分：global_score 0.51；personal_score 0.94；credibility 1.00；conference 0.00；institution 0.96；multi_source 0.05；community_signal 0.10；actionability 0.60；research_relevance 0.93；hype_risk 0.00
 - 多源信号：论文:Hugging Face Daily Papers/arXiv AI/ML/NLP/Vision/Robotics
@@ -196,7 +196,7 @@ Other Watch / Archive：
 - [Separating Intrinsic Ambiguity from Estimation Uncertainty in Deep Generative Models for Linear Inverse Problems](https://arxiv.org/abs/2605.15050v1)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.58，global 0.38）
 - [CoCo-InEKF: State Estimation with Learned Contact Covariances in Dynamic, Contact-Rich Scenarios](https://arxiv.org/abs/2605.15122v1)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.58，global 0.37）
 - [Not All Symbols Are Equal: Importance-Aware Constellation Design for Semantic Communication](https://arxiv.org/abs/2605.14940v1)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.57，global 0.38）
-- [LiSA: Lifelong Safety Adaptation via Conservative Policy Induction](https://arxiv.org/abs/2605.14454)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.54，global 0.48）
+- [LiSA: Lifelong Safety Adaptation via Conservative Policy Induction](https://arxiv.org/abs/2605.14454)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.54，global 0.44）
 
 ## 4. Benchmark / Dataset / Evaluation
 ### Core Benchmarks for My Research
@@ -292,7 +292,7 @@ Other Watch / Archive：
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 16 个只进入附录标题列表：reports/appendix/2026-05-16-benchmarks.md
+- 其余 17 个只进入附录标题列表：reports/appendix/2026-05-17-benchmarks.md
 
 ## 5. GitHub / 开源项目推荐
 ### New / Recently Active Projects
@@ -304,18 +304,18 @@ Other Watch / Archive：
 - 证据来源：repo README
 - 原文链接：https://github.com/Shubhamsaboo/awesome-llm-apps
 - 发布时间：2026-05-09T20:59:06+00:00
-- 这是什么？这是一个名为'Awesome LLM Apps'的GitHub仓库，提供了100多个可以直接运行的AI Agent和RAG（Retrieval-Augmented Generation）应用程序模板。
-- 解决了什么问题？解决了在每次启动新的LLM（大型语言模型）项目时，不必从头重建相同的RAG管道、代理循环或MCP（多模态感知代理）集成的问题。
-- 方法或贡献是什么？该仓库提供了现成的模板，这些模板是从头构建的，经过端到端测试，并且是自包含的，拥有完整的源代码。它们覆盖了现代AI栈的各个方面，包括AI代理、多代理团队、MCP代理、语音AI代理、RAG、代理技能和微调。
-- 为什么对我重要？对于需要快速启动和部署LLM应用程序的研究者和开发者来说，这个仓库提供了一个实用的资源，可以节省大量的开发时间和努力。
-- 是否建议深读？鉴于该仓库提供了大量的模板和教程，如果你正在从事LLM项目，建议深入阅读相关文档和教程。
+- 这是什么？这是一个名为'Awesome LLM Apps'的GitHub项目，提供了100多个可以直接运行的AI Agent和RAG（Retrieval-Augmented Generation）应用程序模板。
+- 解决了什么问题？解决了在每次启动新的LLM（Large Language Model）项目时，不必从头重建RAG管道、代理循环或MCP（Memory, Control, and Processing）集成的问题。
+- 方法或贡献是什么？该项目提供了现成的模板，用户可以克隆、定制并部署为生产级别的LLM应用程序。每个模板都是自包含的，拥有完整的源代码，并且是原创工作，经过端到端测试。
+- 为什么对我重要？对于需要快速启动和部署LLM应用程序的研究者和开发者来说，这个项目提供了一个高效的起点，可以节省大量的开发时间和资源。
+- 是否建议深读？鉴于项目提供了丰富的模板和教程，如果你正在从事LLM相关的项目，建议深入阅读相关文档和教程。
 - 建议行动：clone_and_run
-- 评分：global_score 0.56；personal_score 0.69；credibility 0.89；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.78；actionability 1.00；research_relevance 0.60；hype_risk 0.00
+- 评分：global_score 0.51；personal_score 0.69；credibility 0.89；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.78；actionability 1.00；research_relevance 0.60；hype_risk 0.00
 - 多源信号：代码:GitHub AI Research Projects
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Context Compression / Long Context / Memory、Agent / Reasoning / Inference-time Scaling / Planning、Tool Library
 - 命中关键词：RAG、github、github.com、multi-agent、open-source
-- 开源信号：⭐ 110459 | 🍴 16351 | 📜 Apache-2.0
+- 开源信号：⭐ 110673 | 🍴 16405 | 📜 Apache-2.0
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ❌
 - README 摘要：AI Agents · Multi-agent Teams · MCP Agents · RAG · Voice Agents · Agent Skills · Fine-tuning You shouldn't have to rebuild the same RAG pipeline, agent loop, or MCP integration from scratch every time you start a new LLM project. **Awesome LLM Apps is a cookbook of ready-to-run templates** - starter
 
@@ -326,19 +326,19 @@ Other Watch / Archive：
 - source_role：code_actionability
 - 证据来源：repo README
 - 原文链接：https://github.com/NousResearch/hermes-agent
-- 发布时间：2026-05-15T23:25:33+00:00
-- 这是什么？Hermes-agent 是由 Nous Research 开发的一款自我完善的人工智能代理。
-- 解决了什么问题？解决了需要一个能够随用户一起成长，从经验中学习并改进技能的AI代理问题。
-- 方法或贡献是什么？Hermes-agent 拥有内建的学习循环，能够从经验中创建技能，在使用中改进这些技能，自我激励以保持知识，并在会话间构建对用户的深入模型。
-- 为什么对我重要？对于需要一个能够跨会话理解用户并持续学习的AI代理的研究者和开发者来说，Hermes-agent 提供了一个灵活且可扩展的解决方案。
-- 是否建议深读？由于 Hermes-agent 提供了丰富的功能和高度的自定义性，建议深入阅读其文档和代码以充分利用其能力。
+- 发布时间：2026-05-16T23:02:11+00:00
+- 这是什么？Hermes Agent 是由 Nous Research 开发的一款自我完善的人工智能代理。
+- 解决了什么问题？解决了需要一个能够随着时间推移和经验积累而自我学习和改进的AI代理的问题。
+- 方法或贡献是什么？Hermes Agent 通过内置的学习循环，从经验中创建技能，在实际使用中改进它们，自我激励以保持知识，搜索过去的对话，并在会话间构建对用户更深入的模型。
+- 为什么对我重要？对于需要一个灵活、可扩展且能够跨平台和会话持续学习的AI代理的研究者和开发者来说，Hermes Agent 提供了一个强大的工具。
+- 是否建议深读？鉴于 Hermes Agent 的复杂性和多功能性，建议深入阅读其文档和代码以充分理解其功能和潜力。
 - 建议行动：clone_and_run
 - 评分：global_score 0.62；personal_score 0.62；credibility 0.89；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.78；actionability 1.00；research_relevance 0.51；hype_risk 0.00
 - 多源信号：代码:GitHub AI Research Projects
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Tool Library
 - 命中关键词：github、github.com、open-source
-- 开源信号：⭐ 151970 | 🍴 24144 | 📜 MIT
+- 开源信号：⭐ 153384 | 🍴 24456 | 📜 MIT
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ✅
 - README 摘要：**The self-improving AI agent built by Nous Research.** It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across session
 
@@ -374,18 +374,18 @@ Other Watch / Archive：
 - 证据来源：repo README
 - 原文链接：https://github.com/deepseek-ai/DeepSeek-OCR
 - 发布时间：2026-01-27T03:45:14+00:00
-- 这是什么？DeepSeek-OCR 是一个开源项目，旨在从大型语言模型(Large Language Models, LLM)的角度探索视觉编码器的角色，并实现视觉文本压缩。
-- 解决了什么问题？解决了如何结合视觉编码器和大型语言模型来处理图像和PDF文件中的文本识别问题。
-- 方法或贡献是什么？该项目提供了DeepSeek-OCR模型，支持在特定硬件(如A100-40G)上以高并发处理PDF文件，并且提供了模型下载链接和相关论文链接。
-- 为什么对我重要？对于研究者而言，DeepSeek-OCR 提供了一个探索视觉编码器在LLM中作用的平台，有助于推进视觉-语言模型的研究和应用。
-- 是否建议深读？考虑到项目提供了代码、文档和预训练模型，如果对视觉文本压缩或LLM集成视觉编码器感兴趣，建议深读。
+- 这是什么？DeepSeek-OCR 是一个开源项目，旨在探索视觉-文本压缩的边界，特别是从大型语言模型(LLM)的角度研究视觉编码器的作用。
+- 解决了什么问题？解决了如何将视觉信息有效编码并压缩，以便与语言模型结合，提高处理图像和文本数据的效率问题。
+- 方法或贡献是什么？该项目提供了一个名为 DeepSeek-OCR 的模型，并发布了其升级版本 DeepSeek-OCR2。项目支持在上游 vLLM 中使用，并提供了详细的安装和使用指南，包括环境设置、模型下载和推理过程。
+- 为什么对我重要？对于研究者和开发者来说，DeepSeek-OCR 提供了一个探索视觉和语言模型集成的新工具，有助于在多模态学习和推理任务中取得进展。
+- 是否建议深读？如果对视觉-文本压缩或多模态学习感兴趣，建议深读该项目的文档和代码。
 - 建议行动：study_code
 - 评分：global_score 0.48；personal_score 0.74；credibility 0.89；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.78；actionability 1.00；research_relevance 0.67；hype_risk 0.00
 - 多源信号：代码:GitHub AI Research Projects
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Agent / Reasoning / Inference-time Scaling / Planning、Benchmark / Dataset / Evaluation、CV、Other Highlights、Tool Library
 - 命中关键词：environment、eval、github、github.com、image、inference、open-source、release、repository
-- 开源信号：⭐ 23129 | 🍴 2142 | 📜 MIT
+- 开源信号：⭐ 23132 | 🍴 2141 | 📜 MIT
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ✅
 - 关联论文：https://arxiv.org/abs/2510.18234"><b>📄
 - README 摘要：- [2026/01/27]🚀🚀🚀🚀🚀🚀 We present DeepSeek-OCR2 - [2025/10/23]🚀🚀🚀 DeepSeek-OCR is now officially supported in upstream vLLM. Thanks to the vLLM team for their help. - [2025/10/20]🚀🚀🚀 We release DeepSeek-OCR, a model to investigate the role of vision encoders from an LLM-centric viewpoint. - Transforme
@@ -398,11 +398,11 @@ Other Watch / Archive：
 - 证据来源：repo README
 - 原文链接：https://github.com/lambda-calculus-LLM/lambda-RLM
 - 发布时间：2026-04-24T13:06:09+00:00
-- 这是什么？这是一个名为λ-RLM的框架，它使用可验证的λ演算来处理长上下文递归语言模型（RLMs）。
-- 解决了什么问题？解决了标准直接LLM推理受上下文窗口限制的问题，以及标准RLMs依赖于难以验证和预测的开放性REPL基础递归代码生成的问题。
-- 方法或贡献是什么？λ-RLM通过替换自由形式的递归代码生成，使用基于λ演算的类型化功能运行时，执行一个紧凑的预验证组合子库，并仅在有界的叶子子问题上使用神经推理。
-- 为什么对我重要？对于研究者而言，λ-RLM提供了更可靠的递归推理、更可预测的计算和更强的形式结构，并且在不同模型家族中提高了准确性，同时显著降低了延迟。
-- 是否建议深读？考虑到λ-RLM在长上下文推理方面的创新和效果提升，建议深读相关文档和代码。
+- 这是什么？这是一个名为λ-RLM的框架，旨在通过可验证的λ演算来实现长上下文推理。
+- 解决了什么问题？解决了标准大型语言模型(Large Language Models, LLMs)在长上下文推理中的准确性和延迟问题。
+- 方法或贡献是什么？λ-RLM通过替换自由形式的递归代码生成，使用基于λ演算的类型化函数运行时，执行预验证的组合子库，并仅在有界的叶子子问题上使用神经推理。
+- 为什么对我重要？该方法在不同模型家族中提高了准确性，同时大幅降低了延迟，提供了包括终止、闭式成本界限和控制精度随递归深度扩展的正式保证。
+- 是否建议深读？鉴于其在长上下文推理领域的创新性和实用性，建议深入阅读相关文档和代码。
 - 建议行动：study_code
 - 评分：global_score 0.50；personal_score 0.89；credibility 0.86；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.68；actionability 1.00；research_relevance 0.90；hype_risk 0.00
 - 多源信号：代码:GitHub AI Research Projects
@@ -422,11 +422,11 @@ Other Watch / Archive：
 - 证据来源：repo README
 - 原文链接：https://github.com/ycwang-libra/CDNCD_repo
 - 发布时间：2025-06-23T14:41:56+00:00
-- 这是什么？这是一个名为CDNCD的代码库，实现了论文'Exclusive Style Removal for Cross Domain Novel Class Discovery'中的方法。
-- 解决了什么问题？解决了跨域新类别发现问题，即在不同数据集间识别出未见过的类别。
-- 方法或贡献是什么？该代码库提供了一个改进的SimGCD模型，用于训练和测试，以及数据准备脚本，用于构建CIFAR10和OfficeHome数据集的损坏版本。
+- 这是什么？这是一个名为CDNCD的代码库，实现了论文'Exclusive Style Removal for Cross Domain Novel Class Discovery'中提出的方法。
+- 解决了什么问题？解决了跨域新类别发现问题，即如何在不同领域中识别出新的类别。
+- 方法或贡献是什么？该代码库提供了一个改进的SimGCD模型，用于训练和测试，以及数据准备脚本，以构建损坏的CIFAR10和OfficeHome数据。
 - 为什么对我重要？对于研究跨域学习和新类别发现的学者来说，这个代码库提供了一个实验平台，可以复现论文中的方法，并在此基础上进行进一步的研究。
-- 是否建议深读？如果你对跨域新类别发现或SimGCD模型感兴趣，建议深读这个代码库和相关论文。
+- 是否建议深读？建议深读，特别是如果你对跨域新类别发现或改进的SimGCD模型感兴趣。
 - 建议行动：study_code
 - 评分：global_score 0.38；personal_score 0.74；credibility 0.79；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.16；actionability 1.00；research_relevance 0.69；hype_risk 0.00
 - 多源信号：代码:GitHub AI Research Projects
@@ -439,21 +439,42 @@ Other Watch / Archive：
 - README 摘要：This is an implementation of our paper "Exclusive Style Removal for Cross Domain Novel Class Discovery" - Create a Conda virtual environment and activate it: - Install frameworks: PyTorch==1.13 and torchvision==0.14 with CUDA==11.6 - Install toolboxes: numpy==1.24.4, matplotlab==3.7.5, scikit-learn=
 
 ### Evergreen Toolkits
-- 今日无需要重复推荐的常青工具库。
+##### 1. [aim-uofa/SegPrompt](https://github.com/aim-uofa/SegPrompt)
+- 行动标签：read_readme
+- 来源：GitHub AI Research Projects
+- 来源类型：聚合/摘要
+- source_role：code_actionability
+- 证据来源：repo README
+- 原文链接：https://github.com/aim-uofa/SegPrompt
+- 发布时间：2025-05-28T11:33:16+00:00
+- 这是什么？这是一个名为SegPrompt的项目，它是ICCV 2023论文'SegPrompt: Boosting Open-World Segmentation via Category-level Prompt Learning'的官方实现。
+- 解决了什么问题？该项目旨在解决开放世界中的图像分割问题，即在模型未曾见过的类别上也能进行有效的分割。
+- 方法或贡献是什么？SegPrompt通过类别级别的提示学习来增强开放世界分割性能，提供了一个新的基准LVIS-OW，并对COCO和LVIS数据集进行了重新组织和划分，以更好地评估开放世界模型。
+- 为什么对我重要？对于研究者而言，SegPrompt提供了一个针对开放世界分割的新方法和评估基准，有助于推动该领域的发展。
+- 是否建议深读？如果对开放世界图像分割或类别级别的提示学习感兴趣，建议深读该项目。
+- 建议行动：read_readme
+- 评分：global_score 0.43；personal_score 0.79；credibility 0.85；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.53；actionability 1.00；research_relevance 0.75；hype_risk 0.00
+- 多源信号：代码:GitHub AI Research Projects
+- 命中方向：GitHub / 开源项目推荐
+- 相关标签：Benchmark / Dataset / Evaluation、CV、Other Highlights、Tool Library
+- 命中关键词：benchmark、computer vision、dataset、github、github.com、implementation、open-source、release、segmentation、test set
+- 开源信号：⭐ 111 | 🍴 1 | 📜 BSD-2-Clause
+- 示例/文档/复现：示例 ✅ | 文档 ❌ | 脚本 ❌ | 权重 ✅
+- README 摘要：Muzhi Zhu 1 , Hengtao Li 1 , Hao Chen 1 , Chengxiang Fan 1 , Weian Mao 2,1 , Chenchen Jing 1 , Yifan Liu 2 , Chunhua Shen 1 - [2023/07/14] Our work SegPrompt is accepted by Int. Conf. Computer Vision (ICCV) 2023! 🎉🎉🎉 - [2023/08/30] We release our new benchmark LVIS-OW. Please follow the instructions
 
 
 ## 6. 企业 / 大学 / 研究所动态
 ### Research Release
 - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
 
-- [GridSFM: A new, small foundation model for the electric grid](https://www.microsoft.com/en-us/research/blog/gridsfm-a-new-small-foundation-model-for-the-electric-grid/)
+- [How data science teams use Codex](https://openai.com/academy/codex-for-work/how-data-science-teams-use-codex)
 
-- [Building a safe, effective sandbox to enable Codex on Windows](https://openai.com/index/building-codex-windows-sandbox)
+- [GridSFM: A new, small foundation model for the electric grid](https://www.microsoft.com/en-us/research/blog/gridsfm-a-new-small-foundation-model-for-the-electric-grid/)
 
 - ... 还有 19 条
 
 ### Product / API Release
-- [OpenAI launches DeployCo to help businesses build around intelligence](https://openai.com/index/openai-launches-the-deployment-company)
+- [How business operations teams use Codex](https://openai.com/academy/codex-for-work/how-business-operations-teams-use-codex)
 
 - [What Are Foundation Models?](https://blogs.nvidia.com/blog/what-are-foundation-models/)
 
@@ -471,13 +492,13 @@ Other Watch / Archive：
 - ... 还有 6 条
 
 ### Low-signal PR
+- [OpenAI and Malta partner to bring ChatGPT Plus to all citizens](https://openai.com/index/malta-chatgpt-plus-partnership)
+
 - [A new personal finance experience in ChatGPT](https://openai.com/index/personal-finance-chatgpt)
 
 - [AutoScout24 scales engineering with AI-powered workflows](https://openai.com/index/autoscout24)
 
-- [Work with Codex from anywhere](https://openai.com/index/work-with-codex-from-anywhere)
-
-- ... 还有 8 条
+- ... 还有 9 条
 
 ## 7. 顶会精选 / Awards & Notable Papers
 - 会议 / 年份 / 信号类型：ICML / 2025 / accepted
@@ -529,15 +550,15 @@ Other Watch / Archive：
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98
   - 建议行动：watch
-- [Unlocking Complex Visual Generation via Closed-Loop Verified Reasoning](https://arxiv.org/abs/2605.14876)
-  - 学校 / 实验室：Hugging Face
-  - 类型：paper
-  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96
-  - 建议行动：watch
 - [Scaling Up Reinforcement Learning for Traffic Smoothing: A 100-AV Highway Deployment](http://bair.berkeley.edu/blog/2025/03/25/rl-av-smoothing/)
   - 学校 / 实验室：UC Berkeley
   - 类型：dataset
+  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
+  - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96
+  - 建议行动：watch
+- [Unlocking Complex Visual Generation via Closed-Loop Verified Reasoning](https://arxiv.org/abs/2605.14876)
+  - 学校 / 实验室：Hugging Face
+  - 类型：paper
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96
   - 建议行动：watch
@@ -583,21 +604,20 @@ Other Watch / Archive：
 - [Causal Forcing++: Scalable Few-Step Autoregressive Diffusion Distillation for Real-Time Interactive Video Generation](https://arxiv.org/abs/2605.15141v1)：预计阅读目的：评估蒸馏、压缩或高效训练方法是否具备复现和部署价值。
 
 ## 12. 采集说明
-- 采集时间：2026-05-15T23:32:00.649888+00:00
-- source count：31
-- raw item count：670
-- dedup item count：606
+- 采集时间：2026-05-16T23:31:07.605153+00:00
+- source count：32
+- raw item count：688
+- dedup item count：616
 - Summary mode：single
 - Provider：openai
 - Model：moonshot-v1-8k
 
-- LLM summary calls：9
+- LLM summary calls：10
 - Last LLM error：none
-- benchmark appendix：reports/appendix/2026-05-16-benchmarks.md
+- benchmark appendix：reports/appendix/2026-05-17-benchmarks.md
 
-- report path：reports/daily/2026/05/2026-05-16.md
-- previous report link：reports/daily/2026/05/2026-05-15.md
+- report path：reports/daily/2026/05/2026-05-17.md
+- previous report link：reports/daily/2026/05/2026-05-16.md
  
 ## Source Health
-- GitHub AI Research Projects: time budget exhausted (23 items) - time budget exhausted after 23 items
-- Meta AI Blog: 0 items (0 items) - fetch completed with 0 items
+- GitHub AI Research Projects: time budget exhausted (26 items) - time budget exhausted after 26 items
