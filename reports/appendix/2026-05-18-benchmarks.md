@@ -18,3 +18,4 @@
 - [Compositional simulation-based inference for time series](https://openreview.net/forum?id=uClUUJk05H)（ARCHIVE，Benchmark / Dataset / Evaluation，证据 abstract only，personal 0.47，global 0.27）
 - [DarkBench: Benchmarking Dark Patterns in Large Language Models](https://openreview.net/forum?id=odjMSBSWRt)（ARCHIVE，Benchmark / Dataset / Evaluation，证据 abstract only，personal 0.47，global 0.38）
 - [Pairwise Maximum Likelihood For Multi-Class Logistic Regression Model With Multiple Rare Classes](https://openreview.net/forum?id=9Kywz2fO26)（ARCHIVE，Benchmark / Dataset / Evaluation，证据 abstract only，personal 0.44，global 0.26）
+- [Understanding the 4 Main Approaches to LLM Evaluation (From Scratch)](https://magazine.sebastianraschka.com/p/llm-evaluation-4-approaches)（ARCHIVE，Benchmark / Dataset / Evaluation，证据 full text，personal 0.37，global 0.17）

@@ -1,0 +1,17 @@
+{
+  "cdfea47a250d4b0fcfe6bd3316310fde20a6098410996f93f9045561e1d32bfa": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "鉴于该研究在实时视频生成领域的创新性和潜在影响，建议深入阅读全文。",
+      "method_or_contribution": "文章提出了一种名为因果一致性蒸馏(causal CD)的框架，用于少步自回归初始化，核心思想是从相邻时间步之间的单个在线教师ODE步骤中获得监督，避免了预先计算和存储完整的PF-ODE轨迹的需求。",
+      "problem": "该研究旨在解决现有自回归扩散蒸馏方法在帧级自回归和少于两步采样中的局限性，包括粗糙的响应粒度和显著的采样延迟。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "这篇文章介绍了一种名为Causal Forcing++的新方法，用于实时交互式视频生成。",
+      "why_important": "Causal Forcing++在帧级2步设置下超越了现有的4步块级Causal Forcing方法，减少了首帧延迟50%，并降低了第二阶段训练成本，对于需要低延迟、流式传输和可控输出的视频生成任务具有重要意义。"
+    }
+  }
+}
