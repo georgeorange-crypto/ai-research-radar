@@ -2,27 +2,42 @@
 - Summary mode: {{ collection.summary_mode }}
 - Provider: {{ collection.provider }}
 - Model: {{ collection.model }}
-{% if collection.roles %}- Roles:
+{% if collection.roles %}- Role pipeline:
 {{ collection.roles }}
 {% endif %}
 - LLM summary calls: {{ collection.llm_summary_calls }}
+- Estimated cost: RMB {{ collection.estimated_llm_cost_rmb }} / {{ collection.daily_llm_budget_rmb }}
+- Estimated tokens: input {{ collection.estimated_input_tokens }}, output {{ collection.estimated_output_tokens }}
+- Cost guard: enabled={{ collection.cost_guard_enabled }}, blocked_calls={{ collection.cost_guard_blocked_calls }}
+{% if collection.llm_zero_call_warning %}- Warning: {{ collection.llm_zero_call_warning }}
+{% endif %}
+- llm_items_processed: {{ collection.llm_items_processed }}
+- role_pipeline_items: {{ collection.role_pipeline_items }}
+- single_llm_items: {{ collection.single_llm_items }}
+- api_requests_total: {{ collection.api_requests_total }}
+- api_requests_by_provider: {{ collection.api_requests_by_provider }}
+- api_requests_by_role: {{ collection.api_requests_by_role }}
+- cache_hits: {{ collection.cache_hits }}
+- cache_misses: {{ collection.cache_misses }}
 - Last LLM error: {{ collection.last_llm_error }}
+- provider_disabled: {{ collection.provider_disabled }}
+- reason: {{ collection.provider_disabled_reason }}
 
 {% if collection.local_summary_notice %}
 > {{ collection.local_summary_notice }}
 {% endif %}
 
-## 0. 今日总览
-- 今日最重要方向：{{ overview.most_important_direction }}
-- 今日必须深读：{{ overview.must_read_count }} 篇{% if overview.must_read_titles %}（{{ overview.must_read_titles }}）{% endif %}
-- 今日值得略读：{{ overview.skim_count }} 篇{% if overview.skim_titles %}（{{ overview.skim_titles }}）{% endif %}
-- 今日值得跟踪：{{ overview.watch_count }} 篇展示{% if overview.watch_titles %}（{{ overview.watch_titles }}）{% endif %}
-- 今日关键词：{{ overview.keywords }}
-- 今日判断：{{ overview.judgement }}
+## 0. Daily Overview
+- Most important direction: {{ overview.most_important_direction }}
+- Must Read count: {{ overview.must_read_count }}{% if overview.must_read_titles %} ({{ overview.must_read_titles }}){% endif %}
+- Skim count: {{ overview.skim_count }}{% if overview.skim_titles %} ({{ overview.skim_titles }}){% endif %}
+- Watch count: {{ overview.watch_count }}{% if overview.watch_titles %} ({{ overview.watch_titles }}){% endif %}
+- Keywords: {{ overview.keywords }}
+- Judgement: {{ overview.judgement }}
 
-## 1. 我的研究主线
+## 1. Core Research Tracks
 
-### 1.1 上下文压缩 / 长上下文 / 记忆
+### 1.1 Context Compression / Long Context / Agent Memory
 #### Must Read
 {{ primary.context_compression.must_read }}
 
@@ -35,7 +50,7 @@
 #### Archive
 {{ primary.context_compression.archive }}
 
-### 1.2 Agent / Tool Use / Planning
+### 1.2 LLM Agents / Tool Use / Planning / Agentic RL
 #### Must Read
 {{ primary.agents.must_read }}
 
@@ -48,7 +63,7 @@
 #### Archive
 {{ primary.agents.archive }}
 
-### 1.3 新类学习 / 开放世界学习
+### 1.3 Novel Class Discovery / Open-World Learning / OOD / Continual Learning
 #### Must Read
 {{ primary.open_world_learning.must_read }}
 
@@ -61,7 +76,7 @@
 #### Archive
 {{ primary.open_world_learning.archive }}
 
-### 1.4 模型蒸馏 / 模型压缩
+### 1.4 Model Distillation / Model Compression / Efficient Training
 #### Must Read
 {{ primary.model_distillation.must_read }}
 
@@ -74,7 +89,7 @@
 #### Archive
 {{ primary.model_distillation.archive }}
 
-## 2. 传统 AI 基础领域
+## 2. Traditional AI Foundations
 ### CV
 {{ traditional.cv }}
 
@@ -84,58 +99,71 @@
 ### RL
 {{ traditional.rl }}
 
-### 模型架构
+### Model Architecture
 {{ traditional.model_architecture }}
 
-### 学习方法
+### Learning Methods
 {{ traditional.learning_methods }}
 
-## 3. 其他方向最耀眼成果
+## 3. Other Highlights
 {{ other_highlights }}
 
 ## 4. Benchmark / Dataset / Evaluation
 {{ benchmark_evaluation }}
 
-## 5. GitHub / 开源项目推荐
+## 5. GitHub / Open Source Projects
 {{ github_projects }}
 
-## 6. 企业 / 大学 / 研究所动态
+## 6. Institutional Updates
 {{ institutional_updates }}
 
-## 7. 顶会精选 / Awards & Notable Papers
+## 7. Awards & Notable Papers
 {{ awards_notable_papers }}
 
-## 8. 强校实验室 / University Lab Radar
+## 8. University Lab Radar
 {{ university_lab_radar }}
 
-## 9. 中文语境与社区信号
+## 9. Chinese-Language Community Signals
 {{ context_community_signals }}
 
-## 10. 温故而知新：经典论文回顾
+## 10. Evergreen Classic Paper Recall
 {{ classic_revisit }}
 
-## 11. 今日深读清单
-- 只列 3 篇以内。
-- 每篇给出预计阅读目的。
+## 11. Deep Read List
 {{ deep_read_list }}
 
-## 12. 采集说明
-- 采集时间：{{ collection.generated_at }}
-- source count：{{ collection.source_count }}
-- raw item count：{{ collection.raw_count }}
-- dedup item count：{{ collection.dedup_count }}
-- Summary mode：{{ collection.summary_mode }}
-- Provider：{{ collection.provider }}
-- Model：{{ collection.model }}
-{% if collection.roles %}- Roles：
+## 12. Collection Notes
+- Generated at: {{ collection.generated_at }}
+- Source count: {{ collection.source_count }}
+- Raw item count: {{ collection.raw_count }}
+- Dedup item count: {{ collection.dedup_count }}
+- Summary mode: {{ collection.summary_mode }}
+- Provider: {{ collection.provider }}
+- Model: {{ collection.model }}
+{% if collection.roles %}- Role pipeline:
 {{ collection.roles }}
 {% endif %}
-- LLM summary calls：{{ collection.llm_summary_calls }}
-- Last LLM error：{{ collection.last_llm_error }}
-{% if collection.benchmark_appendix %}- benchmark appendix：{{ collection.benchmark_appendix }}
+- LLM summary calls: {{ collection.llm_summary_calls }}
+- Estimated cost: RMB {{ collection.estimated_llm_cost_rmb }} / {{ collection.daily_llm_budget_rmb }}
+- Estimated tokens: input {{ collection.estimated_input_tokens }}, output {{ collection.estimated_output_tokens }}
+- Cost guard: enabled={{ collection.cost_guard_enabled }}, blocked_calls={{ collection.cost_guard_blocked_calls }}
+{% if collection.llm_zero_call_warning %}- Warning: {{ collection.llm_zero_call_warning }}
 {% endif %}
-- report path：{{ collection.report_path }}
-- previous report link：{{ collection.previous_report_link }}
- 
+- llm_items_processed: {{ collection.llm_items_processed }}
+- role_pipeline_items: {{ collection.role_pipeline_items }}
+- single_llm_items: {{ collection.single_llm_items }}
+- api_requests_total: {{ collection.api_requests_total }}
+- api_requests_by_provider: {{ collection.api_requests_by_provider }}
+- api_requests_by_role: {{ collection.api_requests_by_role }}
+- cache_hits: {{ collection.cache_hits }}
+- cache_misses: {{ collection.cache_misses }}
+- Last LLM error: {{ collection.last_llm_error }}
+- provider_disabled: {{ collection.provider_disabled }}
+- reason: {{ collection.provider_disabled_reason }}
+{% if collection.benchmark_appendix %}- Benchmark appendix: {{ collection.benchmark_appendix }}
+{% endif %}
+- Report path: {{ collection.report_path }}
+- Previous report link: {{ collection.previous_report_link }}
+
 ## Source Health
 {{ collection.source_health }}

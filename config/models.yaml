@@ -1,4 +1,12 @@
 mode: single
+role_based_critic: true
+critic_llm_enabled: false
+role_pipeline_budget: 3
+single_llm_budget: 3
+max_evidence_chars: 1600
+max_output_tokens: 250
+cost_guard_enabled: true
+daily_llm_budget_rmb: 1.0
 
 roles:
   technical_extractor:

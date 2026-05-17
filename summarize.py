@@ -11,7 +11,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-import requests
 import yaml
 from dotenv import dotenv_values, load_dotenv
 from jinja2 import Environment, FileSystemLoader
@@ -40,6 +39,12 @@ LLM_SUMMARY_CALLS = 0
 LAST_LLM_ERROR = ""
 MULTI_MODEL_INSTANCE = None
 MULTI_MODEL_MODE = ""
+LLM_ITEMS_PROCESSED = 0
+ROLE_PIPELINE_ITEMS = 0
+SINGLE_LLM_ITEMS = 0
+ROLE_PIPELINE_ALLOWED_KEYS: set[str] = set()
+SINGLE_LLM_ALLOWED_KEYS: set[str] = set()
+LLM_PLAN_READY = False
 
 
 KIND_LABELS = {
@@ -147,15 +152,46 @@ def config_env(name: str, default: str = "") -> str:
     return getenv_nonempty(name, dotenv_nonempty(name, default))
 
 
+def config_bool(name: str, default: bool = False) -> bool:
+    value = config_env(name)
+    if not value:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def config_int(name: str, default: int, *, minimum: int = 0) -> int:
+    try:
+        return max(minimum, int(config_env(name, str(default))))
+    except (TypeError, ValueError):
+        return default
+
+
+def infer_provider_from_openai_config(base_url: str, model: str) -> str:
+    override = config_env("OPENAI_PROVIDER")
+    if override:
+        return override.strip().lower()
+    text = f"{base_url} {model}".lower()
+    if "moonshot" in text or "kimi" in text:
+        return "kimi"
+    if "deepseek" in text:
+        return "deepseek"
+    if "bigmodel" in text or "glm" in text or "zhipu" in text:
+        return "glm"
+    if "openai.com" in text:
+        return "openai"
+    return "openai-compatible"
+
+
 def get_single_llm_config() -> dict[str, str]:
     openai_api_key = config_env("OPENAI_API_KEY")
     if openai_api_key:
-        base_url = config_env("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+        base_url = (config_env("OPENAI_BASE_URL") or "https://api.openai.com/v1").rstrip("/")
+        model = config_env("OPENAI_MODEL", "gpt-4o-mini")
         return {
-            "provider": "openai",
+            "provider": infer_provider_from_openai_config(base_url, model),
             "api_key": openai_api_key,
             "base_url": base_url,
-            "model": config_env("OPENAI_MODEL", "gpt-4o-mini"),
+            "model": model,
         }
 
     deepseek_api_key = config_env("DEEPSEEK_API_KEY")
@@ -163,7 +199,7 @@ def get_single_llm_config() -> dict[str, str]:
         return {
             "provider": "deepseek",
             "api_key": deepseek_api_key,
-            "base_url": config_env("DEEPSEEK_BASE_URL", "https://api.deepseek.com").rstrip("/"),
+            "base_url": (config_env("DEEPSEEK_BASE_URL") or "https://api.deepseek.com").rstrip("/"),
             "model": config_env("DEEPSEEK_MODEL", "deepseek-v4-flash"),
         }
 
@@ -172,7 +208,7 @@ def get_single_llm_config() -> dict[str, str]:
         return {
             "provider": "kimi",
             "api_key": kimi_api_key,
-            "base_url": config_env("KIMI_BASE_URL", "https://api.moonshot.cn/v1").rstrip("/"),
+            "base_url": (config_env("KIMI_BASE_URL") or "https://api.moonshot.cn/v1").rstrip("/"),
             "model": config_env("KIMI_MODEL", "moonshot-v1-8k"),
         }
 
@@ -181,7 +217,7 @@ def get_single_llm_config() -> dict[str, str]:
         return {
             "provider": "glm",
             "api_key": glm_api_key,
-            "base_url": config_env("GLM_BASE_URL", "https://open.bigmodel.cn/api/paas/v4").rstrip("/"),
+            "base_url": (config_env("GLM_BASE_URL") or "https://open.bigmodel.cn/api/paas/v4").rstrip("/"),
             "model": config_env("GLM_MODEL", "glm-4.7-flash"),
         }
 
@@ -200,12 +236,14 @@ def has_any_llm_api_key() -> bool:
 def configured_model_mode(config: dict[str, Any] | None = None) -> str:
     if config is None:
         config = load_model_config()
-    config_mode = str(config.get("mode") or "").strip()
-    if config_mode:
-        return config_mode
     env_mode = config_env("MODEL_MODE")
     if env_mode:
         return env_mode.strip()
+    config_mode = str(config.get("mode") or "").strip()
+    if config_mode:
+        if config_mode in {"role_pipeline", "ensemble"}:
+            return "single"
+        return config_mode
     return "single"
 
 
@@ -289,7 +327,11 @@ def role_pipeline_configured(config: dict[str, Any]) -> bool:
     roles = config.get("roles", {})
     if not isinstance(roles, dict):
         return False
-    required = ["technical_extractor", "relevance_judge", "critic", "editor"]
+    critic_llm_enabled = config_bool("CRITIC_LLM_ENABLED", bool(config.get("critic_llm_enabled", False)))
+    rule_based_critic = config_bool("RULE_BASED_CRITIC", bool(config.get("rule_based_critic", True)))
+    required = ["technical_extractor", "relevance_judge", "editor"]
+    if critic_llm_enabled and not rule_based_critic:
+        required.append("critic")
     return all(
         isinstance(roles.get(role), dict)
         and roles[role].get("api_key")
@@ -303,6 +345,8 @@ def role_summary_lines(config: dict[str, Any]) -> str:
     roles = config.get("roles", {})
     if not isinstance(roles, dict):
         return ""
+    critic_llm_enabled = config_bool("CRITIC_LLM_ENABLED", bool(config.get("critic_llm_enabled", False)))
+    rule_based_critic = config_bool("RULE_BASED_CRITIC", bool(config.get("rule_based_critic", True)))
     labels = {
         "technical_extractor": "technical_extractor",
         "relevance_judge": "relevance_judge",
@@ -312,6 +356,9 @@ def role_summary_lines(config: dict[str, Any]) -> str:
     lines = []
     for role, label in labels.items():
         role_config = roles.get(role, {})
+        if role == "critic" and (not critic_llm_enabled or rule_based_critic):
+            lines.append("- critic: rule_based (deterministic)")
+            continue
         if not isinstance(role_config, dict):
             continue
         provider = role_config.get("provider") or role_config.get("type") or "unconfigured"
@@ -325,6 +372,13 @@ def active_summary_backend() -> dict[str, str]:
     config = load_model_config()
     mode = configured_model_mode(config)
     single_config = get_single_llm_config()
+    if mode == "local":
+        return {
+            "summary_mode": "local",
+            "provider": "local",
+            "model": "local fallback",
+            "roles": "",
+        }
     if mode == "role_pipeline" and role_pipeline_configured(config):
         return {
             "summary_mode": "role_pipeline",
@@ -348,7 +402,7 @@ def active_summary_backend() -> dict[str, str]:
             "roles": "",
         }
     return {
-        "summary_mode": "local",
+        "summary_mode": mode if mode == "single" else "local",
         "provider": "local",
         "model": "local fallback",
         "roles": "",
@@ -360,7 +414,27 @@ def openai_timeout_seconds() -> float:
 
 
 def openai_summary_budget() -> int:
-    return int(config_env("OPENAI_SUMMARY_BUDGET", "12"))
+    return config_int("OPENAI_SUMMARY_BUDGET", 3, minimum=0)
+
+
+def max_llm_items() -> int:
+    return config_int("MAX_LLM_ITEMS", 5, minimum=0)
+
+
+def single_llm_budget() -> int:
+    return config_int("SINGLE_LLM_BUDGET", openai_summary_budget(), minimum=0)
+
+
+def role_pipeline_budget() -> int:
+    return config_int("ROLE_PIPELINE_BUDGET", 3, minimum=0)
+
+
+def max_evidence_chars() -> int:
+    return config_int("MAX_EVIDENCE_CHARS", 1600, minimum=1)
+
+
+def max_output_tokens() -> int:
+    return config_int("MAX_OUTPUT_TOKENS", 250, minimum=1)
 
 
 GROUNDING_LABELS = {
@@ -670,8 +744,6 @@ def record_llm_error(provider: str, model: str, base_url: str, status: int | str
 
 
 def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
-    global LLM_SUMMARY_CALLS
-
     config = get_single_llm_config()
     api_key = config.get("api_key", "")
     if not api_key:
@@ -682,7 +754,7 @@ def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
     model = config.get("model", "gpt-4o-mini")
     if grounding_level(item) == "title_only":
         return None
-    evidence = trim(allowed_evidence_text(item), 2600)
+    evidence = trim(allowed_evidence_text(item), max_evidence_chars())
     prompt = {
         "title": item.get("title"),
         "source": item.get("source", {}),
@@ -729,47 +801,35 @@ def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
         {"role": "user", "content": json.dumps(prompt, ensure_ascii=False)},
     ]
     try:
-        from models.client import parse_json_object
+        from models.client import ChatModelClient, make_llm_cache_key
 
-        LLM_SUMMARY_CALLS += 1
-        supports_response_format = provider.lower() not in {"glm"}
-        attempts = [supports_response_format, False]
-        seen: set[bool] = set()
-        for use_response_format in attempts:
-            if use_response_format in seen:
-                continue
-            seen.add(use_response_format)
-            payload: dict[str, Any] = {
-                "model": model,
-                "messages": messages,
-                "temperature": 0.2,
-            }
-            if use_response_format:
-                payload["response_format"] = {"type": "json_object"}
-            response = requests.post(
-                f"{base_url}/chat/completions",
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json=payload,
-                timeout=openai_timeout_seconds(),
-            )
-            if not response.ok:
-                record_llm_error(provider, model, base_url, response.status_code, response.text[:500])
-                if use_response_format:
-                    continue
-                return None
-            content = response.json()["choices"][0]["message"]["content"]
-            parsed = parse_json_object(content)
-            if parsed and all(key in parsed for key in SUMMARY_FIELDS):
-                return normalize_summary(parsed, item)
+        client = ChatModelClient(
+            provider=provider,
+            api_key=api_key,
+            base_url=base_url,
+            model=model,
+            timeout=openai_timeout_seconds(),
+        )
+        parsed = client.call_json(
+            system_prompt=str(messages[0]["content"]),
+            user_payload=str(messages[1]["content"]),
+            temperature=0.2,
+            max_tokens=max_output_tokens(),
+            role="single_summary",
+            cache_key=make_llm_cache_key(
+                provider,
+                model,
+                "single_summary",
+                str(item.get("title") or ""),
+                str(item.get("url") or ""),
+                str(item.get("abstract") or item.get("summary") or ""),
+            ),
+            required_fields=set(SUMMARY_FIELDS),
+        )
+        if parsed and all(key in parsed for key in SUMMARY_FIELDS):
+            return normalize_summary(parsed, item)
+        if parsed:
             record_llm_error(provider, model, base_url, "n/a", "Response JSON did not include all required summary fields.")
-            if use_response_format:
-                continue
-            return None
-    except requests.RequestException as e:
-        response = getattr(e, "response", None)
-        status = getattr(response, "status_code", None)
-        error_text = getattr(response, "text", None) or str(e)
-        record_llm_error(provider, model, base_url, status, error_text[:500])
     except (KeyError, TypeError, ValueError, json.JSONDecodeError) as e:
         record_llm_error(provider, model, base_url, "n/a", str(e)[:500])
     except Exception as e:
@@ -778,27 +838,102 @@ def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
     return None
 
 
+def llm_item_key(item: dict[str, Any]) -> str:
+    return str(item.get("id") or item.get("url") or item.get("title") or id(item))
+
+
+def llm_candidate_sort_key(item: dict[str, Any]) -> tuple[int, float, float, float, str]:
+    tier = str(item.get("reading_tier") or "ARCHIVE").upper()
+    tier_weight = {"MUST_READ": 3, "SKIM": 2, "WATCH": 1, "ARCHIVE": 0}.get(tier, 0)
+    scores = item.get("scores", {}) if isinstance(item.get("scores"), dict) else {}
+    return (
+        tier_weight,
+        float(scores.get("personal_score", 0.0) or 0.0),
+        float(scores.get("research_relevance", 0.0) or 0.0),
+        float(scores.get("global_score", 0.0) or 0.0),
+        str(item.get("title") or ""),
+    )
+
+
+def llm_eligible_items(items: list[dict[str, Any]], tiers: set[str]) -> list[dict[str, Any]]:
+    seen: set[str] = set()
+    candidates: list[dict[str, Any]] = []
+    for item in items:
+        key = llm_item_key(item)
+        if key in seen:
+            continue
+        seen.add(key)
+        tier = str(item.get("reading_tier") or "").upper()
+        if tier not in tiers:
+            continue
+        if grounding_level(item) == "title_only":
+            continue
+        candidates.append(item)
+    return sorted(candidates, key=llm_candidate_sort_key, reverse=True)
+
+
+def prepare_llm_plan(items: list[dict[str, Any]]) -> None:
+    global LLM_PLAN_READY
+    global LLM_ITEMS_PROCESSED, ROLE_PIPELINE_ITEMS, SINGLE_LLM_ITEMS
+    global ROLE_PIPELINE_ALLOWED_KEYS, SINGLE_LLM_ALLOWED_KEYS
+
+    LLM_PLAN_READY = True
+    LLM_ITEMS_PROCESSED = 0
+    ROLE_PIPELINE_ITEMS = 0
+    SINGLE_LLM_ITEMS = 0
+    ROLE_PIPELINE_ALLOWED_KEYS = set()
+    SINGLE_LLM_ALLOWED_KEYS = set()
+
+    mode = configured_model_mode()
+    if mode == "role_pipeline":
+        role_limit = min(role_pipeline_budget(), max_llm_items())
+        role_candidates = llm_eligible_items(items, {"MUST_READ"})[:role_limit]
+        ROLE_PIPELINE_ALLOWED_KEYS = {llm_item_key(item) for item in role_candidates}
+
+        single_limit = min(single_llm_budget(), max_llm_items())
+        single_candidates = llm_eligible_items(items, {"SKIM"})[:single_limit]
+        SINGLE_LLM_ALLOWED_KEYS = {llm_item_key(item) for item in single_candidates}
+        return
+
+    if mode == "single":
+        single_limit = min(openai_summary_budget(), single_llm_budget(), max_llm_items())
+        single_candidates = llm_eligible_items(items, {"MUST_READ", "SKIM"})[:single_limit]
+        SINGLE_LLM_ALLOWED_KEYS = {llm_item_key(item) for item in single_candidates}
+
+
 def summarize_item(item: dict[str, Any]) -> dict[str, Any]:
-    global LLM_SUMMARY_CALLS
+    global LLM_ITEMS_PROCESSED, ROLE_PIPELINE_ITEMS, SINGLE_LLM_ITEMS
 
     cached_summary = item.get("_cached_summary")
     if isinstance(cached_summary, dict):
         return normalize_summary(cached_summary, item)
-    
-    if ensemble_enabled():
+
+    if not LLM_PLAN_READY:
+        prepare_llm_plan([item])
+
+    item_key = llm_item_key(item)
+    mode = configured_model_mode()
+
+    if mode == "role_pipeline" and item_key in ROLE_PIPELINE_ALLOWED_KEYS:
         ensemble_model = get_ensemble_model()
         if ensemble_model:
             try:
                 result = ensemble_model.summarize(item)
                 if result:
-                    if configured_model_mode() == "role_pipeline":
-                        LLM_SUMMARY_CALLS += len(getattr(ensemble_model, "clients", {})) or 1
+                    ROLE_PIPELINE_ITEMS += 1
+                    LLM_ITEMS_PROCESSED += 1
                     return normalize_summary(result, item)
             except Exception as e:
                 print(f"Ensemble model error: {e}")
+        return fallback_summary(item)
     
-    if has_any_llm_api_key() and LLM_SUMMARY_CALLS < openai_summary_budget():
-        return normalize_summary(summarize_with_single_llm(item), item)
+    if item_key in SINGLE_LLM_ALLOWED_KEYS and has_any_llm_api_key():
+        result = summarize_with_single_llm(item)
+        if result:
+            item["_cached_summary"] = {field: result.get(field, "") for field in SUMMARY_FIELDS}
+            SINGLE_LLM_ITEMS += 1
+            LLM_ITEMS_PROCESSED += 1
+            return normalize_summary(result, item)
     
     return fallback_summary(item)
 
@@ -847,6 +982,42 @@ def signal_line(item: dict[str, Any]) -> str:
     return "；".join(parts) or "无额外源信号"
 
 
+def recommendation_explanation_line(item: dict[str, Any]) -> str:
+    explanation = item.get("recommendation_explanation")
+    if not isinstance(explanation, dict):
+        return "尚未生成结构化解释"
+    parts = []
+    why = explanation.get("why_recommended") or []
+    directions = explanation.get("matched_directions") or []
+    top = explanation.get("top_features") or []
+    if why:
+        parts.append("；".join(str(value) for value in why[:2]))
+    if directions:
+        parts.append("命中方向：" + " / ".join(str(value) for value in directions[:3]))
+    if top:
+        parts.append("主要特征：" + ", ".join(f"{row.get('label')}={row.get('value')}" for row in top[:4] if isinstance(row, dict)))
+    return "；".join(parts) or "规则排序命中，但贡献特征较分散"
+
+
+def recommendation_risk_line(item: dict[str, Any]) -> str:
+    explanation = item.get("recommendation_explanation")
+    if not isinstance(explanation, dict):
+        return "none"
+    risks = explanation.get("risk_notes") or []
+    return "；".join(str(value) for value in risks[:4]) or "none"
+
+
+def recommendation_source_line(item: dict[str, Any]) -> str:
+    explanation = item.get("recommendation_explanation")
+    if not isinstance(explanation, dict):
+        return str(item.get("source_layer") or "unknown")
+    return (
+        f"{explanation.get('source_class', 'unknown')}；"
+        f"evidence={explanation.get('evidence_level', 'title_only')}；"
+        f"primary={explanation.get('is_primary_source', False)}"
+    )
+
+
 def item_block(item: dict[str, Any], idx: int) -> str:
     source = item.get("source", {})
     kind = source.get("kind", "primary")
@@ -877,6 +1048,9 @@ def item_block(item: dict[str, Any], idx: int) -> str:
         f"- 建议行动：{summary.get('suggested_action', choose_action(item)).strip()}",
         f"- 评分：{score_line(item)}",
         f"- 多源信号：{signal_line(item)}",
+        f"- 推荐解释：{recommendation_explanation_line(item)}",
+        f"- 风险提示：{recommendation_risk_line(item)}",
+        f"- 来源级别：{recommendation_source_line(item)}",
         f"- 命中方向：{focus}",
         f"- 相关标签：{secondary_tags}",
         f"- 命中关键词：{keywords}",
@@ -2114,37 +2288,90 @@ def previous_report_link(report_date: str) -> str:
     return str(previous_path).replace("\\", "/") if previous_path.exists() else f"{previous_date}：未找到上一期日报"
 
 
+def format_count_map(value: Any) -> str:
+    if not isinstance(value, dict) or not value:
+        return "none"
+    return ", ".join(f"{key}:{count}" for key, count in sorted(value.items()))
+
+
+def llm_runtime_stats() -> dict[str, Any]:
+    global LLM_SUMMARY_CALLS
+
+    try:
+        from models.client import llm_stats_snapshot
+
+        stats = llm_stats_snapshot()
+    except Exception:
+        stats = {}
+
+    api_requests_total = int(stats.get("api_requests_total") or 0)
+    LLM_SUMMARY_CALLS = api_requests_total
+    return {
+        "llm_items_processed": LLM_ITEMS_PROCESSED,
+        "role_pipeline_items": ROLE_PIPELINE_ITEMS,
+        "single_llm_items": SINGLE_LLM_ITEMS,
+        "api_requests_total": api_requests_total,
+        "api_requests_by_provider": format_count_map(stats.get("api_requests_by_provider")),
+        "api_requests_by_role": format_count_map(stats.get("api_requests_by_role")),
+        "cache_hits": int(stats.get("cache_hits") or 0),
+        "cache_misses": int(stats.get("cache_misses") or 0),
+        "last_llm_error": LAST_LLM_ERROR or stats.get("last_model_error") or "none",
+        "provider_disabled": stats.get("provider_disabled") or "none",
+        "provider_disabled_reason": stats.get("provider_disabled_reason") or "none",
+        "daily_llm_budget_rmb": stats.get("daily_llm_budget_rmb") if stats.get("daily_llm_budget_rmb") is not None else 1.0,
+        "estimated_llm_cost_rmb": stats.get("estimated_llm_cost_rmb") if stats.get("estimated_llm_cost_rmb") is not None else 0.0,
+        "estimated_input_tokens": stats.get("estimated_input_tokens") or 0,
+        "estimated_output_tokens": stats.get("estimated_output_tokens") or 0,
+        "cost_guard_blocked_calls": stats.get("cost_guard_blocked_calls") or 0,
+        "cost_guard_enabled": stats.get("cost_guard_enabled") if stats.get("cost_guard_enabled") is not None else True,
+    }
+
+
 def build_template_context(processed: dict[str, Any], report_date: str, report_path: Path) -> dict[str, Any]:
     items = processed.get("items", [])
+    prepare_llm_plan(items)
     collection_time = processed.get("generated_at") or datetime.now().isoformat(timespec="seconds")
     benchmark_appendix = write_benchmark_appendix(processed, report_date)
     backend = active_summary_backend()
-    llm_enabled = backend.get("summary_mode") != "local"
+    llm_enabled = backend.get("provider") != "local" and backend.get("summary_mode") != "local"
+    overview = build_overview(processed)
+    primary = {
+        "context_compression": render_primary_section(processed, ["context_compression_memory", "context_compression", "context_memory"]),
+        "agents": render_primary_section(processed, ["agents"]),
+        "open_world_learning": render_primary_section(processed, ["open_world_learning", "open_world"]),
+        "model_distillation": render_primary_section(processed, ["model_distillation", "distillation_efficiency"]),
+    }
+    traditional = {
+        "cv": render_traditional_section(processed, "cv"),
+        "nlp": render_traditional_section(processed, "nlp"),
+        "rl": render_traditional_section(processed, "rl"),
+        "model_architecture": render_traditional_section(processed, "model_architecture"),
+        "learning_methods": render_traditional_section(processed, "learning_methods"),
+    }
+    other_highlights = render_other_section(processed, ["highlights", "other_highlights"], limit=5)
+    benchmark_evaluation = render_benchmark_section(processed, report_date=report_date)
+    github_projects = "\n".join(render_github_projects(processed.get("github_projects", [])))
+    institutional_updates = render_other_section(processed, ["institutional_updates"], limit=5)
+    awards_notable_papers = render_awards_notable_papers(processed)
+    university_lab_radar = render_university_lab_radar(processed, report_date=report_date)
+    context_community_signals = render_context_community_signals(processed)
+    classic_revisit = render_classic_revisit(processed.get("classic_revisit", []))
+    deep_read_list = render_deep_read_list(items)
+    runtime_stats = llm_runtime_stats()
     return {
         "report_date": report_date,
-        "overview": build_overview(processed),
-        "primary": {
-            "context_compression": render_primary_section(processed, ["context_compression_memory", "context_compression", "context_memory"]),
-            "agents": render_primary_section(processed, ["agents"]),
-            "open_world_learning": render_primary_section(processed, ["open_world_learning", "open_world"]),
-            "model_distillation": render_primary_section(processed, ["model_distillation", "distillation_efficiency"]),
-        },
-        "traditional": {
-            "cv": render_traditional_section(processed, "cv"),
-            "nlp": render_traditional_section(processed, "nlp"),
-            "rl": render_traditional_section(processed, "rl"),
-            "model_architecture": render_traditional_section(processed, "model_architecture"),
-            "learning_methods": render_traditional_section(processed, "learning_methods"),
-        },
-        "other_highlights": render_other_section(processed, ["highlights", "other_highlights"], limit=5),
-        "benchmark_evaluation": render_benchmark_section(processed, report_date=report_date),
-        "github_projects": "\n".join(render_github_projects(processed.get("github_projects", []))),
-        "institutional_updates": render_other_section(processed, ["institutional_updates"], limit=5),
-        "awards_notable_papers": render_awards_notable_papers(processed),
-        "university_lab_radar": render_university_lab_radar(processed, report_date=report_date),
-        "context_community_signals": render_context_community_signals(processed),
-        "classic_revisit": render_classic_revisit(processed.get("classic_revisit", [])),
-        "deep_read_list": render_deep_read_list(items),
+        "overview": overview,
+        "primary": primary,
+        "traditional": traditional,
+        "other_highlights": other_highlights,
+        "benchmark_evaluation": benchmark_evaluation,
+        "github_projects": github_projects,
+        "institutional_updates": institutional_updates,
+        "awards_notable_papers": awards_notable_papers,
+        "university_lab_radar": university_lab_radar,
+        "context_community_signals": context_community_signals,
+        "classic_revisit": classic_revisit,
+        "deep_read_list": deep_read_list,
         "collection": {
             "generated_at": collection_time,
             "source_count": source_count(processed),
@@ -2155,9 +2382,30 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "provider": backend.get("provider", "local"),
             "model": backend.get("model", "local fallback"),
             "roles": backend.get("roles", ""),
-            "llm_summary_calls": LLM_SUMMARY_CALLS,
-            "last_llm_error": LAST_LLM_ERROR or "none",
-            "local_summary_notice": "" if llm_enabled else "当前为本地摘要模式，解释质量有限",
+            "llm_summary_calls": runtime_stats["api_requests_total"],
+            "llm_items_processed": runtime_stats["llm_items_processed"],
+            "role_pipeline_items": runtime_stats["role_pipeline_items"],
+            "single_llm_items": runtime_stats["single_llm_items"],
+            "api_requests_total": runtime_stats["api_requests_total"],
+            "api_requests_by_provider": runtime_stats["api_requests_by_provider"],
+            "api_requests_by_role": runtime_stats["api_requests_by_role"],
+            "cache_hits": runtime_stats["cache_hits"],
+            "cache_misses": runtime_stats["cache_misses"],
+            "last_llm_error": runtime_stats["last_llm_error"],
+            "provider_disabled": runtime_stats["provider_disabled"],
+            "provider_disabled_reason": runtime_stats["provider_disabled_reason"],
+            "daily_llm_budget_rmb": runtime_stats["daily_llm_budget_rmb"],
+            "estimated_llm_cost_rmb": runtime_stats["estimated_llm_cost_rmb"],
+            "estimated_input_tokens": runtime_stats["estimated_input_tokens"],
+            "estimated_output_tokens": runtime_stats["estimated_output_tokens"],
+            "cost_guard_blocked_calls": runtime_stats["cost_guard_blocked_calls"],
+            "cost_guard_enabled": runtime_stats["cost_guard_enabled"],
+            "llm_zero_call_warning": (
+                "API key configured but no LLM summary calls were made; check budget, cache, grounding, or provider errors."
+                if has_any_llm_api_key() and runtime_stats["api_requests_total"] == 0 and llm_enabled
+                else ""
+            ),
+            "local_summary_notice": "" if llm_enabled else "No API key was available; generated deterministic local fallback summaries.",
             "benchmark_appendix": benchmark_appendix,
             "report_path": str(report_path).replace("\\", "/"),
             "previous_report_link": previous_report_link(report_date),
