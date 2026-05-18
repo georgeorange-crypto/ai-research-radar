@@ -1,4 +1,19 @@
 {
+  "38ee893267d529e0df3b1ab59db83045f5c7ac21fb2e8b562911a45df129adb8": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "鉴于该研究的创新性和对Agent能力的潜在影响，建议深读。",
+      "method_or_contribution": "提出了一个包含文本程序、运行时状态卡和多视图关键帧的紧凑、状态条件化的多模态技能包MMSkill，并开发了一个将公共非评估轨迹转换为可重用多模态技能的代理轨迹到技能生成器。",
+      "problem": "解决了视觉Agent在执行任务时需要的多模态程序性知识问题，包括识别相关状态、解释视觉证据以及决定下一步行动。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "MMSkills是一个旨在为通用视觉Agent提供多模态技能的框架。",
+      "why_important": "对于研究和开发能够理解和执行复杂视觉任务的Agent来说，MMSkills提供了一种新的多模态技能表示和生成方法，这对于提高Agent的能力和灵活性至关重要。"
+    }
+  },
   "cdfea47a250d4b0fcfe6bd3316310fde20a6098410996f93f9045561e1d32bfa": {
     "metadata": {
       "model": "moonshot-v1-8k",
@@ -12,6 +27,21 @@
       "suggested_action": "read_pdf",
       "what_is_it": "这篇文章介绍了一种名为Causal Forcing++的新方法，用于实时交互式视频生成。",
       "why_important": "Causal Forcing++在帧级2步设置下超越了现有的4步块级Causal Forcing方法，减少了首帧延迟50%，并降低了第二阶段训练成本，对于需要低延迟、流式传输和可控输出的视频生成任务具有重要意义。"
+    }
+  },
+  "ff38532597cc83262dd995d51db4de581ebdd1a244f4d8a0f4f7dc14839ea4df": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "鉴于AnyFlow在视频扩散领域的创新性和潜在影响力，建议深读。",
+      "method_or_contribution": "通过流图映射转换学习和反向模拟技术优化完整的ODE采样轨迹，改进了一致性蒸馏。",
+      "problem": "解决了视频扩散模型在多步预测中的一致性问题。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "AnyFlow是一个新颖的视频扩散模型框架。",
+      "why_important": "对从事视频生成和模型压缩的研究者来说，AnyFlow提供了一种新的框架来提高视频扩散模型的效率和效果。"
     }
   }
 }
