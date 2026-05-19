@@ -1,4 +1,19 @@
 {
+  "0f1d3a3126f20610d0855e5fb2eb6cff768ff4aee37457f7f475f7b0cdfe5faf": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "建议深读，特别是如果你对长上下文模型的量化和优化感兴趣。",
+      "method_or_contribution": "提出了一种基于离线估计注意力感知协方差结构的方法，用于推导量化的固定旋转和剪切阈值。",
+      "problem": "解决了长上下文大型语言模型(KV-cache)量化中的准确性和部署性问题。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "OSCAR是一种针对2位KV缓存量化的方法。",
+      "why_important": "对于需要长上下文服务的大型语言模型来说，OSCAR能够显著减少KV缓存内存并提高吞吐量，同时保持与BF16相当的准确性。"
+    }
+  },
   "38ee893267d529e0df3b1ab59db83045f5c7ac21fb2e8b562911a45df129adb8": {
     "metadata": {
       "model": "moonshot-v1-8k",
