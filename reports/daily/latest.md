@@ -1,21 +1,21 @@
-# AI Research Radar - 2026-05-20
+# AI Research Radar - 2026-05-21
 - Summary mode: single
 - Provider: kimi
 - Model: moonshot-v1-8k
 
-- LLM summary calls: 1
+- LLM summary calls: 3
 - Estimated cost: RMB 0.0 / 1.0
 - Estimated tokens: input 0, output 0
 - Cost guard: enabled=True, blocked_calls=0
 
-- llm_items_processed: 2
+- llm_items_processed: 3
 - role_pipeline_items: 0
-- single_llm_items: 2
-- api_requests_total: 1
-- api_requests_by_provider: kimi:1
-- api_requests_by_role: single_summary:1
-- cache_hits: 1
-- cache_misses: 1
+- single_llm_items: 3
+- api_requests_total: 3
+- api_requests_by_provider: kimi:3
+- api_requests_by_role: single_summary:3
+- cache_hits: 0
+- cache_misses: 3
 - Last LLM error: none
 - provider_disabled: none
 - reason: none
@@ -24,38 +24,38 @@
 
 ## 0. Daily Overview
 - Most important direction: 上下文压缩 / 长上下文 / 记忆
-- Must Read count: 3 (OSCAR: Offline Spectral Covariance-Aware Rotation for 2-bit KV Cache Quantization；DashAttention: Differentiable and Adaptive Sparse Hierarchical Attention；AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation)
-- Skim count: 8 (Code as Agent Harness；STT-Arena: A More Realistic Environment for Tool-Using with Spatio-Temporal Dynamics；EnvFactory: Scaling Tool-Use Agents via Executable Environments Synthesis and Robust RL；MementoGUI: Learning Agentic Multimodal Memory Control for Long-Horizon GUI Agents；SPIKE: An Adaptive Dual Controller Framework for Cost-Efficient Long-Horizon Game Agents)
-- Watch count: 12 (SkillsVote: Lifecycle Governance of Agent Skills from Collection, Recommendation to Evolution；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Whole-Body Conditioned Egocentric Video Prediction；Aurora: Unified Video Editing with a Tool-Using Agent；ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning)
-- Keywords: nlp、reasoning、cs.CL、framework、robotics、language model、agentic、long-horizon
-- Judgement: 今日主线：模型蒸馏在 diffusion 方向从离散步监督走向连续时间分布匹配；同时 长上下文方向正在把上下文压缩、KV cache 复用和 agent 状态管理合并考虑。
+- Must Read count: 3 (GoLongRL: Capability-Oriented Long Context Reinforcement Learning with Multitask Alignment；TravExplorer: Cross-Floor Embodied Exploration via Traversability-Aware 3-D Planning；A Measure-Theoretic Analysis of Reasoning: Structural Generalization and Approximation Limits)
+- Skim count: 8 (EnvFactory: Scaling Tool-Use Agents via Executable Environments Synthesis and Robust RL；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；PEEK: Context Map as an Orientation Cache for Long-Context LLM Agents；RECIPE: Procedural Planning via Grounding in Instructional Video；VL-DPO: Vision-Language-Guided Finetuning for Preference-Aligned Autonomous Driving)
+- Watch count: 12 (Whole-Body Conditioned Egocentric Video Prediction；ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning；Scaling Up Reinforcement Learning for Traffic Smoothing: A 100-AV Highway Deployment；Aurora: Unified Video Editing with a Tool-Using Agent；RL without TD learning)
+- Keywords: nlp、framework、robotics、reasoning、planning、optimization、cs.LG、inference
+- Judgement: 今日主线：Agentic RL 正从单次结果打分推进到长程轨迹、环境反馈和策略更新的闭环；同时 模型压缩的关注点从单纯变小转向保留推理结构、排序一致性和部署可用性。
 
 ## 1. Core Research Tracks
 
 ### 1.1 Context Compression / Long Context / Agent Memory
 #### Must Read
-##### 1. [OSCAR: Offline Spectral Covariance-Aware Rotation for 2-bit KV Cache Quantization](https://arxiv.org/abs/2605.17757)
+##### 1. [GoLongRL: Capability-Oriented Long Context Reinforcement Learning with Multitask Alignment](https://arxiv.org/abs/2605.19577)
 - 阅读层级：MUST_READ
 - 来源：Hugging Face Daily Papers
 - 来源类型：聚合/摘要
 - source_role：paper_source
 - 证据来源：abstract only
-- 原文链接：https://arxiv.org/abs/2605.17757
-- 发布时间：2026-05-17T20:00:00+00:00
-- 这是什么？OSCAR是一种针对2位KV缓存量化的方法。
-- 解决了什么问题？解决了长上下文大型语言模型(KV-cache)量化中的准确性和部署性问题。
-- 方法或贡献是什么？提出了一种基于离线估计注意力感知协方差结构的方法，用于推导量化的固定旋转和剪切阈值。
-- 为什么对我重要？对于需要长上下文服务的大型语言模型来说，OSCAR能够显著减少KV缓存内存并提高吞吐量，同时保持与BF16相当的准确性。
-- 是否建议深读？建议深读，特别是如果你对长上下文模型的量化和优化感兴趣。
+- 原文链接：https://arxiv.org/abs/2605.19577
+- 发布时间：2026-05-18T20:00:00+00:00
+- 这是什么？GoLongRL是一个面向能力的长上下文强化学习（RL）后训练方法，它通过多任务对齐和可验证奖励（RLVR）来实现。
+- 解决了什么问题？现有长上下文RL方法通常将数据构建视为设计复杂检索路径的问题，导致任务覆盖和奖励公式同质化，无法充分反映实际长上下文需求。
+- 方法或贡献是什么？该工作有两个贡献：(1) 面向能力的完整开源数据构建，发布了23K RLVR样本、完整的构建流程和所有训练代码；(2) 提出了TMN-Reweight方法，用于解决来自异构奖励的多任务优化挑战。
+- 为什么对我重要？GoLongRL通过更广泛的任务覆盖和更大的奖励多样性，显著提升了长上下文能力，这对于长上下文强化学习领域是一个重要的进步。
+- 是否建议深读？鉴于GoLongRL在长上下文强化学习领域的创新性和实用性，建议深入阅读。
 - 建议行动：read_pdf
-- 评分：global_score 0.48；personal_score 0.94；credibility 0.87；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.12；actionability 0.53；research_relevance 0.99；hype_risk 0.00
+- 评分：global_score 0.54；personal_score 0.93；credibility 0.87；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.30；actionability 0.78；research_relevance 0.87；hype_risk 0.00
 - 多源信号：论文:Hugging Face Daily Papers
 - 推荐解释：尚未生成结构化解释
 - 风险提示：none
 - 来源级别：unknown
 - 命中方向：上下文压缩 / 长上下文 / 记忆
-- 相关标签：Agent / Reasoning / Inference-time Scaling / Planning、Model Distillation / Model Compression / Efficient Training、Model Architecture、Other Highlights
-- 命中关键词：KV cache、KV-cache、attention、long context、long-context、quantization、reasoning、serving
+- 相关标签：RL、Benchmark / Dataset / Evaluation、Learning Methods / Optimization / Representation Learning、GitHub / Open Source Projects
+- 命中关键词：alignment、dataset、evaluation、grpo、long context、long-context、open-source、optimization、reinforcement learning、release
 
 #### Skim
 - 无。
@@ -63,67 +63,88 @@
 #### Watch
 - [Q-RAG: Long Context Multi‑Step Retrieval via Value‑Based Embedder Training](https://openreview.net/forum?id=MS9nWFY7LG)（WATCH，Context Compression / Long Context / Memory，证据 abstract only，personal 0.93，global 0.32）
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)（WATCH，Context Compression / Long Context / Memory，证据 full text，personal 0.93，global 0.41）
-- [CompactAttention: Accelerating Chunked Prefill with Block-Union KV Selection](https://arxiv.org/abs/2605.16839)（WATCH，Context Compression / Long Context / Memory，证据 abstract only，personal 0.86，global 0.47）
+- [Context Memorization for Efficient Long Context Generation](https://arxiv.org/abs/2605.18226)（WATCH，Context Compression / Long Context / Memory，证据 abstract only，personal 0.88，global 0.46）
 
 #### Archive
 - [Recent Developments in LLM Architectures: KV Sharing, mHC, and Compressed Attention](https://magazine.sebastianraschka.com/p/recent-developments-in-llm-architectures)（ARCHIVE，Context Compression / Long Context / Memory，证据 full text，personal 0.57，global 0.26）
 
 ### 1.2 LLM Agents / Tool Use / Planning / Agentic RL
 #### Must Read
-- 无。
-
-#### Skim
-##### 1. [Code as Agent Harness](https://arxiv.org/abs/2605.18747v1)
-- 阅读层级：SKIM
+##### 1. [TravExplorer: Cross-Floor Embodied Exploration via Traversability-Aware 3-D Planning](https://arxiv.org/abs/2605.19958v1)
+- 阅读层级：MUST_READ
 - 来源：arXiv AI/ML/NLP/Vision/Robotics
 - 来源类型：一手来源
 - source_role：paper_source
 - 证据来源：abstract only
-- 原文链接：https://arxiv.org/abs/2605.18747v1
-- 发布时间：2026-05-18T17:59:03+00:00
-- 这是什么？Code as Agent Harness：研究论文，方向为“Agent / Reasoning / Inference-time Scaling / Planning”；主要线索：agentic、cs.CL、environment、language model。
-- 解决了什么问题？它关注“Agent / Reasoning / Inference-time Scaling / Planning”里的 agentic、cs.CL、environment、language model 等问题。
-- 方法或贡献是什么？摘要可确认它提出或引入了 agentic、cs.CL、environment、language model；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对我重要？tier=SKIM editorial_priority=0.96 今天快速扫读。 personal=0.99，relevance=1.00。
-- 是否建议深读？今天不深读，先按行动建议处理。
-- 建议行动：skim
-- 评分：global_score 0.41；personal_score 0.99；credibility 1.00；conference 0.00；institution 0.00；multi_source 0.05；community_signal 0.10；actionability 0.69；research_relevance 1.00；hype_risk 0.00
-- 多源信号：论文:Hugging Face Daily Papers/arXiv AI/ML/NLP/Vision/Robotics
-- 推荐解释：尚未生成结构化解释
-- 风险提示：none
-- 来源级别：unknown
-- 命中方向：Agent / Reasoning / Inference-time Scaling / Planning
-- 相关标签：NLP、Other Highlights、Benchmark / Dataset / Evaluation、CV
-- 命中关键词：agentic、cs.CL、environment、evaluation、language model、long-horizon、multi-agent、multimodal、nlp、optimization
-- 去重信息：同一内容也出现在 Hugging Face Daily Papers、arXiv AI/ML/NLP/Vision/Robotics
-
-##### 2. [STT-Arena: A More Realistic Environment for Tool-Using with Spatio-Temporal Dynamics](https://arxiv.org/abs/2605.18548v1)
-- 阅读层级：SKIM
-- 来源：arXiv AI/ML/NLP/Vision/Robotics
-- 来源类型：一手来源
-- source_role：paper_source
-- 证据来源：abstract only
-- 原文链接：https://arxiv.org/abs/2605.18548v1
-- 发布时间：2026-05-18T15:27:52+00:00
-- 这是什么？STT-Arena: A More Realistic Environment for Tool-Using with Spatio-Temporal Dynamics：研究论文，方向为“Agent / Reasoning / Inference-time Scaling / Planning”；主要线索：agentic、cs.CL、environment、language model。
-- 解决了什么问题？它关注“Agent / Reasoning / Inference-time Scaling / Planning”里的 agentic、cs.CL、environment、language model 等问题。
-- 方法或贡献是什么？摘要可确认它提出或引入了 agentic、cs.CL、environment、language model；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对我重要？tier=SKIM editorial_priority=0.95 今天快速扫读。 personal=0.99，relevance=1.00。
-- 是否建议深读？今天不深读，先按行动建议处理。
-- 建议行动：skim
-- 评分：global_score 0.40；personal_score 0.99；credibility 1.00；conference 0.00；institution 0.00；multi_source 0.00；community_signal 0.08；actionability 0.69；research_relevance 1.00；hype_risk 0.00
+- 原文链接：https://arxiv.org/abs/2605.19958v1
+- 发布时间：2026-05-19T15:11:29+00:00
+- 这是什么？TravExplorer 是一个用于跨楼层实体探索的框架，它结合了零样本语义引导和可穿越性感知的3D规划。
+- 解决了什么问题？解决了现有系统在复杂建筑环境中，如涉及楼层、楼梯、平台和垂直重叠空间时，导航能力的不足问题。
+- 方法或贡献是什么？该框架通过维护一个统一的体积地图来区分被占用的结构和机器人可到达的支撑表面，并从中提取可穿越的边界，包括地板、楼梯和平台。同时，它还包括一个FOV感知的主动感知策略和一个轻量级引导模块，以减少语义推理延迟，并基于几何和语义记忆执行目标感知边界巡游。
+- 为什么对我重要？对于研究者而言，TravExplorer 提供了一个在复杂建筑环境中进行实体探索的新方法，这对于机器人导航和自动化系统的研究具有重要意义。
+- 是否建议深读？鉴于 TravExplorer 在 HM3D 和 MP3D 数据集上的模拟实验表现出的优势，建议深读以了解其详细机制和潜在应用。
+- 建议行动：read_pdf
+- 评分：global_score 0.39；personal_score 0.96；credibility 1.00；conference 0.00；institution 0.00；multi_source 0.00；community_signal 0.08；actionability 0.65；research_relevance 0.96；hype_risk 0.00
 - 多源信号：论文:arXiv AI/ML/NLP/Vision/Robotics
 - 推荐解释：尚未生成结构化解释
 - 风险提示：none
 - 来源级别：unknown
 - 命中方向：Agent / Reasoning / Inference-time Scaling / Planning
-- 相关标签：NLP、Benchmark / Dataset / Evaluation、RL、Other Highlights
-- 命中关键词：agentic、benchmark、cs.CL、environment、evaluation、language model、nlp、online rl、reasoning、rl
+- 相关标签：Other Highlights、Novel Class Discovery / Open-World Learning / OOD / Continual Learning、CV、GitHub / Open Source Projects
+- 命中关键词：cs.RO、framework、github、image、nlp、open-vocabulary、optimization、planning、reasoning、robot
+
+#### Skim
+##### 1. [EnvFactory: Scaling Tool-Use Agents via Executable Environments Synthesis and Robust RL](https://arxiv.org/abs/2605.18703)
+- 阅读层级：SKIM
+- 来源：Hugging Face Daily Papers
+- 来源类型：聚合/摘要
+- source_role：paper_source
+- 证据来源：abstract only
+- 原文链接：https://arxiv.org/abs/2605.18703
+- 发布时间：2026-05-17T20:00:00+00:00
+- 这是什么？EnvFactory: Scaling Tool-Use Agents via Executable Environments Synthesis and Robust RL：研究论文，方向为“Agent / Reasoning / Inference-time Scaling / Planning”；主要线索：agentic、agentic RL、environment、framework。
+- 解决了什么问题？它关注“Agent / Reasoning / Inference-time Scaling / Planning”里的 agentic、agentic RL、environment、framework 等问题。
+- 方法或贡献是什么？摘要可确认它提出或引入了 agentic、agentic RL、environment、framework；具体训练设置、指标和消融细节需读原文确认。
+- 为什么对我重要？tier=SKIM editorial_priority=0.90 今天快速扫读。 personal=0.98，relevance=1.00。
+- 是否建议深读？今天不深读，先按行动建议处理。
+- 建议行动：skim
+- 评分：global_score 0.51；personal_score 0.98；credibility 0.92；conference 0.00；institution 0.96；multi_source 0.05；community_signal 0.30；actionability 0.70；research_relevance 1.00；hype_risk 0.00
+- 多源信号：论文:Hugging Face Daily Papers/Papers with Code Trending (HF redirect)；代码:Papers with Code Trending (HF redirect)
+- 推荐解释：尚未生成结构化解释
+- 风险提示：none
+- 来源级别：unknown
+- 命中方向：Agent / Reasoning / Inference-time Scaling / Planning
+- 相关标签：RL、GitHub / Open Source Projects
+- 命中关键词：agentic、agentic RL、environment、framework、reasoning、reinforcement learning、rl、trajectory
+- 去重信息：同一内容也出现在 Hugging Face Daily Papers、Papers with Code Trending (HF redirect)
+
+##### 2. [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
+- 阅读层级：SKIM
+- 来源：BAIR Blog
+- 来源类型：一手来源
+- source_role：institution_authority
+- 证据来源：full text
+- 原文链接：http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/
+- 发布时间：2026-05-08T09:00:00+00:00
+- 这是什么？Adaptive Parallel Reasoning 讨论如何把推理时计算从单一路径扩展为多条并行候选路径，并在搜索、验证或聚合后得到更稳的答案。
+- 解决了什么问题？它针对的是复杂问题中串行 chain-of-thought 容易早早走偏、单次采样难以覆盖多种解法的问题。
+- 方法或贡献是什么？方法范式是 inference-time scaling：并行生成多个推理分支，再用选择、交叉检查或自适应预算分配把计算集中到更有希望的路径上。
+- 为什么对我重要？这类工作直接关系到 agent planning、长上下文任务和测试时计算分配，说明提升推理能力不只依赖更大模型，也依赖更好的推理组织方式。
+- 是否建议深读？建议略读正文，先抓住问题定义和方法框架。
+- 建议行动：skim
+- 评分：global_score 0.43；personal_score 0.98；credibility 1.00；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.08；actionability 0.72；research_relevance 1.00；hype_risk 0.00
+- 多源信号：机构:BAIR Blog
+- 推荐解释：尚未生成结构化解释
+- 风险提示：none
+- 来源级别：unknown
+- 命中方向：Agent / Reasoning / Inference-time Scaling / Planning
+- 相关标签：Reasoning、Inference-time Scaling、Long Context、Planning
+- 命中关键词：KV cache、agentic、attention、berkeley.edu、context window、efficient inference、evaluation、framework、inference、inference-time scaling
 
 #### Watch
-- [SkillsVote: Lifecycle Governance of Agent Skills from Collection, Recommendation to Evolution](https://arxiv.org/abs/2605.18401)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.99，global 0.55）
-- [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.98，global 0.43）
 - [Whole-Body Conditioned Egocentric Video Prediction](http://bair.berkeley.edu/blog/2025/07/01/peva/)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.98，global 0.38）
+- [ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning](https://openreview.net/forum?id=DkRYImuQA9)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.97，global 0.31）
+- [Scaling Up Reinforcement Learning for Traffic Smoothing: A 100-AV Highway Deployment](http://bair.berkeley.edu/blog/2025/03/25/rl-av-smoothing/)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.96，global 0.37）
 
 #### Archive
 - [World Action Models: The Next Frontier in Embodied AI](https://arxiv.org/abs/2605.12090)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.68，global 0.42）
@@ -132,19 +153,40 @@
 - [Improving the academic workflow: Introducing two AI agents for better figures and peer review](https://research.google/blog/improving-the-academic-workflow-introducing-two-ai-agents-for-better-figures-and-peer-review/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.66，global 0.36）
 - [Very Large-Scale Multi-Agent Simulation in AgentScope](https://arxiv.org/abs/2407.17789)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.65，global 0.42）
 - [Co-Scientist: A multi-agent AI partner to accelerate research](https://deepmind.google/blog/co-scientist-a-multi-agent-ai-partner-to-accelerate-research/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.65，global 0.40）
-- [How finance teams use Codex](https://openai.com/academy/how-finance-teams-use-codex)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.64，global 0.40）
+- [Why Do Reasoning Models Lose Coverage? The Role of Data and Forks in the Road](https://arxiv.org/abs/2605.17026)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 abstract only，personal 0.64，global 0.42）
 - [NVIDIA CEO Drops the Blueprint for Europe's AI Boom](https://blogs.nvidia.com/blog/gtc-paris-2025/)（ARCHIVE，Agent / Reasoning / Inference-time Scaling / Planning，证据 full text，personal 0.64，global 0.36）
 
 ### 1.3 Novel Class Discovery / Open-World Learning / OOD / Continual Learning
 #### Must Read
-- 无。
+##### 1. [A Measure-Theoretic Analysis of Reasoning: Structural Generalization and Approximation Limits](https://arxiv.org/abs/2605.19944v1)
+- 阅读层级：MUST_READ
+- 来源：arXiv AI/ML/NLP/Vision/Robotics
+- 来源类型：一手来源
+- source_role：paper_source
+- 证据来源：abstract only
+- 原文链接：https://arxiv.org/abs/2605.19944v1
+- 发布时间：2026-05-19T15:00:51+00:00
+- 这是什么？这篇文章提供了对大型语言模型(LLM)推理过程中结构泛化和近似极限的理论分析。
+- 解决了什么问题？尽管LLM推理的经验扩展法则已被广泛记录，但其在分布外(OOD)泛化的理论机制尚不清楚。
+- 方法或贡献是什么？文章通过最优传输理论来形式化推理，将离散轨迹投影到连续度量空间中，并使用Wasserstein-1距离来量化领域偏移。通过Kantorovich对偶性，文章限制了OOD泛化，并通过架构Lipschitz连续性和功能近似极限来暴露两个主要约束。
+- 为什么对我重要？这项研究对于理解LLM在面对领域偏移时的泛化能力至关重要，特别是在设计能够更好处理OOD泛化问题的模型架构时。
+- 是否建议深读？鉴于文章的理论深度和对LLM推理机制的新颖见解，建议深入阅读。
+- 建议行动：read_pdf
+- 评分：global_score 0.38；personal_score 0.92；credibility 1.00；conference 0.00；institution 0.00；multi_source 0.00；community_signal 0.08；actionability 0.52；research_relevance 0.93；hype_risk 0.00
+- 多源信号：论文:arXiv AI/ML/NLP/Vision/Robotics
+- 推荐解释：尚未生成结构化解释
+- 风险提示：none
+- 来源级别：unknown
+- 命中方向：新类学习 / 开放世界学习
+- 相关标签：Agent / Reasoning / Inference-time Scaling / Planning、NLP、Learning Methods / Optimization / Representation Learning、Model Architecture
+- 命中关键词：attention、cs.CL、cs.LG、domain shift、generalization、nlp、ood、out-of-distribution、reasoning、robotics
 
 #### Skim
 - 无。
 
 #### Watch
-- [Physics-Aligned Canonical Equivariant Fourier Neural Operator under Symmetry-Induced Shifts](https://arxiv.org/abs/2605.18606v1)（WATCH，Novel Class Discovery / Open-World Learning / OOD / Continual Learning，证据 abstract only，personal 0.88，global 0.38）
-- [Learned Memory Attenuation in Sage-Husa Kalman Filters for Robust UAV State Estimation](https://arxiv.org/abs/2605.18704v1)（WATCH，Novel Class Discovery / Open-World Learning / OOD / Continual Learning，证据 abstract only，personal 0.79，global 0.39）
+- [Atoms of Thought: Universal EEG Representation Learning with Microstates](https://arxiv.org/abs/2605.20182v1)（WATCH，Novel Class Discovery / Open-World Learning / OOD / Continual Learning，证据 abstract only，personal 0.86，global 0.38）
+- [Overcoming Catastrophic Forgetting in Visual Continual Learning with Reinforcement Fine-Tuning](https://arxiv.org/abs/2605.09640)（WATCH，Novel Class Discovery / Open-World Learning / OOD / Continual Learning，证据 abstract only，personal 0.83，global 0.41）
 - [Spilling the Beans: Teaching LLMs to Self-Report Their Hidden Objectives](https://openreview.net/forum?id=sWs0cCuM8I)（WATCH，Novel Class Discovery / Open-World Learning / OOD / Continual Learning，证据 abstract only，personal 0.78，global 0.29）
 
 #### Archive
@@ -155,74 +197,52 @@
 
 ### 1.4 Model Distillation / Model Compression / Efficient Training
 #### Must Read
-##### 1. [AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation](https://arxiv.org/abs/2605.13724)
-- 阅读层级：MUST_READ
-- 来源：Papers with Code Trending (HF redirect)
-- 来源类型：聚合/摘要
-- source_role：paper_source、code_actionability
-- 证据来源：abstract only
-- 原文链接：https://arxiv.org/abs/2605.13724
-- 发布时间：未知
-- 这是什么？AnyFlow是一个新颖的视频扩散模型框架。
-- 解决了什么问题？解决了视频扩散模型在多步预测中的一致性问题。
-- 方法或贡献是什么？通过流图映射转换学习和反向模拟技术优化完整的ODE采样轨迹，改进了一致性蒸馏。
-- 为什么对我重要？对从事视频生成和模型压缩的研究者来说，AnyFlow提供了一种新的框架来提高视频扩散模型的效率和效果。
-- 是否建议深读？鉴于AnyFlow在视频扩散领域的创新性和潜在影响力，建议深读。
-- 建议行动：read_pdf
-- 评分：global_score 0.43；personal_score 0.90；credibility 0.87；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.08；actionability 0.72；research_relevance 0.85；hype_risk 0.00
-- 多源信号：论文:Papers with Code Trending (HF redirect)；代码:Papers with Code Trending (HF redirect)
-- 推荐解释：尚未生成结构化解释
-- 风险提示：none
-- 来源级别：unknown
-- 命中方向：模型蒸馏 / 模型压缩
-- 相关标签：CV、GitHub / Open Source Projects
-- 命中关键词：consistency distillation、diffusion、diffusion distillation、distillation、framework、video
+- 无。
 
 #### Skim
 - 无。
 
 #### Watch
-- [LongLive-2.0: An NVFP4 Parallel Infrastructure for Long Video Generation](https://arxiv.org/abs/2605.18739v1)（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.94，global 0.42）
-- [Distilling Tabular Foundation Models for Structured Health Data](https://arxiv.org/abs/2605.18702v1)（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.84，global 0.39）
+- [Breaking Modality Heterogeneity in Low-Bit Quantization for Large Vision-Language Models](https://arxiv.org/abs/2605.19929v1)（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.80，global 0.48）
+- [Real-Time Parallel Counterfactual Regret Minimization](https://arxiv.org/abs/2605.19928v1)（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.80，global 0.39）
 - [Q-Palette: Fractional-Bit Quantizers Toward Optimal Bit Allocation for Efficient LLM Deployment](https://openreview.net/forum?id=l4F50jpiVH)（WATCH，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.78，global 0.38）
 
 #### Archive
-- [FashionChameleon: Towards Real-Time and Interactive Human-Garment Video Customization](https://arxiv.org/abs/2605.15824)（ARCHIVE，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.66，global 0.41）
 - [ModHiFi: Identifying High Fidelity predictive components for Model Modification](https://openreview.net/forum?id=lClK4uBxSG)（ARCHIVE，Model Distillation / Model Compression / Efficient Training，证据 abstract only，personal 0.62，global 0.26）
 
 ## 2. Traditional AI Foundations
 ### CV
-- [Lance: Unified Multimodal Modeling by Multi-Task Synergy](https://arxiv.org/abs/2605.18678v1)（WATCH，CV，证据 abstract only，personal 0.82，global 0.41）
-- [Semantic Generative Tuning for Unified Multimodal Models](https://arxiv.org/abs/2605.18714v1)（WATCH，CV，证据 abstract only，personal 0.80，global 0.39）
+- [Multi-axis Analysis of Image Manipulation Localization](https://arxiv.org/abs/2605.20174v1)（WATCH，CV，证据 abstract only，personal 0.81，global 0.39）
+- [FGSVQA: Frequency-Guided Short-form Video Quality Assessment](https://arxiv.org/abs/2605.20016v1)（WATCH，CV，证据 abstract only，personal 0.80，global 0.40）
 
 ### NLP
-- [Post-Trained MoE Can Skip Half Experts via Self-Distillation](https://arxiv.org/abs/2605.18643v1)（WATCH，NLP，证据 abstract only，personal 0.77，global 0.49）
-- [Forecasting Downstream Performance of LLMs With Proxy Metrics](https://arxiv.org/abs/2605.18607v1)（WATCH，NLP，证据 abstract only，personal 0.77，global 0.38）
+- [What Are LLMs Doing to Scientific Communication? Measuring Changes in Writing Practices and Reading Experience](https://arxiv.org/abs/2605.19936v1)（WATCH，NLP，证据 abstract only，personal 0.78，global 0.38）
+- [Text-to-SPARQL Generation with Reinforcement Learning: A GRPO-based Approach on DBLP](https://arxiv.org/abs/2605.20066v1)（WATCH，NLP，证据 abstract only，personal 0.76，global 0.38）
 
 ### RL
-- [COOPO: Cyclic Offline-Online Policy Optimization Algorithm](https://arxiv.org/abs/2605.18675v1)（WATCH，RL，证据 abstract only，personal 0.80，global 0.39）
-- [SafeDiffusion-R1: Online Reward Steering for Safe Diffusion Post-Training](https://arxiv.org/abs/2605.18719v1)（WATCH，RL，证据 abstract only，personal 0.79，global 0.40）
+- [Video Models Can Reason with Verifiable Rewards](https://arxiv.org/abs/2605.15458)（WATCH，RL，证据 abstract only，personal 0.76，global 0.42）
+- [Beyond Action Residuals: Real-World Robot Policy Steering via Bottleneck Latent Reinforcement Learning](https://arxiv.org/abs/2605.19919v1)（WATCH，RL，证据 abstract only，personal 0.76，global 0.39）
 
 ### Model Architecture
-- [Resolving Representation Ambiguity in Feedforward Novel View Synthesis Transformer via Semantic-Spatial Decoupling](https://arxiv.org/abs/2605.18599v1)（WATCH，Model Architecture，证据 abstract only，personal 0.73，global 0.38）
-- [LESSViT: Robust Hyperspectral Representation Learning under Spectral Configuration Shift](https://arxiv.org/abs/2605.18541v1)（WATCH，Model Architecture，证据 abstract only，personal 0.73，global 0.38）
+- [Normative Networks for Source Separation via Local Plasticity and Dendritic Computation](https://arxiv.org/abs/2605.19965v1)（WATCH，Model Architecture，证据 abstract only，personal 0.70，global 0.39）
+- [SAGA: A Sequence-Adaptive Generative Architecture for Multi-Horizon Probabilistic Forecasting with Adaptive Temporal Conformal Prediction](https://arxiv.org/abs/2605.19014)（ARCHIVE，Model Architecture，证据 abstract only，personal 0.70，global 0.46）
 
 ### Learning Methods
-- [KairosHope: A Next-Generation Time-Series Foundation Model for Specialized Classification via Dual-Memory Architecture](https://arxiv.org/abs/2605.18657v1)（WATCH，Learning Methods / Optimization / Representation Learning，证据 abstract only，personal 0.78，global 0.39）
-- [Offline Contextual Bandits in the Presence of New Actions](https://arxiv.org/abs/2605.18509v1)（WATCH，Learning Methods / Optimization / Representation Learning，证据 abstract only，personal 0.72，global 0.38）
+- [Hierarchical Contrastive Learning for Multi-Domain Protein-Ligand Binding](https://arxiv.org/abs/2605.19902v1)（WATCH，Learning Methods / Optimization / Representation Learning，证据 abstract only，personal 0.81，global 0.39）
+- [Fast and Featureless Node Representation Learning with Partial Pairwise Supervision](https://arxiv.org/abs/2605.19916v1)（WATCH，Learning Methods / Optimization / Representation Learning，证据 abstract only，personal 0.76，global 0.39）
 
 ## 3. Other Highlights
 - 今日没有达到高影响阈值的 Other Highlights。
 
 Other Watch / Archive：
 - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)（WATCH，Other Highlights，证据 full text，personal 0.74，global 0.36）
+- [World-Ego Modeling for Long-Horizon Evolution in Hybrid Embodied Tasks](https://arxiv.org/abs/2605.19957v1)（WATCH，Other Highlights，证据 abstract only，personal 0.73，global 0.39）
 - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)（ARCHIVE，Other Highlights，证据 full text，personal 0.70，global 0.36）
-- [Actionable World Representation](https://arxiv.org/abs/2605.18743v1)（WATCH，Other Highlights，证据 abstract only，personal 0.68，global 0.39）
-- [Stable Causal Discovery via Directed Acyclic Graph Aggregation](https://arxiv.org/abs/2605.18633v1)（WATCH，Other Highlights，证据 abstract only，personal 0.63，global 0.38）
-- [Dance Across Shifts: Forward-Facilitation Continual Test-Time Adaptation through Dynamic Style Bridging](https://arxiv.org/abs/2605.18608v1)（WATCH，Other Highlights，证据 abstract only，personal 0.62，global 0.39）
-- [Position: Weight Space Should Be a First-Class Generative AI Modality](https://arxiv.org/abs/2605.18632v1)（WATCH，Other Highlights，证据 abstract only，personal 0.62，global 0.38）
-- [Can machine learning for quantum-gas experiments be explainable?](https://arxiv.org/abs/2605.18689v1)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.58，global 0.37）
-- [Aligned Training: A Parameter-Free Method to Improve Feature Quality and Stability of Sparse Autoencoders (SAE)](https://arxiv.org/abs/2605.18629v1)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.58，global 0.37）
+- [GEM: GPU-Variability-Aware Expert to GPU Mapping for MoE Systems](https://arxiv.org/abs/2605.19945v1)（WATCH，Other Highlights，证据 abstract only，personal 0.69，global 0.39）
+- [Robotics-Inspired Guardrails for Foundation Models in Socially Sensitive Domains](https://arxiv.org/abs/2605.19940v1)（WATCH，Other Highlights，证据 abstract only，personal 0.68，global 0.38）
+- [Optimal Representation Size: High-Dimensional Analysis of Pretraining and Linear Probing](https://arxiv.org/abs/2605.20105v1)（WATCH，Other Highlights，证据 abstract only，personal 0.61，global 0.39）
+- [Towards LLM-Assisted Architecture Recovery for Real-World ROS~2 Systems: An Agent-Based Multi-Level Approach to Hierarchical Structural Architecture Reconstruction](https://arxiv.org/abs/2605.20055v1)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.59，global 0.38）
+- [Hamilton--Jacobi Reachability for Spacecraft Collision Avoidance](https://arxiv.org/abs/2605.20138v1)（ARCHIVE，Other Highlights，证据 abstract only，personal 0.59，global 0.38）
 
 ## 4. Benchmark / Dataset / Evaluation
 ### Core Benchmarks for My Research
@@ -235,39 +255,39 @@ Other Watch / Archive：
 - 可否作为实验基准：可以优先评估是否作为实验基准。
 - 建议行动：use_as_eval
 
-##### 2. [LongMINT: Evaluating Memory under Multi-Target Interference in Long-Horizon Agent Systems](https://arxiv.org/abs/2605.18565v1)
-- 阅读层级：WATCH
-- 来源：arXiv AI/ML/NLP/Vision/Robotics
-- 证据来源：abstract only
-- benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。
-- 适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。
-- 可否作为实验基准：可以优先评估是否作为实验基准。
-- 建议行动：use_as_eval
-
-##### 3. [TOBench: A Task-Oriented Omni-Modal Benchmark for Real-World Tool-Using Agents](https://arxiv.org/abs/2605.16909)
-- 阅读层级：WATCH
-- 来源：Hugging Face Daily Papers
-- 证据来源：abstract only
-- benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。
-- 适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。
-- 可否作为实验基准：可以优先评估是否作为实验基准。
-- 建议行动：use_as_eval
-
-##### 4. [CrossView Suite: Harnessing Cross-view Spatial Intelligence of MLLMs with Dataset, Model and Benchmark](https://arxiv.org/abs/2605.18621v1)
-- 阅读层级：WATCH
-- 来源：arXiv AI/ML/NLP/Vision/Robotics
-- 证据来源：abstract only
-- benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。
-- 适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。
-- 可否作为实验基准：可以优先评估是否作为实验基准。
-- 建议行动：use_as_eval
-
-##### 5. [Video Action Differencing](https://openreview.net/forum?id=3bcN6xlO6f)
+##### 2. [Video Action Differencing](https://openreview.net/forum?id=3bcN6xlO6f)
 - 阅读层级：WATCH
 - 来源：OpenReview (ICLR.cc/2025/Conference)
 - 证据来源：abstract only
 - benchmark 评估什么能力：评估多模态模型区分同一动作视频之间细粒度语义差异的能力。
 - 适合用于什么研究：适合用于 VLM/视频理解中的细粒度动作差异评测，不是当前四条主线的核心实验。
+- 可否作为实验基准：可以优先评估是否作为实验基准。
+- 建议行动：use_as_eval
+
+##### 3. [What Do Evolutionary Coding Agents Evolve?](https://arxiv.org/abs/2605.20086v1)
+- 阅读层级：WATCH
+- 来源：arXiv AI/ML/NLP/Vision/Robotics
+- 证据来源：abstract only
+- benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。
+- 适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。
+- 可否作为实验基准：可以优先评估是否作为实验基准。
+- 建议行动：use_as_eval
+
+##### 4. [Trajectory Planning and Control near the Limits: an Open Experimental Benchmark on the RoboRacer Platform](https://arxiv.org/abs/2605.19881v1)
+- 阅读层级：WATCH
+- 来源：arXiv AI/ML/NLP/Vision/Robotics
+- 证据来源：abstract only
+- benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。
+- 适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。
+- 可否作为实验基准：可以优先评估是否作为实验基准。
+- 建议行动：use_as_eval
+
+##### 5. [MSAVBench: Towards Comprehensive and Reliable Evaluation of Multi-Shot Audio-Video Generation](https://arxiv.org/abs/2605.20183v1)
+- 阅读层级：WATCH
+- 来源：arXiv AI/ML/NLP/Vision/Robotics
+- 证据来源：abstract only
+- benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。
+- 适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。
 - 可否作为实验基准：可以优先评估是否作为实验基准。
 - 建议行动：use_as_eval
 
@@ -281,16 +301,16 @@ Other Watch / Archive：
 - 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
 - 建议行动：save
 
-##### 2. [SCICONVBENCH: Benchmarking LLMs on Multi-Turn Clarification for Task Formulation in Computational Science](https://arxiv.org/abs/2605.18630v1)
+##### 2. [PixVerve: Advancing Native UHR Image Generation to 100MP with a Large-Scale High-Quality Dataset](https://arxiv.org/abs/2605.20147v1)
 - 阅读层级：WATCH
 - 来源：arXiv AI/ML/NLP/Vision/Robotics
 - 证据来源：abstract only
 - benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。
-- 适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。
+- 适合用于什么研究：适合用于多模态泛化或跨域评测设计参考。
 - 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
 - 建议行动：skim
 
-##### 3. [GIM: Evaluating models via tasks that integrate multiple cognitive domains](https://arxiv.org/abs/2605.18663v1)
+##### 3. [LLM Benchmark Datasets Should Be Contamination-Resistant](https://arxiv.org/abs/2605.19999v1)
 - 阅读层级：WATCH
 - 来源：arXiv AI/ML/NLP/Vision/Robotics
 - 证据来源：abstract only
@@ -308,8 +328,8 @@ Other Watch / Archive：
 - 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
 - 建议行动：skim
 
-##### 5. [Protein Fold Classification at Scale: Benchmarking and Pretraining](https://arxiv.org/abs/2605.18552v1)
-- 阅读层级：ARCHIVE
+##### 5. [Beyond Prediction Accuracy: Target-Space Recovery Profiles for Evaluating Model-Brain Alignment](https://arxiv.org/abs/2605.20127v1)
+- 阅读层级：WATCH
 - 来源：arXiv AI/ML/NLP/Vision/Robotics
 - 证据来源：abstract only
 - benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。
@@ -318,7 +338,7 @@ Other Watch / Archive：
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 15 个只进入附录标题列表：reports/appendix/2026-05-20-benchmarks.md
+- 其余 16 个只进入附录标题列表：reports/appendix/2026-05-21-benchmarks.md
 
 ## 5. GitHub / Open Source Projects
 ### New / Recently Active Projects
@@ -344,7 +364,7 @@ Other Watch / Archive：
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Context Compression / Long Context / Memory、Agent / Reasoning / Inference-time Scaling / Planning、Tool Library
 - 命中关键词：RAG、github、github.com、multi-agent、open-source
-- 开源信号：⭐ 111127 | 🍴 16497 | 📜 Apache-2.0
+- 开源信号：⭐ 111254 | 🍴 16520 | 📜 Apache-2.0
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ❌
 - README 摘要：AI Agents · Multi-agent Teams · MCP Agents · RAG · Voice Agents · Agent Skills · Fine-tuning You shouldn't have to rebuild the same RAG pipeline, agent loop, or MCP integration from scratch every time you start a new LLM project. **Awesome LLM Apps is a cookbook of ready-to-run templates** - starter
 
@@ -355,7 +375,7 @@ Other Watch / Archive：
 - source_role：code_actionability
 - 证据来源：repo README
 - 原文链接：https://github.com/NousResearch/hermes-agent
-- 发布时间：2026-05-19T23:31:17+00:00
+- 发布时间：2026-05-20T23:47:32+00:00
 - 这是什么？NousResearch/hermes-agent：开源项目，方向为“GitHub / Open Source Projects”；主要线索：github、github.com、open-source、NousResearch。
 - 解决了什么问题？它关注“GitHub / Open Source Projects”里的 github、github.com、open-source、NousResearch 等问题。
 - 方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
@@ -370,7 +390,7 @@ Other Watch / Archive：
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Tool Library
 - 命中关键词：github、github.com、open-source
-- 开源信号：⭐ 157972 | 🍴 25541 | 📜 MIT
+- 开源信号：⭐ 159588 | 🍴 25901 | 📜 MIT
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ✅
 - README 摘要：**The self-improving AI agent built by Nous Research.** It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across session
 
@@ -423,7 +443,7 @@ Other Watch / Archive：
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Agent / Reasoning / Inference-time Scaling / Planning、Benchmark / Dataset / Evaluation、CV、Other Highlights、Tool Library
 - 命中关键词：environment、eval、github、github.com、image、inference、open-source、release、repository
-- 开源信号：⭐ 23145 | 🍴 2140 | 📜 MIT
+- 开源信号：⭐ 23149 | 🍴 2139 | 📜 MIT
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ✅
 - 关联论文：https://arxiv.org/abs/2510.18234"><b>📄
 - README 摘要：- [2026/01/27]🚀🚀🚀🚀🚀🚀 We present DeepSeek-OCR2 - [2025/10/23]🚀🚀🚀 DeepSeek-OCR is now officially supported in upstream vLLM. Thanks to the vLLM team for their help. - [2025/10/20]🚀🚀🚀 We release DeepSeek-OCR, a model to investigate the role of vision encoders from an LLM-centric viewpoint. - Transforme
@@ -450,7 +470,7 @@ Other Watch / Archive：
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Context Compression / Long Context / Memory、Agent / Reasoning / Inference-time Scaling / Planning、NLP、Other Highlights、Tool Library
 - 命中关键词：context window、framework、github、github.com、inference、language model、library、long context、long-context、open-source
-- 开源信号：⭐ 288 | 🍴 15 | 📜 MIT
+- 开源信号：⭐ 289 | 🍴 15 | 📜 MIT
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ❌
 - 关联论文：https://arxiv.org/abs/2603.20105"
 - README 摘要：λ-RLM replaces free-form recursive code generation with a typed functional runtime grounded in λ-calculus. λ-RLM is a framework for long-context reasoning that replaces **free-form recursive code generation** with a **typed functional runtime** grounded in **λ-calculus**. Instead of letting the mode
@@ -483,45 +503,69 @@ Other Watch / Archive：
 - README 摘要：This is an implementation of our paper "Exclusive Style Removal for Cross Domain Novel Class Discovery" - Create a Conda virtual environment and activate it: - Install frameworks: PyTorch==1.13 and torchvision==0.14 with CUDA==11.6 - Install toolboxes: numpy==1.24.4, matplotlab==3.7.5, scikit-learn=
 
 ### Evergreen Toolkits
-- 今日无需要重复推荐的常青工具库。
+##### 1. [justin-herry/C3-OWD](https://github.com/justin-herry/C3-OWD)
+- 行动标签：study_code
+- 来源：GitHub AI Research Projects
+- 来源类型：聚合/摘要
+- source_role：code_actionability
+- 证据来源：repo README
+- 原文链接：https://github.com/justin-herry/C3-OWD
+- 发布时间：2026-02-07T08:34:17+00:00
+- 这是什么？justin-herry/C3-OWD：开源项目，方向为“GitHub / Open Source Projects”；主要线索：alignment、contrastive learning、detection、framework。
+- 解决了什么问题？它关注“GitHub / Open Source Projects”里的 alignment、contrastive learning、detection、framework 等问题。
+- 方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
+- 为什么对我重要？tier=study_code editorial_priority=0.18 按 GitHub 项目动作处理。 personal=0.78，relevance=0.72。
+- 是否建议深读？今天不深读，先按行动建议处理。
+- 建议行动：study_code
+- 评分：global_score 0.45；personal_score 0.78；credibility 0.84；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.52；actionability 1.00；research_relevance 0.72；hype_risk 0.00
+- 多源信号：代码:GitHub AI Research Projects
+- 推荐解释：尚未生成结构化解释
+- 风险提示：none
+- 来源级别：unknown
+- 命中方向：GitHub / 开源项目推荐
+- 相关标签：CV、Learning Methods / Optimization / Representation Learning、Other Highlights、Tool Library
+- 命中关键词：alignment、contrastive learning、detection、framework、generalization、github、github.com、object detection、open-source、repository
+- 开源信号：⭐ 77 | 🍴 2 | 📜 MIT
+- 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ❌
+- README 摘要：Object detection has advanced significantly in the closed-set setting, but real-world deployment remains limited by two challenges: poor generalization to unseen categories and insufficient robustness under adverse conditions. Prior research has explored these issues separately: visible-infrared det
 
 
 ## 6. Institutional Updates
 ### Research Release
 - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
 
-- [GridSFM: A new, small foundation model for the electric grid](https://www.microsoft.com/en-us/research/blog/gridsfm-a-new-small-foundation-model-for-the-electric-grid/)
-
 - [Fast-tracking genetic leads to reverse cellular aging](https://deepmind.google/blog/fast-tracking-genetic-leads-to-reverse-cellular-aging/)
 
-- ... 还有 21 条
+- [How data science teams use Codex](https://openai.com/academy/codex-for-work/how-data-science-teams-use-codex)
+
+- ... 还有 19 条
 
 ### Product / API Release
+- [Introducing OpenAI for Singapore](https://openai.com/index/introducing-openai-for-singapore)
+
 - [How business operations teams use Codex](https://openai.com/academy/codex-for-work/how-business-operations-teams-use-codex)
 
 - [What Are Foundation Models?](https://blogs.nvidia.com/blog/what-are-foundation-models/)
 
-- [May 5, 2026 Announcements Agents for financial services](https://www.anthropic.com/news/finance-agents)
-
-- ... 还有 1 条
+- ... 还有 2 条
 
 ### Partnership / Policy
+- [Strengthening Singapore's AI Future: A New National Partnership](https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/)
+
 - [May 14, 2026 Announcements Anthropic forms $200 million partnership with the Gates Foundation](https://www.anthropic.com/news/gates-foundation-partnership)
 
-- [May 19, 2026 Announcements Widening the conversation on frontier AI](https://www.anthropic.com/news/widening-conversation-ai)
+- [The next phase of OpenAI's Education for Countries](https://openai.com/index/the-next-phase-of-education-for-countries)
 
-- [May 19, 2026 Announcements KPMG integrates Claude across its core business and workforce of more than 276,000 in strategic alliance](https://www.anthropic.com/news/anthropic-kpmg)
-
-- ... 还有 5 条
+- ... 还有 7 条
 
 ### Low-signal PR
+- [How Ramp engineers accelerate code review with Codex](https://openai.com/index/ramp)
+
+- [An OpenAI model has disproved a central conjecture in discrete geometry](https://openai.com/index/model-disproves-discrete-geometry-conjecture)
+
 - [OpenAI and Dell partner to bring Codex to hybrid and on-premise enterprise environments](https://openai.com/index/dell-codex-enterprise-partnership)
 
-- [Simulate real-world places with Project Genie and Street View](https://deepmind.google/blog/simulate-real-world-places-with-project-genie-and-street-view/)
-
-- [Gemini for Science: AI experiments and tools for a new era of discovery](https://deepmind.google/blog/gemini-for-science-ai-experiments-and-tools-for-a-new-era-of-discovery/)
-
-- ... 还有 12 条
+- ... 还有 13 条
 
 ## 7. Awards & Notable Papers
 - 会议 / 年份 / 信号类型：ICML / 2025 / accepted
@@ -561,100 +605,100 @@ Other Watch / Archive：
   - 建议行动：watch
 
 ## 8. University Lab Radar
-- [SkillsVote: Lifecycle Governance of Agent Skills from Collection, Recommendation to Evolution](https://arxiv.org/abs/2605.18401)
-  - 学校 / 实验室：Hugging Face
-  - 类型：paper
-  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.99
-  - 建议行动：watch
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - 学校 / 实验室：UC Berkeley
   - 类型：dataset
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98
-  - 建议行动：watch
+  - 建议行动：skim
+- [EnvFactory: Scaling Tool-Use Agents via Executable Environments Synthesis and Robust RL](https://arxiv.org/abs/2605.18703)
+  - 学校 / 实验室：Hugging Face
+  - 类型：paper
+  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
+  - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98
+  - 建议行动：skim
 - [Whole-Body Conditioned Egocentric Video Prediction](http://bair.berkeley.edu/blog/2025/07/01/peva/)
   - 学校 / 实验室：UC Berkeley
   - 类型：dataset
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98
   - 建议行动：watch
+- [PEEK: Context Map as an Orientation Cache for Long-Context LLM Agents](https://arxiv.org/abs/2605.19932v1)
+  - 学校 / 实验室：OpenAI
+  - 类型：paper
+  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
+  - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96
+  - 建议行动：skim
 - [Scaling Up Reinforcement Learning for Traffic Smoothing: A 100-AV Highway Deployment](http://bair.berkeley.edu/blog/2025/03/25/rl-av-smoothing/)
   - 学校 / 实验室：UC Berkeley
   - 类型：dataset
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96
   - 建议行动：watch
-- [OSCAR: Offline Spectral Covariance-Aware Rotation for 2-bit KV Cache Quantization](https://arxiv.org/abs/2605.17757)
-  - 学校 / 实验室：Hugging Face
-  - 类型：paper
-  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：上下文压缩 / 长上下文 / 记忆，personal 0.94
-  - 建议行动：read_pdf
 
 ## 9. Chinese-Language Community Signals
 - 今日无需要展开的中文媒体或社区线索。
 
 ## 10. Evergreen Classic Paper Recall
-### 1. [Progressive Distillation for Fast Sampling of Diffusion Models](https://arxiv.org/abs/2202.00512)（2022）
-- 作者：Tim Salimans、Jonathan Ho
-- topic_tags：model_distillation、model_compression
-- 关联方向：Model Distillation / Model Compression / Efficient Training
-- 为什么经典：Progressive Distillation 是 diffusion 快速采样蒸馏的重要基线，适合连接今天从多步扩散采样压缩到少步、连续时间或分布匹配训练的工作。
-- 今日新论文继承了什么问题：AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation 继承了经典压缩/蒸馏工作的问题：如何在更低计算成本下保留教师模型能力。
-- 它挑战了什么经典假设：它挑战只做 logits matching 或静态小模型压缩的假设，转向轨迹、扩散过程、排序一致性和部署约束。
-- 它推进到什么新场景：新场景扩展到 few-step diffusion、VLM 预训练、量化剪枝和推理服务优化。
+### 1. [Tree of Thoughts](https://arxiv.org/abs/2305.10601)（2023）
+- 作者：Shunyu Yao、Dian Yu、Jeffrey Zhao、Izhak Shafran、Thomas L. Griffiths、Yuan Cao、Karthik Narasimhan
+- topic_tags：agents、planning
+- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
+- 为什么经典：Tree of Thoughts 把单一路径 CoT 扩展为可搜索、可回溯的思维树，适合连接今天关于自适应并行推理、搜索式规划和 agent reasoning 的工作。
+- 今日新论文继承了什么问题：TravExplorer: Cross-Floor Embodied Exploration via Traversability-Aware 3-D Planning；A Measure-Theoretic Analysis of Reasoning: Structural Generalization and Approximation Limits 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
+- 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
+- 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
 - 相关今日条目：
-  - [AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation](https://arxiv.org/abs/2605.13724)（Model Distillation / Model Compression / Efficient Training；连接词：consistency distillation、diffusion distillation、diffusion model、model_distillation）
+  - [TravExplorer: Cross-Floor Embodied Exploration via Traversability-Aware 3-D Planning](https://arxiv.org/abs/2605.19958v1)（Agent / Reasoning / Inference-time Scaling / Planning；连接词：agents、planning、reasoning、search）
+  - [A Measure-Theoretic Analysis of Reasoning: Structural Generalization and Approximation Limits](https://arxiv.org/abs/2605.19944v1)（Novel Class Discovery / Open-World Learning / OOD / Continual Learning；连接词：reasoning、search）
 
-### 2. [Transformer-XL](https://arxiv.org/abs/1901.02860)（2019）
-- 作者：Zihang Dai、Zhilin Yang、Yiming Yang、Jaime Carbonell、Quoc V. Le、Ruslan Salakhutdinov
-- topic_tags：context_compression、long_context、model_architecture
-- 关联方向：Context Compression / Long Context / Memory、Model Architecture
-- 为什么经典：它系统化处理长距离依赖和跨片段记忆，适合回看今天关于长上下文、状态压缩和记忆复用的新工作。
-- 今日新论文继承了什么问题：OSCAR: Offline Spectral Covariance-Aware Rotation for 2-bit KV Cache Quantization；DashAttention: Differentiable and Adaptive Sparse Hierarchical Attention 延续了经典工作里的核心问题：有限上下文、外部记忆与状态复用如何支撑更长程的推理。
-- 它挑战了什么经典假设：它挑战的是静态检索、固定窗口或只读记忆的假设，转向会随新证据更新的工作记忆和缓存管理。
-- 它推进到什么新场景：新场景从语言建模推进到 agent memory、动态 workflow 和长上下文服务系统。
-- 预备知识：熟悉 Transformer 自注意力和语言模型训练。
+### 2. [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)（2017）
+- 作者：John Schulman、Filip Wolski、Prafulla Dhariwal、Alec Radford、Oleg Klimov
+- topic_tags：rl、agents
+- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning、RL
+- 为什么经典：PPO 是现代 RL 和 RLHF 语境里反复出现的基础算法，适合对照 agentic RL、长程轨迹优化和偏好优化系统。
+- 今日新论文继承了什么问题：GoLongRL: Capability-Oriented Long Context Reinforcement Learning with Multitask Alignment 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
+- 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
+- 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
+- 预备知识：了解 policy gradient 和 actor-critic。
 - 相关今日条目：
-  - [OSCAR: Offline Spectral Covariance-Aware Rotation for 2-bit KV Cache Quantization](https://arxiv.org/abs/2605.17757)（Context Compression / Long Context / Memory；连接词：context_compression_memory、long context、memory）
-  - [DashAttention: Differentiable and Adaptive Sparse Hierarchical Attention](https://arxiv.org/abs/2605.18753v1)（Context Compression / Long Context / Memory；连接词：context_compression_memory、long context）
+  - [GoLongRL: Capability-Oriented Long Context Reinforcement Learning with Multitask Alignment](https://arxiv.org/abs/2605.19577)（Context Compression / Long Context / Memory；连接词：reinforcement learning、rl）
 
 ## 11. Deep Read List
-- [OSCAR: Offline Spectral Covariance-Aware Rotation for 2-bit KV Cache Quantization](https://arxiv.org/abs/2605.17757)：预计阅读目的：判断其长上下文、记忆或压缩机制是否能迁移到你的研究主线。
-- [DashAttention: Differentiable and Adaptive Sparse Hierarchical Attention](https://arxiv.org/abs/2605.18753v1)：预计阅读目的：判断其长上下文、记忆或压缩机制是否能迁移到你的研究主线。
-- [AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation](https://arxiv.org/abs/2605.13724)：预计阅读目的：评估蒸馏、压缩或高效训练方法是否具备复现和部署价值。
+- [GoLongRL: Capability-Oriented Long Context Reinforcement Learning with Multitask Alignment](https://arxiv.org/abs/2605.19577)：预计阅读目的：判断其长上下文、记忆或压缩机制是否能迁移到你的研究主线。
+- [TravExplorer: Cross-Floor Embodied Exploration via Traversability-Aware 3-D Planning](https://arxiv.org/abs/2605.19958v1)：预计阅读目的：提取 Agent 任务设定、工具使用方式、规划机制和评测指标。
+- [A Measure-Theoretic Analysis of Reasoning: Structural Generalization and Approximation Limits](https://arxiv.org/abs/2605.19944v1)：预计阅读目的：关注开放集/OOD/持续学习设定与可复用 benchmark。
 
 ## 12. Collection Notes
-- Generated at: 2026-05-19T23:44:39.219525+00:00
+- Generated at: 2026-05-20T23:52:05.562039+00:00
 - Source count: 31
-- Raw item count: 671
-- Dedup item count: 604
+- Raw item count: 676
+- Dedup item count: 615
 - Summary mode: single
 - Provider: kimi
 - Model: moonshot-v1-8k
 
-- LLM summary calls: 1
+- LLM summary calls: 3
 - Estimated cost: RMB 0.0 / 1.0
 - Estimated tokens: input 0, output 0
 - Cost guard: enabled=True, blocked_calls=0
 
-- llm_items_processed: 2
+- llm_items_processed: 3
 - role_pipeline_items: 0
-- single_llm_items: 2
-- api_requests_total: 1
-- api_requests_by_provider: kimi:1
-- api_requests_by_role: single_summary:1
-- cache_hits: 1
-- cache_misses: 1
+- single_llm_items: 3
+- api_requests_total: 3
+- api_requests_by_provider: kimi:3
+- api_requests_by_role: single_summary:3
+- cache_hits: 0
+- cache_misses: 3
 - Last LLM error: none
 - provider_disabled: none
 - reason: none
-- Benchmark appendix: reports/appendix/2026-05-20-benchmarks.md
+- Benchmark appendix: reports/appendix/2026-05-21-benchmarks.md
 
-- Report path: reports/daily/2026/05/2026-05-20.md
-- Previous report link: reports/daily/2026/05/2026-05-19.md
+- Report path: reports/daily/2026/05/2026-05-21.md
+- Previous report link: reports/daily/2026/05/2026-05-20.md
 
 ## Source Health
-- GitHub AI Research Projects: time budget exhausted (24 items) - time budget exhausted after 24 items
+- GitHub AI Research Projects: time budget exhausted (28 items) - time budget exhausted after 28 items
 - Meta AI Blog: 0 items (0 items) - fetch completed with 0 items

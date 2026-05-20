@@ -29,6 +29,36 @@
       "why_important": "对于研究和开发能够理解和执行复杂视觉任务的Agent来说，MMSkills提供了一种新的多模态技能表示和生成方法，这对于提高Agent的能力和灵活性至关重要。"
     }
   },
+  "5e30e7aa5c78239365f5ab920e6277b363549082584ac62debdeb6bd0b66ab60": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "鉴于 TravExplorer 在 HM3D 和 MP3D 数据集上的模拟实验表现出的优势，建议深读以了解其详细机制和潜在应用。",
+      "method_or_contribution": "该框架通过维护一个统一的体积地图来区分被占用的结构和机器人可到达的支撑表面，并从中提取可穿越的边界，包括地板、楼梯和平台。同时，它还包括一个FOV感知的主动感知策略和一个轻量级引导模块，以减少语义推理延迟，并基于几何和语义记忆执行目标感知边界巡游。",
+      "problem": "解决了现有系统在复杂建筑环境中，如涉及楼层、楼梯、平台和垂直重叠空间时，导航能力的不足问题。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "TravExplorer 是一个用于跨楼层实体探索的框架，它结合了零样本语义引导和可穿越性感知的3D规划。",
+      "why_important": "对于研究者而言，TravExplorer 提供了一个在复杂建筑环境中进行实体探索的新方法，这对于机器人导航和自动化系统的研究具有重要意义。"
+    }
+  },
+  "a8fc481aa35c68ea1fbd3fcfcf3b6550b1b4af3b52940e37c752864e5569b06d": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "鉴于文章的理论深度和对LLM推理机制的新颖见解，建议深入阅读。",
+      "method_or_contribution": "文章通过最优传输理论来形式化推理，将离散轨迹投影到连续度量空间中，并使用Wasserstein-1距离来量化领域偏移。通过Kantorovich对偶性，文章限制了OOD泛化，并通过架构Lipschitz连续性和功能近似极限来暴露两个主要约束。",
+      "problem": "尽管LLM推理的经验扩展法则已被广泛记录，但其在分布外(OOD)泛化的理论机制尚不清楚。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "这篇文章提供了对大型语言模型(LLM)推理过程中结构泛化和近似极限的理论分析。",
+      "why_important": "这项研究对于理解LLM在面对领域偏移时的泛化能力至关重要，特别是在设计能够更好处理OOD泛化问题的模型架构时。"
+    }
+  },
   "cdfea47a250d4b0fcfe6bd3316310fde20a6098410996f93f9045561e1d32bfa": {
     "metadata": {
       "model": "moonshot-v1-8k",
@@ -42,6 +72,21 @@
       "suggested_action": "read_pdf",
       "what_is_it": "这篇文章介绍了一种名为Causal Forcing++的新方法，用于实时交互式视频生成。",
       "why_important": "Causal Forcing++在帧级2步设置下超越了现有的4步块级Causal Forcing方法，减少了首帧延迟50%，并降低了第二阶段训练成本，对于需要低延迟、流式传输和可控输出的视频生成任务具有重要意义。"
+    }
+  },
+  "e934f886303625e1996bbe44e09dcec6ef2775212d3a2ac9cbaae0822e5753a2": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "鉴于GoLongRL在长上下文强化学习领域的创新性和实用性，建议深入阅读。",
+      "method_or_contribution": "该工作有两个贡献：(1) 面向能力的完整开源数据构建，发布了23K RLVR样本、完整的构建流程和所有训练代码；(2) 提出了TMN-Reweight方法，用于解决来自异构奖励的多任务优化挑战。",
+      "problem": "现有长上下文RL方法通常将数据构建视为设计复杂检索路径的问题，导致任务覆盖和奖励公式同质化，无法充分反映实际长上下文需求。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "GoLongRL是一个面向能力的长上下文强化学习（RL）后训练方法，它通过多任务对齐和可验证奖励（RLVR）来实现。",
+      "why_important": "GoLongRL通过更广泛的任务覆盖和更大的奖励多样性，显著提升了长上下文能力，这对于长上下文强化学习领域是一个重要的进步。"
     }
   },
   "ff38532597cc83262dd995d51db4de581ebdd1a244f4d8a0f4f7dc14839ea4df": {
