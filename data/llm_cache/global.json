@@ -14,6 +14,21 @@
       "why_important": "对于需要长上下文服务的大型语言模型来说，OSCAR能够显著减少KV缓存内存并提高吞吐量，同时保持与BF16相当的准确性。"
     }
   },
+  "1836d8d51f364fce3af3414c1b7cae992f9313eba5005f22baa7d77f99bb69ad": {
+    "metadata": {
+      "model": "moonshot-v1-8k",
+      "provider": "kimi",
+      "role": "single_summary"
+    },
+    "result": {
+      "deep_read": "鉴于文章的重要性和对自适应并行推理的深入分析，建议深读。",
+      "method_or_contribution": "文章提供了对自适应并行推理领域的最新进展的详细分析，包括ThreadWeaver方法的讨论，该方法由文章的一位作者共同领导。",
+      "problem": "文章指出，尽管大型语言模型（LLM）在推理能力上取得了进展，但这些模型在探索时是线性扩展的，导致推理令牌的扩展成本高昂，并可能超过有效的上下文限制。",
+      "suggested_action": "read_pdf",
+      "what_is_it": "这篇文章介绍了自适应并行推理（Adaptive Parallel Reasoning）的概念，这是一种新的推理模型范式，它能够根据手头的问题自行决定何时分解和并行化独立子任务、生成多少并发线程以及如何协调它们。",
+      "why_important": "自适应并行推理对于提高推理模型的效率和扩展性至关重要，特别是在需要处理长上下文和复杂任务时。"
+    }
+  },
   "38ee893267d529e0df3b1ab59db83045f5c7ac21fb2e8b562911a45df129adb8": {
     "metadata": {
       "model": "moonshot-v1-8k",
