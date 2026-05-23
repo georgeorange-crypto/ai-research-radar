@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-05
 
-- 纳入日报：14 份
-- 跟踪条目：1862；MUST_READ 22；SKIM 72；ARCHIVE 747
+- 纳入日报：15 份
+- 跟踪条目：1863；MUST_READ 22；SKIM 72；ARCHIVE 748
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -75,7 +75,7 @@
   - [OSCAR: Offline Spectral Covariance-Aware Rotation for 2-bit KV Cache Quantization](https://arxiv.org/abs/2605.17757)
   - [GoLongRL: Capability-Oriented Long Context Reinforcement Learning with Multitask Alignment](https://arxiv.org/abs/2605.19577)
   - [DashAttention: Differentiable and Adaptive Sparse Hierarchical Attention](https://arxiv.org/abs/2605.18753v1)
-- Model Distillation / Model Compression / Efficient Training：57 条进入跟踪；高频信号：nlp、robotics、cs.LG、distillation、framework、language model、quantization、inference。
+- Model Distillation / Model Compression / Efficient Training：58 条进入跟踪；高频信号：nlp、robotics、cs.LG、distillation、framework、language model、quantization、inference。
   - [DINORANKCLIP: DINOv3 Distillation and Injection for Vision-Language Pretraining with High-Order Ranking Consistency](https://arxiv.org/abs/2605.06592v1)
   - [AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation](https://arxiv.org/abs/2605.13724v1)
   - [Causal Forcing++: Scalable Few-Step Autoregressive Diffusion Distillation for Real-Time Interactive Video Generation](https://arxiv.org/abs/2605.15141v1)

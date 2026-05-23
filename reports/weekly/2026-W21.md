@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W21
 
 - 日期范围：2026-05-18 至 2026-05-24
-- 纳入日报：6 份
-- 跟踪条目：1196；MUST_READ 14；SKIM 39；ARCHIVE 571
+- 纳入日报：7 份
+- 跟踪条目：1197；MUST_READ 14；SKIM 39；ARCHIVE 572
 
 ## 本周最重要论文 / 动态
 - [MMSkills: Towards Multimodal Skills for General Visual Agents](https://arxiv.org/abs/2605.13527)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 1.00，global 0.54）
@@ -73,18 +73,18 @@
   - [LESSViT: Robust Hyperspectral Representation Learning under Spectral Configuration Shift](https://arxiv.org/abs/2605.18541v1)
   - [SAGE3D: Soft-guided attention and graph excitation for 3D point cloud corner detection](https://arxiv.org/abs/2605.15088v1)
   - [Normative Networks for Source Separation via Local Plasticity and Dendritic Computation](https://arxiv.org/abs/2605.19965v1)
+- Model Distillation / Model Compression / Efficient Training：31 条进入跟踪；高频信号：nlp、robotics、cs.LG、language model、framework、distillation。
+  - [Causal Forcing++: Scalable Few-Step Autoregressive Diffusion Distillation for Real-Time Interactive Video Generation](https://arxiv.org/abs/2605.15141v1)
+  - [AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation](https://arxiv.org/abs/2605.13724)
+  - [LongLive-2.0: An NVFP4 Parallel Infrastructure for Long Video Generation](https://arxiv.org/abs/2605.18739v1)
+  - [Surrogate Neural Architecture Codesign Package (SNAC-Pack)](https://arxiv.org/abs/2605.16138v1)
+  - [Self-Policy Distillation via Capability-Selective Subspace Projection](https://arxiv.org/abs/2605.22675v1)
 - GitHub / Open Source Projects：31 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、dataset。
   - [DrawMotion: Generating 3D Human Motions by Freehand Drawing](https://arxiv.org/abs/2605.20955)
   - [OpenComputer: Verifiable Software Worlds for Computer-Use Agents](https://arxiv.org/abs/2605.19769)
   - [lambda-calculus-LLM/lambda-RLM](https://github.com/lambda-calculus-LLM/lambda-RLM)
   - [dipampaul17/KVSplit](https://github.com/dipampaul17/KVSplit)
   - [Chirsycy/CRPD-PCP](https://github.com/Chirsycy/CRPD-PCP)
-- Model Distillation / Model Compression / Efficient Training：30 条进入跟踪；高频信号：nlp、robotics、cs.LG、language model、framework、distillation。
-  - [Causal Forcing++: Scalable Few-Step Autoregressive Diffusion Distillation for Real-Time Interactive Video Generation](https://arxiv.org/abs/2605.15141v1)
-  - [AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation](https://arxiv.org/abs/2605.13724)
-  - [LongLive-2.0: An NVFP4 Parallel Infrastructure for Long Video Generation](https://arxiv.org/abs/2605.18739v1)
-  - [Surrogate Neural Architecture Codesign Package (SNAC-Pack)](https://arxiv.org/abs/2605.16138v1)
-  - [Self-Policy Distillation via Capability-Selective Subspace Projection](https://arxiv.org/abs/2605.22675v1)
 - RL：29 条进入跟踪；高频信号：nlp、reinforcement learning、framework、optimization、rl、cs.LG。
   - [COOPO: Cyclic Offline-Online Policy Optimization Algorithm](https://arxiv.org/abs/2605.18675v1)
   - [RAVEN: Real-time Autoregressive Video Extrapolation with Consistency-model GRPO](https://arxiv.org/abs/2605.15190v1)
