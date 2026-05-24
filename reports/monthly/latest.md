@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-05
 
-- 纳入日报：15 份
-- 跟踪条目：1863；MUST_READ 22；SKIM 72；ARCHIVE 748
+- 纳入日报：16 份
+- 跟踪条目：1864；MUST_READ 22；SKIM 72；ARCHIVE 748
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [Learning from Language Feedback via Variational Policy Distillation](https://arxiv.org/abs/2605.15113)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.91）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：410 条进入跟踪；高频信号：nlp、framework、robotics、reasoning、language model、agentic、cs.LG、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：411 条进入跟踪；高频信号：nlp、framework、robotics、reasoning、language model、agentic、cs.LG、inference。
   - [MMSkills: Towards Multimodal Skills for General Visual Agents](https://arxiv.org/abs/2605.13527)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [PriorZero: Bridging Language Priors and World Models for Decision Making](https://arxiv.org/abs/2605.12289v1)
