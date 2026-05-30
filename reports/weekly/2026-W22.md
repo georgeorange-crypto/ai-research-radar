@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W22
 
 - 日期范围：2026-05-25 至 2026-05-31
-- 纳入日报：6 份
-- 跟踪条目：1062；MUST_READ 13；SKIM 37；ARCHIVE 506
+- 纳入日报：7 份
+- 跟踪条目：1063；MUST_READ 13；SKIM 37；ARCHIVE 507
 
 ## 本周最重要论文 / 动态
 - [ParaVT: Taming the Tool Prior Paradox for Parallel Tool Use in Agentic Video Reinforcement Learning](https://arxiv.org/abs/2605.20342)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 1.00，global 0.48）
@@ -25,7 +25,7 @@
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [GUI-CIDER: Mid-training GUI Agents via Causal Internalization and Density-aware Exemplar Reselection](https://arxiv.org/abs/2605.28534)
   - [N3P: Accelerated Automated Parking via a Learning-Based Naturalistic Three-Stage Scheme](https://arxiv.org/abs/2605.22722v1)
-- Benchmark / Dataset / Evaluation：156 条进入跟踪；高频信号：evaluation、benchmark、nlp、language model、framework、dataset。
+- Benchmark / Dataset / Evaluation：157 条进入跟踪；高频信号：evaluation、benchmark、nlp、language model、framework、dataset。
   - [DiscoverPhysics: Benchmarking LLMs for Out-of-the-Box Scientific Thinking](https://arxiv.org/abs/2605.26087v1)
   - [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)
   - [EvalVerse: Pipeline-Aware and Expert-Calibrated Benchmarking for Professional Cinematic Video Generation](https://arxiv.org/abs/2605.23271)

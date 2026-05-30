@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-05
 
-- 纳入日报：21 份
-- 跟踪条目：2422；MUST_READ 32；SKIM 99；ARCHIVE 918
+- 纳入日报：22 份
+- 跟踪条目：2423；MUST_READ 32；SKIM 99；ARCHIVE 919
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,7 +33,7 @@
   - [Beyond Final Answers: Auditing Trajectory-Level Hallucinations in Multi-Agent Industrial Workflows](https://arxiv.org/abs/2605.24219)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [GUI-CIDER: Mid-training GUI Agents via Causal Internalization and Density-aware Exemplar Reselection](https://arxiv.org/abs/2605.28534)
-- Benchmark / Dataset / Evaluation：378 条进入跟踪；高频信号：benchmark、evaluation、nlp、robotics、framework、dataset、language model、cs.LG。
+- Benchmark / Dataset / Evaluation：379 条进入跟踪；高频信号：benchmark、evaluation、nlp、robotics、framework、dataset、language model、cs.LG。
   - [RealICU: Do LLM Agents Understand Long-Context ICU Data? A Benchmark Beyond Behavior Imitation](https://arxiv.org/abs/2605.13542)
   - [LITMUS: Benchmarking Behavioral Jailbreaks of LLM Agents in Real OS Environments](https://arxiv.org/abs/2605.10779v1)
   - [DiscoverPhysics: Benchmarking LLMs for Out-of-the-Box Scientific Thinking](https://arxiv.org/abs/2605.26087v1)
