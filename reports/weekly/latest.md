@@ -1,31 +1,31 @@
 # AI Research Radar Weekly - 2026-W23
 
 - 日期范围：2026-06-01 至 2026-06-07
-- 纳入日报：2 份
-- 跟踪条目：666；MUST_READ 5；SKIM 15；ARCHIVE 399
+- 纳入日报：3 份
+- 跟踪条目：673；MUST_READ 7；SKIM 22；ARCHIVE 404
 
 ## 本周最重要论文 / 动态
 - [minWM: A Full-Stack Open-Source Framework for Real-Time Interactive Video World Models](https://arxiv.org/abs/2605.30263v1)（MUST_READ，Model Distillation / Model Compression / Efficient Training，personal 1.00，global 0.39）
 - [Mellum2 Technical Report](https://arxiv.org/abs/2605.31268)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.50）
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.43）
 - [IDOL: Inverse-Dynamics-Guided Future Prediction for End-to-End Autonomous Driving](https://arxiv.org/abs/2605.31476v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96，global 0.35）
+- [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.95，global 0.38）
 - [WorldMemArena: Evaluating Multimodal Agent Memory Through Action-World Interaction](https://arxiv.org/abs/2605.29341)（MUST_READ，Context Compression / Long Context / Memory，personal 0.93，global 0.47）
+- [Masked Skill Token Training for Hierarchical Off-Dynamics Transfer](https://openreview.net/forum?id=K4ngUOra9m)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.92，global 0.30）
+- [Whole-Body Conditioned Egocentric Video Prediction](http://bair.berkeley.edu/blog/2025/07/01/peva/)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.38）
+- [Scaling Up Reinforcement Learning for Traffic Smoothing: A 100-AV Highway Deployment](http://bair.berkeley.edu/blog/2025/03/25/rl-av-smoothing/)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96，global 0.37）
+- [RL without TD learning](http://bair.berkeley.edu/blog/2025/11/01/rl-without-td-learning/)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96，global 0.37）
 - [Meta-Cognitive Memory Policy Optimization for Long-Horizon LLM Agents](https://arxiv.org/abs/2605.30159v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96，global 0.34）
 - [SAAS: Self-Aware Reinforcement Learning for Over-Search Mitigation in Agentic Search](https://arxiv.org/abs/2605.29796)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.95，global 0.49）
-- [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.95，global 0.38）
-- [Skill0.5: Joint Skill Internalization and Utilization for Out-of-Distribution Generalization in Agentic Reinforcement Learning](https://arxiv.org/abs/2605.28424)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.94，global 0.48）
-- [AgentSchool: An LLM-Powered Multi-Agent Simulation for Education](https://arxiv.org/abs/2605.30144v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.93，global 0.34）
-- [Unifying Temporal and Structural Credit Assignment in LLM-Based Multi-Agent Prompt Optimization](https://arxiv.org/abs/2605.30227v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.92，global 0.35）
-- [Are Full Rollouts Necessary for On-Policy Distillation?](https://arxiv.org/abs/2605.31490v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.92，global 0.34）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：119 条进入跟踪；高频信号：nlp、reasoning、language model、framework、robotics、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：122 条进入跟踪；高频信号：nlp、reasoning、language model、framework、robotics、agentic。
   - [Mellum2 Technical Report](https://arxiv.org/abs/2605.31268)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [IDOL: Inverse-Dynamics-Guided Future Prediction for End-to-End Autonomous Driving](https://arxiv.org/abs/2605.31476v1)
-  - [Meta-Cognitive Memory Policy Optimization for Long-Horizon LLM Agents](https://arxiv.org/abs/2605.30159v1)
-  - [SAAS: Self-Aware Reinforcement Learning for Over-Search Mitigation in Agentic Search](https://arxiv.org/abs/2605.29796)
-- Other Highlights：102 条进入跟踪；高频信号：robotics、nlp、framework、cmu.edu、systems、stanford.edu。
+  - [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)
+  - [Masked Skill Token Training for Hierarchical Off-Dynamics Transfer](https://openreview.net/forum?id=K4ngUOra9m)
+- Other Highlights：104 条进入跟踪；高频信号：robotics、nlp、framework、cmu.edu、systems、stanford.edu。
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
   - [NeuROK: Generative 4D Neural Object Kinematics](https://arxiv.org/abs/2605.30347v1)
   - [Scalable Inference-Time Annealing with Surrogate Likelihood Estimators](https://arxiv.org/abs/2605.31498v1)
@@ -49,7 +49,7 @@
   - [What Gets Unmasked First? Trajectory Analysis of Diffusion Models for Graph-to-Text Generation](https://arxiv.org/abs/2605.31564v1)
   - [UniAudio-Token: Empowering Semantic Speech Tokenizers with General Audio Perception](https://arxiv.org/abs/2605.31521v1)
   - [DRIFT: Decoupled Rollouts and Importance-Weighted Fine-Tuning for Efficient Multi-Turn Optimization](https://arxiv.org/abs/2605.31455v1)
-- Institutional Updates：59 条进入跟踪；高频信号：deepmind.google、openai.com、anthropic.com、nvidia.com、research.google、microsoft.com。
+- Institutional Updates：61 条进入跟踪；高频信号：deepmind.google、openai.com、anthropic.com、nvidia.com、research.google、microsoft.com。
   - [OpenAI, Grupo Folha and Grupo UOL announce strategic content partnership](https://openai.com/index/grupo-folha-grupo-uol-partnership)
   - [Strengthening Singapore's AI Future: A New National Partnership](https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/)
   - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
@@ -93,10 +93,10 @@
   - [Reinforcement Learning with Robust Rubric Rewards](https://arxiv.org/abs/2605.30244v1)
 - Context Compression / Long Context / Memory：13 条进入跟踪；高频信号：long-context、attention、language model、inference、RAG、agent memory。
   - [WorldMemArena: Evaluating Multimodal Agent Memory Through Action-World Interaction](https://arxiv.org/abs/2605.29341)
+  - [EpiCache: Episodic KV Cache Management for Long-Term Conversation on Resource-Constrained Environments](https://machinelearning.apple.com/research/epicache)
   - [Q-RAG: Long Context Multi‑Step Retrieval via Value‑Based Embedder Training](https://openreview.net/forum?id=MS9nWFY7LG)
   - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
   - [CONF-KV: Confidence-Aware KV Cache Eviction with Mixed-Precision Storage for Long-Horizon LLM](https://arxiv.org/abs/2605.24786)
-  - [Internalizing Temporal Consistency in Video Object-Centric Learning without Explicit Regularization](https://arxiv.org/abs/2605.31508v1)
 
 ## GitHub / Open-source Projects
 - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 174654）
