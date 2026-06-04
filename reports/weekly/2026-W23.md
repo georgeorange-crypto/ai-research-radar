@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W23
 
 - 日期范围：2026-06-01 至 2026-06-07
-- 纳入日报：4 份
-- 跟踪条目：723；MUST_READ 8；SKIM 25；ARCHIVE 430
+- 纳入日报：5 份
+- 跟踪条目：732；MUST_READ 8；SKIM 26；ARCHIVE 437
 
 ## 本周最重要论文 / 动态
 - [minWM: A Full-Stack Open-Source Framework for Real-Time Interactive Video World Models](https://arxiv.org/abs/2605.30263v1)（MUST_READ，Model Distillation / Model Compression / Efficient Training，personal 1.00，global 0.39）
@@ -25,7 +25,7 @@
   - [IDOL: Inverse-Dynamics-Guided Future Prediction for End-to-End Autonomous Driving](https://arxiv.org/abs/2605.31476v1)
   - [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)
   - [KVarN: Variance-Normalized KV-Cache Quantization Mitigates Error Accumulation in Reasoning Tasks](https://arxiv.org/abs/2606.03458)
-- Other Highlights：109 条进入跟踪；高频信号：robotics、framework、nlp、cmu.edu、systems、stanford.edu。
+- Other Highlights：111 条进入跟踪；高频信号：robotics、framework、nlp、cmu.edu、systems、stanford.edu。
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
   - [NeuROK: Generative 4D Neural Object Kinematics](https://arxiv.org/abs/2605.30347v1)
   - [Scalable Inference-Time Annealing with Surrogate Likelihood Estimators](https://arxiv.org/abs/2605.31498v1)
@@ -37,24 +37,24 @@
   - [LoMo: Local Modality Substitution for Deeper Vision-Language Fusion](https://arxiv.org/abs/2605.30265v1)
   - [Archon: A Unified Multimodal Model for Holistic Digital Human Generation](https://arxiv.org/abs/2605.30311v1)
   - [Personalize Your Large Vision-language Models With In-context Prompt Tuning](https://arxiv.org/abs/2605.31513v1)
-- Benchmark / Dataset / Evaluation：89 条进入跟踪；高频信号：evaluation、benchmark、nlp、dataset、language model、framework。
+- Benchmark / Dataset / Evaluation：90 条进入跟踪；高频信号：evaluation、benchmark、nlp、dataset、language model、framework。
   - [DynaTree: Dynamic Agentic Retrieval Tree for Time-Sensitive News Retrieval](https://arxiv.org/abs/2605.31377v1)
   - [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)
   - [SVI-Bench: A Dynamic Microworld for Strategic Video Intelligence](https://arxiv.org/abs/2605.31529v1)
   - [AutoMedBench: Towards Medical AutoResearch with Agentic AI Models](https://arxiv.org/abs/2606.01961)
   - [MedAraBench: Large-scale Arabic Medical Question Answering Dataset and Benchmark](https://openreview.net/forum?id=1BXojAgNrg)
+- Institutional Updates：68 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、nvidia.com、research.google、microsoft.com。
+  - [OpenAI, Grupo Folha and Grupo UOL announce strategic content partnership](https://openai.com/index/grupo-folha-grupo-uol-partnership)
+  - [Strengthening Singapore's AI Future: A New National Partnership](https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/)
+  - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
+  - [Building the infrastructure for the Intelligence Age in Michigan](https://openai.com/index/stargate-michigan-data-center)
+  - [How Braintrust turns customer requests into code with Codex](https://openai.com/index/braintrust)
 - NLP：65 条进入跟踪；高频信号：nlp、language model、cs.CL、robotics、framework、cs.LG。
   - [Target-Side Paraphrase Augmentation for Sign Language Translation with Large Language Models](https://arxiv.org/abs/2605.31393v1)
   - [Loong: A Human-Like Long Document Translation Agent with Observe-and-Act Adaptive Context Selection](https://arxiv.org/abs/2605.30274v1)
   - [What Gets Unmasked First? Trajectory Analysis of Diffusion Models for Graph-to-Text Generation](https://arxiv.org/abs/2605.31564v1)
   - [UniAudio-Token: Empowering Semantic Speech Tokenizers with General Audio Perception](https://arxiv.org/abs/2605.31521v1)
   - [DRIFT: Decoupled Rollouts and Importance-Weighted Fine-Tuning for Efficient Multi-Turn Optimization](https://arxiv.org/abs/2605.31455v1)
-- Institutional Updates：64 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、nvidia.com、research.google、microsoft.com。
-  - [OpenAI, Grupo Folha and Grupo UOL announce strategic content partnership](https://openai.com/index/grupo-folha-grupo-uol-partnership)
-  - [Strengthening Singapore's AI Future: A New National Partnership](https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/)
-  - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
-  - [Building the infrastructure for the Intelligence Age in Michigan](https://openai.com/index/stargate-michigan-data-center)
-  - [How Braintrust turns customer requests into code with Codex](https://openai.com/index/braintrust)
 - Learning Methods / Optimization / Representation Learning：48 条进入跟踪；高频信号：cs.LG、nlp、robotics、optimization、gradient、framework。
   - [Giving Sensors a Voice: Multimodal JEPA for Semantic Time-Series Embeddings](https://arxiv.org/abs/2605.31580v1)
   - [Softsign: Smooth Sign in Your Optimizer For Better Parameter Heterogeneity Handling](https://arxiv.org/abs/2605.31371v1)
@@ -67,7 +67,7 @@
   - [Towards Consistent Video Geometry Estimation](https://arxiv.org/abs/2605.30060)
   - [Graphical einops: bridging tensor networks and computation graphs](https://arxiv.org/abs/2605.31485v1)
   - [Functional Attention: From Pairwise Affinities to Functional Correspondences](https://arxiv.org/abs/2605.31559v1)
-- GitHub / Open Source Projects：23 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、image。
+- GitHub / Open Source Projects：25 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、image。
   - [lambda-calculus-LLM/lambda-RLM](https://github.com/lambda-calculus-LLM/lambda-RLM)
   - [Chirsycy/CRPD-PCP](https://github.com/Chirsycy/CRPD-PCP)
   - [infiniflow/ragflow](https://github.com/infiniflow/ragflow)
@@ -110,4 +110,4 @@
 - 继续跟踪 Other Highlights：本周最强信号是 [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)。
 - 继续跟踪 CV：本周最强信号是 [AnomalyAgent: Training-Free Agentic Models for Zero-/Few-Shot Anomaly Detection](https://arxiv.org/abs/2605.30140v1)。
 - 继续跟踪 Benchmark / Dataset / Evaluation：本周最强信号是 [DynaTree: Dynamic Agentic Retrieval Tree for Time-Sensitive News Retrieval](https://arxiv.org/abs/2605.31377v1)。
-- 继续跟踪 NLP：本周最强信号是 [Target-Side Paraphrase Augmentation for Sign Language Translation with Large Language Models](https://arxiv.org/abs/2605.31393v1)。
+- 继续跟踪 Institutional Updates：本周最强信号是 [OpenAI, Grupo Folha and Grupo UOL announce strategic content partnership](https://openai.com/index/grupo-folha-grupo-uol-partnership)。
