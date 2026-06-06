@@ -1,4 +1,4 @@
-# AI Research Radar - 2026-06-06
+# AI Research Radar - 2026-06-07
 - Summary mode: single
 - Provider: kimi
 - Model: moonshot-v1-8k
@@ -361,7 +361,7 @@ Other Watch / Archive：
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 17 个只进入附录标题列表：reports/appendix/2026-06-06-benchmarks.md
+- 其余 17 个只进入附录标题列表：reports/appendix/2026-06-07-benchmarks.md
 
 ## 5. GitHub / Open Source Projects
 ### New / Recently Active Projects
@@ -376,10 +376,10 @@ Other Watch / Archive：
 - 这是什么？Shubhamsaboo/awesome-llm-apps：开源项目，方向为“GitHub / Open Source Projects”；主要线索：RAG、github、github.com、multi-agent。
 - 解决了什么问题？它关注“GitHub / Open Source Projects”里的 RAG、github、github.com、multi-agent 等问题。
 - 方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对我重要？tier=clone_and_run editorial_priority=0.27 按 GitHub 项目动作处理。 personal=0.70，relevance=0.60。
+- 为什么对我重要？tier=clone_and_run editorial_priority=0.23 按 GitHub 项目动作处理。 personal=0.69，relevance=0.60。
 - 是否建议深读？今天不深读，先按行动建议处理。
 - 建议行动：clone_and_run
-- 评分：global_score 0.59；personal_score 0.70；credibility 0.89；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.78；actionability 1.00；research_relevance 0.60；hype_risk 0.00
+- 评分：global_score 0.56；personal_score 0.69；credibility 0.89；conference 0.00；institution 0.96；multi_source 0.00；community_signal 0.78；actionability 1.00；research_relevance 0.60；hype_risk 0.00
 - 多源信号：代码:GitHub AI Research Projects
 - 推荐解释：尚未生成结构化解释
 - 风险提示：none
@@ -387,7 +387,7 @@ Other Watch / Archive：
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Context Compression / Long Context / Memory、Agent / Reasoning / Inference-time Scaling / Planning、Tool Library
 - 命中关键词：RAG、github、github.com、multi-agent、open-source
-- 开源信号：⭐ 113367 | 🍴 16818 | 📜 Apache-2.0
+- 开源信号：⭐ 113535 | 🍴 16846 | 📜 Apache-2.0
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ❌
 - README 摘要：AI Agents · Multi-agent Teams · MCP Agents · RAG · Voice Agents · Agent Skills · Fine-tuning You shouldn't have to rebuild the same RAG pipeline, agent loop, or MCP integration from scratch every time you start a new LLM project. **Awesome LLM Apps is a cookbook of ready-to-run templates** - starter
 
@@ -398,7 +398,7 @@ Other Watch / Archive：
 - source_role：code_actionability
 - 证据来源：repo README
 - 原文链接：https://github.com/NousResearch/hermes-agent
-- 发布时间：2026-06-05T20:12:18+00:00
+- 发布时间：2026-06-06T23:21:14+00:00
 - 这是什么？NousResearch/hermes-agent：开源项目，方向为“GitHub / Open Source Projects”；主要线索：github、github.com、open-source、NousResearch。
 - 解决了什么问题？它关注“GitHub / Open Source Projects”里的 github、github.com、open-source、NousResearch 等问题。
 - 方法或贡献是什么？这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
@@ -413,7 +413,7 @@ Other Watch / Archive：
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Tool Library
 - 命中关键词：github、github.com、open-source
-- 开源信号：⭐ 183068 | 🍴 31395 | 📜 MIT
+- 开源信号：⭐ 184739 | 🍴 31705 | 📜 MIT
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ✅ | 权重 ✅
 - README 摘要：**The self-improving AI agent built by Nous Research.** It's the only agent with a built-in learning loop — it creates skills from experience, improves them during use, nudges itself to persist knowledge, searches its own past conversations, and builds a deepening model of who you are across session
 
@@ -440,7 +440,7 @@ Other Watch / Archive：
 - 命中方向：GitHub / 开源项目推荐
 - 相关标签：Agent / Reasoning / Inference-time Scaling / Planning、Benchmark / Dataset / Evaluation、CV、Other Highlights、Tool Library
 - 命中关键词：environment、eval、github、github.com、image、inference、open-source、release、repository
-- 开源信号：⭐ 23242 | 🍴 2148 | 📜 MIT
+- 开源信号：⭐ 23246 | 🍴 2148 | 📜 MIT
 - 示例/文档/复现：示例 ✅ | 文档 ✅ | 脚本 ❌ | 权重 ✅
 - 关联论文：https://arxiv.org/abs/2510.18234"><b>📄
 - README 摘要：- [2026/01/27]🚀🚀🚀🚀🚀🚀 We present DeepSeek-OCR2 - [2025/10/23]🚀🚀🚀 DeepSeek-OCR is now officially supported in upstream vLLM. Thanks to the vLLM team for their help. - [2025/10/20]🚀🚀🚀 We release DeepSeek-OCR, a model to investigate the role of vision encoders from an LLM-centric viewpoint. - Transforme
@@ -649,10 +649,10 @@ Other Watch / Archive：
 - [MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery](https://arxiv.org/abs/2606.06473v1)：预计阅读目的：提取 Agent 任务设定、工具使用方式、规划机制和评测指标。
 
 ## 12. Collection Notes
-- Generated at: 2026-06-05T23:48:56.896514+00:00
+- Generated at: 2026-06-06T23:38:46.807009+00:00
 - Source count: 31
-- Raw item count: 675
-- Dedup item count: 608
+- Raw item count: 674
+- Dedup item count: 606
 - Summary mode: single
 - Provider: kimi
 - Model: moonshot-v1-8k
@@ -673,11 +673,11 @@ Other Watch / Archive：
 - Last LLM error: provider=kimi; model=moonshot-v1-8k; base_url=https://api.moonshot.cn/v1; HTTP status=401; error={"error":{"message":"Incorrect API key provided","type":"incorrect_api_key_error"}}
 - provider_disabled: kimi
 - reason: unauthorized
-- Benchmark appendix: reports/appendix/2026-06-06-benchmarks.md
+- Benchmark appendix: reports/appendix/2026-06-07-benchmarks.md
 
-- Report path: reports/daily/2026/06/2026-06-06.md
-- Previous report link: reports/daily/2026/06/2026-06-05.md
+- Report path: reports/daily/2026/06/2026-06-07.md
+- Previous report link: reports/daily/2026/06/2026-06-06.md
 
 ## Source Health
-- GitHub AI Research Projects: time budget exhausted (24 items) - time budget exhausted after 24 items
+- GitHub AI Research Projects: time budget exhausted (23 items) - time budget exhausted after 23 items
 - The Batch by DeepLearning.AI: error (0 items) - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
