@@ -1,11 +1,12 @@
 # AI Research Radar Monthly - 2026-06
 
-- 纳入日报：7 份
-- 跟踪条目：892；MUST_READ 10；SKIM 34；ARCHIVE 488
+- 纳入日报：8 份
+- 跟踪条目：893；MUST_READ 11；SKIM 34；ARCHIVE 489
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
 - [minWM: A Full-Stack Open-Source Framework for Real-Time Interactive Video World Models](https://arxiv.org/abs/2605.30263v1)（MUST_READ，Model Distillation / Model Compression / Efficient Training，score 1.00）
+- [EvoDS: Self-Evolving Autonomous Data Science Agent with Skill Learning and Context Management](https://arxiv.org/abs/2606.03841)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.99）
 - [MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery](https://arxiv.org/abs/2606.06473v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.98）
 - [Mellum2 Technical Report](https://arxiv.org/abs/2605.31268)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.98）
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.98）
@@ -24,15 +25,14 @@
 - [Meta-Cognitive Memory Policy Optimization for Long-Horizon LLM Agents](https://arxiv.org/abs/2605.30159v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.96）
 - [SAAS: Self-Aware Reinforcement Learning for Over-Search Mitigation in Agentic Search](https://arxiv.org/abs/2605.29796)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.95）
 - [Skill0.5: Joint Skill Internalization and Utilization for Out-of-Distribution Generalization in Agentic Reinforcement Learning](https://arxiv.org/abs/2605.28424)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.94）
-- [RedKnot: Efficient Long-Context LLM Serving with Head-Aware KV Reuse and SegPagedAttention](https://arxiv.org/abs/2606.06256v1)（SKIM，Context Compression / Long Context / Memory，score 0.93）
 
 ## 分方向趋势
 - Agent / Reasoning / Inference-time Scaling / Planning：183 条进入跟踪；高频信号：nlp、reasoning、framework、robotics、language model、inference、agentic、multi-agent。
+  - [EvoDS: Self-Evolving Autonomous Data Science Agent with Skill Learning and Context Management](https://arxiv.org/abs/2606.03841)
   - [MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery](https://arxiv.org/abs/2606.06473v1)
   - [Mellum2 Technical Report](https://arxiv.org/abs/2605.31268)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [IDOL: Inverse-Dynamics-Guided Future Prediction for End-to-End Autonomous Driving](https://arxiv.org/abs/2605.31476v1)
-  - [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)
 - Other Highlights：121 条进入跟踪；高频信号：robotics、nlp、framework、systems、cmu.edu、inference、stanford.edu、cs.LG。
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
   - [Attitude-Aided Linear Calibration of Triaxial Accelerometers](https://arxiv.org/abs/2606.06308v1)
@@ -87,7 +87,7 @@
   - [RedKnot: Efficient Long-Context LLM Serving with Head-Aware KV Reuse and SegPagedAttention](https://arxiv.org/abs/2606.06256v1)
   - [Latent Reasoning with Normalizing Flows](https://arxiv.org/abs/2606.06447v1)
   - [Tangram: Unlocking Non-Uniform KV Cache for Efficient Multi-turn LLM Serving](https://arxiv.org/abs/2606.06302v1)
-- RL：21 条进入跟踪；高频信号：reinforcement learning、rl、framework、nlp、optimization、robotics、grpo、language model。
+- RL：22 条进入跟踪；高频信号：reinforcement learning、framework、rl、nlp、optimization、robotics、grpo、language model。
   - [The Flip Side of RLHF: On-Policy Feedback for Reward Model Self-Supervised Improvement](https://arxiv.org/abs/2605.30888)
   - [RREDCoT: Segment-Level Reward Redistribution for Reasoning Models](https://arxiv.org/abs/2606.06475v1)
   - [BORA: Bridging Offline Reinforcement Learning and Online Residual Adaptation for Real-World Dexterous VLA Models](https://arxiv.org/abs/2605.30226v1)
@@ -124,7 +124,7 @@
 - [thu-coai/Glyph](https://github.com/thu-coai/Glyph)（GitHub / Open Source Projects，stars 589）
 
 ## 月度判断
-- Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery](https://arxiv.org/abs/2606.06473v1) 追踪。
+- Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [EvoDS: Self-Evolving Autonomous Data Science Agent with Skill Learning and Context Management](https://arxiv.org/abs/2606.03841) 追踪。
 - Other Highlights：本月可继续沿着 [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/) 追踪。
 - Benchmark / Dataset / Evaluation：本月可继续沿着 [DynaTree: Dynamic Agentic Retrieval Tree for Time-Sensitive News Retrieval](https://arxiv.org/abs/2605.31377v1) 追踪。
 - CV：本月可继续沿着 [AnomalyAgent: Training-Free Agentic Models for Zero-/Few-Shot Anomaly Detection](https://arxiv.org/abs/2605.30140v1) 追踪。
