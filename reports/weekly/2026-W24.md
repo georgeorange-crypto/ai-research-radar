@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W24
 
 - 日期范围：2026-06-08 至 2026-06-14
-- 纳入日报：6 份
-- 跟踪条目：1195；MUST_READ 15；SKIM 46；ARCHIVE 598
+- 纳入日报：7 份
+- 跟踪条目：1198；MUST_READ 16；SKIM 46；ARCHIVE 600
 
 ## 本周最重要论文 / 动态
 - [Bridging the Agent-World Gap: Text World Models for LLM-based Agents](https://arxiv.org/abs/2606.09032)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.99，global 0.49）
@@ -14,9 +14,9 @@
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.40）
 - [End-to-End Context Compression at Scale](https://arxiv.org/abs/2606.09659v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.97，global 0.39）
 - [DuMate-DeepResearch: An Auditable Multi-Agent System with Recursive Search and Rubric-Grounded Reasoning](https://arxiv.org/abs/2606.07299)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.97，global 0.47）
+- [Visual Para-Thinker++: A Single-Policy Multi-Agent Framework for Visual Reasoning](https://arxiv.org/abs/2606.09290)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.94，global 0.47）
 - [You Only Index Once: Cross-Layer Sparse Attention with Shared Routing](https://arxiv.org/abs/2606.06467v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.94，global 0.35）
 - [SparDA: Sparse Decoupled Attention for Efficient Long-Context LLM Inference](https://arxiv.org/abs/2606.04511)（MUST_READ，Context Compression / Long Context / Memory，personal 0.94，global 0.42）
-- [Uncertainty-Aware Hybrid Retrieval for Long-Document RAG](https://arxiv.org/abs/2606.13550v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.93，global 0.38）
 
 ## 分方向趋势
 - Agent / Reasoning / Inference-time Scaling / Planning：274 条进入跟踪；高频信号：nlp、framework、reasoning、robotics、language model、inference。
@@ -31,7 +31,7 @@
   - [SpatialWorld: Benchmarking Interactive Spatial Reasoning of Multimodal Agents in Real-World Tasks](https://arxiv.org/abs/2606.09669v1)
   - [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)
   - [Benchmark Everything Everywhere All at Once](https://arxiv.org/abs/2606.06462v1)
-- Other Highlights：154 条进入跟踪；高频信号：robotics、nlp、framework、systems、cs.RO、inference。
+- Other Highlights：155 条进入跟踪；高频信号：robotics、nlp、framework、systems、cs.RO、inference。
   - [PolyFlow: Safe and Efficient Polytope-Constrained Flow Matching with Constraint Embedding and Projection-free Update](https://arxiv.org/abs/2606.13400v1)
   - [TacForeSight: Force-Guided Tactile World Model for Contact-Rich Manipulation](https://arxiv.org/abs/2606.11184v1)
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
@@ -55,13 +55,13 @@
   - [Code2LoRA: Hypernetwork-Generated Adapters for Code Language Models under Software Evolution](https://arxiv.org/abs/2606.06492v1)
   - [Civil Court Simulation with Large Language Models](https://arxiv.org/abs/2606.09632v1)
   - [Correlation Is Not Enough: Embedding Human Metadata for Individual Causal Discovery](https://arxiv.org/abs/2606.09672v1)
-- Institutional Updates：72 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、nvidia.com、research.google、microsoft.com。
+- Institutional Updates：73 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、nvidia.com、research.google、microsoft.com。
   - [From data to decisions: how LSEG is scaling trusted AI](https://openai.com/index/lseg)
   - [Strengthening Singapore's AI Future: A New National Partnership](https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/)
   - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
   - [Ire identifies another LOTUSLITE specimen](https://www.microsoft.com/en-us/research/blog/ire-identifies-another-lotuslite-specimen/)
   - [Supporting Europe's work in ensuring a trustworthy AI ecosystem](https://openai.com/index/supporting-eu-trustworthy-ai-ecosystem)
-- Context Compression / Long Context / Memory：41 条进入跟踪；高频信号：nlp、language model、attention、robotics、KV cache、RAG。
+- Context Compression / Long Context / Memory：42 条进入跟踪；高频信号：language model、nlp、attention、KV cache、robotics、inference。
   - [End-to-End Context Compression at Scale](https://arxiv.org/abs/2606.09659v1)
   - [You Only Index Once: Cross-Layer Sparse Attention with Shared Routing](https://arxiv.org/abs/2606.06467v1)
   - [SparDA: Sparse Decoupled Attention for Efficient Long-Context LLM Inference](https://arxiv.org/abs/2606.04511)
@@ -101,9 +101,9 @@
 ## GitHub / Open-source Projects
 - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 185881）
 - [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（GitHub / Open Source Projects，stars 138749）
-- [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)（GitHub / Open Source Projects，stars 113708）
+- [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)（GitHub / Open Source Projects，stars 114459）
 - [browser-use/browser-use](https://github.com/browser-use/browser-use)（GitHub / Open Source Projects，stars 97632）
-- [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)（GitHub / Open Source Projects，stars 84034）
+- [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)（GitHub / Open Source Projects，stars 85812）
 
 ## 下周跟踪建议
 - 继续跟踪 Agent / Reasoning / Inference-time Scaling / Planning：本周最强信号是 [Bridging the Agent-World Gap: Text World Models for LLM-based Agents](https://arxiv.org/abs/2606.09032)。
