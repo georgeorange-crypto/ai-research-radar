@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-06
 
-- 纳入日报：14 份
-- 跟踪条目：1582；MUST_READ 22；SKIM 70；ARCHIVE 753
+- 纳入日报：15 份
+- 跟踪条目：1583；MUST_READ 22；SKIM 70；ARCHIVE 754
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -75,7 +75,7 @@
   - [SparDA: Sparse Decoupled Attention for Efficient Long-Context LLM Inference](https://arxiv.org/abs/2606.04511)
   - [WorldMemArena: Evaluating Multimodal Agent Memory Through Action-World Interaction](https://arxiv.org/abs/2605.29341)
   - [Uncertainty-Aware Hybrid Retrieval for Long-Document RAG](https://arxiv.org/abs/2606.13550v1)
-- Model Architecture：36 条进入跟踪；高频信号：architecture、attention、transformer、robotics、nlp、framework、cs.LG、inference。
+- Model Architecture：37 条进入跟踪；高频信号：architecture、attention、transformer、robotics、nlp、framework、cs.LG、inference。
   - [Multi-Resolution Tactile Imitation Learning for Contact-Rich Robotic Manipulation](https://arxiv.org/abs/2606.06281v1)
   - [Point-Wise Geometry-Aware Transformer for Partial-to-Full Point Cloud Registration in Computer-Assisted Surgery](https://arxiv.org/abs/2606.13488v1)
   - [GRAMformer: Any-Order Modality Interactions via Volumetric Multimodal Cross-Attention](https://arxiv.org/abs/2606.06249v1)
