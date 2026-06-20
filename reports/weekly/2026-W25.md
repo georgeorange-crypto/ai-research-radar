@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W25
 
 - 日期范围：2026-06-15 至 2026-06-21
-- 纳入日报：6 份
-- 跟踪条目：1274；MUST_READ 13；SKIM 46；ARCHIVE 589
+- 纳入日报：7 份
+- 跟踪条目：1277；MUST_READ 13；SKIM 46；ARCHIVE 591
 
 ## 本周最重要论文 / 动态
 - [$\texttt{WEAVER}$, Better, Faster, Longer: An Effective World Model for Robotic Manipulation](https://arxiv.org/abs/2606.13672v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.36）
@@ -19,24 +19,24 @@
 - [KVEraser: Learning to Steer KV Cache for Efficient Localized Context Erasing](https://arxiv.org/abs/2606.17034v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.91，global 0.38）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：281 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：283 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、inference。
   - [$\texttt{WEAVER}$, Better, Faster, Longer: An Effective World Model for Robotic Manipulation](https://arxiv.org/abs/2606.13672v1)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [OpenClaw-Skill: Collective Skill Tree Search for Agentic Large Language Models](https://arxiv.org/abs/2606.16774v1)
   - [Qwen-RobotNav Technical Report: A Scalable Navigation Model Designed for an Agentic Navigation System](https://arxiv.org/abs/2606.18112v1)
   - [REVES: REvision and VErification--Augmented Training for Test-Time Scaling](https://arxiv.org/abs/2606.18910)
+- Other Highlights：180 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、cs.LG。
+  - [PolyFlow: Safe and Efficient Polytope-Constrained Flow Matching with Constraint Embedding and Projection-free Update](https://arxiv.org/abs/2606.13400v1)
+  - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
+  - [LabVLA: Grounding Vision-Language-Action Models in Scientific Laboratories](https://arxiv.org/abs/2606.13578v1)
+  - [When LLMs Analyze Scars: From Images to Clinically-Meaningful Features](https://arxiv.org/abs/2606.18063v1)
+  - [SoK: Security and Privacy of Foundation-Model-Powered Robots](https://arxiv.org/abs/2606.16788v1)
 - Benchmark / Dataset / Evaluation：179 条进入跟踪；高频信号：benchmark、nlp、evaluation、robotics、dataset、language model。
   - [LabOSBench: Benchmarking Computer Use Agents for Scientific Instrument Control](https://arxiv.org/abs/2606.16802v1)
   - [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)
   - [Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments](https://arxiv.org/abs/2606.14397v1)
   - [Beyond Static Leaderboards: Predictive Validity for the Evaluation of LLM Agents](https://arxiv.org/abs/2606.19704)
   - [Your AI Travel Agent Would Book You a Bullfight: An Agentic Benchmark for Implicit Animal Welfare in Frontier AI Models](https://arxiv.org/abs/2606.18142v1)
-- Other Highlights：179 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、cs.LG。
-  - [PolyFlow: Safe and Efficient Polytope-Constrained Flow Matching with Constraint Embedding and Projection-free Update](https://arxiv.org/abs/2606.13400v1)
-  - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
-  - [LabVLA: Grounding Vision-Language-Action Models in Scientific Laboratories](https://arxiv.org/abs/2606.13578v1)
-  - [When LLMs Analyze Scars: From Images to Clinically-Meaningful Features](https://arxiv.org/abs/2606.18063v1)
-  - [SoK: Security and Privacy of Foundation-Model-Powered Robots](https://arxiv.org/abs/2606.16788v1)
 - CV：153 条进入跟踪；高频信号：cs.CV、nlp、image、robotics、framework、diffusion。
   - [PhaseWin: An Efficient Search Algorithm for Faithful Visual Attribution](https://arxiv.org/abs/2606.18008v1)
   - [Scalable Training of Spatially Grounded 2D Vision-Language Models for Radiology](https://arxiv.org/abs/2606.20477v1)
@@ -107,7 +107,7 @@
 
 ## 下周跟踪建议
 - 继续跟踪 Agent / Reasoning / Inference-time Scaling / Planning：本周最强信号是 [$\texttt{WEAVER}$, Better, Faster, Longer: An Effective World Model for Robotic Manipulation](https://arxiv.org/abs/2606.13672v1)。
-- 继续跟踪 Benchmark / Dataset / Evaluation：本周最强信号是 [LabOSBench: Benchmarking Computer Use Agents for Scientific Instrument Control](https://arxiv.org/abs/2606.16802v1)。
 - 继续跟踪 Other Highlights：本周最强信号是 [PolyFlow: Safe and Efficient Polytope-Constrained Flow Matching with Constraint Embedding and Projection-free Update](https://arxiv.org/abs/2606.13400v1)。
+- 继续跟踪 Benchmark / Dataset / Evaluation：本周最强信号是 [LabOSBench: Benchmarking Computer Use Agents for Scientific Instrument Control](https://arxiv.org/abs/2606.16802v1)。
 - 继续跟踪 CV：本周最强信号是 [PhaseWin: An Efficient Search Algorithm for Faithful Visual Attribution](https://arxiv.org/abs/2606.18008v1)。
 - 继续跟踪 Learning Methods / Optimization / Representation Learning：本周最强信号是 [Monocular 3D Occupancy Perception for Robots on Sidewalks via Hybrid 2D-3D Learning](https://arxiv.org/abs/2606.19122v1)。

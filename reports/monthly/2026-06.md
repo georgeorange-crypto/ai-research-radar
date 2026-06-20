@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-06
 
-- 纳入日报：20 份
-- 跟踪条目：2352；MUST_READ 32；SKIM 108；ARCHIVE 1009
+- 纳入日报：21 份
+- 跟踪条目：2355；MUST_READ 32；SKIM 108；ARCHIVE 1011
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [Visual Para-Thinker++: A Single-Policy Multi-Agent Framework for Visual Reasoning](https://arxiv.org/abs/2606.09290)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.94）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：556 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、inference、cs.LG。
+- Agent / Reasoning / Inference-time Scaling / Planning：558 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、inference、cs.LG。
   - [Bridging the Agent-World Gap: Text World Models for LLM-based Agents](https://arxiv.org/abs/2606.09032)
   - [Mind the Gap: Can Frontier LLMs Pass a Standardized Office Proficiency Exam?](https://arxiv.org/abs/2606.10956v1)
   - [EvoDS: Self-Evolving Autonomous Data Science Agent with Skill Learning and Context Management](https://arxiv.org/abs/2606.03841)
@@ -45,7 +45,7 @@
   - [Scalable Training of Spatially Grounded 2D Vision-Language Models for Radiology](https://arxiv.org/abs/2606.20477v1)
   - [AMALIA-VL: A Native European Portuguese Open-Source Vision and Language Model](https://arxiv.org/abs/2606.19100v1)
   - [PAR3D: A Unified 3D-MLLM with Part-Aware Representation for Scene Understanding](https://arxiv.org/abs/2606.06485v1)
-- Other Highlights：263 条进入跟踪；高频信号：robotics、nlp、framework、systems、cs.RO、cs.LG、inference、robot。
+- Other Highlights：264 条进入跟踪；高频信号：robotics、nlp、framework、systems、cs.RO、cs.LG、inference、robot。
   - [PolyFlow: Safe and Efficient Polytope-Constrained Flow Matching with Constraint Embedding and Projection-free Update](https://arxiv.org/abs/2606.13400v1)
   - [TacForeSight: Force-Guided Tactile World Model for Contact-Rich Manipulation](https://arxiv.org/abs/2606.11184v1)
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
