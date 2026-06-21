@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-06
 
-- 纳入日报：21 份
-- 跟踪条目：2355；MUST_READ 32；SKIM 108；ARCHIVE 1011
+- 纳入日报：22 份
+- 跟踪条目：2357；MUST_READ 32；SKIM 109；ARCHIVE 1013
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -45,7 +45,7 @@
   - [Scalable Training of Spatially Grounded 2D Vision-Language Models for Radiology](https://arxiv.org/abs/2606.20477v1)
   - [AMALIA-VL: A Native European Portuguese Open-Source Vision and Language Model](https://arxiv.org/abs/2606.19100v1)
   - [PAR3D: A Unified 3D-MLLM with Part-Aware Representation for Scene Understanding](https://arxiv.org/abs/2606.06485v1)
-- Other Highlights：264 条进入跟踪；高频信号：robotics、nlp、framework、systems、cs.RO、cs.LG、inference、robot。
+- Other Highlights：265 条进入跟踪；高频信号：robotics、nlp、framework、systems、cs.RO、cs.LG、inference、robot。
   - [PolyFlow: Safe and Efficient Polytope-Constrained Flow Matching with Constraint Embedding and Projection-free Update](https://arxiv.org/abs/2606.13400v1)
   - [TacForeSight: Force-Guided Tactile World Model for Contact-Rich Manipulation](https://arxiv.org/abs/2606.11184v1)
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
@@ -63,7 +63,7 @@
   - [Giving Sensors a Voice: Multimodal JEPA for Semantic Time-Series Embeddings](https://arxiv.org/abs/2605.31580v1)
   - [Closed-Form Spectral Regularization for Multi-Task Model Merging](https://arxiv.org/abs/2606.07289v1)
   - [Discrete Causal Representations from Heterogeneous Domains: A Bayesian Approach with Social Survey Applications](https://arxiv.org/abs/2606.06288v1)
-- Institutional Updates：92 条进入跟踪；高频信号：openai.com、anthropic.com、deepmind.google、nvidia.com、research.google、microsoft.com、partnership、release。
+- Institutional Updates：93 条进入跟踪；高频信号：openai.com、anthropic.com、deepmind.google、nvidia.com、research.google、microsoft.com、partnership、release。
   - [From data to decisions: how LSEG is scaling trusted AI](https://openai.com/index/lseg)
   - [OpenAI, Grupo Folha and Grupo UOL announce strategic content partnership](https://openai.com/index/grupo-folha-grupo-uol-partnership)
   - [Strengthening Singapore's AI Future: A New National Partnership](https://deepmind.google/blog/strengthening-singapores-ai-future-a-new-national-partnership/)
