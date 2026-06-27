@@ -1,13 +1,14 @@
 # AI Research Radar Weekly - 2026-W26
 
 - 日期范围：2026-06-22 至 2026-06-28
-- 纳入日报：6 份
-- 跟踪条目：1132；MUST_READ 12；SKIM 42；ARCHIVE 524
+- 纳入日报：7 份
+- 跟踪条目：1135；MUST_READ 13；SKIM 44；ARCHIVE 527
 
 ## 本周最重要论文 / 动态
 - [Qwen-AgentWorld: Language World Models for General Agents](https://arxiv.org/abs/2606.24597v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 1.00，global 0.42）
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.40）
 - [MEMPROBE: Probing Long-Term Agent Memory via Hidden User-State Recovery](https://arxiv.org/abs/2606.24595v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.97，global 0.39）
+- [Neglected Free Lunch from Post-training: Progress Advantage for LLM Agents](https://arxiv.org/abs/2606.26080)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.95，global 0.47）
 - [HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory](https://arxiv.org/abs/2606.23565v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.95，global 0.39）
 - [MEMPROBE: Probing Long-Term Agent Memory via Hidden User-State Recovery](https://arxiv.org/abs/2606.24595)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.94，global 0.46）
 - [OPID: On-Policy Skill Distillation for Agentic Reinforcement Learning](https://arxiv.org/abs/2606.26790)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.94，global 0.56）
@@ -16,15 +17,14 @@
 - [Proposal-Conditioned Latent Diffusion for Closed-Loop Traffic Scenario Generation](https://arxiv.org/abs/2606.27123v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.92，global 0.39）
 - [Causal-rCM: A Unified Teacher-Forcing and Self-Forcing Open Recipe for Autoregressive Diffusion Distillation in Streaming Video Generation and Interactive World Models](https://arxiv.org/abs/2606.25473)（MUST_READ，Model Distillation / Model Compression / Efficient Training，personal 0.91，global 0.51）
 - [Self-Compacting Language Model Agents](https://arxiv.org/abs/2606.23525v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.91，global 0.40）
-- [Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving](https://arxiv.org/abs/2606.20537v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.90，global 0.35）
 
 ## 分方向趋势
 - Agent / Reasoning / Inference-time Scaling / Planning：235 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic。
   - [Qwen-AgentWorld: Language World Models for General Agents](https://arxiv.org/abs/2606.24597v1)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [MEMPROBE: Probing Long-Term Agent Memory via Hidden User-State Recovery](https://arxiv.org/abs/2606.24595v1)
+  - [Neglected Free Lunch from Post-training: Progress Advantage for LLM Agents](https://arxiv.org/abs/2606.26080)
   - [HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory](https://arxiv.org/abs/2606.23565v1)
-  - [MEMPROBE: Probing Long-Term Agent Memory via Hidden User-State Recovery](https://arxiv.org/abs/2606.24595)
 - Other Highlights：175 条进入跟踪；高频信号：robotics、nlp、framework、systems、cs.RO、inference。
   - [The Unfireable Safety Kernel: Execution-Time AI Alignment for AI Agents and Other Escapable AI Systems](https://arxiv.org/abs/2606.26057v1)
   - [USS: Unified Spatial-Semantic Prompts for Embodied Visual Tracking with Latent Dynamics Learning](https://arxiv.org/abs/2606.25880v1)
@@ -37,7 +37,7 @@
   - [CoffeeBench: Benchmarking Long-Horizon LLM Agents in Heterogeneous Multi-Agent Economies](https://arxiv.org/abs/2606.16613)
   - [Beyond Static Leaderboards: Predictive Validity for the Evaluation of LLM Agents](https://arxiv.org/abs/2606.19704)
   - [Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments](https://arxiv.org/abs/2606.14397)
-- CV：136 条进入跟踪；高频信号：cs.CV、nlp、framework、robotics、image、diffusion。
+- CV：137 条进入跟踪；高频信号：cs.CV、nlp、framework、image、robotics、diffusion。
   - [UniDrive: A Unified Vision-Language and Grounding Framework for Interpretable Risk Understanding in Autonomous Driving](https://arxiv.org/abs/2606.24759v1)
   - [Real-Time Multimodal Activity-Aware Error Detection in Robot-Assisted Surgery](https://arxiv.org/abs/2606.23593v1)
   - [Scalable Training of Spatially Grounded 2D Vision-Language Models for Radiology](https://arxiv.org/abs/2606.20477v1)
@@ -49,7 +49,7 @@
   - [MiniOpt: Reasoning to Model and Solve General Optimization Problems with Limited Resources](https://arxiv.org/abs/2606.25832v1)
   - [Open Problem: Is AdamW Effective Under Heavy-Tailed Noise?](https://arxiv.org/abs/2606.23676v1)
   - [Patient-Aware Contrastive Learning Preserves Per-Patient Structure in RR-Interval Representations](https://arxiv.org/abs/2606.23570v1)
-- NLP：91 条进入跟踪；高频信号：nlp、robotics、language model、cs.CL、framework、cs.LG。
+- NLP：92 条进入跟踪；高频信号：nlp、robotics、language model、cs.CL、framework、cs.LG。
   - [The Register Gap: A Meaning Intelligence Framework for Nigerian Public Discourse](https://arxiv.org/abs/2606.20255v1)
   - [Matching Tasks to Objectives: Fine-Tuning and Prompt-Tuning Strategies for Encoder-Decoder Pre-trained Language Models](https://arxiv.org/abs/2606.24841v1)
   - [Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity](https://arxiv.org/abs/2606.24623v1)
@@ -79,7 +79,7 @@
   - [Enhancing Brain MRI Anomaly Detection and Reasoning with ROI Rethink and Synthetic Data](https://arxiv.org/abs/2606.25894v1)
   - [Vision-Language Model Reasoning for Contextual Semantic Mapping in Intralogistics](https://arxiv.org/abs/2606.24814v1)
   - [Randomized YaRN Improves Length Generalization for Long-Context Reasoning](https://arxiv.org/abs/2606.23687v1)
-- Model Architecture：29 条进入跟踪；高频信号：architecture、attention、framework、transformer、nlp、encoder-decoder。
+- Model Architecture：30 条进入跟踪；高频信号：architecture、attention、framework、transformer、nlp、encoder-decoder。
   - [Scaling State-Space Models from Lines to Paragraphs: An Ablation of Mamba-based OCR](https://arxiv.org/abs/2606.23524v1)
   - [Tapered Language Models](https://arxiv.org/abs/2606.23670v1)
   - [HEPTv2: End-to-End Efficient Point Transformer for Charged Particle Reconstruction](https://arxiv.org/abs/2606.20437v1)

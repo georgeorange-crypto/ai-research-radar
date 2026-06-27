@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-06
 
-- 纳入日报：27 份
-- 跟踪条目：2979；MUST_READ 41；SKIM 141；ARCHIVE 1201
+- 纳入日报：28 份
+- 跟踪条目：2982；MUST_READ 42；SKIM 143；ARCHIVE 1204
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -22,9 +22,9 @@
 - [DuMate-DeepResearch: An Auditable Multi-Agent System with Recursive Search and Rubric-Grounded Reasoning](https://arxiv.org/abs/2606.07299)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.97）
 - [IDOL: Inverse-Dynamics-Guided Future Prediction for End-to-End Autonomous Driving](https://arxiv.org/abs/2605.31476v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.96）
 - [REVES: REvision and VErification--Augmented Training for Test-Time Scaling](https://arxiv.org/abs/2606.18910)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.96）
+- [Neglected Free Lunch from Post-training: Progress Advantage for LLM Agents](https://arxiv.org/abs/2606.26080)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.95）
 - [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.95）
 - [A Mixed-Reality Testbed for Autonomous Vehicles](https://arxiv.org/abs/2606.19267v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.95）
-- [HoloAgent-0: A Unified Embodied Agent Framework with 3D Spatial Memory](https://arxiv.org/abs/2606.23565v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，score 0.95）
 
 ## 分方向趋势
 - Agent / Reasoning / Inference-time Scaling / Planning：707 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、cs.LG、inference。
@@ -39,7 +39,7 @@
   - [Humans' ALMANAC: A Human Collaboration Dataset of Action-Level Mental Model Annotations for Agent Collaboration](https://arxiv.org/abs/2606.06388v1)
   - [Agentic Environment Engineering for Large Language Models: A Survey of Environment Modeling, Synthesis, Evaluation, and Application](https://arxiv.org/abs/2606.12191)
   - [SpatialWorld: Benchmarking Interactive Spatial Reasoning of Multimodal Agents in Real-World Tasks](https://arxiv.org/abs/2606.09669v1)
-- CV：388 条进入跟踪；高频信号：cs.CV、nlp、robotics、image、framework、diffusion、github、video。
+- CV：389 条进入跟踪；高频信号：cs.CV、nlp、robotics、image、framework、diffusion、github、video。
   - [PhaseWin: An Efficient Search Algorithm for Faithful Visual Attribution](https://arxiv.org/abs/2606.18008v1)
   - [UniDrive: A Unified Vision-Language and Grounding Framework for Interpretable Risk Understanding in Autonomous Driving](https://arxiv.org/abs/2606.24759v1)
   - [AnomalyAgent: Training-Free Agentic Models for Zero-/Few-Shot Anomaly Detection](https://arxiv.org/abs/2605.30140v1)
@@ -57,7 +57,7 @@
   - [Theory of learning of high-dimensional controlled non-linear dynamical systems (I): models and methods](https://arxiv.org/abs/2606.07247v1)
   - [MiniOpt: Reasoning to Model and Solve General Optimization Problems with Limited Resources](https://arxiv.org/abs/2606.25832v1)
   - [Monocular 3D Occupancy Perception for Robots on Sidewalks via Hybrid 2D-3D Learning](https://arxiv.org/abs/2606.19122v1)
-- NLP：293 条进入跟踪；高频信号：nlp、robotics、cs.CL、language model、framework、cs.LG、inference、corpus。
+- NLP：294 条进入跟踪；高频信号：nlp、robotics、cs.CL、language model、framework、cs.LG、inference、corpus。
   - [The Register Gap: A Meaning Intelligence Framework for Nigerian Public Discourse](https://arxiv.org/abs/2606.20255v1)
   - [Matching Tasks to Objectives: Fine-Tuning and Prompt-Tuning Strategies for Encoder-Decoder Pre-trained Language Models](https://arxiv.org/abs/2606.24841v1)
   - [Target-Side Paraphrase Augmentation for Sign Language Translation with Large Language Models](https://arxiv.org/abs/2605.31393v1)
@@ -93,7 +93,7 @@
   - [A Unified Causal-Origin Taxonomy of Distributional Shifts in Reinforcement Learning](https://arxiv.org/abs/2606.16933v1)
   - [Dual Distribution Estimation for Zero-shot Noisy Test-Time Adaptation with VLMs](https://arxiv.org/abs/2606.25758v1)
   - [Flow-based Policy Adaptation without Policy Updates](https://arxiv.org/abs/2606.06461v1)
-- Model Architecture：58 条进入跟踪；高频信号：architecture、attention、nlp、transformer、robotics、framework、cs.LG、inference。
+- Model Architecture：59 条进入跟踪；高频信号：architecture、attention、transformer、nlp、robotics、framework、cs.LG、inference。
   - [Scaling State-Space Models from Lines to Paragraphs: An Ablation of Mamba-based OCR](https://arxiv.org/abs/2606.23524v1)
   - [Tapered Language Models](https://arxiv.org/abs/2606.23670v1)
   - [HEPTv2: End-to-End Efficient Point Transformer for Charged Particle Reconstruction](https://arxiv.org/abs/2606.20437v1)
