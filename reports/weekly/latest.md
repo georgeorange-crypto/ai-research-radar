@@ -1,113 +1,115 @@
 # AI Research Radar Weekly - 2026-W27
 
 - 日期范围：2026-06-29 至 2026-07-05
-- 纳入日报：1 份
-- 跟踪条目：502；MUST_READ 3；SKIM 8；ARCHIVE 325
+- 纳入日报：2 份
+- 跟踪条目：663；MUST_READ 4；SKIM 14；ARCHIVE 396
 
 ## 本周最重要论文 / 动态
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.40）
+- [From Detection to Action: Using LLM Agents for Fault-Tolerant Control](https://arxiv.org/abs/2606.28011v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.97，global 0.35）
 - [Neglected Free Lunch from Post-training: Progress Advantage for LLM Agents](https://arxiv.org/abs/2606.26080)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.95，global 0.47）
 - [Proposal-Conditioned Latent Diffusion for Closed-Loop Traffic Scenario Generation](https://arxiv.org/abs/2606.27123v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.91，global 0.36）
+- [Whole-Body Conditioned Egocentric Video Prediction](http://bair.berkeley.edu/blog/2025/07/01/peva/)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.38）
+- [Directing the World: Fast Autoregressive Video Generation with Compositional Human-Camera Control](https://arxiv.org/abs/2606.27964v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96，global 0.36）
 - [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.95，global 0.38）
 - [E-TTS: A New Embodied Test-Time Scaling Framework for Robotic Manipulation](https://arxiv.org/abs/2606.27268v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.94，global 0.35）
 - [Confidence-Aware Tool Orchestration for Robust Video Understanding](https://arxiv.org/abs/2606.26904)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.94，global 0.48）
+- [HumanMoveVQA: Can Video MLLMs reason about human movement in videos?](https://arxiv.org/abs/2606.27999v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.92，global 0.36）
 - [OPID: On-Policy Skill Distillation for Agentic Reinforcement Learning](https://arxiv.org/abs/2606.26790)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.91，global 0.50）
 - [PhysiFormer: Learning to Simulate Mechanics in World Space](https://arxiv.org/abs/2606.27364v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.91，global 0.36）
-- [Advancing Omnimodal Embodied Agents from Isolated Skills to Everyday Physical Autonomy](https://arxiv.org/abs/2606.27251v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.90，global 0.35）
-- [Information-Aware KV Cache Compression for Long Reasoning](https://arxiv.org/abs/2606.26875)（SKIM，Context Compression / Long Context / Memory，personal 0.84，global 0.47）
-- [Generative Models on Analog Hardware with Dynamics](https://arxiv.org/abs/2606.27294v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.80，global 0.43）
-- [OpenRCA 2.0: From Outcome Labels to Causal Process Supervision](https://arxiv.org/abs/2606.27154v1)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.98，global 0.36）
 
 ## 分方向趋势
-- Other Highlights：105 条进入跟踪；高频信号：robotics、systems、framework、cmu.edu、stanford.edu、nlp。
-  - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
-  - [Learning to Fold: prizewinning solution at LeHome Challenge 2026 (1st place online, 2nd offline)](https://arxiv.org/abs/2606.27163v1)
-  - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
-  - [Autoregressive Boltzmann Generators](https://arxiv.org/abs/2606.27361v1)
-  - [LA4VLA: Learning to Act without Seeing via Language-Action Pretraining](https://arxiv.org/abs/2606.27295v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：88 条进入跟踪；高频信号：framework、reasoning、nlp、robotics、language model、agentic。
+- Agent / Reasoning / Inference-time Scaling / Planning：123 条进入跟踪；高频信号：framework、nlp、reasoning、robotics、language model、evaluation。
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
+  - [From Detection to Action: Using LLM Agents for Fault-Tolerant Control](https://arxiv.org/abs/2606.28011v1)
   - [Neglected Free Lunch from Post-training: Progress Advantage for LLM Agents](https://arxiv.org/abs/2606.26080)
   - [Proposal-Conditioned Latent Diffusion for Closed-Loop Traffic Scenario Generation](https://arxiv.org/abs/2606.27123v1)
-  - [Gradient-based Planning for World Models at Longer Horizons](http://bair.berkeley.edu/blog/2026/04/20/grasp/)
-  - [E-TTS: A New Embodied Test-Time Scaling Framework for Robotic Manipulation](https://arxiv.org/abs/2606.27268v1)
-- Benchmark / Dataset / Evaluation：58 条进入跟踪；高频信号：evaluation、benchmark、dataset、framework、nlp、language model。
+  - [Whole-Body Conditioned Egocentric Video Prediction](http://bair.berkeley.edu/blog/2025/07/01/peva/)
+- Other Highlights：122 条进入跟踪；高频信号：robotics、framework、nlp、systems、stanford.edu、cmu.edu。
+  - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
+  - [PhysisForcing: Physics Reinforced World Simulator for Robotic Manipulation](https://arxiv.org/abs/2606.28128v1)
+  - [Unleashing Infinite Motion: Scaling Expressive Quadrupedal Motion via Generative Video Priors](https://arxiv.org/abs/2606.28237v1)
+  - [Learning to Fold: prizewinning solution at LeHome Challenge 2026 (1st place online, 2nd offline)](https://arxiv.org/abs/2606.27163v1)
+  - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
+- Benchmark / Dataset / Evaluation：80 条进入跟踪；高频信号：evaluation、benchmark、nlp、dataset、framework、robotics。
+  - [ToolPrivacyBench: Benchmarking Purpose-Bound Privacy in Tool-Using LLM Agents](https://arxiv.org/abs/2606.28061v1)
   - [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)
   - [CoffeeBench: Benchmarking Long-Horizon LLM Agents in Heterogeneous Multi-Agent Economies](https://arxiv.org/abs/2606.16613)
   - [Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments](https://arxiv.org/abs/2606.14397)
   - [MedAraBench: Large-scale Arabic Medical Question Answering Dataset and Benchmark](https://openreview.net/forum?id=1BXojAgNrg)
-  - [Video Action Differencing](https://openreview.net/forum?id=3bcN6xlO6f)
-- CV：52 条进入跟踪；高频信号：image、cs.CV、nlp、diffusion、framework、robotics。
+- CV：80 条进入跟踪；高频信号：cs.CV、nlp、image、framework、robotics、diffusion。
+  - [RSICCLLM: A Multimodal Large Language Model for Remote Sensing Image Change Captioning](https://arxiv.org/abs/2606.28266v1)
   - [Ask, Solve, Generate: Self-Evolving Unified Multimodal Understanding and Generation via Self-Consistency Rewards](https://arxiv.org/abs/2606.27376v1)
+  - [Understanding How MLLMs Describe Artworks Using Token Activation Maps](https://arxiv.org/abs/2606.27947v1)
+  - [Cross-view Multimodal Vision-Based Assessment Framework for Traditional Chinese Medicine Rehabilitation Training](https://arxiv.org/abs/2606.28104v1)
   - [Pseudo-Text-Conditioned 3D Grounding DINO for Organ Localization in Abdominal CT](https://arxiv.org/abs/2606.27084v1)
-  - [OctoSense: Self-Supervised Learning for Multimodal Robot Perception](https://arxiv.org/abs/2606.27317v1)
-  - [Paying More Attention to Visual Tokens in Self-Evolving Large Multimodal Models](https://arxiv.org/abs/2606.27373v1)
-  - [LISA: Likelihood Score Alignment for Visual-condition Controllable Generation](https://arxiv.org/abs/2606.27192v1)
-- Institutional Updates：42 条进入跟踪；高频信号：nvidia.com、anthropic.com、deepmind.google、openai.com、microsoft.com、research.google。
-  - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
-  - [Understanding the brain with AI-driven explanations and experiments](https://www.microsoft.com/en-us/research/blog/understanding-the-brain-with-ai-driven-explanations-and-experiments/)
-  - [How agents are transforming work](https://openai.com/index/how-agents-are-transforming-work)
-  - [How GPT-5 helped immunologist Derya Unutmaz solve a 3-year-old mystery](https://openai.com/index/gpt-5-immunology-mystery)
-  - [Codex-maxxing for long-running work](https://openai.com/index/codex-maxxing-long-running-work)
-- Learning Methods / Optimization / Representation Learning：38 条进入跟踪；高频信号：optimization、gradient、nlp、cs.LG、robotics、framework。
+- Learning Methods / Optimization / Representation Learning：58 条进入跟踪；高频信号：nlp、cs.LG、robotics、gradient、optimization、framework。
   - [Stochastic Gradient Optimization with Model-Assisted Sampling](https://arxiv.org/abs/2606.27171v1)
+  - [Curriculum-guided Change Detection Training: Toward Accurate Serac Fall Monitoring](https://arxiv.org/abs/2606.28012v1)
+  - [Dangerous Liaisons of Convex Learning and Non-Affine Aggregation](https://arxiv.org/abs/2606.28123v1)
+  - [Beyond Sparse Supervision: Diffusion-Guided Learning for Few-Shot Graph Fraud Detection](https://arxiv.org/abs/2606.28134v1)
   - [DMuon: Efficient Distributed Muon Training with Near-Adam Overhead](https://arxiv.org/abs/2606.27153v1)
-  - [Hierarchical Muon: Tiled Newton-Schulz Updates for Efficient Muon Optimization](https://arxiv.org/abs/2606.27216v1)
-  - [Parametric Open Source Games](https://arxiv.org/abs/2606.27068v1)
-  - [Error-Conditioned Neural Solvers](https://arxiv.org/abs/2606.27354v1)
-- NLP：34 条进入跟踪；高频信号：nlp、language model、robotics、cs.CL、framework、princeton。
-  - [The Geometry of Updates: Fisher Alignment at Vocabulary Scale](https://arxiv.org/abs/2606.27242v1)
-  - [Mapping Political-Elite Networks in Europe with a Multilingual Joint Entity-Relation Extraction Pipeline](https://arxiv.org/abs/2606.27347v1)
-  - [LMs as Task-Specific Knowledge Bases: An Interpretability Analysis](https://arxiv.org/abs/2606.27237v1)
-  - [How Surprising Is Historical Italian to Language Models? Tokenization Tax, Comprehension Tax, and a Simple Mitigation](https://arxiv.org/abs/2606.27275v1)
-  - [From Text to Talk: Audio-Language Model Needs Non-Autoregressive Joint Training](https://openreview.net/forum?id=e3XLWHFrnr)
-- GitHub / Open Source Projects：23 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、language model。
+- NLP：52 条进入跟踪；高频信号：nlp、robotics、language model、cs.CL、framework、cs.LG。
+  - [Dialogue to Detection: A Multimodal Hybrid NLP Pipeline for Insurance Fraud Detection](https://arxiv.org/abs/2606.28002v1)
+  - [Verifiable Geometry Problem Solving: Solver-Driven Autoformalization and Theorem Proposing](https://arxiv.org/abs/2606.27926v1)
+  - [Cognitive Episodes in LLM Reasoning Traces Enable Interpretable Human Item Difficulty Prediction](https://arxiv.org/abs/2606.28186v1)
+  - [From Tokens to States: LLMs as a Special Case of World Models and the Continuous Path Beyond](https://arxiv.org/abs/2606.28127v1)
+  - [HPRO: Hierarchical Progressive Reward Optimization via Preference Extraction for Emotional Text-to-Speech](https://arxiv.org/abs/2606.28249v1)
+- Institutional Updates：46 条进入跟踪；高频信号：nvidia.com、anthropic.com、openai.com、deepmind.google、microsoft.com、research.google。
+  - [HP Inc. launches Frontier strategic partnership with OpenAI](https://openai.com/index/hp-frontier-partnership)
+  - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
+  - [Memora: A Harmonic Memory Representation Balancing Abstraction and Specificity](https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/)
+  - [Understanding the brain with AI-driven explanations and experiments](https://www.microsoft.com/en-us/research/blog/understanding-the-brain-with-ai-driven-explanations-and-experiments/)
+  - [From Brain Waves to Words: Brain2Qwerty Offers a New Path to Communication Without Surgery](https://ai.meta.com/blog/brain2qwerty-brain-ai-human-communication/)
+- GitHub / Open Source Projects：27 条进入跟踪；高频信号：github、github.com、open-source、framework、language model、inference。
+  - [Parameter Efficient Hybrid Transformer (PEHT) for Network Traffic Prediction via Dynamic Urban Congestion Integration](https://arxiv.org/abs/2606.28274v1)
+  - [Boundary-Aware Context Grounding for A Low-Channel EEG Agent](https://arxiv.org/abs/2606.26519)
   - [lambda-calculus-LLM/lambda-RLM](https://github.com/lambda-calculus-LLM/lambda-RLM)
   - [Chirsycy/CRPD-PCP](https://github.com/Chirsycy/CRPD-PCP)
   - [TeleAI-UAGI/Awesome-Agent-Memory](https://github.com/TeleAI-UAGI/Awesome-Agent-Memory)
-  - [thu-coai/Glyph](https://github.com/thu-coai/Glyph)
-  - [yangyangyang127/PointCLIP_V2](https://github.com/yangyangyang127/PointCLIP_V2)
 - Model Architecture：19 条进入跟踪；高频信号：architecture、attention、framework、transformer、inference、encoder-decoder。
   - [Self-Supervised Learning of Graph Representations for Network Intrusion Detection](https://openreview.net/forum?id=5bu1IOOvf0)
   - [SubdivAR: Autoregressive Next-Scale Prediction for Neural Mesh Subdivision](https://arxiv.org/abs/2606.27088v1)
   - [Geometric Context Transformer for Streaming 3D Reconstruction](https://arxiv.org/abs/2604.14141)
   - [Structured Sparse Transition Matrices to Enable State Tracking in State-Space Models](https://openreview.net/forum?id=RDbuSCWhad)
   - [Transformers as Unsupervised Learning Algorithms: A study on Gaussian Mixtures](https://openreview.net/forum?id=4hKNGmjXVQ)
-- Context Compression / Long Context / Memory：13 条进入跟踪；高频信号：framework、long-context、attention、language model、inference、KV cache。
+- Context Compression / Long Context / Memory：15 条进入跟踪；高频信号：long-context、attention、inference、language model、framework、KV cache。
+  - [Simplified Sparse Attention via Gist Tokens](https://arxiv.org/abs/2604.20920)
   - [Information-Aware KV Cache Compression for Long Reasoning](https://arxiv.org/abs/2606.26875)
   - [Q-RAG: Long Context Multi‑Step Retrieval via Value‑Based Embedder Training](https://openreview.net/forum?id=MS9nWFY7LG)
   - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
   - [LMCache: An Efficient KV Cache Layer for Enterprise-Scale LLM Inference](https://arxiv.org/abs/2510.09665)
-  - [The Spec Growth Engine: Spec-Anchored, Code-Coupled, Drift-Enforced Architecture for AI-Assisted Software Development](https://arxiv.org/abs/2606.27045v1)
-- Novel Class Discovery / Open-World Learning / OOD / Continual Learning：11 条进入跟踪；高频信号：clustering、out-of-distribution、generalization、framework、continual learning、image。
+- Novel Class Discovery / Open-World Learning / OOD / Continual Learning：15 条进入跟踪；高频信号：clustering、framework、nlp、robotics、generalization、continual learning。
   - [Data-Free Reservoir Features for Efficient Long-Horizon Cold-Start Continual Learning](https://arxiv.org/abs/2606.27095v1)
+  - [Qwen-RobotManip Technical Report: Alignment Unlocks Scale for Robotic Manipulation Foundation Models](https://arxiv.org/abs/2606.17846)
   - [Spilling the Beans: Teaching LLMs to Self-Report Their Hidden Objectives](https://openreview.net/forum?id=sWs0cCuM8I)
+  - [DG^VoiC: Speaker Clustering for Fraud Investigation under Real Call-Centre Conditions](https://arxiv.org/abs/2606.28048v1)
   - [Compositional Generalization via Forced Rendering of Disentangled Latents](https://openreview.net/forum?id=rkHCHI5H5W)
-  - [KGMark: A Diffusion Watermark for Knowledge Graphs](https://openreview.net/forum?id=GKZySvM2t9)
-  - [Task Tokens: A Flexible Approach to Adapting Behavior Foundation Models](https://openreview.net/forum?id=6T3wJQhvc3)
-- RL：11 条进入跟踪；高频信号：framework、nlp、reinforcement learning、rl、optimization、robotics。
+- RL：13 条进入跟踪；高频信号：reinforcement learning、nlp、rl、framework、cs.LG、optimization。
   - [Designing Reward Signals for Portable Query Generation: A Case Study in Industrial Semantic Job Search](https://arxiv.org/abs/2606.27291v1)
   - [Improving General Role-Playing Agents via Psychology-Grounded Reasoning and Role-Aware Policy Optimization](https://arxiv.org/abs/2606.27025v1)
   - [Paved with True Intents: Intent-Aware Training Improves LLM Safety Classification Across Training Regimes](https://arxiv.org/abs/2606.27210v1)
+  - [Two-Stage Fine-Tuning for Protein Sequence Generation with Targeted Amino-Acid Composition](https://arxiv.org/abs/2606.27939v1)
   - [Reinforcement Learning without Ground-Truth Solutions can Improve LLMs](https://arxiv.org/abs/2606.27369v1)
-  - [ComaDICE: Offline Cooperative Multi-Agent Reinforcement Learning with Stationary Distribution Shift Regularization](https://openreview.net/forum?id=5o9JJJPPm6)
-- Model Distillation / Model Compression / Efficient Training：8 条进入跟踪；高频信号：framework、language model、distillation、nlp、github、inference。
+- Model Distillation / Model Compression / Efficient Training：12 条进入跟踪；高频信号：framework、nlp、distillation、github、inference、cs.LG。
   - [Lite Any Stereo V2: Faster and Stronger Efficient Zero-Shot Stereo Matching](https://arxiv.org/abs/2606.24457)
+  - [RPM-Distill: Physiology-guided Adaptive Cross-modal Distillation for Robust Remote Physiological Measurement](https://arxiv.org/abs/2606.28089v1)
+  - [MLVC: Multi-platform Learned Video Codec for Real-World Deployment](https://arxiv.org/abs/2606.28027v1)
   - [Q-Palette: Fractional-Bit Quantizers Toward Optimal Bit Allocation for Efficient LLM Deployment](https://openreview.net/forum?id=l4F50jpiVH)
   - [DanceOPD: On-Policy Generative Field Distillation](https://arxiv.org/abs/2606.27377v1)
-  - [Speaker Identity in Non-Verbal Vocalizations: Conditional Distillation and Mixture of Experts Approach](https://arxiv.org/abs/2606.21215)
-  - [Common Corpus: The Largest Collection of Ethical Data for LLM Pre-Training](https://openreview.net/forum?id=0wSlFpMsGb)
+- Classic Papers Revisited：1 条进入跟踪；高频信号：foundational、meta.com。
+  - [Our approach](https://ai.meta.com/about)
 
 ## GitHub / Open-source Projects
 - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 204956）
-- [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（GitHub / Open Source Projects，stars 140407）
+- [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（GitHub / Open Source Projects，stars 140513）
 - [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)（GitHub / Open Source Projects，stars 115950）
 - [browser-use/browser-use](https://github.com/browser-use/browser-use)（GitHub / Open Source Projects，stars 101152）
 - [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)（GitHub / Open Source Projects，stars 89439）
 
 ## 下周跟踪建议
-- 继续跟踪 Other Highlights：本周最强信号是 [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)。
 - 继续跟踪 Agent / Reasoning / Inference-time Scaling / Planning：本周最强信号是 [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)。
-- 继续跟踪 Benchmark / Dataset / Evaluation：本周最强信号是 [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)。
-- 继续跟踪 CV：本周最强信号是 [Ask, Solve, Generate: Self-Evolving Unified Multimodal Understanding and Generation via Self-Consistency Rewards](https://arxiv.org/abs/2606.27376v1)。
-- 继续跟踪 Institutional Updates：本周最强信号是 [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)。
+- 继续跟踪 Other Highlights：本周最强信号是 [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)。
+- 继续跟踪 Benchmark / Dataset / Evaluation：本周最强信号是 [ToolPrivacyBench: Benchmarking Purpose-Bound Privacy in Tool-Using LLM Agents](https://arxiv.org/abs/2606.28061v1)。
+- 继续跟踪 CV：本周最强信号是 [RSICCLLM: A Multimodal Large Language Model for Remote Sensing Image Change Captioning](https://arxiv.org/abs/2606.28266v1)。
+- 继续跟踪 Learning Methods / Optimization / Representation Learning：本周最强信号是 [Stochastic Gradient Optimization with Model-Assisted Sampling](https://arxiv.org/abs/2606.27171v1)。
