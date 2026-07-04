@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-07
 
-- 纳入日报：4 份
-- 跟踪条目：861；MUST_READ 10；SKIM 30；ARCHIVE 356
+- 纳入日报：5 份
+- 跟踪条目：867；MUST_READ 10；SKIM 30；ARCHIVE 359
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,13 +33,13 @@
   - [What LLM Agents Say When No One Is Watching: Social Structure and Latent Objective Emergence in Multi-Agent Debates](https://arxiv.org/abs/2607.02507v1)
   - [Self-Evolving World Models for LLM Agent Planning](https://arxiv.org/abs/2606.30639v1)
   - [Theory of Mind and Persuasion Beyond Conversation: Assessing the Capacity of LLMs to Induce Belief States via Planning and Action](https://arxiv.org/abs/2606.31916v1)
-- CV：131 条进入跟踪；高频信号：cs.CV、nlp、robotics、framework、image、github、visual、diffusion。
+- CV：132 条进入跟踪；高频信号：cs.CV、nlp、robotics、framework、image、github、visual、diffusion。
   - [GenAU: Language-Grounded Industrial Anomaly Understanding with Vision-Language Models](https://arxiv.org/abs/2607.01049v1)
   - [ERA: Entropy-Guided Visual Token Pruning with Rectified Attention for Efficient MLLMs](https://arxiv.org/abs/2606.31982v1)
   - [Alignment Is All You Need For X-to-4D Generation](https://arxiv.org/abs/2607.02516v1)
   - [Towards Robustness against Typographic Attack with Training-free Concept Localization](https://arxiv.org/abs/2607.02494v1)
   - [Reasoning LLM Improves Speaker Recognition in Long-form TV Dramas](https://arxiv.org/abs/2607.02504v1)
-- Other Highlights：131 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference、robot、stanford.edu。
+- Other Highlights：132 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference、robot、stanford.edu。
   - [Vision-Language-Action Models: Experimental Insights from a Real-World UR5 Platform](https://arxiv.org/abs/2606.30456v1)
   - [Embodied.cpp: A Portable Inference Runtime of Embodied AI Models on Heterogeneous Robots](https://arxiv.org/abs/2607.02501v1)
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
@@ -69,13 +69,13 @@
   - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
   - [SkillOpt: Agent skills as trainable parameters](https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/)
   - [How ChatGPT adoption has expanded](https://openai.com/index/how-chatgpt-adoption-has-expanded)
-- GitHub / Open Source Projects：26 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、long-context、language model、library。
+- GitHub / Open Source Projects：29 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、long-context、attention、language model。
   - [PedNStream: Scalable Network Flow Simulation for Pedestrian Traffic Management](https://arxiv.org/abs/2607.01021v1)
   - [lambda-calculus-LLM/lambda-RLM](https://github.com/lambda-calculus-LLM/lambda-RLM)
   - [Chirsycy/CRPD-PCP](https://github.com/Chirsycy/CRPD-PCP)
   - [TeleAI-UAGI/Awesome-Agent-Memory](https://github.com/TeleAI-UAGI/Awesome-Agent-Memory)
   - [thu-coai/Glyph](https://github.com/thu-coai/Glyph)
-- Model Architecture：21 条进入跟踪；高频信号：attention、architecture、nlp、robotics、transformer、cs.LG、framework、systems。
+- Model Architecture：22 条进入跟踪；高频信号：attention、architecture、nlp、robotics、transformer、framework、cs.LG、systems。
   - [MuonSSM: Orthogonalizing State Space Models for Sequence Modeling](https://arxiv.org/abs/2606.30461v1)
   - [FaceMoE: Mixture of Experts for Low-Resolution Face Recognition](https://arxiv.org/abs/2606.32040v1)
   - [Transformer Architectures as Complete Bayes Processes: A Formal Proof in the Measure-Theoretic Kernel Framework](https://arxiv.org/abs/2606.30440v1)

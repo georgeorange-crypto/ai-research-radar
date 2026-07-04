@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W27
 
 - 日期范围：2026-06-29 至 2026-07-05
-- 纳入日报：6 份
-- 跟踪条目：1291；MUST_READ 13；SKIM 44；ARCHIVE 574
+- 纳入日报：7 份
+- 跟踪条目：1295；MUST_READ 13；SKIM 44；ARCHIVE 577
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 1.00，global 0.55）
@@ -25,7 +25,7 @@
   - [From Detection to Action: Using LLM Agents for Fault-Tolerant Control](https://arxiv.org/abs/2606.28011v1)
   - [What LLM Agents Say When No One Is Watching: Social Structure and Latent Objective Emergence in Multi-Agent Debates](https://arxiv.org/abs/2607.02507v1)
   - [Self-Evolving World Models for LLM Agent Planning](https://arxiv.org/abs/2606.30639v1)
-- CV：201 条进入跟踪；高频信号：cs.CV、nlp、robotics、framework、image、diffusion。
+- CV：202 条进入跟踪；高频信号：cs.CV、nlp、robotics、framework、image、diffusion。
   - [GenAU: Language-Grounded Industrial Anomaly Understanding with Vision-Language Models](https://arxiv.org/abs/2607.01049v1)
   - [ERA: Entropy-Guided Visual Token Pruning with Rectified Attention for Efficient MLLMs](https://arxiv.org/abs/2606.31982v1)
   - [Alignment Is All You Need For X-to-4D Generation](https://arxiv.org/abs/2607.02516v1)
@@ -37,7 +37,7 @@
   - [FingerTip 20K: A Benchmark for Proactive and Personalized Mobile LLM Agents](https://openreview.net/forum?id=n3iFV0gLMc)
   - [CoffeeBench: Benchmarking Long-Horizon LLM Agents in Heterogeneous Multi-Agent Economies](https://arxiv.org/abs/2606.16613)
   - [QVal: Cheaply Evaluating Dense Supervision Signals for Long-Horizon LLM Agents](https://arxiv.org/abs/2606.32034v1)
-- Other Highlights：170 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference。
+- Other Highlights：171 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference。
   - [Vision-Language-Action Models: Experimental Insights from a Real-World UR5 Platform](https://arxiv.org/abs/2606.30456v1)
   - [Embodied.cpp: A Portable Inference Runtime of Embodied AI Models on Heterogeneous Robots](https://arxiv.org/abs/2607.02501v1)
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
@@ -61,7 +61,7 @@
   - [Isambard-AI, the UK's Most Powerful AI Supercomputer, Goes Live](https://blogs.nvidia.com/blog/isambard-ai/)
   - [SkillOpt: Agent skills as trainable parameters](https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/)
   - [Memora: A Harmonic Memory Representation Balancing Abstraction and Specificity](https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/)
-- Model Architecture：32 条进入跟踪；高频信号：attention、architecture、transformer、framework、nlp、robotics。
+- Model Architecture：33 条进入跟踪；高频信号：attention、architecture、transformer、framework、nlp、robotics。
   - [MuonSSM: Orthogonalizing State Space Models for Sequence Modeling](https://arxiv.org/abs/2606.30461v1)
   - [FaceMoE: Mixture of Experts for Low-Resolution Face Recognition](https://arxiv.org/abs/2606.32040v1)
   - [Transformer Architectures as Complete Bayes Processes: A Formal Proof in the Measure-Theoretic Kernel Framework](https://arxiv.org/abs/2606.30440v1)
@@ -73,7 +73,7 @@
   - [SpikeLogBERT: Energy-Efficient Log Parsing Using Spiking Transformer Networks](https://arxiv.org/abs/2606.31781v1)
   - [Little Brains, Big Feats: Exploring Compact Language Models](https://arxiv.org/abs/2606.30062)
   - [DuoMem: Towards Capable On-Device Memory Agents via Dual-Space Distillation](https://arxiv.org/abs/2606.29961)
-- GitHub / Open Source Projects：30 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、language model。
+- GitHub / Open Source Projects：31 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、implementation。
   - [Parameter Efficient Hybrid Transformer (PEHT) for Network Traffic Prediction via Dynamic Urban Congestion Integration](https://arxiv.org/abs/2606.28274v1)
   - [PedNStream: Scalable Network Flow Simulation for Pedestrian Traffic Management](https://arxiv.org/abs/2607.01021v1)
   - [Boundary-Aware Context Grounding for A Low-Channel EEG Agent](https://arxiv.org/abs/2606.26519)
