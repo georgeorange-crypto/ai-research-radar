@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-07
 
-- 纳入日报：5 份
-- 跟踪条目：867；MUST_READ 10；SKIM 30；ARCHIVE 359
+- 纳入日报：6 份
+- 跟踪条目：870；MUST_READ 10；SKIM 30；ARCHIVE 361
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [MOAR Planner: Multi-Objective and Adaptive Risk-Aware Path Planning for Infrastructure Inspection with a UAV](https://arxiv.org/abs/2606.30575v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.90）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：195 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、cs.LG、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：196 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、cs.LG、inference。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [What LLM Agents Say When No One Is Watching: Social Structure and Latent Objective Emergence in Multi-Agent Debates](https://arxiv.org/abs/2607.02507v1)
@@ -45,13 +45,13 @@
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
   - [Human-Centric Transferable Tactile Pre-Training for Dexterous Robotic Manipulation](https://arxiv.org/abs/2607.01067v1)
   - [ROSA: A Robotics Foundation Model Serving System for Robot Factories](https://arxiv.org/abs/2607.01088v1)
-- Benchmark / Dataset / Evaluation：111 条进入跟踪；高频信号：benchmark、evaluation、nlp、robotics、dataset、metrics、language model、cs.CV。
+- Benchmark / Dataset / Evaluation：112 条进入跟踪；高频信号：benchmark、evaluation、nlp、robotics、dataset、language model、metrics、cs.CV。
   - [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](https://arxiv.org/abs/2606.31179)
   - [QVal: Cheaply Evaluating Dense Supervision Signals for Long-Horizon LLM Agents](https://arxiv.org/abs/2606.32034v1)
   - [PACE: A Proxy for Agentic Capability Evaluation](https://arxiv.org/abs/2607.02032)
   - [OSWorld2.0: Benchmarking Computer Use Agents on Long-Horizon Real-World Tasks](https://arxiv.org/abs/2606.29537)
   - [SWE-INTERACT: Reimagining SWE Benchmarks as User-Driven Long-Horizon Coding Sessions](https://arxiv.org/abs/2606.30573v1)
-- NLP：75 条进入跟踪；高频信号：nlp、robotics、language model、cs.CL、framework、cs.LG、architecture、evaluation。
+- NLP：76 条进入跟踪；高频信号：nlp、robotics、language model、cs.CL、framework、cs.LG、architecture、evaluation。
   - [Understanding Large Language Models](https://arxiv.org/abs/2607.01006v1)
   - [BamiBERT: A New BERT-based Language Model for Vietnamese](https://arxiv.org/abs/2607.02259v1)
   - [Program-as-Weights: A Programming Paradigm for Fuzzy Functions](https://arxiv.org/abs/2607.02512v1)
@@ -113,7 +113,7 @@
 - [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（GitHub / Open Source Projects，stars 140585）
 - [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)（GitHub / Open Source Projects，stars 116146）
 - [browser-use/browser-use](https://github.com/browser-use/browser-use)（GitHub / Open Source Projects，stars 102012）
-- [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)（GitHub / Open Source Projects，stars 90013）
+- [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)（GitHub / Open Source Projects，stars 91066）
 - [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)（GitHub / Open Source Projects，stars 78850）
 - [deepseek-ai/DeepSeek-OCR](https://github.com/deepseek-ai/DeepSeek-OCR)（GitHub / Open Source Projects，stars 23477）
 - [cleanlab/cleanlab](https://github.com/cleanlab/cleanlab)（GitHub / Open Source Projects，stars 11539）
