@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-07
 
-- 纳入日报：11 份
-- 跟踪条目：1516；MUST_READ 19；SKIM 60；ARCHIVE 573
+- 纳入日报：12 份
+- 跟踪条目：1519；MUST_READ 19；SKIM 60；ARCHIVE 575
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [SpaCellAgent: A Self-Evolving LLM-Based Multi-Agent Framework for Trajectory Analysis](https://arxiv.org/abs/2607.07467v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 1.00）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：362 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、cs.LG、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：363 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、cs.LG、inference。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing](https://arxiv.org/abs/2607.08497v1)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
@@ -39,13 +39,13 @@
   - [Attribute Retrieving for Open-Vocabulary Endoscopic Compositional Referring Segmentation](https://arxiv.org/abs/2607.08397v1)
   - [Vision as Unified Multimodal Generation](https://arxiv.org/abs/2607.06560v1)
   - [Deep Learning for Semen Analysis in Male Infertility: Computer Vision, Multimodal Fusion, and Clinical Translation](https://arxiv.org/abs/2607.05311v1)
-- Benchmark / Dataset / Evaluation：219 条进入跟踪；高频信号：nlp、benchmark、evaluation、robotics、dataset、framework、cs.CV、language model。
+- Benchmark / Dataset / Evaluation：220 条进入跟踪；高频信号：nlp、benchmark、evaluation、robotics、dataset、framework、cs.CV、language model。
   - [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](https://arxiv.org/abs/2606.31179)
   - [AgentGym2: Benchmarking Large Language Model Agents in De-Idealized Real-World Environments](https://arxiv.org/abs/2607.05174v1)
   - [QVal: Cheaply Evaluating Dense Supervision Signals for Long-Horizon LLM Agents](https://arxiv.org/abs/2606.32034v1)
   - [PACE: A Proxy for Agentic Capability Evaluation](https://arxiv.org/abs/2607.02032)
   - [OSWorld2.0: Benchmarking Computer Use Agents on Long-Horizon Real-World Tasks](https://arxiv.org/abs/2606.29537)
-- Other Highlights：189 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference、cs.LG、robot。
+- Other Highlights：190 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference、cs.LG、robot。
   - [Vision-Language-Action Models: Experimental Insights from a Real-World UR5 Platform](https://arxiv.org/abs/2606.30456v1)
   - [Embodied.cpp: A Portable Inference Runtime of Embodied AI Models on Heterogeneous Robots](https://arxiv.org/abs/2607.02501v1)
   - [VLM-CASE: Vision-Language Model Enabled Context-Adaptive Safety Envelopes for Anticipatory Safe Autonomous Driving](https://arxiv.org/abs/2607.05180v1)

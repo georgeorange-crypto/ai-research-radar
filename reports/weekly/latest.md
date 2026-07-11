@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W28
 
 - 日期范围：2026-07-06 至 2026-07-12
-- 纳入日报：6 份
-- 跟踪条目：1039；MUST_READ 12；SKIM 39；ARCHIVE 457
+- 纳入日报：7 份
+- 跟踪条目：1042；MUST_READ 12；SKIM 39；ARCHIVE 459
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 1.00，global 0.49）
@@ -13,36 +13,36 @@
 - [What LLM Agents Say When No One Is Watching: Social Structure and Latent Objective Emergence in Multi-Agent Debates](https://arxiv.org/abs/2607.02507v1)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.96，global 0.36）
 - [ReContext: Recursive Evidence Replay as LLM Harness for Long-Context Reasoning](https://arxiv.org/abs/2607.02509v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.96，global 0.36）
 - [FreqDepthKV: Frequency-Guided Depth Sharing for Robust KV Cache Compression in Long-Context LLM Inference](https://arxiv.org/abs/2607.06519v1)（MUST_READ，Context Compression / Long Context / Memory，personal 0.94，global 0.39）
-- [CineMobile: On-Device Image-to-Video Diffusion for Cinematic Camera Motion Generation](https://arxiv.org/abs/2607.03803)（MUST_READ，Model Distillation / Model Compression / Efficient Training，personal 0.94，global 0.41）
+- [CineMobile: On-Device Image-to-Video Diffusion for Cinematic Camera Motion Generation](https://arxiv.org/abs/2607.03803)（MUST_READ，Model Distillation / Model Compression / Efficient Training，personal 0.94，global 0.42）
 - [HumAIN: Human-Aware Implicit Social Robot Navigation](https://arxiv.org/abs/2607.07357v1)（MUST_READ，Model Distillation / Model Compression / Efficient Training，personal 0.93，global 0.39）
 - [SeKV: Resolution-Adaptive KV Cache with Hierarchical Semantic Memory for Long-Context LLM Inference](https://arxiv.org/abs/2606.31145)（MUST_READ，Context Compression / Long Context / Memory，personal 0.92，global 0.43）
 - [Recursive Language Models Meet Uncertainty: The Surprising Effectiveness of Self-Reflective Program Search for Long Context](https://machinelearning.apple.com/research/self-reflective-program-search)（MUST_READ，Context Compression / Long Context / Memory，personal 0.91，global 0.41）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：238 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic。
+- Agent / Reasoning / Inference-time Scaling / Planning：239 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing](https://arxiv.org/abs/2607.08497v1)
   - [Light-Omni: Reflex over Reasoning in Agentic Video Understanding with Long-Term Memory](https://arxiv.org/abs/2607.05511)
   - [Cortex: A Bidirectionally Aligned Embodied Agent Framework for Long-horizon Manipulation](https://arxiv.org/abs/2607.05377v1)
   - [Single-Rollout Asynchronous Optimization for Agentic Reinforcement Learning](https://arxiv.org/abs/2607.07508v1)
-- Other Highlights：143 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference。
+- Other Highlights：144 条进入跟踪；高频信号：robotics、nlp、framework、cs.RO、systems、inference。
   - [Embodied.cpp: A Portable Inference Runtime of Embodied AI Models on Heterogeneous Robots](https://arxiv.org/abs/2607.02501v1)
   - [VLM-CASE: Vision-Language Model Enabled Context-Adaptive Safety Envelopes for Anticipatory Safe Autonomous Driving](https://arxiv.org/abs/2607.05180v1)
   - [RynnWorld-4D: 4D Embodied World Models for Robotic Manipulation](https://arxiv.org/abs/2607.06559v1)
   - [RynnWorld-Teleop: An Action-Conditioned World Model for Digital Teleoperation](https://arxiv.org/abs/2607.06558v1)
   - [Repurposing Protein Folding Models for Generation with Latent Diffusion](http://bair.berkeley.edu/blog/2025/04/08/plaid/)
+- Benchmark / Dataset / Evaluation：141 条进入跟踪；高频信号：nlp、benchmark、evaluation、robotics、dataset、framework。
+  - [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](https://arxiv.org/abs/2606.31179)
+  - [AgentGym2: Benchmarking Large Language Model Agents in De-Idealized Real-World Environments](https://arxiv.org/abs/2607.05174v1)
+  - [PACE: A Proxy for Agentic Capability Evaluation](https://arxiv.org/abs/2607.02032)
+  - [AUTOPILOT VQA: Benchmarking Vision-Language Models for Incident-Centric Dashcam Understanding](https://arxiv.org/abs/2607.08745v1)
+  - [EvoAgentBench: Benchmarking Agent Self-Evolution via Ability Transfer](https://arxiv.org/abs/2607.05202v1)
 - CV：141 条进入跟踪；高频信号：cs.CV、nlp、robotics、framework、image、language model。
   - [MedPMC: A Systematic Framework for Scaling High-Fidelity Medical Multimodal Data for Foundation Models](https://arxiv.org/abs/2607.07673v1)
   - [Attribute Retrieving for Open-Vocabulary Endoscopic Compositional Referring Segmentation](https://arxiv.org/abs/2607.08397v1)
   - [Vision as Unified Multimodal Generation](https://arxiv.org/abs/2607.06560v1)
   - [Deep Learning for Semen Analysis in Male Infertility: Computer Vision, Multimodal Fusion, and Clinical Translation](https://arxiv.org/abs/2607.05311v1)
   - [Generalized Synthetic Image Detection with Enhanced RGB-Noise Representation Learning](https://arxiv.org/abs/2607.06354v1)
-- Benchmark / Dataset / Evaluation：140 条进入跟踪；高频信号：nlp、benchmark、evaluation、robotics、dataset、framework。
-  - [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](https://arxiv.org/abs/2606.31179)
-  - [AgentGym2: Benchmarking Large Language Model Agents in De-Idealized Real-World Environments](https://arxiv.org/abs/2607.05174v1)
-  - [PACE: A Proxy for Agentic Capability Evaluation](https://arxiv.org/abs/2607.02032)
-  - [AUTOPILOT VQA: Benchmarking Vision-Language Models for Incident-Centric Dashcam Understanding](https://arxiv.org/abs/2607.08745v1)
-  - [EvoAgentBench: Benchmarking Agent Self-Evolution via Ability Transfer](https://arxiv.org/abs/2607.05202v1)
 - NLP：92 条进入跟踪；高频信号：nlp、robotics、cs.CL、language model、framework、cs.LG。
   - [Multimodal Voice Activity Projection for Turn-Taking in Social Robots with Voice-Activity-Related Pretrained Encoders](https://arxiv.org/abs/2607.07294v1)
   - [WordVoice: Explicit and Decoupled Multi-Dimensional Word-Level Control for LLM-Based TTS](https://arxiv.org/abs/2607.06461v1)
@@ -110,6 +110,6 @@
 ## 下周跟踪建议
 - 继续跟踪 Agent / Reasoning / Inference-time Scaling / Planning：本周最强信号是 [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)。
 - 继续跟踪 Other Highlights：本周最强信号是 [Embodied.cpp: A Portable Inference Runtime of Embodied AI Models on Heterogeneous Robots](https://arxiv.org/abs/2607.02501v1)。
-- 继续跟踪 CV：本周最强信号是 [MedPMC: A Systematic Framework for Scaling High-Fidelity Medical Multimodal Data for Foundation Models](https://arxiv.org/abs/2607.07673v1)。
 - 继续跟踪 Benchmark / Dataset / Evaluation：本周最强信号是 [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](https://arxiv.org/abs/2606.31179)。
+- 继续跟踪 CV：本周最强信号是 [MedPMC: A Systematic Framework for Scaling High-Fidelity Medical Multimodal Data for Foundation Models](https://arxiv.org/abs/2607.07673v1)。
 - 继续跟踪 NLP：本周最强信号是 [Multimodal Voice Activity Projection for Turn-Taking in Social Robots with Voice-Activity-Related Pretrained Encoders](https://arxiv.org/abs/2607.07294v1)。
