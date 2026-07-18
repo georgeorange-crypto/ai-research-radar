@@ -2,7 +2,7 @@
 
 - 日期范围：2026-07-13 至 2026-07-19
 - 纳入日报：6 份
-- 跟踪条目：1208；MUST_READ 12；SKIM 41；ARCHIVE 449
+- 跟踪条目：1212；MUST_READ 12；SKIM 41；ARCHIVE 453
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Agent / Reasoning / Inference-time Scaling / Planning，personal 1.00，global 0.44）
@@ -19,7 +19,7 @@
 - [LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget](https://arxiv.org/abs/2607.14952v1)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，personal 0.85，global 0.48）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：230 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、agentic、language model。
+- Agent / Reasoning / Inference-time Scaling / Planning：231 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、agentic、language model。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing](https://arxiv.org/abs/2607.08497v1)
   - [UniVR: Thinking in Visual Space for Unified Visual Reasoning](https://arxiv.org/abs/2607.12800v1)
@@ -37,7 +37,7 @@
   - [Are LLMs Ready for Scientific Discovery? A Capability-Oriented Benchmark for AI Scientists](https://arxiv.org/abs/2607.11079)
   - [AgentCompass: A Unified Evaluation Infrastructure for Agent Capabilities](https://arxiv.org/abs/2607.13705v1)
   - [AUTOPILOT VQA: Benchmarking Vision-Language Models for Incident-Centric Dashcam Understanding](https://arxiv.org/abs/2607.08745v1)
-- Other Highlights：112 条进入跟踪；高频信号：nlp、robotics、cs.RO、framework、systems、cs.LG。
+- Other Highlights：115 条进入跟踪；高频信号：nlp、robotics、cs.RO、framework、systems、cs.LG。
   - [A Self-Evolving Agent for Longitudinal Personal Health Management](https://arxiv.org/abs/2607.13940v1)
   - [TerraZero: Procedural Driving Simulation for Zero-Demonstration Self-Play at Scale](https://arxiv.org/abs/2607.13028v1)
   - [GigaWorld-Policy-0.5: A Faster and Stronger WAM Empowered by AutoResearch](https://arxiv.org/abs/2607.13960v1)
@@ -129,7 +129,7 @@
   - [Our approach](https://ai.meta.com/about)
 
 ## GitHub / Open-source Projects
-- [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 216618）
+- [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 216730）
 - [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（GitHub / Open Source Projects，stars 141603）
 - [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)（GitHub / Open Source Projects，stars 120736）
 - [browser-use/browser-use](https://github.com/browser-use/browser-use)（GitHub / Open Source Projects，stars 104400）

@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-07
 
 - 纳入日报：18 份
-- 跟踪条目：2331；MUST_READ 27；SKIM 94；ARCHIVE 769
+- 跟踪条目：2332；MUST_READ 27；SKIM 94；ARCHIVE 770
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [HumAIN: Human-Aware Implicit Social Robot Navigation](https://arxiv.org/abs/2607.07357v1)（MUST_READ，Model Distillation / Model Compression / Efficient Training，score 0.93）
 
 ## 分方向趋势
-- Agent / Reasoning / Inference-time Scaling / Planning：522 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、cs.RO、cs.LG。
+- Agent / Reasoning / Inference-time Scaling / Planning：523 条进入跟踪；高频信号：nlp、robotics、framework、reasoning、language model、agentic、cs.RO、cs.LG。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing](https://arxiv.org/abs/2607.08497v1)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
@@ -137,7 +137,7 @@
   - [Our approach](https://ai.meta.com/about)
 
 ## GitHub / 开源项目
-- [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 216618）
+- [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)（GitHub / Open Source Projects，stars 216730）
 - [langchain-ai/langchain](https://github.com/langchain-ai/langchain)（GitHub / Open Source Projects，stars 140585）
 - [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)（GitHub / Open Source Projects，stars 120736）
 - [browser-use/browser-use](https://github.com/browser-use/browser-use)（GitHub / Open Source Projects，stars 102012）

@@ -2,15 +2,17 @@
 
 - Profile: George Research Profile v2
 - Summary mode: single
-- Provider: kimi
-- Model: moonshot-v1-8k
+- Provider: local
+- Model: local fallback
 
-- LLM summary calls: 3
+- LLM summary calls: 0
 - Estimated cost: RMB 0.0 / 1.0
-- Last LLM error: provider=glm; model=glm-4.7-flash; base_url=https://open.bigmodel.cn/api/paas/v4; HTTP status=401; error={"error":{"code":"1000","message":"身份验证失败。"}}
-- provider_disabled: kimi, deepseek, glm
-- reason: kimi:unauthorized, deepseek:unauthorized, glm:unauthorized
+- Last LLM error: none
+- provider_disabled: none
+- reason: none
 
+
+> No API key was available; generated deterministic local fallback summaries.
 
 
 ## 0. Daily Overview
@@ -148,6 +150,7 @@
 
 ### Context / Memory
 - [Chat2Scenic: An Iterative RAG-Based Framework for Scenario Generation in Autonomous Driving](https://arxiv.org/abs/2607.14387) (WATCH; Context Compression / Long Context / Memory; personal=0.77; global=0.48; hype=0.00)
+- [LMCache: An Efficient KV Cache Layer for Enterprise-Scale LLM Inference](https://arxiv.org/abs/2510.09665) (WATCH; Context Compression / Long Context / Memory; personal=0.74; global=0.43; hype=0.00)
 
 ### Generic Agents / Reasoning
 - [BrainPilot: Automating Brain Discovery with Agentic Research](https://arxiv.org/abs/2607.15079v1) (WATCH; Agent / Reasoning / Inference-time Scaling / Planning; personal=0.87; global=0.42; hype=0.00)
@@ -306,7 +309,7 @@
 ##### 2. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-07-18T09:49:30+00:00
+- Published: 2026-07-18T15:18:42+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: AI Systems / HPC / Distributed Training & Inference, Agent Runtime / RL Infrastructure / Scheduling, Tool Library
 - Grounding level: repo README
@@ -371,7 +374,7 @@
 ##### 3. [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-07-18T06:28:39+00:00
+- Published: 2026-07-18T15:24:00+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: CV, Agent Runtime / RL Infrastructure / Scheduling, Other Highlights, Tool Library
 - Grounding level: repo README
@@ -502,18 +505,19 @@
 ## 13. Source Health
 
 - OpenReview: error (0 items) - Expecting value: line 1 column 1 (char 0)
-- GitHub AI Research Projects: time budget exhausted (16 items) - time budget exhausted after 16 items
+- GitHub AI Research Projects: time budget exhausted (24 items) - time budget exhausted after 24 items
+- The Batch by DeepLearning.AI: error (0 items) - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. Collection Notes
 
-- Generated at: 2026-07-18T10:03:23.845506+00:00
-- Source count: 33
-- Raw item count: 706
-- Dedup item count: 569
-- API requests total: 3
-- API requests by provider: deepseek:1, glm:1, kimi:1
+- Generated at: 2026-07-18T15:53:24.433458+00:00
+- Source count: 32
+- Raw item count: 699
+- Dedup item count: 562
+- API requests total: 0
+- API requests by provider: none
 - Cache hits: 0
-- Cache misses: 8
+- Cache misses: 0
 - Benchmark appendix: reports/appendix/2026-07-18-benchmarks.md
 
 - Report path: reports/daily/2026/07/2026-07-18.md
