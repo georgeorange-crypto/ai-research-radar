@@ -54,6 +54,42 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Secret safety check
+        shell: python
+        run: |
+          import pathlib
+          import re
+          import subprocess
+          import sys
+
+          tracked = subprocess.check_output(["git", "ls-files"], text=True).splitlines()
+          if ".env" in tracked:
+              print("::error::.env must not be tracked")
+              sys.exit(1)
+
+          pattern = re.compile(
+              r"sk-[A-Za-z0-9_-]{20,}|"
+              r"OPENAI_API_KEY=.+|DEEPSEEK_API_KEY=.+|"
+              r"KIMI_API_KEY=.+|GLM_API_KEY=.+|"
+              r"Bearer [A-Za-z0-9._-]{20,}"
+          )
+          hits = []
+          for name in tracked:
+              path = pathlib.Path(name)
+              if not path.is_file():
+                  continue
+              text = path.read_text(encoding="utf-8", errors="ignore")
+              for match in pattern.finditer(text):
+                  line = text.count("\n", 0, match.start()) + 1
+                  hits.append(f"{name}:{line}")
+          if hits:
+              print("::error::Potential secret material found in tracked files")
+              print("\n".join(hits))
+              sys.exit(1)
+
+      - name: Run tests
+        run: python -m pytest
+
       - name: Generate report
         run: python run.py
 
