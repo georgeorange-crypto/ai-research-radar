@@ -73,7 +73,14 @@ PAPER_TIERS = {"MUST_READ", "SKIM", "WATCH", "ARCHIVE", "IGNORE"}
 GITHUB_ACTIONS = {"study_code", "use_as_baseline", "read_readme", "save", "clone_and_run"}
 TIER_ORDER = ["IGNORE", "ARCHIVE", "WATCH", "SKIM", "MUST_READ"]
 CONTEXT_SECTION_IDS = {"context_compression_memory", "context_compression", "context_memory"}
-MAINLINE_SECTION_IDS = {"context_compression_memory", "context_compression", "agents", "open_world_learning", "model_distillation"}
+P0_TRACK_IDS = {
+    "ai_systems_hpc",
+    "gpu_data_path_storage",
+    "compression_reliability",
+    "agent_rl_infrastructure",
+    "embodied_world_models",
+}
+MAINLINE_SECTION_IDS = P0_TRACK_IDS | {"context_compression_memory", "context_compression", "agents", "open_world_learning", "model_distillation"}
 GROUNDING_LEVELS = {"title_only", "abstract_only", "full_text", "repo_readme"}
 GENERIC_MATCH_TERMS = {
     "benchmark",
@@ -124,8 +131,8 @@ TITLE_CATEGORY_OVERRIDES = [
     ),
     (
         "efficient serving for dynamic agent workflows",
-        "context_compression_memory",
-        ["Agent Infrastructure", "KV Cache", "Serving"],
+        "agent_rl_infrastructure",
+        ["Agent Infrastructure", "Serving", "Workflow Scheduling"],
     ),
     (
         "video action differencing",
@@ -172,12 +179,13 @@ TOP_OFFICIAL_RELEASE_HINTS = {
     "apple",
 }
 
-MUST_BUCKET_ORDER = ["context_memory", "agentic_planning", "distillation", "open_world"]
+MUST_BUCKET_ORDER = ["systems", "gpu_io", "compression", "agent_rl_infra", "embodied_world_models"]
 MUST_BUCKET_LABELS = {
-    "context_memory": "Context Compression / Agent Memory",
-    "agentic_planning": "Agent / Reasoning / RL",
-    "distillation": "Model Distillation / Compression / CV-VLM",
-    "open_world": "Open-World Learning / Novel Class Discovery",
+    "systems": "AI Systems / HPC",
+    "gpu_io": "GPU-Centric I/O / Networking / Storage",
+    "compression": "Compression / Reliability",
+    "agent_rl_infra": "Agent Runtime / RL Infrastructure",
+    "embodied_world_models": "Embodied Intelligence / VLA / World Models",
 }
 EVERGREEN_PROJECT_HINTS = {
     "langchain-ai/langchain",
@@ -203,7 +211,19 @@ def load_yaml(path: str | Path) -> dict[str, Any]:
 def load_radar_config(keywords_path: str | Path) -> dict[str, Any]:
     path = Path(keywords_path)
     config = load_yaml(path)
-    for sibling in ["scoring.yaml", "classics.yaml", "conferences.yaml", "institutions.yaml", "sources.yaml"]:
+    for sibling in [
+        "scoring.yaml",
+        "classics.yaml",
+        "conferences.yaml",
+        "institutions.yaml",
+        "sources.yaml",
+        "research_profile.yaml",
+        "associations.yaml",
+        "venues.yaml",
+        "organizations.yaml",
+        "people.yaml",
+        "feedback.yaml",
+    ]:
         sibling_path = path.parent / sibling
         if not sibling_path.exists():
             continue
@@ -214,10 +234,52 @@ def load_radar_config(keywords_path: str | Path) -> dict[str, Any]:
                 config["classification"] = merged
             elif key not in config:
                 config[key] = value
+            elif isinstance(config.get(key), list) and isinstance(value, list):
+                existing_ids = {
+                    row.get("id")
+                    for row in config[key]
+                    if isinstance(row, dict) and row.get("id")
+                }
+                config[key].extend(
+                    row
+                    for row in value
+                    if not (isinstance(row, dict) and row.get("id") in existing_ids)
+                )
+            elif isinstance(config.get(key), dict) and isinstance(value, dict):
+                config[key] = {**value, **config[key]}
     config["_source_registry"] = build_source_registry(config)
     config["_conference_registry"] = build_conference_registry(config)
     config["_institution_registry"] = build_institution_registry(config)
+    config["_config_warnings"] = validate_radar_config(config)
     return config
+
+
+def _ids(rows: Any) -> list[str]:
+    if not isinstance(rows, list):
+        return []
+    return [
+        str(row.get("id"))
+        for row in rows
+        if isinstance(row, dict) and row.get("id")
+    ]
+
+
+def validate_radar_config(config: dict[str, Any]) -> list[str]:
+    warnings: list[str] = []
+    for key in ["sections", "tracks", "sources", "venues", "organizations", "people", "associations"]:
+        ids = _ids(config.get(key))
+        duplicates = sorted({id_ for id_ in ids if ids.count(id_) > 1})
+        if duplicates:
+            warnings.append(f"duplicate ids in {key}: {', '.join(duplicates)}")
+    projects = config.get("projects") or {}
+    project_ids = set(projects.keys()) if isinstance(projects, dict) else set()
+    for track in config.get("tracks", []) or []:
+        if not isinstance(track, dict):
+            continue
+        for project_id in as_list(track.get("project_links")):
+            if project_id and project_id not in project_ids:
+                warnings.append(f"track {track.get('id')} references missing project {project_id}")
+    return warnings
 
 
 def load_json(path: str | Path) -> Any:
@@ -1218,7 +1280,37 @@ def title_matches(item: dict[str, Any], pattern: str) -> bool:
 
 
 def section_configs(config: dict[str, Any]) -> list[dict[str, Any]]:
-    sections = config.get("sections")
+    sections: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for track in config.get("tracks", []) or []:
+        if not isinstance(track, dict) or not track.get("id"):
+            continue
+        section = {
+            "id": track["id"],
+            "title": track.get("title", track["id"]),
+            "group": track.get("group", "primary_research"),
+            "order": track.get("order", 999),
+            "weight": track.get("weight", 1.0),
+            "terms": track.get("terms", []),
+            "strong_terms": track.get("strong_terms", []),
+            "supporting_terms": track.get("supporting_terms", []),
+            "cooccurrence_rules": track.get("cooccurrence_rules", []),
+            "context_gates": track.get("context_gates", {}),
+            "negative_context": track.get("negative_context", []),
+            "categories": track.get("arxiv_categories", []),
+            "must_read_bucket": track.get("must_read_bucket"),
+            "project_links": track.get("project_links", []),
+            "priority": track.get("priority"),
+        }
+        sections.append(section)
+        seen.add(str(track["id"]))
+    for section in config.get("sections") or []:
+        if not isinstance(section, dict) or not section.get("id"):
+            continue
+        if str(section["id"]) in seen:
+            continue
+        sections.append(section)
+        seen.add(str(section["id"]))
     if sections:
         return sorted(sections, key=lambda section: int(section.get("order", 999)))
 
@@ -1241,11 +1333,58 @@ def section_configs(config: dict[str, Any]) -> list[dict[str, Any]]:
 def score_section(item: dict[str, Any], section: dict[str, Any], text: str) -> tuple[float, list[str]]:
     hits: list[str] = []
     raw = 0.0
+    title = title_text(item)
+    negative_terms = [
+        str(term).lower()
+        for term in section.get("negative_context", []) or []
+    ]
+    if any(term_matches(term, text) or normalize_title(term) in title for term in negative_terms):
+        return 0.0, []
+
     for term in section.get("terms", []):
         term_lower = str(term).lower()
         if term_matches(term_lower, text):
             hits.append(str(term))
             raw += 1.0
+
+    strong_hits = 0
+    for term in section.get("strong_terms", []) or []:
+        term_lower = str(term).lower()
+        if term_matches(term_lower, title):
+            hits.append(str(term))
+            raw += 2.4
+            strong_hits += 1
+        elif term_matches(term_lower, text):
+            hits.append(str(term))
+            raw += 1.7
+            strong_hits += 1
+
+    supporting_hits = 0
+    for term in section.get("supporting_terms", []) or []:
+        term_lower = str(term).lower()
+        if term_matches(term_lower, text):
+            hits.append(str(term))
+            raw += 0.35
+            supporting_hits += 1
+
+    gate = section.get("context_gates") or {}
+    gate_terms = [str(term).lower() for term in as_list(gate.get("any") if isinstance(gate, dict) else gate)]
+    gate_passed = not gate_terms or any(term_matches(term, text) for term in gate_terms)
+    if supporting_hits and not strong_hits and not gate_passed:
+        raw *= 0.28
+
+    for rule in section.get("cooccurrence_rules", []) or []:
+        if not isinstance(rule, dict):
+            continue
+        all_terms = [str(term).lower() for term in as_list(rule.get("all"))]
+        any_terms = [str(term).lower() for term in as_list(rule.get("any"))]
+        none_terms = [str(term).lower() for term in as_list(rule.get("none"))]
+        all_ok = all(term_matches(term, text) for term in all_terms) if all_terms else True
+        any_ok = any(term_matches(term, text) for term in any_terms) if any_terms else True
+        none_ok = not any(term_matches(term, text) for term in none_terms)
+        if all_ok and any_ok and none_ok:
+            raw += float(rule.get("score", 1.0))
+            hits.extend(all_terms or any_terms)
 
     item_tags = {str(tag) for tag in item.get("tags", [])}
     for category in section.get("categories", []) or []:
@@ -1437,6 +1576,106 @@ def relevance_score(section_scores: dict[str, float], matched_terms: list[str], 
     term_bonus = min(0.18, 0.018 * len(matched_terms))
     group_bonus = 0.06 if section_group in {"core_focus", "primary_research"} else 0.0
     return max(0.0, min(1.0, base + term_bonus + group_bonus))
+
+
+def project_relevance_scores(item: dict[str, Any], config: dict[str, Any]) -> dict[str, float]:
+    projects = config.get("projects") or {}
+    if not isinstance(projects, dict):
+        return {}
+    text = item_text(item)
+    primary = primary_category_id(item)
+    result: dict[str, float] = {}
+    for project_id, project in projects.items():
+        if not isinstance(project, dict):
+            result[str(project_id)] = 0.0
+            continue
+        terms: list[str] = []
+        for key in ["terms", "methods", "problems"]:
+            terms.extend(str(term) for term in as_list(project.get(key)))
+        hits = sum(1 for term in terms if term_matches(term.lower(), text))
+        score = min(1.0, hits * 0.22)
+        for track in config.get("tracks", []) or []:
+            if isinstance(track, dict) and track.get("id") == primary and project_id in as_list(track.get("project_links")):
+                score += 0.22
+        result[str(project_id)] = round(clamp_score(score), 3)
+    return result
+
+
+def feedback_state(config: dict[str, Any]) -> dict[str, Any]:
+    feedback_config = config.get("feedback") or {}
+    event_log = Path(str(feedback_config.get("event_log") or "data/feedback/events.jsonl"))
+    state = {
+        "item_scores": Counter(),
+        "track_scores": Counter(),
+        "project_scores": Counter(),
+        "muted_sources": set(),
+        "muted_authors": set(),
+        "muted_topics": set(),
+        "follow_authors": set(),
+        "follow_institutions": set(),
+        "follow_venues": set(),
+    }
+    if not event_log.exists():
+        return state
+    positive = feedback_config.get("positive_events") or {}
+    negative = feedback_config.get("negative_events") or {}
+    half_life = float(feedback_config.get("half_life_days") or 45)
+    now = datetime.now(timezone.utc)
+    try:
+        rows = load_jsonl(event_log)
+    except OSError:
+        return state
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        event = str(row.get("event") or "")
+        timestamp = parse_date(row.get("timestamp"))
+        age_days = max(0.0, (now - timestamp).total_seconds() / 86400) if timestamp else 0.0
+        decay = 0.5 ** (age_days / half_life) if half_life > 0 else 1.0
+        weight = float(row.get("weight") or 1.0) * decay
+        item_id = str(row.get("item_id") or "")
+        track_id = str(row.get("track_id") or "")
+        project_id = str(row.get("project_id") or "")
+        if event in positive:
+            delta = float(positive[event]) * weight
+        elif event in negative:
+            delta = -float(negative[event]) * weight
+        else:
+            delta = 0.0
+        if item_id and delta:
+            state["item_scores"][item_id] += delta
+        if track_id and delta:
+            state["track_scores"][track_id] += delta * 0.35
+        if project_id and delta:
+            state["project_scores"][project_id] += delta * 0.35
+        if event == "muted_source" and row.get("source_id"):
+            state["muted_sources"].add(str(row["source_id"]))
+        if event == "muted_author" and row.get("author_id"):
+            state["muted_authors"].add(str(row["author_id"]))
+        if event == "muted_topic" and row.get("track_id"):
+            state["muted_topics"].add(str(row["track_id"]))
+        if event == "follow_author" and row.get("author_id"):
+            state["follow_authors"].add(str(row["author_id"]))
+        if event == "follow_institution" and row.get("institution_id"):
+            state["follow_institutions"].add(str(row["institution_id"]))
+        if event == "follow_venue" and row.get("venue_id"):
+            state["follow_venues"].add(str(row["venue_id"]))
+    return state
+
+
+def feedback_score_for_item(item: dict[str, Any], config: dict[str, Any]) -> float:
+    state = config.setdefault("_feedback_state", feedback_state(config))
+    item_id = str(item.get("id") or "")
+    primary_id = primary_category_id(item)
+    source_id = str(item.get("source", {}).get("id") or "")
+    if source_id in state["muted_sources"] or primary_id in state["muted_topics"]:
+        item["feedback_filtered"] = True
+        return -1.0
+    score = float(state["item_scores"].get(item_id, 0.0))
+    score += float(state["track_scores"].get(primary_id, 0.0))
+    for project_id, value in (item.get("project_relevance") or {}).items():
+        score += float(state["project_scores"].get(project_id, 0.0)) * float(value)
+    return clamp_score((score + 1.0) / 2.0) if score else 0.0
 
 
 def score_rank_key(item: dict[str, Any]) -> tuple[float, float, float]:
@@ -1656,6 +1895,14 @@ def composite_scores(
         "method_relevance": method_relevance,
         "project_relevance": project_relevance,
         "learning_value": learning_value,
+        "track_relevance": research_relevance,
+        "systems_relevance": research_relevance,
+        "embodied_relevance": research_relevance,
+        "source_credibility": credibility,
+        "journal_signal": conference_signal,
+        "scholar_signal": authority_signal,
+        "citation_signal": multi_source_confirmation_score,
+        "feedback_score": 0.5,
     }
     global_score = weighted_score(values, config.get("global_score_weights", {}))
     personal_score = weighted_score(values, config.get("personal_score_weights", {}))
@@ -1706,7 +1953,10 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     conference_signal = conference_payload["conference_signal"]
     authority_score = max(institution_signal, conference_signal, institution_payload["source_authority_score"])
     method_relevance = clamp_score(research_relevance + min(0.16, 0.025 * len(section_terms)))
-    project_relevance = clamp_score(actionability * 0.58 + research_relevance * 0.42)
+    project_relevance_map = project_relevance_scores(item, config)
+    project_relevance = max(project_relevance_map.values(), default=0.0)
+    if project_relevance <= 0:
+        project_relevance = clamp_score(actionability * 0.30 + research_relevance * 0.30)
     learning_value = clamp_score(evidence_strength * 0.45 + credibility * 0.30 + novelty * 0.25)
     if item_link_quality == "low":
         credibility = clamp_score(credibility - 0.25)
@@ -1722,6 +1972,7 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         actionability=actionability,
         multi_source=multi_source_payload["score"],
     )
+    feedback_score = feedback_score_for_item(item, config)
     global_score, personal_score = composite_scores(
         research_relevance=research_relevance,
         novelty=novelty,
@@ -1742,6 +1993,11 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         negative=negative,
         config=config,
     )
+    if feedback_score < 0:
+        global_score = 0.0
+        personal_score = 0.0
+    else:
+        personal_score = clamp_score(personal_score + feedback_score * 0.08)
 
     primary_category = {
         "id": section_id,
@@ -1789,6 +2045,13 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         item.get("source", {}).get("requires_primary_source_check")
         or all_source_roles(item).intersection({"community", "chinese_context", "discovery"})
     )
+    item["track_relevance"] = {
+        key: round(value, 3)
+        for key, value in section_scores.items()
+        if key in {str(track.get("id")) for track in config.get("tracks", []) if isinstance(track, dict)}
+    }
+    item["project_relevance"] = project_relevance_map
+    item["source_provenance"] = item_sources(item)
     item["quality_flags"] = {
         "negative_terms": negative,
         "missing_url": not bool(item.get("url")),
@@ -1821,6 +2084,8 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
         "project_relevance": round(project_relevance, 3),
         "learning_value": round(learning_value, 3),
         "hype_risk": round(hype_risk, 3),
+        "topic_drift_risk": round(1.0 - research_relevance, 3),
+        "feedback_score": round(feedback_score, 3),
     }
     return item
 
@@ -2082,14 +2347,15 @@ def must_bucket_rank_key(item: dict[str, Any], bucket: str) -> tuple[float, floa
     scores = item.get("scores", {})
     text = item_text(item)
     bucket_fit = 0.0
-    if bucket == "context_memory" and any(term in text for term in ["stale", "memory validity", "memory staleness", "belief update"]):
-        bucket_fit += 0.30
-    if bucket == "agentic_planning" and any(term in text for term in ["adaptive parallel reasoning", "strata", "agentic rl", "planning"]):
-        bucket_fit += 0.20
-    if bucket == "distillation" and "dinorankclip" in text:
-        bucket_fit += 0.28
-    if bucket == "open_world" and any(term in text for term in ["novel class", "open-world", "open world", "open-set"]):
-        bucket_fit += 0.16
+    bucket_terms = {
+        "systems": ["distributed training", "distributed inference", "hpc", "ai systems", "cluster", "serving"],
+        "gpu_io": ["gpudirect", "rdma", "gds", "storage", "file system", "zero-copy"],
+        "compression": ["communication compression", "gradient compression", "erasure coding", "checksum", "fault tolerance"],
+        "agent_rl_infra": ["agent runtime", "agent scheduling", "rollout", "rl infrastructure", "workflow orchestration"],
+        "embodied_world_models": ["vla", "embodied", "robot", "world model", "robot learning"],
+    }
+    if any(term in text for term in bucket_terms.get(bucket, [])):
+        bucket_fit += 0.25
     return (
         editorial_priority_score(item) + bucket_fit,
         scores.get("personal_score", 0.0),
@@ -2101,59 +2367,26 @@ def must_bucket_rank_key(item: dict[str, Any], bucket: str) -> tuple[float, floa
 def must_bucket(item: dict[str, Any]) -> str | None:
     primary_id = primary_category_id(item)
     text = item_text(item)
-    memory_terms = [
-        "context compression",
-        "agent memory",
-        "memory validity",
-        "belief update",
-        "kv cache",
-        "kv-cache",
-        "cache reuse",
-    ]
-    planning_terms = [
-        "agentic rl",
-        "long-horizon",
-        "long horizon",
-        "planning",
-        "trajectory",
-        "workflow",
-        "environment",
-        "reinforcement learning",
-    ]
-    agent_memory_terms = [
-        "context compression",
-        "agent memory",
-        "memory validity",
-        "belief update",
-    ]
-    if primary_id in CONTEXT_SECTION_IDS:
-        return "context_memory"
-    if primary_id == "agents":
-        if any(term in text for term in agent_memory_terms):
-            return "context_memory"
-        if any(term in text for term in planning_terms):
-            return "agentic_planning"
-        return "agentic_planning"
-    if primary_id == "rl" and any(term in text for term in planning_terms):
-        return "agentic_planning"
-    if primary_id in {"open_world_learning", "open_world"}:
-        return "open_world"
-    if primary_id in {"model_distillation", "distillation_efficiency"}:
-        return "distillation"
-    if primary_id == "rl" and any(term in text for term in ["agentic rl", "long-horizon", "long horizon", "planning"]):
-        return "agentic_planning"
-    if any(term in text for term in ["novel class discovery", "open-world", "open world", "open-set", "unknown class"]):
-        return "open_world"
-    if any(term in text for term in ["distillation", "compression", "quantization", "pruning", "student model", "diffusion"]):
-        return "distillation"
-    if any(
-        term in text
-        for term in memory_terms
-        + [
-            "long context",
-        ]
-    ):
-        return "context_memory"
+    direct = {
+        "ai_systems_hpc": "systems",
+        "gpu_data_path_storage": "gpu_io",
+        "compression_reliability": "compression",
+        "agent_rl_infrastructure": "agent_rl_infra",
+        "embodied_world_models": "embodied_world_models",
+    }
+    if primary_id in direct:
+        return direct[primary_id]
+    if any(term in text for term in ["gpudirect", "rdma", "gds", "gpu storage", "gpu-aware storage", "parallel file system"]):
+        return "gpu_io"
+    if any(term in text for term in ["distributed training", "distributed inference", "ai systems", "hpc", "prefill-decode", "collective communication"]):
+        return "systems"
+    if any(term in text for term in ["communication compression", "gradient compression", "tensor compression", "erasure coding", "checksum"]):
+        return "compression"
+    if any(term in text for term in ["agent runtime", "agent scheduling", "rollout engine", "rl infrastructure", "workflow orchestration"]):
+        return "agent_rl_infra"
+    if any(term in text for term in ["vision-language-action", "vla", "embodied", "robot learning", "world model"]):
+        if "social science" not in text:
+            return "embodied_world_models"
     return None
 
 
@@ -2174,6 +2407,8 @@ def must_read_eligible(item: dict[str, Any]) -> bool:
         return False
     if primary_category_group(item) not in {"primary_research", "core_focus"}:
         return False
+    if primary_id not in P0_TRACK_IDS:
+        return False
     if primary_id == "benchmark_evaluation":
         return False
     if not is_deep_read_source(item) or is_pure_tool_library(item) or force_watch(item):
@@ -2189,7 +2424,9 @@ def must_read_eligible(item: dict[str, Any]) -> bool:
         return False
     if override and direct_mainline:
         return priority >= 0.70
-    if primary_id in MAINLINE_SECTION_IDS and relevance < 0.74:
+    if primary_id not in P0_TRACK_IDS and direct_mainline:
+        return False
+    if primary_id in MAINLINE_SECTION_IDS and relevance < 0.70:
         if not (priority >= 0.80 and relevance >= 0.65 and scores.get("credibility", 0.0) >= 0.75):
             return False
     if direct_mainline and priority >= 0.80 and relevance >= 0.65 and scores.get("credibility", 0.0) >= 0.75:

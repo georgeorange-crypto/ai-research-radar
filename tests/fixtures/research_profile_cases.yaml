@@ -1,0 +1,43 @@
+cases:
+  - title: GPUDirect Storage for Distributed Checkpointing
+    summary: A GPU-aware checkpoint I/O design using GPUDirect Storage and distributed storage.
+    expect_primary: gpu_data_path_storage
+  - title: RDMA-based GPU File System
+    summary: A parallel file system with RDMA, GPU-to-NIC transfer, and zero-copy data paths.
+    expect_primary: gpu_data_path_storage
+  - title: Communication-Efficient Distributed LLM Training
+    summary: Gradient compression and compressed collectives reduce AllReduce overhead in distributed training.
+    expect_any: [compression_reliability, ai_systems_hpc]
+  - title: KV-Cache-Aware Scheduling for LLM Serving
+    summary: Cluster scheduling for prefill-decode disaggregation and tail latency control.
+    expect_any: [ai_systems_hpc, agent_rl_infrastructure]
+  - title: Efficient Serving for Dynamic Agent Workflows
+    summary: Agent runtime orchestration with workflow scheduling, resource admission, and tool waiting.
+    expect_primary: agent_rl_infrastructure
+  - title: Vision-Language-Action Policy for Cross-Robot Transfer
+    summary: A VLA robot policy trained on demonstrations for cross-embodiment manipulation.
+    expect_primary: embodied_world_models
+  - title: Online Neural Space Time Memory for Dynamic Novel View Synthesis
+    summary: A 3D vision method for dynamic novel view synthesis with neural scene memory.
+    reject_primary: agent_rl_infrastructure
+  - title: Image Compression with Diffusion Models
+    summary: A diffusion model compresses images for visual reconstruction.
+    reject_primary: compression_reliability
+  - title: Agentic Mathematical Reasoning Benchmark
+    summary: A benchmark for mathematical reasoning by agentic LLMs.
+    reject_primary: agent_rl_infrastructure
+  - title: Biological Systems Modeling
+    summary: Modeling biological systems using machine learning.
+    reject_primary: ai_systems_hpc
+  - title: World Model for Robot Planning
+    summary: A physical world model for robot planning in latent space.
+    expect_primary: embodied_world_models
+  - title: World Model as a Social Science Metaphor
+    summary: A social science essay using world model as a metaphor.
+    reject_primary: embodied_world_models
+  - title: GPU Kernel Fusion for Collective Communication
+    summary: CUDA kernel fusion and communication operator optimization for collective communication.
+    expect_any: [ai_systems_hpc, compression_reliability]
+  - title: Erasure Coding for Distributed Checkpoint Storage
+    summary: Erasure-coded storage protects distributed checkpoints with checksums and data integrity.
+    expect_any: [compression_reliability, gpu_data_path_storage]

@@ -183,50 +183,55 @@ def infer_provider_from_openai_config(base_url: str, model: str) -> str:
 
 
 def get_single_llm_config() -> dict[str, str]:
-    openai_api_key = config_env("OPENAI_API_KEY")
-    if openai_api_key:
-        base_url = (config_env("OPENAI_BASE_URL") or "https://api.openai.com/v1").rstrip("/")
-        model = config_env("OPENAI_MODEL", "gpt-4o-mini")
-        return {
-            "provider": infer_provider_from_openai_config(base_url, model),
-            "api_key": openai_api_key,
-            "base_url": base_url,
-            "model": model,
-        }
-
-    deepseek_api_key = config_env("DEEPSEEK_API_KEY")
-    if deepseek_api_key:
-        return {
-            "provider": "deepseek",
-            "api_key": deepseek_api_key,
-            "base_url": (config_env("DEEPSEEK_BASE_URL") or "https://api.deepseek.com").rstrip("/"),
-            "model": config_env("DEEPSEEK_MODEL", "deepseek-v4-flash"),
-        }
-
-    kimi_api_key = config_env("KIMI_API_KEY")
-    if kimi_api_key:
-        return {
-            "provider": "kimi",
-            "api_key": kimi_api_key,
-            "base_url": (config_env("KIMI_BASE_URL") or "https://api.moonshot.cn/v1").rstrip("/"),
-            "model": config_env("KIMI_MODEL", "moonshot-v1-8k"),
-        }
-
-    glm_api_key = config_env("GLM_API_KEY")
-    if glm_api_key:
-        return {
-            "provider": "glm",
-            "api_key": glm_api_key,
-            "base_url": (config_env("GLM_BASE_URL") or "https://open.bigmodel.cn/api/paas/v4").rstrip("/"),
-            "model": config_env("GLM_MODEL", "glm-4.7-flash"),
-        }
-
-    return {
+    configs = get_single_llm_configs()
+    return configs[0] if configs else {
         "provider": "local",
         "api_key": "",
         "base_url": "",
         "model": "local fallback",
     }
+
+
+def get_single_llm_configs() -> list[dict[str, str]]:
+    configs: list[dict[str, str]] = []
+    openai_api_key = config_env("OPENAI_API_KEY")
+    if openai_api_key:
+        base_url = (config_env("OPENAI_BASE_URL") or "https://api.openai.com/v1").rstrip("/")
+        model = config_env("OPENAI_MODEL", "gpt-4o-mini")
+        configs.append({
+            "provider": infer_provider_from_openai_config(base_url, model),
+            "api_key": openai_api_key,
+            "base_url": base_url,
+            "model": model,
+        })
+
+    deepseek_api_key = config_env("DEEPSEEK_API_KEY")
+    if deepseek_api_key:
+        configs.append({
+            "provider": "deepseek",
+            "api_key": deepseek_api_key,
+            "base_url": (config_env("DEEPSEEK_BASE_URL") or "https://api.deepseek.com").rstrip("/"),
+            "model": config_env("DEEPSEEK_MODEL", "deepseek-v4-flash"),
+        })
+
+    kimi_api_key = config_env("KIMI_API_KEY")
+    if kimi_api_key:
+        configs.append({
+            "provider": "kimi",
+            "api_key": kimi_api_key,
+            "base_url": (config_env("KIMI_BASE_URL") or "https://api.moonshot.cn/v1").rstrip("/"),
+            "model": config_env("KIMI_MODEL", "moonshot-v1-8k"),
+        })
+
+    glm_api_key = config_env("GLM_API_KEY")
+    if glm_api_key:
+        configs.append({
+            "provider": "glm",
+            "api_key": glm_api_key,
+            "base_url": (config_env("GLM_BASE_URL") or "https://open.bigmodel.cn/api/paas/v4").rstrip("/"),
+            "model": config_env("GLM_MODEL", "glm-4.7-flash"),
+        })
+    return configs
 
 
 def has_any_llm_api_key() -> bool:
@@ -744,17 +749,17 @@ def record_llm_error(provider: str, model: str, base_url: str, status: int | str
 
 
 def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
-    config = get_single_llm_config()
-    api_key = config.get("api_key", "")
-    if not api_key:
+    configs = get_single_llm_configs()
+    if not configs:
         return None
-
-    provider = config.get("provider", "openai")
-    base_url = config.get("base_url", "").rstrip("/")
-    model = config.get("model", "gpt-4o-mini")
     if grounding_level(item) == "title_only":
         return None
     evidence = trim(allowed_evidence_text(item), max_evidence_chars())
+    research_profile = {}
+    profile_path = Path("config") / "research_profile.yaml"
+    if profile_path.exists():
+        with open(profile_path, "r", encoding="utf-8") as f:
+            research_profile = yaml.safe_load(f) or {}
     prompt = {
         "title": item.get("title"),
         "source": item.get("source", {}),
@@ -765,6 +770,9 @@ def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
         "grounding_level": grounding_level(item),
         "primary_section": item.get("primary_section", {}),
         "secondary_tags": item.get("secondary_tags", []),
+        "track_relevance": item.get("track_relevance", {}),
+        "project_relevance": item.get("project_relevance", {}),
+        "research_profile": research_profile,
         "reading_tier": item.get("reading_tier"),
         "matched_focus_areas": item.get("matched_focus_areas", []),
         "matched_keywords": item.get("matched_keywords", []),
@@ -779,61 +787,52 @@ def summarize_with_single_llm(item: dict[str, Any]) -> dict[str, Any] | None:
             "suggested_action": "建议行动，只能是 read_pdf / skim / watch / save / use_as_eval / clone_and_run / study_code / use_as_baseline / read_readme / archive / ignore 之一",
         },
     }
-    messages = [
-        {
-            "role": "system",
-            "content": (
-                "你是严谨的 AI research radar 编辑，面向一位关注长上下文、Agent、开放世界学习和模型压缩的研究者。"
-                "用自然、具体、克制的中文写摘要，不营销，不编造，不重复套话。"
-                "grounding 不是禁止总结，而是禁止编造：允许基于 title、abstract、full text 或 README 做忠实中文归纳。"
-                "禁止复制或截断英文 abstract；即使 grounding_level 是 abstract_only，也必须用中文概括。"
-                "只基于 allowed_evidence 中真实出现的信息；信息不足时直接说明“方法细节未在摘要中充分展开”，最多在末尾补一句“细节需读原文确认”。"
-                "如果写出具体数字、模型名、数据集名或 benchmark 结果，它必须能在 allowed_evidence 中逐字找到。"
-                "grounding_level 为 title_only 或 abstract_only 时，不得扩展实验结论、系统细节或未给出的因果解释。"
-                "避免模板化表达，不要按来源类型写泛泛的跟踪价值判断。"
-                "不要反复使用空泛的免责句；只在确实缺信息时简短提示。"
-                "返回严格 JSON，字段必须且只能包含："
-                "what_is_it, problem, method_or_contribution, why_important, deep_read, suggested_action。"
-                "suggested_action 只能是 read_pdf、skim、watch、save、use_as_eval、clone_and_run、study_code、use_as_baseline、read_readme、archive、ignore 之一。"
-                "每个字段 1-2 句，尽量指出具体方法名、任务、数据、系统或实验线索。"
-            ),
-        },
-        {"role": "user", "content": json.dumps(prompt, ensure_ascii=False)},
-    ]
+    system_prompt = (
+        "你是严谨的 AI Research Radar 编辑，面向 George Research Profile v2。"
+        "研究画像在 user payload 中，必须以该画像的 tracks/projects 为准，不得沿用旧四方向。"
+        "只根据 allowed_evidence 写中文摘要；不得编造作者职位、benchmark、实验结果或系统细节。"
+        "LLM 不能覆盖 deterministic negative rules；若证据不足，明确写需要打开一手来源确认。"
+        "返回严格 JSON，字段只能是 what_is_it, problem, method_or_contribution, "
+        "why_important, deep_read, suggested_action。"
+    )
     try:
         from models.client import ChatModelClient, make_llm_cache_key
 
-        client = ChatModelClient(
-            provider=provider,
-            api_key=api_key,
-            base_url=base_url,
-            model=model,
-            timeout=openai_timeout_seconds(),
-        )
-        parsed = client.call_json(
-            system_prompt=str(messages[0]["content"]),
-            user_payload=str(messages[1]["content"]),
-            temperature=0.2,
-            max_tokens=max_output_tokens(),
-            role="single_summary",
-            cache_key=make_llm_cache_key(
-                provider,
-                model,
-                "single_summary",
-                str(item.get("title") or ""),
-                str(item.get("url") or ""),
-                str(item.get("abstract") or item.get("summary") or ""),
-            ),
-            required_fields=set(SUMMARY_FIELDS),
-        )
-        if parsed and all(key in parsed for key in SUMMARY_FIELDS):
-            return normalize_summary(parsed, item)
-        if parsed:
-            record_llm_error(provider, model, base_url, "n/a", "Response JSON did not include all required summary fields.")
+        for config in configs:
+            provider = config.get("provider", "openai")
+            base_url = config.get("base_url", "").rstrip("/")
+            model = config.get("model", "gpt-4o-mini")
+            client = ChatModelClient(
+                provider=provider,
+                api_key=config.get("api_key", ""),
+                base_url=base_url,
+                model=model,
+                timeout=openai_timeout_seconds(),
+            )
+            parsed = client.call_json(
+                system_prompt=system_prompt,
+                user_payload=prompt,
+                temperature=0.2,
+                max_tokens=max_output_tokens(),
+                role="single_summary",
+                cache_key=make_llm_cache_key(
+                    provider,
+                    model,
+                    "single_summary",
+                    str(item.get("title") or ""),
+                    str(item.get("url") or ""),
+                    str(item.get("abstract") or item.get("summary") or ""),
+                ),
+                required_fields=set(SUMMARY_FIELDS),
+            )
+            if parsed and all(key in parsed for key in SUMMARY_FIELDS):
+                return normalize_summary(parsed, item)
+            if parsed:
+                record_llm_error(provider, model, base_url, "n/a", "Response JSON did not include all required summary fields.")
     except (KeyError, TypeError, ValueError, json.JSONDecodeError) as e:
-        record_llm_error(provider, model, base_url, "n/a", str(e)[:500])
+        record_llm_error("single", "unknown", "unknown", "n/a", str(e)[:500])
     except Exception as e:
-        record_llm_error(provider, model, base_url, "n/a", str(e)[:500])
+        record_llm_error("single", "unknown", "unknown", "n/a", str(e)[:500])
         return None
     return None
 
@@ -2278,6 +2277,111 @@ def render_classic_revisit(classics: list[dict[str, Any]]) -> str:
     return "\n".join(lines).rstrip()
 
 
+def item_block(item: dict[str, Any], idx: int) -> str:
+    source = item.get("source", {})
+    primary = item.get("primary_category") or item.get("primary_section", {})
+    scores = item.get("scores", {})
+    summary = summarize_item(item)
+    project_rel = item.get("project_relevance") or {}
+    if isinstance(project_rel, dict) and project_rel:
+        project_line = ", ".join(f"{key}={float(value):.2f}" for key, value in project_rel.items())
+    else:
+        project_line = "none"
+    tags = ", ".join(str(tag.get("title") or tag.get("id")) for tag in item.get("secondary_tags", [])[:6] if isinstance(tag, dict)) or "none"
+    keywords = ", ".join(str(term) for term in item.get("matched_keywords", [])[:8]) or "none"
+    lines = [
+        f"##### {idx}. [{item.get('title')}]({item.get('url')})",
+        f"- Reading tier: {item.get('reading_tier', 'ARCHIVE')}",
+        f"- Source: {source.get('name', 'unknown')} ({source.get('kind', 'unknown')}; role={source_role_label(item)})",
+        f"- Published: {item.get('published_at') or 'unknown'}",
+        f"- Primary track: {section_display_name(primary.get('id', ''), primary.get('title', 'Unclassified'))}",
+        f"- Secondary tags: {tags}",
+        f"- Grounding level: {grounding_label(item)}",
+        f"- Scores: personal={scores.get('personal_score', 0):.2f}, global={scores.get('global_score', 0):.2f}, credibility={scores.get('credibility', 0):.2f}, evidence={scores.get('evidence_strength', 0):.2f}, hype_risk={scores.get('hype_risk', 0):.2f}, feedback={scores.get('feedback_score', 0):.2f}",
+        f"- Project relevance: {project_line}",
+        f"- What it is: {summary.get('what_is_it', '').strip()}",
+        f"- Problem: {summary.get('problem', '').strip()}",
+        f"- Method/contribution: {summary.get('method_or_contribution', '').strip()}",
+        f"- Why important to George: {summary.get('why_important', '').strip()}",
+        f"- Suggested action: {summary.get('suggested_action', choose_action(item)).strip()}",
+        f"- Matched keywords: {keywords}",
+    ]
+    if item.get("requires_primary_source_check"):
+        lines.append("- Risk note: requires primary-source verification.")
+    return "\n".join(lines)
+
+
+def compact_item(item: dict[str, Any]) -> str:
+    section = item.get("primary_section", {}).get("title", "Unclassified")
+    scores = item.get("scores", {})
+    return (
+        f"- [{item.get('title')}]({item.get('url')}) "
+        f"({item.get('reading_tier', 'ARCHIVE')}; {section}; "
+        f"personal={scores.get('personal_score', 0):.2f}; "
+        f"global={scores.get('global_score', 0):.2f}; "
+        f"hype={scores.get('hype_risk', 0):.2f})"
+    )
+
+
+def render_track_section(processed: dict[str, Any], section_id: str) -> dict[str, str]:
+    return render_primary_section(processed, [section_id])
+
+
+def render_cross_track_connections(processed: dict[str, Any]) -> str:
+    patterns = [
+        ("VLA inference latency ↔ GPU serving", ["embodied_world_models", "ai_systems_hpc"]),
+        ("robot rollout ↔ RL infrastructure", ["embodied_world_models", "agent_rl_infrastructure"]),
+        ("world model simulation ↔ HPC", ["embodied_world_models", "ai_systems_hpc"]),
+        ("KV cache ↔ storage hierarchy", ["context_compression_memory", "gpu_data_path_storage"]),
+        ("gradient compression ↔ collective communication", ["compression_reliability", "ai_systems_hpc"]),
+        ("agent workflow ↔ cluster scheduling", ["agent_rl_infrastructure", "ai_systems_hpc"]),
+        ("checkpoint ↔ GDS / distributed storage", ["gpu_data_path_storage", "compression_reliability"]),
+    ]
+    lines: list[str] = []
+    seen_ids = {section.get("id") for section in processed.get("sections", []) if section.get("items")}
+    for label, ids in patterns:
+        if any(section_id in seen_ids for section_id in ids):
+            lines.append(f"- {label}")
+    return "\n".join(lines) if lines else "- No strong cross-track connection today."
+
+
+def render_registry_radar(config_key: str, title_key: str = "name", limit: int = 8) -> str:
+    path_map = {
+        "people": Path("config/people.yaml"),
+        "organizations": Path("config/organizations.yaml"),
+        "associations": Path("config/associations.yaml"),
+        "venues": Path("config/venues.yaml"),
+    }
+    path = path_map[config_key]
+    if not path.exists():
+        return "- Registry not configured."
+    with open(path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    rows = data.get(config_key) or []
+    if not rows:
+        return "- No registry entries."
+    lines = []
+    for row in rows[:limit]:
+        if not isinstance(row, dict):
+            continue
+        focus = ", ".join(str(value) for value in row.get("focus_areas", [])[:4]) if isinstance(row.get("focus_areas"), list) else ""
+        verified = row.get("last_verified") or row.get("role_last_verified") or "unverified"
+        lines.append(f"- {row.get(title_key, row.get('id'))}: focus={focus or 'not specified'}; last_verified={verified}")
+    return "\n".join(lines)
+
+
+def render_feedback_recommendations(processed: dict[str, Any], limit: int = 5) -> str:
+    items = [
+        item
+        for item in processed.get("items", [])
+        if item.get("reading_tier") not in {"IGNORE", "ARCHIVE"} and item.get("scores", {}).get("feedback_score", 0) > 0
+    ]
+    items.sort(key=lambda item: item.get("scores", {}).get("feedback_score", 0), reverse=True)
+    if not items:
+        return "- No explicit feedback signal yet; using cold-start research profile."
+    return "\n".join(compact_item(item) for item in items[:limit])
+
+
 def previous_report_link(report_date: str) -> str:
     try:
         previous = datetime.strptime(report_date, "%Y-%m-%d") - timedelta(days=1)
@@ -2336,12 +2440,17 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
     llm_enabled = backend.get("provider") != "local" and backend.get("summary_mode") != "local"
     overview = build_overview(processed)
     primary = {
+        "ai_systems_hpc": render_track_section(processed, "ai_systems_hpc"),
+        "gpu_data_path_storage": render_track_section(processed, "gpu_data_path_storage"),
+        "compression_reliability": render_track_section(processed, "compression_reliability"),
+        "agent_rl_infrastructure": render_track_section(processed, "agent_rl_infrastructure"),
+        "embodied_world_models": render_track_section(processed, "embodied_world_models"),
+    }
+    supporting = {
         "context_compression": render_primary_section(processed, ["context_compression_memory", "context_compression", "context_memory"]),
         "agents": render_primary_section(processed, ["agents"]),
         "open_world_learning": render_primary_section(processed, ["open_world_learning", "open_world"]),
         "model_distillation": render_primary_section(processed, ["model_distillation", "distillation_efficiency"]),
-    }
-    traditional = {
         "cv": render_traditional_section(processed, "cv"),
         "nlp": render_traditional_section(processed, "nlp"),
         "rl": render_traditional_section(processed, "rl"),
@@ -2362,10 +2471,17 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
         "report_date": report_date,
         "overview": overview,
         "primary": primary,
-        "traditional": traditional,
+        "traditional": supporting,
+        "supporting": supporting,
+        "cross_track_connections": render_cross_track_connections(processed),
         "other_highlights": other_highlights,
         "benchmark_evaluation": benchmark_evaluation,
         "github_projects": github_projects,
+        "scholar_radar": render_registry_radar("people"),
+        "company_radar": render_registry_radar("organizations"),
+        "association_radar": render_registry_radar("associations"),
+        "venue_radar": render_registry_radar("venues"),
+        "feedback_recommendations": render_feedback_recommendations(processed),
         "institutional_updates": institutional_updates,
         "awards_notable_papers": awards_notable_papers,
         "university_lab_radar": university_lab_radar,

@@ -1,0 +1,90 @@
+organizations:
+  - id: stanford
+    name: Stanford University
+    aliases: [Stanford]
+    entity_type: university
+    region: US
+    tier: high
+    official_urls: [https://www.stanford.edu/]
+    focus_areas: [ai, systems, robotics]
+  - id: mit
+    name: MIT
+    aliases: [Massachusetts Institute of Technology]
+    entity_type: university
+    region: US
+    tier: high
+    official_urls: [https://www.mit.edu/]
+    focus_areas: [ai_systems_hpc, robotics]
+  - id: uc_berkeley
+    name: UC Berkeley
+    aliases: [University of California Berkeley, Berkeley]
+    entity_type: university
+    region: US
+    tier: high
+    official_urls: [https://www.berkeley.edu/]
+    focus_areas: [systems, ai, robotics]
+  - id: cmu
+    name: Carnegie Mellon University
+    aliases: [CMU]
+    entity_type: university
+    region: US
+    tier: high
+    official_urls: [https://www.cmu.edu/]
+    focus_areas: [systems, robotics, ai]
+  - id: tsinghua
+    name: Tsinghua University
+    aliases: [清华大学]
+    entity_type: university
+    region: CN
+    tier: high
+    official_urls: [https://www.tsinghua.edu.cn/]
+    focus_areas: [ai_systems_hpc, ai]
+  - id: ict_cas
+    name: Institute of Computing Technology, CAS
+    aliases: [ICT CAS, 中国科学院计算技术研究所]
+    entity_type: research_institute
+    parent_organization: chinese_academy_of_sciences
+    region: CN
+    tier: high
+    official_urls: [http://www.ict.ac.cn/]
+    focus_areas: [ai_systems_hpc, distributed_systems]
+  - id: nvidia_research
+    name: NVIDIA Research
+    aliases: [NVIDIA]
+    entity_type: company_research_lab
+    region: US
+    tier: high
+    official_urls: [https://research.nvidia.com/]
+    focus_areas: [gpu_data_path_storage, ai_systems_hpc, embodied_world_models]
+  - id: google_deepmind
+    name: Google DeepMind
+    aliases: [DeepMind]
+    entity_type: company_research_lab
+    region: global
+    tier: high
+    official_urls: [https://deepmind.google/]
+    focus_areas: [ai, embodied_world_models, rl]
+  - id: openai
+    name: OpenAI
+    aliases: []
+    entity_type: company_research_lab
+    region: US
+    tier: high
+    official_urls: [https://openai.com/]
+    focus_areas: [ai, agent_rl_infrastructure]
+  - id: deepseek
+    name: DeepSeek
+    aliases: [DeepSeek AI]
+    entity_type: company_research_lab
+    region: CN
+    tier: high
+    official_urls: [https://www.deepseek.com/]
+    focus_areas: [ai_systems_hpc, model_architecture]
+  - id: moonshot_ai
+    name: Moonshot AI / Kimi
+    aliases: [Kimi, Moonshot]
+    entity_type: company
+    region: CN
+    tier: medium_high
+    official_urls: [https://www.moonshot.cn/]
+    focus_areas: [ai, agent_rl_infrastructure]

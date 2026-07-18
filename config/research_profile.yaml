@@ -1,0 +1,446 @@
+profile:
+  id: george_v2
+  version: "2.0"
+  display_name: "George Research Profile v2"
+  mission: "High-performance AI systems and infrastructure for agentic and embodied intelligence."
+  primary_tracks:
+    - ai_systems_hpc
+    - gpu_data_path_storage
+    - compression_reliability
+    - agent_rl_infrastructure
+    - embodied_world_models
+  active_projects:
+    - skyfs
+    - schedagent
+    - verl_infrastructure
+    - embodied_intelligence
+
+must_read_buckets:
+  - id: systems
+    track_ids: [ai_systems_hpc]
+  - id: gpu_io
+    track_ids: [gpu_data_path_storage]
+  - id: compression
+    track_ids: [compression_reliability]
+  - id: agent_rl_infra
+    track_ids: [agent_rl_infrastructure]
+  - id: embodied_world_models
+    track_ids: [embodied_world_models]
+
+tracks:
+  - id: ai_systems_hpc
+    title: "AI Systems / HPC / Distributed Training & Inference"
+    display_name_zh: "AI 系统 / 高性能计算 / 分布式训练与推理"
+    priority: P0
+    group: primary_research
+    order: 10
+    weight: 1.35
+    must_read_bucket: systems
+    arxiv_categories: [cs.DC, cs.OS, cs.PF, cs.AR, cs.LG]
+    project_links: [skyfs, verl_infrastructure]
+    strong_terms:
+      - AI systems
+      - ML systems
+      - machine learning systems
+      - AI infrastructure
+      - AI infra
+      - distributed training
+      - distributed inference
+      - large-scale training
+      - large-scale inference
+      - AI datacenter
+      - GPU cluster
+      - accelerator cluster
+      - high-performance computing
+      - HPC
+      - supercomputing
+      - exascale
+      - collective communication
+      - AllReduce
+      - AllGather
+      - ReduceScatter
+      - NCCL
+      - MPI
+      - workload scheduling
+      - cluster scheduling
+      - resource management
+      - admission control
+      - elastic training
+      - checkpointing
+      - P/D disaggregation
+      - prefill-decode disaggregation
+      - 训推协同
+      - 智算系统
+      - 高性能计算
+      - 分布式训练
+      - 分布式推理
+    supporting_terms:
+      - systems
+      - inference
+      - serving
+      - scheduler
+      - throughput
+      - tail latency
+      - SLO
+      - QoS
+      - fault tolerance
+      - straggler
+      - parallel computing
+      - distributed systems
+      - model parallelism
+      - data parallelism
+      - tensor parallelism
+      - pipeline parallelism
+      - expert parallelism
+      - 资源调度
+      - 集群调度
+    cooccurrence_rules:
+      - all: [GPU, cluster]
+        score: 1.5
+      - all: [serving, latency]
+        score: 1.4
+      - all: [checkpoint, training]
+        score: 1.3
+    context_gates:
+      any: [training, inference, serving, cluster, scheduler, GPU, latency, throughput, datacenter, HPC]
+    negative_context:
+      - biological systems
+      - social systems
+
+  - id: gpu_data_path_storage
+    title: "GPU-Centric I/O / Networking / Storage"
+    display_name_zh: "GPU 数据路径 / 网络 / 存储"
+    priority: P0
+    group: primary_research
+    order: 20
+    weight: 1.35
+    must_read_bucket: gpu_io
+    arxiv_categories: [cs.DC, cs.OS, cs.NI, cs.PF]
+    project_links: [skyfs]
+    strong_terms:
+      - GPU-Centric I/O
+      - GPU-aware storage
+      - GPU-centric storage
+      - GPU-native storage
+      - GPUDirect RDMA
+      - GPUDirect Storage
+      - GDS
+      - GDR
+      - RDMA
+      - InfiniBand
+      - RoCE
+      - NVMe-oF
+      - zero-copy
+      - zero copy
+      - parallel file system
+      - distributed file system
+      - distributed storage
+      - checkpoint I/O
+      - burst buffer
+      - GPU-to-storage
+      - GPU-to-NIC
+      - GPU-to-GPU communication
+      - SmartNIC
+      - DPU
+      - CXL memory
+      - 存储解耦
+      - 分布式存储
+      - 并行文件系统
+      - 零拷贝
+      - GPU 直连存储
+      - 远程直接内存访问
+    supporting_terms:
+      - storage
+      - network
+      - data path
+      - I/O stack
+      - direct I/O
+      - asynchronous I/O
+      - memory hierarchy
+      - cache hierarchy
+      - host staging
+      - bounce buffer
+      - data staging
+      - persistent memory
+      - NVMe
+      - CXL
+      - PCIe
+      - NVLink
+      - NVSwitch
+      - kernel bypass
+      - topology-aware scheduling
+      - 数据路径
+      - 主机中转
+      - 高速互连
+    cooccurrence_rules:
+      - all: [GPU, storage]
+        score: 1.8
+      - all: [RDMA, GPU]
+        score: 1.8
+      - all: [checkpoint, storage]
+        score: 1.5
+    context_gates:
+      any: [GPU, RDMA, storage, file system, I/O, IO, network, NVMe, CXL, checkpoint]
+    negative_context:
+      - storage protein
+      - protein storage
+
+  - id: compression_reliability
+    title: "Compression / Reliability for AI Infrastructure"
+    display_name_zh: "AI 基础设施压缩 / 可靠性"
+    priority: P0
+    group: primary_research
+    order: 30
+    weight: 1.32
+    must_read_bucket: compression
+    arxiv_categories: [cs.DC, cs.LG, cs.IT, cs.NI]
+    project_links: [skyfs, verl_infrastructure]
+    strong_terms:
+      - communication compression
+      - gradient compression
+      - tensor compression
+      - activation compression
+      - optimizer state compression
+      - KV cache compression
+      - GPU compression
+      - scientific data compression
+      - compressed collective
+      - sparsification
+      - low-bit communication
+      - error-bounded compression
+      - checksum
+      - CRC
+      - erasure coding
+      - Reed-Solomon
+      - data integrity
+      - silent data corruption
+      - fault injection
+      - resilience
+      - reliable transport
+      - 通信压缩
+      - 梯度压缩
+      - 张量压缩
+      - GPU 端压缩
+      - 纠删码
+      - 数据完整性
+    supporting_terms:
+      - compression
+      - quantization-aware communication
+      - delta encoding
+      - entropy coding
+      - lossless compression
+      - lossy compression
+      - redundancy
+      - replication
+      - recovery
+      - fault tolerance
+    cooccurrence_rules:
+      - all: [compression, communication]
+        score: 1.8
+      - all: [compression, collective]
+        score: 1.7
+      - all: [erasure coding, checkpoint]
+        score: 1.7
+      - all: [KV cache, compression]
+        score: 1.5
+    context_gates:
+      any: [GPU, communication, collective, tensor, gradient, training, storage, network, scientific data, KV cache, checkpoint]
+    negative_context:
+      - image compression
+      - video compression
+      - jpeg
+      - diffusion image compression
+      - flood resilience
+      - heat resilience
+      - climate resilience
+
+  - id: agent_rl_infrastructure
+    title: "Agent Runtime / RL Infrastructure / Scheduling"
+    display_name_zh: "Agent Runtime / RL 基础设施 / 调度"
+    priority: P0
+    group: primary_research
+    order: 40
+    weight: 1.30
+    must_read_bucket: agent_rl_infra
+    arxiv_categories: [cs.AI, cs.LG, cs.DC]
+    project_links: [schedagent, verl_infrastructure]
+    strong_terms:
+      - agent runtime
+      - agent infrastructure
+      - agent serving
+      - agent scheduler
+      - agent scheduling
+      - workflow scheduling
+      - workflow orchestration
+      - tool-use infrastructure
+      - tool calling runtime
+      - multi-agent runtime
+      - agent execution engine
+      - agent resource management
+      - agent workflow DAG
+      - resource admission
+      - atomic dispatch
+      - rollout engine
+      - rollout worker
+      - RL infrastructure
+      - RL system
+      - RL training framework
+      - RLHF system
+      - RLAIF system
+      - actor placement
+      - critic placement
+      - reward model serving
+      - policy serving
+      - environment server
+      - trajectory storage
+      - Agent 调度
+      - 资源准入
+    supporting_terms:
+      - agent
+      - workflow
+      - tool waiting
+      - rate limiting
+      - token bucket
+      - asynchronous agent
+      - event-driven agent
+      - distributed RL
+      - asynchronous RL
+      - training-inference co-location
+      - tail latency
+      - workflow latency
+    cooccurrence_rules:
+      - all: [agent, scheduler]
+        score: 1.8
+      - all: [agent, runtime]
+        score: 1.7
+      - all: [rollout, worker]
+        score: 1.6
+      - all: [RL, infrastructure]
+        score: 1.6
+    context_gates:
+      any: [runtime, serving, scheduler, scheduling, orchestration, resource, rollout, latency, worker, admission]
+    negative_context:
+      - mathematical reasoning benchmark
+      - puzzle benchmark
+
+  - id: embodied_world_models
+    title: "Embodied Intelligence / VLA / World Models"
+    display_name_zh: "具身智能 / VLA / 世界模型"
+    priority: P0
+    group: primary_research
+    order: 50
+    weight: 1.25
+    must_read_bucket: embodied_world_models
+    arxiv_categories: [cs.RO, cs.CV, cs.AI, cs.LG]
+    project_links: [embodied_intelligence]
+    strong_terms:
+      - embodied intelligence
+      - embodied AI
+      - robot learning
+      - robot foundation model
+      - generalist robot
+      - vision-language-action
+      - VLA
+      - VLM for robotics
+      - language-conditioned policy
+      - robot policy
+      - action prediction
+      - action chunking
+      - behavior cloning
+      - imitation learning
+      - teleoperation
+      - demonstration learning
+      - cross-embodiment
+      - cross-robot
+      - Open X-Embodiment
+      - sim-to-real
+      - manipulation
+      - humanoid
+      - mobile manipulation
+      - dexterous manipulation
+      - world model
+      - learned dynamics
+      - latent dynamics
+      - video world model
+      - physical world model
+      - spatial intelligence
+      - planning in latent space
+      - model-based RL
+      - continual learning
+      - lifelong learning
+      - online learning
+      - 具身智能
+      - 机器人学习
+      - 视觉语言动作模型
+      - 机器人基础模型
+      - 世界模型
+      - 物理世界模型
+      - 空间智能
+      - 跨本体
+    supporting_terms:
+      - robot
+      - robotics
+      - VLM
+      - simulation
+      - dynamics model
+      - domain randomization
+      - locomotion
+      - first-person experience
+      - experience-driven
+    cooccurrence_rules:
+      - all: [world model, robot]
+        score: 1.8
+      - all: [VLA, robot]
+        score: 1.7
+      - all: [vision-language-action, policy]
+        score: 1.7
+    context_gates:
+      any: [robot, robotics, embodied, VLA, world model, simulation, manipulation, policy, dynamics]
+    negative_context:
+      - social science metaphor
+      - economic world model
+
+supporting_tracks:
+  - context_compression_memory
+  - agents
+  - open_world_learning
+  - model_distillation
+  - cv
+  - nlp
+  - rl
+  - model_architecture
+  - learning_methods
+  - benchmark_evaluation
+
+projects:
+  skyfs:
+    title: "SkyFS / StarFS"
+    weight: 1.30
+    terms: [SkyFS, StarFS, GPU storage, GPUDirect Storage, GDS, RDMA, checkpoint I/O, distributed file system, parallel file system]
+    methods: [zero-copy, erasure coding, checksum, GPU compression, burst buffer]
+    problems: [checkpointing, GPU data path, metadata scaling, data integrity]
+  schedagent:
+    title: "Agent Scheduling"
+    weight: 1.25
+    terms: [agent scheduling, agent scheduler, workflow orchestration, resource admission, atomic dispatch, tool waiting, workflow DAG]
+    methods: [cluster scheduling, tail latency, admission control, token bucket]
+    problems: [agent runtime, tool-use infrastructure, workflow latency]
+  verl_infrastructure:
+    title: "VeRL / RL Infrastructure"
+    weight: 1.25
+    terms: [VeRL, rollout engine, rollout worker, RL infrastructure, RLHF system, RLAIF system, policy serving, reward model serving]
+    methods: [actor placement, critic placement, distributed RL, asynchronous RL]
+    problems: [trajectory storage, environment server, training-inference co-design]
+  embodied_intelligence:
+    title: "VLA / World Models / Embodied Intelligence"
+    weight: 1.20
+    terms: [VLA, embodied intelligence, robot learning, world model, robot foundation model, Open X-Embodiment]
+    methods: [action chunking, imitation learning, sim-to-real, model-based RL]
+    problems: [cross-embodiment, robot planning, continual learning]
+
+recommendation:
+  exploration_rate: 0.08
+  max_must_read: 3
+  max_per_track: 2
+  max_per_source: 2
+  diversity_lambda: 0.72

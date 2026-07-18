@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+import yaml
 from .base import BaseModel
 from .client import ChatModelClient, log_model_error
 
@@ -46,15 +48,23 @@ ACTION_CHOICE_TEXT = " / ".join(
 )
 
 SUMMARY_SYSTEM_PROMPT = (
-    "你是严谨的 AI research radar 编辑，面向一位关注长上下文、Agent、开放世界学习和模型压缩的研究者。"
+    "你是严谨的 AI research radar 编辑，面向 George Research Profile v2。"
+    "研究画像会随 user payload 提供；必须以该画像为准，不得使用旧的固定四方向。"
     "用自然、具体、克制的中文写摘要，不营销，不编造，不重复套话。"
     "只基于输入信息；信息不足时直接说明需要打开原文确认。"
-    "禁止复制或截断英文 abstract。"
+    "禁止复制或截断英文 abstract；不能编造作者职位、benchmark 或实验结果。"
     "返回严格 JSON，字段必须且只能包含："
     "what_is_it, problem, method_or_contribution, why_important, deep_read, suggested_action。"
     f"suggested_action 只能是 {ACTION_CHOICE_TEXT} 之一。"
-    "每个字段 1-2 句，尽量指出具体方法名、任务、数据、系统或实验线索。"
 )
+
+
+def load_research_profile(path: str | Path = "config/research_profile.yaml") -> dict[str, Any]:
+    profile_path = Path(path)
+    if not profile_path.exists():
+        return {}
+    with open(profile_path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
 
 
 class ProviderSummaryModel(BaseModel):
@@ -109,6 +119,9 @@ class ProviderSummaryModel(BaseModel):
             "reading_tier": item.get("reading_tier"),
             "matched_focus_areas": item.get("matched_focus_areas", []),
             "matched_keywords": item.get("matched_keywords", []),
+            "research_profile": load_research_profile(),
+            "track_relevance": item.get("track_relevance", {}),
+            "project_relevance": item.get("project_relevance", {}),
             "scores": item.get("scores", {}),
             "is_open_source_project": item.get("is_open_source_project", False),
             "required_fields": {

@@ -1,0 +1,26 @@
+feedback:
+  event_log: data/feedback/events.jsonl
+  half_life_days: 45
+  positive_events:
+    relevant: 0.4
+    highly_relevant: 1.0
+    read: 0.25
+    deep_read_completed: 0.9
+    skimmed: 0.15
+    saved: 0.5
+    clone_and_run: 0.9
+    used_as_baseline: 1.1
+    used_in_project: 1.4
+    cited: 1.5
+  negative_events:
+    irrelevant: 1.0
+    not_my_direction: 1.2
+    archived: 0.35
+  mute_events:
+    - muted_topic
+    - muted_source
+    - muted_author
+  follow_events:
+    - follow_author
+    - follow_institution
+    - follow_venue

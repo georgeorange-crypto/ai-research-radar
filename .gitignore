@@ -1,9 +1,13 @@
 __pycache__/
 .venv/
+.env
 debug.log
 data/*.json
 !data/.gitkeep
+data/feedback/events.jsonl
 .pytest_cache/
+.cache/
+.test-output/
 *.pyc
 *.pyo
 *.log

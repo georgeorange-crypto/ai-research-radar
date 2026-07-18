@@ -1,0 +1,124 @@
+associations:
+  - id: acm
+    name: ACM
+    aliases: [Association for Computing Machinery]
+    entity_type: association
+    official_url: https://www.acm.org/
+    news_url: https://www.acm.org/media-center
+    publications_url: https://dl.acm.org/
+    conferences_url: https://www.acm.org/conferences
+    awards_url: https://awards.acm.org/
+    fellows_url: https://awards.acm.org/fellows
+    leadership_url: https://www.acm.org/about-acm/about-the-acm-organization
+    focus_areas: [computer_science, ai_systems_hpc]
+    region: global
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: ieee
+    name: IEEE
+    aliases: [Institute of Electrical and Electronics Engineers]
+    entity_type: association
+    official_url: https://www.ieee.org/
+    focus_areas: [computer_science, electrical_engineering]
+    region: global
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: ieee_computer_society
+    name: IEEE Computer Society
+    aliases: [IEEE CS]
+    entity_type: association
+    official_url: https://www.computer.org/
+    focus_areas: [ai_systems_hpc, gpu_data_path_storage]
+    region: global
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: aaai
+    name: AAAI
+    aliases: [Association for the Advancement of Artificial Intelligence]
+    entity_type: association
+    official_url: https://aaai.org/
+    focus_areas: [ai, agent_rl_infrastructure]
+    region: global
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: ccf
+    name: CCF
+    aliases: [China Computer Federation, 中国计算机学会]
+    entity_type: association
+    official_url: https://www.ccf.org.cn/
+    focus_areas: [computer_science]
+    region: CN
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: usenix
+    name: USENIX
+    aliases: [USENIX Association]
+    entity_type: association
+    official_url: https://www.usenix.org/
+    focus_areas: [systems, security, storage]
+    region: US
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: siamhpc
+    name: SIAM
+    aliases: [Society for Industrial and Applied Mathematics]
+    entity_type: association
+    official_url: https://www.siam.org/
+    focus_areas: [hpc, scientific_computing]
+    region: global
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: acl
+    name: ACL
+    aliases: [Association for Computational Linguistics]
+    entity_type: association
+    official_url: https://www.aclweb.org/
+    focus_areas: [nlp]
+    region: global
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+  - id: mlcommons
+    name: MLCommons
+    aliases: [ML Commons]
+    entity_type: association
+    official_url: https://mlcommons.org/
+    focus_areas: [benchmark_evaluation, ai_systems_hpc]
+    region: global
+    trust_level: high
+    last_verified: "2026-07-18"
+    enabled_collectors: []
+
+acm_sigs:
+  - SIGARCH
+  - SIGOPS
+  - SIGCOMM
+  - SIGMETRICS
+  - SIGMOD
+  - SIGPLAN
+  - SIGAI
+  - SIGIR
+  - SIGKDD
+  - SIGGRAPH
+  - SIGMM
+  - SIGCHI
+  - SIGMOBILE
+  - SIGHPC
+  - SIGSOFT
+  - SIGBED
+
+ieee_societies:
+  - IEEE Robotics and Automation Society
+  - IEEE Communications Society
+  - IEEE Signal Processing Society
+  - IEEE Computational Intelligence Society
+  - IEEE Technical Committee on Computer Architecture
+  - IEEE Technical Committee on Distributed Processing
+  - IEEE Technical Committee on Parallel Processing

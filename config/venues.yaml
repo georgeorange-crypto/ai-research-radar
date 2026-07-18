@@ -1,0 +1,127 @@
+venues:
+  - id: neurips
+    name: NeurIPS
+    aliases: [Neural Information Processing Systems, NurIPS]
+    venue_type: conference
+    official_url: https://neurips.cc/
+    areas: [ai, machine_learning, systems]
+    priority_for_george: P1
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: icml
+    name: ICML
+    aliases: [International Conference on Machine Learning]
+    venue_type: conference
+    official_url: https://icml.cc/
+    areas: [machine_learning]
+    priority_for_george: P1
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: iclr
+    name: ICLR
+    aliases: [International Conference on Learning Representations, ICRG]
+    venue_type: conference
+    official_url: https://iclr.cc/
+    openreview_venue_ids: [ICLR.cc/2026/Conference, ICLR.cc/2025/Conference]
+    areas: [machine_learning]
+    priority_for_george: P1
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: sosp
+    name: SOSP
+    aliases: [ACM Symposium on Operating Systems Principles]
+    venue_type: conference
+    official_url: https://sigops.org/s/conferences/sosp/
+    areas: [systems, operating_systems]
+    priority_for_george: P0
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: osdi
+    name: OSDI
+    aliases: [USENIX Symposium on Operating Systems Design and Implementation]
+    venue_type: conference
+    official_url: https://www.usenix.org/conferences
+    areas: [systems, distributed_systems]
+    priority_for_george: P0
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: fast
+    name: FAST
+    aliases: [USENIX Conference on File and Storage Technologies]
+    venue_type: conference
+    official_url: https://www.usenix.org/conferences
+    areas: [storage, systems]
+    priority_for_george: P0
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: sc
+    name: SC
+    aliases: [International Conference for High Performance Computing Networking Storage and Analysis, Supercomputing]
+    venue_type: conference
+    official_url: https://supercomputing.org/
+    areas: [hpc, storage, networking]
+    priority_for_george: P0
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: sigcomm
+    name: SIGCOMM
+    aliases: [ACM SIGCOMM]
+    venue_type: conference
+    official_url: https://conferences.sigcomm.org/
+    areas: [networking, distributed_systems]
+    priority_for_george: P0
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: rss
+    name: RSS
+    aliases: [Robotics Science and Systems]
+    venue_type: conference
+    official_url: https://roboticsconference.org/
+    areas: [robotics, embodied_world_models]
+    priority_for_george: P0
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: corl
+    name: CoRL
+    aliases: [Conference on Robot Learning]
+    venue_type: conference
+    official_url: https://www.corl.org/
+    openreview_venue_ids: [robot-learning.org/CoRL/2025/Conference]
+    areas: [robotics, robot_learning]
+    priority_for_george: P0
+    authority_tier: high
+    source_role: conference_authority
+    last_verified: "2026-07-18"
+  - id: jmlr
+    name: Journal of Machine Learning Research
+    aliases: [JMLR]
+    venue_type: journal
+    peer_reviewed: true
+    official_url: https://www.jmlr.org/
+    areas: [machine_learning]
+    source_role: journal_authority
+  - id: tocs
+    name: ACM Transactions on Computer Systems
+    aliases: [TOCS]
+    venue_type: transactions
+    peer_reviewed: true
+    publisher: ACM
+    areas: [systems]
+    source_role: journal_authority
+  - id: cacm
+    name: Communications of the ACM
+    aliases: [CACM]
+    venue_type: magazine
+    peer_reviewed: false
+    publisher: ACM
+    areas: [computer_science, editorial]
+    source_role: editorial_analysis

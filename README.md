@@ -1,38 +1,46 @@
 # AI Research Radar
 
-AI Research Radar is a daily AI academic and technology intelligence pipeline.
-It collects research signals, ranks them for a research-focused reader, generates
-a Markdown daily report, and renders the latest report as a GitHub Pages page.
+AI Research Radar is George's daily academic and technical intelligence pipeline.
+It collects research signals, ranks them against a personal research profile,
+generates Markdown/HTML reports, and publishes the latest report with GitHub
+Pages.
 
-Current version: v0.1.0
+Current version: v0.2.0 — George Research Profile v2
 
 GitHub Pages:
 [https://georgeorange-crypto.github.io/ai-research-radar/](https://georgeorange-crypto.github.io/ai-research-radar/)
 
-## Default Mode
+## George Research Profile v2
 
-Default mode: single
+The v0.2 mission is high-performance AI systems and infrastructure for agentic
+and embodied intelligence. The five P0 tracks are:
 
-Do not use role_pipeline for daily automation unless you understand the API cost.
-role_pipeline may call multiple models per item and can be expensive. It is not
-the default mode.
+- AI Systems / HPC / Distributed Training & Inference
+- GPU-Centric I/O / Networking / Storage
+- Compression / Reliability for AI Infrastructure
+- Agent Runtime / RL Infrastructure / Scheduling
+- Embodied Intelligence / VLA / World Models
 
-## Core Capabilities
+The profile lives in `config/research_profile.yaml`. Edit that file first when
+changing George's long-term research direction, active projects, track terms,
+context gates, co-occurrence rules, or MUST_READ buckets.
 
-- Multi-source AI research collection
-- Daily Markdown report generation
-- GitHub Pages HTML report generation
-- Research-priority ranking for LLM agents, context compression, open-world learning, and model distillation
-- Single-model LLM summary mode with OpenAI-compatible API support
-- Source health summary
-- Benchmark, dataset, and GitHub project sections
-- Evergreen classic paper recall section
+Legacy directions such as context compression, generic agents, open-world
+learning, model distillation, CV, NLP, RL, model architecture, and benchmarks are
+kept as supporting tracks. v0.2 is intentionally additive.
 
 ## Quick Start
 
 ```bash
 pip install -r requirements.txt
 python run.py
+```
+
+Compatible commands:
+
+```bash
+python run.py
+python run.py --date YYYY-MM-DD
 ```
 
 Generated artifacts include:
@@ -44,26 +52,40 @@ Generated artifacts include:
 - `data/raw/YYYY-MM-DD.jsonl`
 - `data/processed/YYYY-MM-DD.json`
 
-## GitHub Actions Setup
+## Source Architecture
 
-The scheduled workflow lives at `.github/workflows/daily-report.yml`. It runs
-daily at 06:30 Asia/Shanghai and can also be started manually from:
+v0.2 separates entity registration from active collection.
 
-GitHub -> Actions -> Daily AI Research Radar -> Run workflow
+- Entity registries: `config/associations.yaml`, `config/venues.yaml`,
+  `config/organizations.yaml`, `config/people.yaml`
+- Active collectors: stable RSS/API/Atom/JSON/HTML selectors in
+  `config/sources.yaml`
+- Discovery and metadata APIs: OpenAlex, Crossref, Semantic Scholar, and DBLP
+  adapters exist but are disabled by default unless explicitly enabled
+- Verification sources: primary papers, DOI pages, conference pages, official
+  blogs, official profiles, and official organization pages
 
-Configure production automation with GitHub Actions Secrets and Variables.
-Do not commit API keys.
+Adding a registry entry does not automatically make it a daily crawler.
 
-Secrets:
+## Feedback
 
-- `OPENAI_API_KEY`
-- or fallback provider keys: `KIMI_API_KEY`, `DEEPSEEK_API_KEY`, `GLM_API_KEY`
+GitHub Pages is static, so v0.2 records feedback locally:
 
-Variables:
+```bash
+python feedback.py rate ITEM_ID highly_relevant
+python feedback.py rate ITEM_ID irrelevant
+python feedback.py follow-author AUTHOR_ID
+python feedback.py mute-source SOURCE_ID
+```
 
-- `OPENAI_BASE_URL`
-- `OPENAI_MODEL`
-- optional provider variables: `KIMI_BASE_URL`, `KIMI_MODEL`, `DEEPSEEK_BASE_URL`, `DEEPSEEK_MODEL`, `GLM_BASE_URL`, `GLM_MODEL`
+Events are written to `data/feedback/events.jsonl` and affect ranking through a
+small explainable feedback score. If the file is missing, the radar falls back to
+the cold-start research profile.
+
+## LLM Cost Control
+
+Default mode is `single`. `role_pipeline` still exists but is intentionally
+expensive because it may call multiple models per item.
 
 Recommended daily settings:
 
@@ -74,36 +96,24 @@ MAX_OUTPUT_TOKENS=250
 MAX_EVIDENCE_CHARS=1600
 ```
 
-Recommended low-cost OpenAI-compatible provider example:
+Provider fallback is safe by default: invalid providers are disabled for the
+current run, the next configured provider is tried, and the report falls back to
+local summaries if all providers fail. Do not commit API keys.
 
-```env
-OPENAI_BASE_URL=https://api.moonshot.cn/v1
-OPENAI_MODEL=moonshot-v1-8k
+## Testing
+
+```bash
+python -m pytest
+python run.py --date 2026-07-18 --skip-weekly --skip-monthly --skip-index
 ```
 
-## Cost Control
+Default tests use mock network responses. Manual integration tests may enable
+external APIs, but CI should not depend on public network availability.
 
-The default daily path is intentionally cost-safe:
+## More Docs
 
-- `MODEL_MODE=single`
-- single-model summaries are capped by `OPENAI_SUMMARY_BUDGET`
-- output length is capped by `MAX_OUTPUT_TOKENS`
-- evidence length is capped by `MAX_EVIDENCE_CHARS`
-- reports show Summary mode, Provider, Model, LLM summary calls, and Last LLM error
-
-role_pipeline is kept only as an experimental advanced mode. It may call
-DeepSeek, Kimi, GLM, or other role-specific models for one item and can multiply
-API usage quickly. Do not enable it for the scheduled daily workflow unless the
-higher cost is intentional.
-
-## Current Limitations
-
-- This release is a daily report generator MVP, not a full web application.
-- Ranking still needs a feedback loop and may overweight Agent or video diffusion items.
-- Context memory papers such as STALE / Q-RAG may need stronger promotion rules.
-- GitHub awesome-list repositories may still be noisy.
-- Some source parsers may fail silently or return 0 items.
-
-## Release Notes
-
-See `RELEASE_NOTES.md` for the v0.1.0 GitHub Release notes.
+- `docs/RESEARCH_PROFILE.md`
+- `docs/SOURCE_REGISTRY.md`
+- `docs/RANKING_AND_FEEDBACK.md`
+- `docs/ADDING_A_SOURCE.md`
+- `PROFILE_MIGRATION.md`

@@ -48,6 +48,17 @@ score_fields:
   - method_relevance
   - project_relevance
   - learning_value
+  - track_relevance
+  - systems_relevance
+  - embodied_relevance
+  - source_credibility
+  - journal_signal
+  - scholar_signal
+  - citation_signal
+  - feedback_score
+  - diversity_bonus
+  - coverage_bonus
+  - topic_drift_risk
 
 global_score_weights:
   novelty: 0.20
@@ -60,13 +71,24 @@ global_score_weights:
   editorial_signal: 0.05
 
 personal_score_weights:
-  research_relevance: 0.40
-  method_relevance: 0.20
-  project_relevance: 0.15
-  learning_value: 0.10
+  research_relevance: 0.27
+  project_relevance: 0.23
+  method_relevance: 0.10
+  systems_relevance: 0.08
+  learning_value: 0.08
   actionability: 0.08
-  authority_signal: 0.00
+  evidence_strength: 0.05
+  authority_signal: 0.04
+  novelty: 0.03
+  feedback_score: 0.04
   conference_signal: 0.00
+
+must_read_buckets:
+  - systems
+  - gpu_io
+  - compression
+  - agent_rl_infra
+  - embodied_world_models
 
 source_role_rules:
   no_direct_credibility_roles:

@@ -1,0 +1,87 @@
+people:
+  - id: jeff_dean
+    name: Jeff Dean
+    status: active
+    regions: [US]
+    focus_areas: [ai_systems_hpc, distributed_systems, machine_learning_systems]
+    official_profile: https://research.google/people/jeff/
+    organization_ids: [google_deepmind]
+    current_roles: []
+    role_last_verified: "2026-07-18"
+    honors: []
+    scholar_priority: P0
+    relationship_to_profile: [ai_systems_hpc]
+    source_roles: [scholar_authority]
+  - id: richard_sutton
+    name: Richard Sutton
+    status: active
+    regions: [CA]
+    focus_areas: [rl, agent_rl_infrastructure]
+    current_roles: []
+    role_last_verified: "2026-07-18"
+    honors: []
+    scholar_priority: P1
+    relationship_to_profile: [agent_rl_infrastructure]
+    source_roles: [scholar_authority]
+  - id: torsten_hoefler
+    name: Torsten Hoefler
+    status: active
+    regions: [EU]
+    focus_areas: [ai_systems_hpc, gpu_data_path_storage, compression_reliability]
+    current_roles: []
+    role_last_verified: "2026-07-18"
+    honors: []
+    scholar_priority: P0
+    relationship_to_profile: [ai_systems_hpc, compression_reliability]
+    source_roles: [scholar_authority]
+  - id: pieter_abbeel
+    name: Pieter Abbeel
+    status: active
+    regions: [US]
+    focus_areas: [embodied_world_models, rl]
+    current_roles: []
+    role_last_verified: "2026-07-18"
+    honors: []
+    scholar_priority: P0
+    relationship_to_profile: [embodied_world_models]
+    source_roles: [scholar_authority]
+  - id: yao_shunyu
+    name: Shunyu Yao
+    aliases: [姚顺雨]
+    status: active
+    regions: [CN, US]
+    focus_areas: [agent_rl_infrastructure, agents]
+    current_roles: []
+    role_last_verified: "2026-07-18"
+    honors: []
+    scholar_priority: P0
+    relationship_to_profile: [schedagent, agent_rl_infrastructure]
+    source_roles: [scholar_authority]
+  - id: sun_ninghui
+    name: 孙凝晖
+    status: active
+    regions: [CN]
+    focus_areas: [ai_systems_hpc, hpc]
+    current_roles: []
+    role_last_verified: "2026-07-18"
+    honors: []
+    scholar_priority: P0
+    relationship_to_profile: [ai_systems_hpc]
+    source_roles: [scholar_authority]
+  - id: zhao_hairui
+    name: 赵海睿
+    status: active
+    regions: [CN]
+    focus_areas: [agent_rl_infrastructure, ai_systems_hpc]
+    current_roles: []
+    role_last_verified: "2026-07-18"
+    honors: []
+    scholar_priority: P0
+    relationship_to_profile: [schedagent]
+    source_roles: [scholar_authority]
+
+seed_names:
+  foundations_ai_rl: [Geoffrey Hinton, Yann LeCun, Yoshua Bengio, Judea Pearl, Michael I. Jordan, Andrew Ng, Fei-Fei Li, Demis Hassabis, David Silver, Sergey Levine, Chelsea Finn, Jitendra Malik, Kaiming He, Christopher Manning, Percy Liang, Yejin Choi, Dan Jurafsky, Russ Salakhutdinov]
+  systems_hpc_networking: [John L. Hennessy, David Patterson, Jack Dongarra, Leslie Lamport, Barbara Liskov, Nancy Lynch, Michael Stonebraker, Matei Zaharia, Ion Stoica, Remzi Arpaci-Dusseau, Andrea Arpaci-Dusseau, Frans Kaashoek, Robert Morris, Hari Balakrishnan, Nick McKeown, Scott Shenker, Sylvia Ratnasamy, Dina Katabi, Satoshi Matsuoka, Onur Mutlu, Kunle Olukotun, Song Han, Christos Kozyrakis, Mark D. Hill, John Ousterhout, Mendel Rosenblum, Christopher Re, Peter Bailis, William Gropp]
+  embodied_world_models: [Shuran Song, Dorsa Sadigh, Deepak Pathak, Lerrel Pinto, Abhinav Gupta, Raia Hadsell, David Ha, Danijar Hafner]
+  china_related: [李国杰, 高文, 张钹, 周志华, 唐杰, 刘云浩, 何恺明, 孙剑, 王晓刚, 乔宇, 戴季峰, 朱松纯, 杨植麟, 俞凯, 陶鼎文, 党凡]

@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional
 
 from .base import BaseModel
 from .client import ChatModelClient, log_model_error
+from .summary_model import load_research_profile
 from .summary_model import ACTION_CHOICES, SUMMARY_FIELDS
 
 
@@ -47,14 +48,9 @@ TECHNICAL_PROMPT = """你是 Technical Extractor，只负责从 evidence 中抽�
 返回严格 JSON，字段必须且只能包含：
 task, problem, method, experiments_or_benchmarks, claimed_results, limitations, missing_details, evidence_level。"""
 
-RELEVANCE_PROMPT = """你是 Relevance & Priority Judge，只负责判断条目与 George 研究地图的关系和阅读优先级。
-George 的核心方向：
-- Context Compression / Long Context / Agent Memory
-- LLM Agents / Tool Use / Planning / Agentic RL
-- Novel Class Discovery / Open-World Learning / OOD / Continual Learning
-- Model Distillation / Model Compression / Efficient Training
-传统关注：CV, NLP, RL, Model Architecture, Learning Methods。
-防止关键词漂移；如果只是泛 Agent、泛 benchmark 或泛开源工具，要降级。
+RELEVANCE_PROMPT = """你是 Relevance & Priority Judge，只负责判断条目与 George Research Profile v2 的关系和阅读优先级。
+研究画像会随 user payload 提供；必须以其中 tracks/projects 为准，不得使用旧的固定四方向。
+防止关键词漂移：泛 Agent、泛 benchmark、普通 image compression、social metaphor world model、biological systems 都不能自动进入 P0。
 返回严格 JSON，字段必须且只能包含：
 primary_category, secondary_tags, relevance_to_user, reading_tier_candidate, suggested_action_candidate, why_for_george, risk_of_topic_drift。"""
 
@@ -112,6 +108,7 @@ class RolePipeline(BaseModel):
 
         role_status: dict[str, dict[str, Any]] = {}
         evidence = self._build_evidence(item)
+        research_profile = load_research_profile()
         technical = self._call_role(
             "technical_extractor",
             TECHNICAL_PROMPT,
@@ -141,17 +138,24 @@ class RolePipeline(BaseModel):
             {
                 "evidence": evidence,
                 "technical_extractor": technical,
+                "research_profile": research_profile,
                 "current_rule_scores": item.get("scores", {}),
                 "current_rule_tier": item.get("reading_tier"),
                 "required_json": {
                     "primary_category": "...",
                     "secondary_tags": [],
                     "relevance_to_user": {
-                        "context_compression_memory": 0.0,
-                        "agents": 0.0,
-                        "open_world_learning": 0.0,
-                        "model_distillation": 0.0,
-                        "rl": 0.0,
+                        "ai_systems_hpc": 0.0,
+                        "gpu_data_path_storage": 0.0,
+                        "compression_reliability": 0.0,
+                        "agent_rl_infrastructure": 0.0,
+                        "embodied_world_models": 0.0,
+                    },
+                    "project_relevance": {
+                        "skyfs": 0.0,
+                        "schedagent": 0.0,
+                        "verl_infrastructure": 0.0,
+                        "embodied_intelligence": 0.0,
                     },
                     "reading_tier_candidate": "MUST_READ/SKIM/WATCH/ARCHIVE/IGNORE",
                     "suggested_action_candidate": "read_pdf/skim/watch/save/use_as_eval/study_code/read_readme/archive/ignore",

@@ -83,3 +83,11 @@ Open GitHub -> Actions -> Daily AI Research Radar -> Run workflow.
 - v0.3.0: feedback loop and recommender architecture
 - v0.4.0: FastAPI + React local web app
 - v1.0.0: stable research intelligence application
+# v0.2.0 - George Research Profile v2
+
+- Added the George Research Profile v2 with five P0 research tracks.
+- Added entity registries for associations, venues, organizations, and people.
+- Added metadata fetcher adapters for OpenAlex, Crossref, Semantic Scholar, and DBLP.
+- Added feedback CLI and feedback-aware ranking defaults.
+- Reworked the daily report template around Core Research Tracks and supporting foundations.
+- Added regression tests for legacy superset behavior, classification, ranking, report rendering, and mock fetchers.

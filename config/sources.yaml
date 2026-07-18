@@ -93,6 +93,94 @@ sources:
       - novel class discovery language:Python
       - open world learning language:Python
       - model distillation language:Python
+      - distributed training system language:Python
+      - GPUDirect RDMA storage language:Python
+      - checkpoint storage llm training language:Python
+      - agent runtime scheduler language:Python
+      - RLHF rollout engine language:Python
+      - vision language action robot language:Python
+
+  - id: arxiv_systems_hpc
+    name: arXiv Systems/HPC/GPU Data Path
+    type: arxiv
+    source_kind: primary
+    source_role: paper_source
+    trust_level: high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: daily
+    categories: [cs.DC, cs.OS, cs.PF, cs.AR, cs.NI]
+    max_items: 80
+
+  - id: arxiv_embodied_world_models
+    name: arXiv Embodied AI / Robotics / World Models
+    type: arxiv
+    source_kind: primary
+    source_role: paper_source
+    trust_level: high
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: daily
+    categories: [cs.RO, cs.CV, cs.AI, cs.LG]
+    max_items: 60
+
+  - id: openalex_ai_systems_discovery
+    name: OpenAlex AI Systems Discovery
+    type: openalex
+    enabled: false
+    source_kind: aggregator
+    source_role: [discovery, metadata_enrichment]
+    trust_level: medium
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: weekly
+    query: "AI systems distributed training GPU storage"
+    max_items: 20
+
+  - id: crossref_ai_systems_metadata
+    name: Crossref AI Systems Metadata
+    type: crossref
+    enabled: false
+    source_kind: aggregator
+    source_role: [metadata_enrichment, identifier_authority]
+    trust_level: medium
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
+    query: "distributed training checkpoint storage"
+    max_items: 20
+
+  - id: semantic_scholar_ai_infra
+    name: Semantic Scholar AI Infrastructure Discovery
+    type: semantic_scholar
+    enabled: false
+    source_kind: aggregator
+    source_role: [discovery, citation_signal, recommendation]
+    trust_level: medium
+    noise_level: medium
+    region: global
+    language: en
+    update_frequency: weekly
+    query: "AI infrastructure GPU distributed training"
+    max_items: 20
+
+  - id: dblp_systems_publications
+    name: DBLP Systems Publications
+    type: dblp
+    enabled: false
+    source_kind: aggregator
+    source_role: [metadata_enrichment, publication_stream]
+    trust_level: medium_high
+    noise_level: low
+    region: global
+    language: en
+    update_frequency: weekly
+    query: "distributed systems GPU storage"
+    max_items: 20
 
   - id: openai_news
     name: OpenAI News

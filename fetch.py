@@ -35,9 +35,12 @@ USER_AGENT = "ai-research-radar/0.1 (+https://github.com/your-name/ai-research-r
 DEFAULT_TIMEOUT = 25
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 LOGGER = logging.getLogger("ai_research_radar.fetch")
+CLOUDSCRAPER_COOKIE_DIR = Path(".cache") / "cloudscraper"
+CLOUDSCRAPER_COOKIE_DIR.mkdir(parents=True, exist_ok=True)
 
 # 创建全局scraper实例，保持会话和Cookie持久化
 scraper = cloudscraper.create_scraper(
+    cookie_storage_dir=str(CLOUDSCRAPER_COOKIE_DIR),
     browser={
         "browser": "chrome",
         "platform": "windows",
@@ -678,6 +681,178 @@ def fetch_openreview_source(source: dict[str, Any], http: requests.Session) -> l
     return items
 
 
+def _metadata_api_get(source: dict[str, Any], http: requests.Session, url: str, params: dict[str, Any] | None = None) -> dict[str, Any] | list[Any]:
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
+    response = http.get(url, params=params or {}, headers=headers, timeout=source.get("timeout", DEFAULT_TIMEOUT))
+    if response.status_code == 429:
+        retry_after = response.headers.get("Retry-After")
+        if retry_after and str(retry_after).isdigit():
+            time.sleep(min(5, int(retry_after)))
+            response = http.get(url, params=params or {}, headers=headers, timeout=source.get("timeout", DEFAULT_TIMEOUT))
+    response.raise_for_status()
+    return response.json()
+
+
+def fetch_openalex_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
+    query = source.get("query") or "artificial intelligence systems"
+    params = {
+        "search": query,
+        "per-page": source.get("max_items", 20),
+        "sort": source.get("sort", "publication_date:desc"),
+    }
+    if source.get("filter"):
+        params["filter"] = source["filter"]
+    data = _metadata_api_get(source, http, source.get("api_url", "https://api.openalex.org/works"), params)
+    rows = data.get("results", []) if isinstance(data, dict) else []
+    items: list[dict[str, Any]] = []
+    for row in rows[: source.get("max_items", 20)]:
+        authors = []
+        for authorship in row.get("authorships", []) or []:
+            author = authorship.get("author") or {}
+            if author.get("display_name"):
+                authors.append(author["display_name"])
+        primary_location = row.get("primary_location") or {}
+        landing = primary_location.get("landing_page_url") or row.get("doi") or row.get("id") or source.get("url")
+        item = make_item(
+            source=source,
+            title=row.get("display_name") or "",
+            url=landing or "",
+            summary=row.get("abstract") or "",
+            published_at=parse_date(row.get("publication_date")),
+            authors=authors,
+            tags=["openalex", *([topic.get("display_name", "") if isinstance(topic, dict) else str(topic) for topic in (row.get("topics") or [])[:3]] if isinstance(row.get("topics"), list) else [])],
+            metrics={"openalex_id": row.get("id"), "doi": row.get("doi"), "cited_by_count": row.get("cited_by_count")},
+            metadata={"source_role": ["discovery", "metadata_enrichment"]},
+        )
+        if item:
+            items.append(item)
+    return items
+
+
+def fetch_crossref_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
+    params = {
+        "query": source.get("query", "AI systems"),
+        "rows": source.get("max_items", 20),
+        "sort": source.get("sort", "published"),
+        "order": "desc",
+    }
+    data = _metadata_api_get(source, http, source.get("api_url", "https://api.crossref.org/works"), params)
+    rows = (data.get("message") or {}).get("items", []) if isinstance(data, dict) else []
+    items: list[dict[str, Any]] = []
+    for row in rows[: source.get("max_items", 20)]:
+        title = " ".join(row.get("title") or [])
+        authors = [
+            " ".join(part for part in [author.get("given"), author.get("family")] if part)
+            for author in row.get("author", []) or []
+            if isinstance(author, dict)
+        ]
+        date_parts = ((row.get("published-print") or row.get("published-online") or row.get("issued") or {}).get("date-parts") or [[]])[0]
+        published = "-".join(str(part) for part in date_parts) if date_parts else None
+        item = make_item(
+            source=source,
+            title=title,
+            url=row.get("URL") or (f"https://doi.org/{row.get('DOI')}" if row.get("DOI") else ""),
+            summary=row.get("abstract") or row.get("container-title", [""])[0] if isinstance(row.get("container-title"), list) else "",
+            published_at=parse_date(published),
+            authors=authors,
+            tags=["crossref", row.get("type", "")],
+            metrics={"doi": row.get("DOI"), "publisher": row.get("publisher")},
+            metadata={"source_role": ["metadata_enrichment", "identifier_authority"]},
+        )
+        if item:
+            items.append(item)
+    return items
+
+
+def fetch_semantic_scholar_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
+    params = {
+        "query": source.get("query", "AI infrastructure"),
+        "limit": source.get("max_items", 20),
+        "fields": "title,abstract,url,authors,year,publicationDate,citationCount,externalIds,venue",
+    }
+    data = _metadata_api_get(source, http, source.get("api_url", "https://api.semanticscholar.org/graph/v1/paper/search"), params)
+    rows = data.get("data", []) if isinstance(data, dict) else []
+    items: list[dict[str, Any]] = []
+    for row in rows[: source.get("max_items", 20)]:
+        external = row.get("externalIds") or {}
+        url = row.get("url") or (f"https://doi.org/{external.get('DOI')}" if external.get("DOI") else "")
+        item = make_item(
+            source=source,
+            title=row.get("title") or "",
+            url=url,
+            summary=row.get("abstract") or "",
+            published_at=parse_date(row.get("publicationDate") or row.get("year")),
+            authors=[author.get("name") for author in row.get("authors", []) or [] if isinstance(author, dict) and author.get("name")],
+            tags=["semantic-scholar", row.get("venue", "")],
+            metrics={"semantic_scholar_id": row.get("paperId"), "citation_count": row.get("citationCount"), **external},
+            metadata={"source_role": ["discovery", "citation_signal", "recommendation"]},
+        )
+        if item:
+            items.append(item)
+    return items
+
+
+def fetch_dblp_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
+    params = {"q": source.get("query", "distributed training"), "format": "json", "h": source.get("max_items", 20)}
+    data = _metadata_api_get(source, http, source.get("api_url", "https://dblp.org/search/publ/api"), params)
+    hits = (((data.get("result") or {}).get("hits") or {}).get("hit") or []) if isinstance(data, dict) else []
+    items: list[dict[str, Any]] = []
+    for hit in hits[: source.get("max_items", 20)]:
+        info = hit.get("info") or {}
+        authors_value = (info.get("authors") or {}).get("author", [])
+        if isinstance(authors_value, dict):
+            authors_value = [authors_value]
+        authors = [a.get("text") or str(a) for a in authors_value if a]
+        item = make_item(
+            source=source,
+            title=info.get("title") or "",
+            url=info.get("ee") or info.get("url") or "",
+            summary=info.get("venue") or "",
+            published_at=parse_date(info.get("year")),
+            authors=authors,
+            tags=["dblp", info.get("venue", "")],
+            metrics={"dblp_key": info.get("key"), "venue": info.get("venue")},
+            metadata={"source_role": ["metadata_enrichment", "publication_stream"]},
+        )
+        if item:
+            items.append(item)
+    return items
+
+
+def fetch_official_json_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
+    data = _metadata_api_get(source, http, source.get("api_url") or source.get("url"), source.get("params") or {})
+    rows = data
+    for key in source.get("items_path", ["items", "results", "data"]):
+        if isinstance(rows, dict) and key in rows:
+            rows = rows[key]
+            break
+    if not isinstance(rows, list):
+        rows = []
+    items: list[dict[str, Any]] = []
+    for row in rows[: source.get("max_items", 20)]:
+        if not isinstance(row, dict):
+            continue
+        item = make_item(
+            source=source,
+            title=row.get(source.get("title_field", "title")) or row.get("name") or "",
+            url=row.get(source.get("url_field", "url")) or row.get("link") or source.get("url", ""),
+            summary=row.get(source.get("summary_field", "summary")) or row.get("abstract") or row.get("description") or "",
+            published_at=parse_date(row.get(source.get("date_field", "published_at")) or row.get("date")),
+            authors=as_list(row.get("authors")),
+            tags=as_list(row.get("tags")),
+            metadata={"source_role": source.get("source_role")},
+        )
+        if item:
+            items.append(item)
+    return items
+
+
+def fetch_publication_feed_source(source: dict[str, Any], http: requests.Session) -> list[dict[str, Any]]:
+    if str(source.get("url", "")).endswith((".xml", ".rss", ".atom")):
+        return fetch_rss_source(source, http)
+    return fetch_html_links_source(source, http)
+
+
 BAD_TITLES = {
     "home",
     "menu",
@@ -755,6 +930,15 @@ FETCHERS = {
     "github_search": fetch_github_search_source,
     "openreview": fetch_openreview_source,
     "html_links": fetch_html_links_source,
+    "openalex": fetch_openalex_source,
+    "crossref": fetch_crossref_source,
+    "semantic_scholar": fetch_semantic_scholar_source,
+    "dblp": fetch_dblp_source,
+    "official_json": fetch_official_json_source,
+    "official_api": fetch_official_json_source,
+    "publication_feed": fetch_publication_feed_source,
+    "person_page": fetch_html_links_source,
+    "venue_feed": fetch_publication_feed_source,
 }
 
 LAST_SOURCE_HEALTH: list[dict[str, Any]] = []
