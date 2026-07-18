@@ -717,7 +717,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
                     <span class="search-icon">⌕</span>
                     <input id="radar-search" type="search" placeholder="搜索论文、方向、机构或关键词">
                 </label>
-                <a class="pill-link" href="report.md">Markdown</a>
+                <a class="pill-link" href="report.md">中文 Markdown</a>
+                <a class="pill-link" href="report.en.md">English Markdown</a>
                 <a class="pill-link" href="https://github.com/georgeorange-crypto/ai-research-radar">GitHub</a>
             </div>
         </nav>
@@ -756,8 +757,10 @@ __PAGE_BODY__
         (function () {
             const reportRoot = document.getElementById("report-content");
             const languageToggle = document.getElementById("language-toggle");
-            const originalTextNodes = new WeakMap();
             let currentLanguage = localStorage.getItem("radar-language") || "zh";
+            const markdownFiles = { zh: "report.md", en: "report.en.md" };
+            const markdownCache = {};
+            let activeFilter = "all";
 
             const exactZh = {
                 "Daily Overview": "每日概览",
@@ -956,13 +959,33 @@ __PAGE_BODY__
                 return "";
             }
 
+            async function loadMarkdownForLanguage(lang) {
+                const file = markdownFiles[lang] || markdownFiles.zh;
+                reportRoot.innerHTML = '<div class="loading-card">' + (lang === "zh" ? "正在加载中文版..." : "Loading English version...") + "</div>";
+                try {
+                    if (!markdownCache[file]) {
+                        const response = await fetch(file + "?ts=" + Date.now(), { cache: "no-store" });
+                        if (!response.ok) throw new Error("HTTP " + response.status);
+                        markdownCache[file] = await response.text();
+                    }
+                    reportRoot.innerHTML = markdownToHtml(markdownCache[file]);
+                } catch (error) {
+                    if (lang === "en" && file !== markdownFiles.zh) {
+                        reportRoot.innerHTML = '<div class="loading-card">English Markdown is missing; falling back to Chinese...</div>';
+                        return loadMarkdownForLanguage("zh");
+                    }
+                    reportRoot.innerHTML = '<div class="empty-state">无法加载 Markdown。请检查 GitHub Pages 是否已部署最新文件。</div>';
+                }
+            }
+
             async function loadMarkdownIfNeeded() {
                 if (reportRoot.querySelector("h1")) return;
                 reportRoot.innerHTML = '<div class="loading-card">正在加载最新 report.md...</div>';
                 try {
-                    const response = await fetch("report.md?ts=" + Date.now(), { cache: "no-store" });
+                    const response = await fetch(markdownFiles.zh + "?ts=" + Date.now(), { cache: "no-store" });
                     if (!response.ok) throw new Error("HTTP " + response.status);
                     const md = await response.text();
+                    markdownCache[markdownFiles.zh] = md;
                     reportRoot.innerHTML = markdownToHtml(md);
                 } catch (error) {
                     reportRoot.innerHTML = '<div class="empty-state">无法加载 report.md。请检查 GitHub Pages 是否已部署最新文件。</div>';
@@ -987,6 +1010,10 @@ __PAGE_BODY__
                 if (upper.includes("SKIM")) return "skim";
                 if (upper.includes("WATCH")) return "watch";
                 if (upper.includes("ARCHIVE")) return "archive";
+                if (String(text || "").includes("必读")) return "must_read";
+                if (String(text || "").includes("略读")) return "skim";
+                if (String(text || "").includes("关注")) return "watch";
+                if (String(text || "").includes("归档")) return "archive";
                 return "other";
             }
 
@@ -1078,25 +1105,23 @@ __PAGE_BODY__
                 });
             }
 
-            function applyLanguage(lang) {
+            function enhanceReportContent() {
+                enhanceHero();
+                wrapOverview();
+                wrapSections();
+                cardifyPapers();
+                styleSummaryLists();
+                updateSearchData();
+                buildToc();
+            }
+
+            async function applyLanguage(lang) {
                 currentLanguage = lang;
                 localStorage.setItem("radar-language", lang);
                 setChromeLanguage(lang);
-                const walker = document.createTreeWalker(reportRoot, NodeFilter.SHOW_TEXT);
-                const nodes = [];
-                while (walker.nextNode()) nodes.push(walker.currentNode);
-                nodes.forEach(node => {
-                    if (shouldSkipTranslationNode(node)) return;
-                    if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
-                    const original = originalTextNodes.get(node);
-                    node.nodeValue = lang === "zh" ? translateToZh(original) : original;
-                });
-                Array.from(document.querySelectorAll(".tier-badge")).forEach(badge => {
-                    const card = badge.closest(".radar-card");
-                    badge.textContent = tierLabel(card ? card.dataset.tier : "other");
-                });
-                updateSearchData();
-                buildToc();
+                await loadMarkdownForLanguage(lang);
+                enhanceReportContent();
+                applyFilters();
             }
 
             function enhanceHero() {
@@ -1113,10 +1138,15 @@ __PAGE_BODY__
 
                 const labels = [
                     "Summary mode",
+                    "总结模式",
                     "Provider",
+                    "供应商",
                     "Model",
+                    "模型",
                     "LLM summary calls",
+                    "LLM 总结调用次数",
                     "Estimated cost",
+                    "估算成本",
                     "Cost guard",
                     "api_requests_total",
                     "cache_hits"
@@ -1151,7 +1181,7 @@ __PAGE_BODY__
             }
 
             function wrapOverview() {
-                const overview = Array.from(reportRoot.querySelectorAll("h2")).find(h => h.textContent.includes("Daily Overview"));
+                const overview = Array.from(reportRoot.querySelectorAll("h2")).find(h => h.textContent.includes("Daily Overview") || h.textContent.includes("每日概览"));
                 if (!overview) return;
                 const next = overview.nextElementSibling;
                 if (!next || next.tagName !== "UL") return;
@@ -1211,10 +1241,12 @@ __PAGE_BODY__
                         const button = document.createElement("button");
                         button.className = "toggle-details";
                         button.type = "button";
-                        button.textContent = "展开详情";
+                        button.textContent = currentLanguage === "zh" ? "展开详情" : "Show details";
                         button.addEventListener("click", () => {
                             card.classList.toggle("expanded");
-                            button.textContent = card.classList.contains("expanded") ? "收起详情" : "展开详情";
+                            button.textContent = card.classList.contains("expanded")
+                                ? (currentLanguage === "zh" ? "收起详情" : "Hide details")
+                                : (currentLanguage === "zh" ? "展开详情" : "Show details");
                         });
                         card.appendChild(button);
                     }
@@ -1235,56 +1267,59 @@ __PAGE_BODY__
                 });
             }
 
+            function applyFilters() {
+                const input = document.getElementById("radar-search");
+                const chips = Array.from(document.querySelectorAll(".filter-chip"));
+                chips.forEach(chip => {
+                    chip.classList.toggle("active", (chip.dataset.filter || "all") === activeFilter);
+                });
+                const query = normalizeText(input ? input.value : "");
+                const nodes = Array.from(reportRoot.querySelectorAll(".radar-card, .summary-list li"));
+                let visible = 0;
+                nodes.forEach(node => {
+                    const tier = node.dataset.tier || "other";
+                    const haystack = node.dataset.search || normalizeText(node.textContent);
+                    const okTier = activeFilter === "all" || tier === activeFilter;
+                    const okQuery = !query || haystack.includes(query);
+                    node.classList.toggle("hidden", !(okTier && okQuery));
+                    if (okTier && okQuery) visible += 1;
+                });
+
+                let empty = reportRoot.querySelector(".search-empty-state");
+                if (!empty) {
+                    empty = document.createElement("div");
+                    empty.className = "empty-state search-empty-state";
+                    empty.textContent = currentLanguage === "zh" ? "没有匹配结果。换一个关键词或切回全部。" : "No matches. Try another keyword or switch back to All.";
+                    empty.style.display = "none";
+                    reportRoot.appendChild(empty);
+                }
+                empty.style.display = visible === 0 && nodes.length > 0 ? "block" : "none";
+            }
+
             function bindFilters() {
                 const input = document.getElementById("radar-search");
                 const chips = Array.from(document.querySelectorAll(".filter-chip"));
-                let active = "all";
-
-                function apply() {
-                    const query = normalizeText(input ? input.value : "");
-                    const nodes = Array.from(reportRoot.querySelectorAll(".radar-card, .summary-list li"));
-                    let visible = 0;
-                    nodes.forEach(node => {
-                        const tier = node.dataset.tier || "other";
-                        const haystack = node.dataset.search || normalizeText(node.textContent);
-                        const okTier = active === "all" || tier === active;
-                        const okQuery = !query || haystack.includes(query);
-                        node.classList.toggle("hidden", !(okTier && okQuery));
-                        if (okTier && okQuery) visible += 1;
-                    });
-
-                    let empty = reportRoot.querySelector(".search-empty-state");
-                    if (!empty) {
-                        empty = document.createElement("div");
-                        empty.className = "empty-state search-empty-state";
-                        empty.textContent = "没有匹配结果。换一个关键词或切回 All。";
-                        empty.style.display = "none";
-                        reportRoot.appendChild(empty);
-                    }
-                    empty.style.display = visible === 0 && nodes.length > 0 ? "block" : "none";
-                }
 
                 chips.forEach(chip => {
                     chip.addEventListener("click", () => {
-                        chips.forEach(c => c.classList.remove("active"));
-                        chip.classList.add("active");
-                        active = chip.dataset.filter || "all";
-                        apply();
+                        activeFilter = chip.dataset.filter || "all";
+                        applyFilters();
                     });
                 });
 
-                if (input) input.addEventListener("input", apply);
-                apply();
+                if (input) input.addEventListener("input", applyFilters);
+                applyFilters();
             }
 
-            function enhance() {
-                enhanceHero();
-                wrapOverview();
-                wrapSections();
-                cardifyPapers();
-                styleSummaryLists();
-                applyLanguage(currentLanguage);
+            async function enhance() {
                 bindFilters();
+                if (currentLanguage === "zh") {
+                    setChromeLanguage("zh");
+                    enhanceReportContent();
+                    applyFilters();
+                } else {
+                    await applyLanguage(currentLanguage);
+                }
                 if (languageToggle) {
                     languageToggle.addEventListener("click", () => {
                         applyLanguage(currentLanguage === "zh" ? "en" : "zh");
@@ -1292,7 +1327,7 @@ __PAGE_BODY__
                 }
             }
 
-            loadMarkdownIfNeeded().then(enhance);
+            loadMarkdownIfNeeded().then(() => { enhance(); });
         })();
     </script>
 </body>
@@ -1482,6 +1517,285 @@ def generate_html_report(md_path: str | Path, html_path: str | Path | None = Non
     html_path.parent.mkdir(parents=True, exist_ok=True)
     html_path.write_text(html_content, encoding="utf-8")
     return str(html_path)
+
+
+ENGLISH_COMPANION_REPLACEMENTS = [
+    ("研究画像", "Profile"),
+    ("总结模式", "Summary mode"),
+    ("供应商", "Provider"),
+    ("模型", "Model"),
+    ("角色流水线", "Role pipeline"),
+    ("LLM 总结调用次数", "LLM summary calls"),
+    ("估算成本", "Estimated cost"),
+    ("最近一次 LLM 错误", "Last LLM error"),
+    ("已禁用供应商", "provider_disabled"),
+    ("原因", "reason"),
+    ("未检测到可用 API key；本次使用确定性的本地兜底摘要。", "No API key was available; generated deterministic local fallback summaries."),
+    ("## 0. 每日概览", "## 0. Daily Overview"),
+    ("最重要方向", "Most important direction"),
+    ("必读数量", "Must Read count"),
+    ("略读数量", "Skim count"),
+    ("关注数量", "Watch count"),
+    ("关键词", "Keywords"),
+    ("判断", "Judgement"),
+    ("## 1. 核心研究方向", "## 1. Core Research Tracks"),
+    ("### 1.1 AI 系统 / HPC / 分布式训练与推理", "### 1.1 AI Systems / HPC / Distributed Training & Inference"),
+    ("### 1.2 GPU 中心 I/O / 网络 / 存储", "### 1.2 GPU-Centric I/O / Networking / Storage"),
+    ("### 1.3 AI 基础设施压缩 / 可靠性", "### 1.3 Compression / Reliability for AI Infrastructure"),
+    ("### 1.4 Agent 运行时 / RL 基础设施 / 调度", "### 1.4 Agent Runtime / RL Infrastructure / Scheduling"),
+    ("### 1.5 具身智能 / VLA / 世界模型", "### 1.5 Embodied Intelligence / VLA / World Models"),
+    ("## 2. 支撑性 AI 基础方向", "## 2. Supporting AI Foundations"),
+    ("### 上下文 / 记忆", "### Context / Memory"),
+    ("### 通用 Agent / 推理", "### Generic Agents / Reasoning"),
+    ("### 强化学习", "### Reinforcement Learning"),
+    ("### 模型架构", "### Model Architecture"),
+    ("### 多模态 / VLM / 计算机视觉", "### Multimodal / VLM / CV"),
+    ("### 开放世界 / 持续学习", "### Open-World / Continual Learning"),
+    ("### 模型蒸馏", "### Model Distillation"),
+    ("## 3. 跨方向连接", "## 3. Cross-Track Connections"),
+    ("## 4. Benchmark / 数据集 / 评测", "## 4. Benchmark / Dataset / Evaluation"),
+    ("## 5. GitHub / 开源项目", "## 5. GitHub / Open Source Projects"),
+    ("## 6. 学者雷达", "## 6. Scholar Radar"),
+    ("## 7. 高校 / 实验室雷达", "## 7. University / Lab Radar"),
+    ("## 8. 公司研究雷达", "## 8. Company Research Radar"),
+    ("## 9. 学会 / 奖项 / Fellow / 领导层", "## 9. Associations / Awards / Fellows / Leadership"),
+    ("### 学会", "### Associations"),
+    ("### 奖项与代表论文", "### Awards & Notable Papers"),
+    ("## 10. 重要会议与期刊论文", "## 10. Notable Conference and Journal Papers"),
+    ("## 11. 常青经典", "## 11. Evergreen Classics"),
+    ("## 12. 反馈感知推荐", "## 12. Feedback-Aware Recommendations"),
+    ("## 13. 来源健康状态", "## 13. Source Health"),
+    ("## 14. 采集说明", "## 14. Collection Notes"),
+    ("#### 必读", "#### Must Read"),
+    ("#### 略读", "#### Skim"),
+    ("#### 关注", "#### Watch"),
+    ("阅读优先级", "Reading tier"),
+    ("来源", "Source"),
+    ("发布时间", "Published"),
+    ("主方向", "Primary track"),
+    ("次级标签", "Secondary tags"),
+    ("依据层级", "Grounding level"),
+    ("评分", "Scores"),
+    ("项目相关性", "Project relevance"),
+    ("是什么", "What it is"),
+    ("问题", "Problem"),
+    ("方法 / 贡献", "Method/contribution"),
+    ("为什么对 George 重要", "Why important to George"),
+    ("建议动作", "Suggested action"),
+    ("命中关键词", "Matched keywords"),
+    ("生成时间", "Generated at"),
+    ("来源数量", "Source count"),
+    ("原始条目数", "Raw item count"),
+    ("去重后条目数", "Dedup item count"),
+    ("API 请求总数", "API requests total"),
+    ("各供应商 API 请求数", "API requests by provider"),
+    ("缓存命中", "Cache hits"),
+    ("缓存未命中", "Cache misses"),
+    ("Benchmark 附录", "Benchmark appendix"),
+    ("报告路径", "Report path"),
+    ("上一期报告", "Previous report link"),
+    ("必读", "MUST_READ"),
+    ("略读", "SKIM"),
+    ("关注", "WATCH"),
+    ("归档", "ARCHIVE"),
+    ("忽略", "IGNORE"),
+    ("单模型", "single"),
+    ("本地兜底", "local fallback"),
+    ("无", "none"),
+    ("未知", "unknown"),
+    ("一手来源", "primary"),
+    ("聚合来源", "aggregator"),
+    ("媒体摘要", "media"),
+    ("论文来源", "paper_source"),
+    ("全文依据", "full text grounding"),
+    ("全文", "full text"),
+    ("仅摘要", "abstract only"),
+    ("仅标题", "title only"),
+    ("仓库 README", "repo README"),
+    ("读 PDF", "read_pdf"),
+    ("快速扫读", "skim"),
+    ("持续WATCH", "watch"),
+    ("保存", "save"),
+    ("克隆运行", "clone_and_run"),
+    ("研读代码", "study_code"),
+    ("阅读 README", "read_readme"),
+]
+
+
+def make_english_companion_markdown(md_text: str) -> str:
+    """Create an English navigation/label companion while preserving titles and source text."""
+    heading_map = {
+        "## 0. 每日概览": "## 0. Daily Overview",
+        "## 1. 核心研究方向": "## 1. Core Research Tracks",
+        "### 1.1 AI 系统 / HPC / 分布式训练与推理": "### 1.1 AI Systems / HPC / Distributed Training & Inference",
+        "### 1.2 GPU 中心 I/O / 网络 / 存储": "### 1.2 GPU-Centric I/O / Networking / Storage",
+        "### 1.3 AI 基础设施压缩 / 可靠性": "### 1.3 Compression / Reliability for AI Infrastructure",
+        "### 1.4 Agent 运行时 / RL 基础设施 / 调度": "### 1.4 Agent Runtime / RL Infrastructure / Scheduling",
+        "### 1.5 具身智能 / VLA / 世界模型": "### 1.5 Embodied Intelligence / VLA / World Models",
+        "## 2. 支撑性 AI 基础方向": "## 2. Supporting AI Foundations",
+        "### 上下文 / 记忆": "### Context / Memory",
+        "### 通用 Agent / 推理": "### Generic Agents / Reasoning",
+        "### 强化学习": "### Reinforcement Learning",
+        "### 模型架构": "### Model Architecture",
+        "### 多模态 / VLM / 计算机视觉": "### Multimodal / VLM / CV",
+        "### 开放世界 / 持续学习": "### Open-World / Continual Learning",
+        "### 模型蒸馏": "### Model Distillation",
+        "## 3. 跨方向连接": "## 3. Cross-Track Connections",
+        "## 4. Benchmark / 数据集 / 评测": "## 4. Benchmark / Dataset / Evaluation",
+        "## 5. GitHub / 开源项目": "## 5. GitHub / Open Source Projects",
+        "## 6. 学者雷达": "## 6. Scholar Radar",
+        "## 7. 高校 / 实验室雷达": "## 7. University / Lab Radar",
+        "## 8. 公司研究雷达": "## 8. Company Research Radar",
+        "## 9. 学会 / 奖项 / Fellow / 领导层": "## 9. Associations / Awards / Fellows / Leadership",
+        "### 学会": "### Associations",
+        "### 奖项与代表论文": "### Awards & Notable Papers",
+        "## 10. 重要会议与期刊论文": "## 10. Notable Conference and Journal Papers",
+        "## 11. 常青经典": "## 11. Evergreen Classics",
+        "## 12. 反馈感知推荐": "## 12. Feedback-Aware Recommendations",
+        "## 13. 来源健康状态": "## 13. Source Health",
+        "## 14. 采集说明": "## 14. Collection Notes",
+        "#### 必读": "#### Must Read",
+        "#### 略读": "#### Skim",
+        "#### 关注": "#### Watch",
+    }
+    label_map = {
+        "研究画像": "Profile",
+        "总结模式": "Summary mode",
+        "供应商": "Provider",
+        "模型": "Model",
+        "角色流水线": "Role pipeline",
+        "LLM 总结调用次数": "LLM summary calls",
+        "估算成本": "Estimated cost",
+        "最近一次 LLM 错误": "Last LLM error",
+        "已禁用供应商": "provider_disabled",
+        "原因": "reason",
+        "最重要方向": "Most important direction",
+        "必读数量": "Must Read count",
+        "略读数量": "Skim count",
+        "关注数量": "Watch count",
+        "关键词": "Keywords",
+        "判断": "Judgement",
+        "阅读优先级": "Reading tier",
+        "来源": "Source",
+        "发布时间": "Published",
+        "主方向": "Primary track",
+        "次级标签": "Secondary tags",
+        "依据层级": "Grounding level",
+        "评分": "Scores",
+        "项目相关性": "Project relevance",
+        "是什么": "What it is",
+        "问题": "Problem",
+        "方法 / 贡献": "Method/contribution",
+        "为什么对 George 重要": "Why important to George",
+        "建议动作": "Suggested action",
+        "命中关键词": "Matched keywords",
+        "生成时间": "Generated at",
+        "来源数量": "Source count",
+        "原始条目数": "Raw item count",
+        "去重后条目数": "Dedup item count",
+        "API 请求总数": "API requests total",
+        "各供应商 API 请求数": "API requests by provider",
+        "缓存命中": "Cache hits",
+        "缓存未命中": "Cache misses",
+        "Benchmark 附录": "Benchmark appendix",
+        "报告路径": "Report path",
+        "上一期报告": "Previous report link",
+    }
+    value_map = {
+        "单模型": "single",
+        "本地兜底": "local fallback",
+        "无": "none",
+        "未知": "unknown",
+        "必读": "MUST_READ",
+        "略读": "SKIM",
+        "关注": "WATCH",
+        "归档": "ARCHIVE",
+        "忽略": "IGNORE",
+        "读 PDF": "read_pdf",
+        "快速扫读": "skim",
+        "持续关注": "watch",
+        "保存": "save",
+        "克隆运行": "clone_and_run",
+        "研读代码": "study_code",
+        "阅读 README": "read_readme",
+        "仅标题": "title only",
+        "仅摘要": "abstract only",
+        "全文": "full text",
+        "仓库 README": "repo README",
+    }
+    phrase_map = {
+        "AI 系统 / HPC / 分布式训练与推理": "AI Systems / HPC / Distributed Training & Inference",
+        "GPU 中心 I/O / 网络 / 存储": "GPU-Centric I/O / Networking / Storage",
+        "AI 基础设施压缩 / 可靠性": "Compression / Reliability for AI Infrastructure",
+        "Agent 运行时 / RL 基础设施 / 调度": "Agent Runtime / RL Infrastructure / Scheduling",
+        "具身智能 / VLA / 世界模型": "Embodied Intelligence / VLA / World Models",
+        "一手来源": "primary",
+        "聚合来源": "aggregator",
+        "媒体摘要": "media",
+        "论文来源": "paper_source",
+        "代码可操作性来源": "code_actionability",
+        "评测来源": "benchmark_source",
+        "社区信号": "community_signal",
+        "产业信号": "industry_signal",
+        "编辑信号": "editorial_signal",
+        "角色=": "role=",
+        "个人相关度": "personal",
+        "全局热度": "global",
+        "可信度": "credibility",
+        "证据强度": "evidence",
+        "炒作风险": "hype_risk",
+        "反馈": "feedback",
+        "阅读优先级": "Reading tier",
+        "编辑优先级": "editorial_priority",
+        "研究相关度": "relevance",
+        "今天安排深读": "schedule deep read today",
+        "建议今天安排深读": "schedule deep read today",
+        "建议今天快速扫读": "skim today",
+        "方向相关，先追踪但不深读": "watch this direction without deep reading",
+        "建议归档备用": "archive for later",
+        "阅读优先级：必读": "Reading tier: MUST_READ",
+        "阅读优先级：略读": "Reading tier: SKIM",
+        "阅读优先级：关注": "Reading tier: WATCH",
+        "阅读优先级：归档": "Reading tier: ARCHIVE",
+        "阅读优先级：忽略": "Reading tier: IGNORE",
+    }
+
+    lines: list[str] = []
+    for line in md_text.splitlines():
+        if line in heading_map:
+            lines.append(heading_map[line])
+            continue
+        if line == "> 未检测到可用 API key；本次使用确定性的本地兜底摘要。":
+            lines.append("> No API key was available; generated deterministic local fallback summaries.")
+            continue
+        if line.startswith("- ") and "：" in line:
+            raw_label, value = line[2:].split("：", 1)
+            label = label_map.get(raw_label)
+            if label:
+                value = value.strip()
+                for zh, en in sorted(phrase_map.items(), key=lambda pair: len(pair[0]), reverse=True):
+                    value = value.replace(zh, en)
+                value = value_map.get(value, value)
+                value = (
+                    value.replace("（", " (")
+                    .replace("）", ")")
+                    .replace("；", "; ")
+                    .replace("，", ", ")
+                    .replace("、", ", ")
+                    .replace("：", ": ")
+                    .replace("。", ".")
+                )
+                lines.append(f"- {label}: {value}")
+                continue
+        lines.append(line)
+    return "\n".join(lines) + ("\n" if md_text.endswith("\n") else "")
+
+
+def write_english_companion_report(md_path: str | Path, english_path: str | Path = "report.en.md") -> str:
+    md_path = Path(md_path)
+    english_path = Path(english_path)
+    english_path.write_text(make_english_companion_markdown(md_path.read_text(encoding="utf-8")), encoding="utf-8")
+    return str(english_path)
 
 
 def archive_report_with_timestamp(

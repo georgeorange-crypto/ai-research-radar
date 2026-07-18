@@ -6,6 +6,7 @@ on:
       - main
     paths-ignore:
       - "report.md"
+      - "report.en.md"
       - "index.html"
       - "reports/**"
       - "data/raw/**"
@@ -171,7 +172,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add report.md index.html reports
+          git add report.md report.en.md index.html reports
           git add -f data/raw data/processed
           if [ -d data/llm_cache ]; then
             git add -f data/llm_cache

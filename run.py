@@ -17,7 +17,7 @@ except ImportError:
 
 from archive import generate_index, generate_monthly_report, month_id
 from fetch import configure_logging, fetch_all, save_jsonl
-from md_to_html import archive_report_with_timestamp
+from md_to_html import archive_report_with_timestamp, write_english_companion_report
 from rank import process_items, save_json
 from summarize import generate_report
 from weekly import generate_weekly_report, week_id
@@ -112,6 +112,7 @@ def main() -> int:
         latest_path=latest_path,
     )
     shutil.copyfile(report_path, root_md_path)
+    write_english_companion_report(root_md_path, Path("report.en.md"))
 
     if QUALITY_ENABLED and not args.skip_quality:
         try:
