@@ -505,16 +505,16 @@
 ## 13. Source Health
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
-- GitHub AI Research Projects：time budget exhausted（22 条） - 时间预算已耗尽 after 22 items
+- GitHub AI Research Projects：time budget exhausted（25 条） - 时间预算已耗尽 after 25 items
 - Meta AI Blog：0 items（0 条） - fetch completed with 0 items
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. Collection Notes
 
-- Generated at: 2026-07-18T17:52:43.687679+00:00
+- Generated at: 2026-07-18T18:09:50.211963+00:00
 - Source count: 31
-- Raw item count: 682
-- Dedup item count: 553
+- Raw item count: 685
+- Dedup item count: 556
 - API requests total: 0
 - API requests by provider: none
 - Cache hits: 0

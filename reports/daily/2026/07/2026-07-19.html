@@ -702,7 +702,8 @@
                     <span class="search-icon">⌕</span>
                     <input id="radar-search" type="search" placeholder="搜索论文、方向、机构或关键词">
                 </label>
-                <a class="pill-link" href="report.md">Markdown</a>
+                <a class="pill-link" href="report.md">中文 Markdown</a>
+                <a class="pill-link" href="report.en.md">English Markdown</a>
                 <a class="pill-link" href="https://github.com/georgeorange-crypto/ai-research-radar">GitHub</a>
             </div>
         </nav>
@@ -1348,7 +1349,7 @@
 
 <ul>
 <li>OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)</li>
-<li>GitHub AI Research Projects：time budget exhausted（22 条） - 时间预算已耗尽 after 22 items</li>
+<li>GitHub AI Research Projects：time budget exhausted（25 条） - 时间预算已耗尽 after 25 items</li>
 <li>Meta AI Blog：0 items（0 条） - fetch completed with 0 items</li>
 <li>The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch</li>
 </ul>
@@ -1356,10 +1357,10 @@
 <h2>14. 采集说明</h2>
 
 <ul>
-<li>生成时间：2026-07-18T17:52:43.687679+00:00</li>
+<li>生成时间：2026-07-18T18:09:50.211963+00:00</li>
 <li>来源数量：31</li>
-<li>原始条目数：682</li>
-<li>去重后条目数：553</li>
+<li>原始条目数：685</li>
+<li>去重后条目数：556</li>
 <li>API 请求总数：0</li>
 <li>各供应商 API 请求数：无</li>
 <li>缓存命中：0</li>
@@ -1382,8 +1383,10 @@
         (function () {
             const reportRoot = document.getElementById("report-content");
             const languageToggle = document.getElementById("language-toggle");
-            const originalTextNodes = new WeakMap();
             let currentLanguage = localStorage.getItem("radar-language") || "zh";
+            const markdownFiles = { zh: "report.md", en: "report.en.md" };
+            const markdownCache = {};
+            let activeFilter = "all";
 
             const exactZh = {
                 "Daily Overview": "每日概览",
@@ -1582,13 +1585,33 @@
                 return "";
             }
 
+            async function loadMarkdownForLanguage(lang) {
+                const file = markdownFiles[lang] || markdownFiles.zh;
+                reportRoot.innerHTML = '<div class="loading-card">' + (lang === "zh" ? "正在加载中文版..." : "Loading English version...") + "</div>";
+                try {
+                    if (!markdownCache[file]) {
+                        const response = await fetch(file + "?ts=" + Date.now(), { cache: "no-store" });
+                        if (!response.ok) throw new Error("HTTP " + response.status);
+                        markdownCache[file] = await response.text();
+                    }
+                    reportRoot.innerHTML = markdownToHtml(markdownCache[file]);
+                } catch (error) {
+                    if (lang === "en" && file !== markdownFiles.zh) {
+                        reportRoot.innerHTML = '<div class="loading-card">English Markdown is missing; falling back to Chinese...</div>';
+                        return loadMarkdownForLanguage("zh");
+                    }
+                    reportRoot.innerHTML = '<div class="empty-state">无法加载 Markdown。请检查 GitHub Pages 是否已部署最新文件。</div>';
+                }
+            }
+
             async function loadMarkdownIfNeeded() {
                 if (reportRoot.querySelector("h1")) return;
                 reportRoot.innerHTML = '<div class="loading-card">正在加载最新 report.md...</div>';
                 try {
-                    const response = await fetch("report.md?ts=" + Date.now(), { cache: "no-store" });
+                    const response = await fetch(markdownFiles.zh + "?ts=" + Date.now(), { cache: "no-store" });
                     if (!response.ok) throw new Error("HTTP " + response.status);
                     const md = await response.text();
+                    markdownCache[markdownFiles.zh] = md;
                     reportRoot.innerHTML = markdownToHtml(md);
                 } catch (error) {
                     reportRoot.innerHTML = '<div class="empty-state">无法加载 report.md。请检查 GitHub Pages 是否已部署最新文件。</div>';
@@ -1613,6 +1636,10 @@
                 if (upper.includes("SKIM")) return "skim";
                 if (upper.includes("WATCH")) return "watch";
                 if (upper.includes("ARCHIVE")) return "archive";
+                if (String(text || "").includes("必读")) return "must_read";
+                if (String(text || "").includes("略读")) return "skim";
+                if (String(text || "").includes("关注")) return "watch";
+                if (String(text || "").includes("归档")) return "archive";
                 return "other";
             }
 
@@ -1704,25 +1731,23 @@
                 });
             }
 
-            function applyLanguage(lang) {
+            function enhanceReportContent() {
+                enhanceHero();
+                wrapOverview();
+                wrapSections();
+                cardifyPapers();
+                styleSummaryLists();
+                updateSearchData();
+                buildToc();
+            }
+
+            async function applyLanguage(lang) {
                 currentLanguage = lang;
                 localStorage.setItem("radar-language", lang);
                 setChromeLanguage(lang);
-                const walker = document.createTreeWalker(reportRoot, NodeFilter.SHOW_TEXT);
-                const nodes = [];
-                while (walker.nextNode()) nodes.push(walker.currentNode);
-                nodes.forEach(node => {
-                    if (shouldSkipTranslationNode(node)) return;
-                    if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
-                    const original = originalTextNodes.get(node);
-                    node.nodeValue = lang === "zh" ? translateToZh(original) : original;
-                });
-                Array.from(document.querySelectorAll(".tier-badge")).forEach(badge => {
-                    const card = badge.closest(".radar-card");
-                    badge.textContent = tierLabel(card ? card.dataset.tier : "other");
-                });
-                updateSearchData();
-                buildToc();
+                await loadMarkdownForLanguage(lang);
+                enhanceReportContent();
+                applyFilters();
             }
 
             function enhanceHero() {
@@ -1739,10 +1764,15 @@
 
                 const labels = [
                     "Summary mode",
+                    "总结模式",
                     "Provider",
+                    "供应商",
                     "Model",
+                    "模型",
                     "LLM summary calls",
+                    "LLM 总结调用次数",
                     "Estimated cost",
+                    "估算成本",
                     "Cost guard",
                     "api_requests_total",
                     "cache_hits"
@@ -1777,7 +1807,7 @@
             }
 
             function wrapOverview() {
-                const overview = Array.from(reportRoot.querySelectorAll("h2")).find(h => h.textContent.includes("Daily Overview"));
+                const overview = Array.from(reportRoot.querySelectorAll("h2")).find(h => h.textContent.includes("Daily Overview") || h.textContent.includes("每日概览"));
                 if (!overview) return;
                 const next = overview.nextElementSibling;
                 if (!next || next.tagName !== "UL") return;
@@ -1837,10 +1867,12 @@
                         const button = document.createElement("button");
                         button.className = "toggle-details";
                         button.type = "button";
-                        button.textContent = "展开详情";
+                        button.textContent = currentLanguage === "zh" ? "展开详情" : "Show details";
                         button.addEventListener("click", () => {
                             card.classList.toggle("expanded");
-                            button.textContent = card.classList.contains("expanded") ? "收起详情" : "展开详情";
+                            button.textContent = card.classList.contains("expanded")
+                                ? (currentLanguage === "zh" ? "收起详情" : "Hide details")
+                                : (currentLanguage === "zh" ? "展开详情" : "Show details");
                         });
                         card.appendChild(button);
                     }
@@ -1861,56 +1893,59 @@
                 });
             }
 
+            function applyFilters() {
+                const input = document.getElementById("radar-search");
+                const chips = Array.from(document.querySelectorAll(".filter-chip"));
+                chips.forEach(chip => {
+                    chip.classList.toggle("active", (chip.dataset.filter || "all") === activeFilter);
+                });
+                const query = normalizeText(input ? input.value : "");
+                const nodes = Array.from(reportRoot.querySelectorAll(".radar-card, .summary-list li"));
+                let visible = 0;
+                nodes.forEach(node => {
+                    const tier = node.dataset.tier || "other";
+                    const haystack = node.dataset.search || normalizeText(node.textContent);
+                    const okTier = activeFilter === "all" || tier === activeFilter;
+                    const okQuery = !query || haystack.includes(query);
+                    node.classList.toggle("hidden", !(okTier && okQuery));
+                    if (okTier && okQuery) visible += 1;
+                });
+
+                let empty = reportRoot.querySelector(".search-empty-state");
+                if (!empty) {
+                    empty = document.createElement("div");
+                    empty.className = "empty-state search-empty-state";
+                    empty.textContent = currentLanguage === "zh" ? "没有匹配结果。换一个关键词或切回全部。" : "No matches. Try another keyword or switch back to All.";
+                    empty.style.display = "none";
+                    reportRoot.appendChild(empty);
+                }
+                empty.style.display = visible === 0 && nodes.length > 0 ? "block" : "none";
+            }
+
             function bindFilters() {
                 const input = document.getElementById("radar-search");
                 const chips = Array.from(document.querySelectorAll(".filter-chip"));
-                let active = "all";
-
-                function apply() {
-                    const query = normalizeText(input ? input.value : "");
-                    const nodes = Array.from(reportRoot.querySelectorAll(".radar-card, .summary-list li"));
-                    let visible = 0;
-                    nodes.forEach(node => {
-                        const tier = node.dataset.tier || "other";
-                        const haystack = node.dataset.search || normalizeText(node.textContent);
-                        const okTier = active === "all" || tier === active;
-                        const okQuery = !query || haystack.includes(query);
-                        node.classList.toggle("hidden", !(okTier && okQuery));
-                        if (okTier && okQuery) visible += 1;
-                    });
-
-                    let empty = reportRoot.querySelector(".search-empty-state");
-                    if (!empty) {
-                        empty = document.createElement("div");
-                        empty.className = "empty-state search-empty-state";
-                        empty.textContent = "没有匹配结果。换一个关键词或切回 All。";
-                        empty.style.display = "none";
-                        reportRoot.appendChild(empty);
-                    }
-                    empty.style.display = visible === 0 && nodes.length > 0 ? "block" : "none";
-                }
 
                 chips.forEach(chip => {
                     chip.addEventListener("click", () => {
-                        chips.forEach(c => c.classList.remove("active"));
-                        chip.classList.add("active");
-                        active = chip.dataset.filter || "all";
-                        apply();
+                        activeFilter = chip.dataset.filter || "all";
+                        applyFilters();
                     });
                 });
 
-                if (input) input.addEventListener("input", apply);
-                apply();
+                if (input) input.addEventListener("input", applyFilters);
+                applyFilters();
             }
 
-            function enhance() {
-                enhanceHero();
-                wrapOverview();
-                wrapSections();
-                cardifyPapers();
-                styleSummaryLists();
-                applyLanguage(currentLanguage);
+            async function enhance() {
                 bindFilters();
+                if (currentLanguage === "zh") {
+                    setChromeLanguage("zh");
+                    enhanceReportContent();
+                    applyFilters();
+                } else {
+                    await applyLanguage(currentLanguage);
+                }
                 if (languageToggle) {
                     languageToggle.addEventListener("click", () => {
                         applyLanguage(currentLanguage === "zh" ? "en" : "zh");
@@ -1918,7 +1953,7 @@
                 }
             }
 
-            loadMarkdownIfNeeded().then(enhance);
+            loadMarkdownIfNeeded().then(() => { enhance(); });
         })();
     </script>
 </body>
