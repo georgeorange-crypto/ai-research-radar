@@ -77,21 +77,85 @@ jobs:
               print("::error::.env must not be tracked")
               sys.exit(1)
 
-          pattern = re.compile(
-              r"sk-[A-Za-z0-9_-]{20,}|"
-              r"OPENAI_API_KEY=.+|DEEPSEEK_API_KEY=.+|"
-              r"KIMI_API_KEY=.+|GLM_API_KEY=.+|"
-              r"Bearer [A-Za-z0-9._-]{20,}"
+          assignment_pattern = re.compile(
+              r"\b(OPENAI_API_KEY|DEEPSEEK_API_KEY|KIMI_API_KEY|GLM_API_KEY)="
+              r"([^\s'\"`]+)"
           )
+          token_patterns = [
+              re.compile(r"\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{20,}\b"),
+              re.compile(r"\bBearer\s+([A-Za-z0-9._-]{20,})"),
+          ]
+          skipped_prefixes = (
+              "data/raw/",
+              "data/processed/",
+              "data/llm_cache/",
+              "reports/history/",
+          )
+          skipped_suffixes = (
+              ".docx",
+              ".pdf",
+              ".png",
+              ".jpg",
+              ".jpeg",
+              ".gif",
+              ".zip",
+          )
+
+          def looks_like_placeholder(value):
+              lower = value.strip().strip('"\'').lower()
+              placeholders = {
+                  "",
+                  "xxx",
+                  "xxxxx",
+                  "sk-xxx",
+                  "example",
+                  "placeholder",
+                  "changeme",
+                  "dummy",
+                  "token",
+                  "your_api_key",
+                  "your_key_here",
+              }
+              return (
+                  lower in placeholders
+                  or lower.startswith("<")
+                  or "example" in lower
+                  or "placeholder" in lower
+                  or "your_" in lower
+              )
+
+          def looks_like_secret(value):
+              value = value.strip().strip('"\'')
+              if looks_like_placeholder(value):
+                  return False
+              if value.startswith("sk-") and not re.search(r"\d", value):
+                  return False
+              return len(value) >= 20 and len(set(value)) >= 10
+
           hits = []
           for name in tracked:
+              normalized_name = name.replace("\\", "/")
+              if normalized_name.startswith(skipped_prefixes) or normalized_name.lower().endswith(skipped_suffixes):
+                  continue
               path = pathlib.Path(name)
               if not path.is_file():
                   continue
-              text = path.read_text(encoding="utf-8", errors="ignore")
-              for match in pattern.finditer(text):
-                  line = text.count("\n", 0, match.start()) + 1
-                  hits.append(f"{name}:{line}")
+              with path.open(encoding="utf-8", errors="ignore") as handle:
+                  for line_number, line in enumerate(handle, start=1):
+                      for match in assignment_pattern.finditer(line):
+                          if not looks_like_secret(match.group(2)):
+                              continue
+                          hits.append(f"{name}:{line_number}")
+                      for pattern in token_patterns:
+                          for match in pattern.finditer(line):
+                              value = match.group(1) if match.lastindex else match.group(0)
+                              if not looks_like_secret(value):
+                                  continue
+                              hits.append(f"{name}:{line_number}")
+                              break
+                          else:
+                              continue
+                          break
           if hits:
               print("::error::Potential secret material found in tracked files")
               print("\n".join(hits))
