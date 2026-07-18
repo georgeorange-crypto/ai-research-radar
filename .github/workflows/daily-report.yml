@@ -1,6 +1,16 @@
 name: Daily AI Research Radar
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "report.md"
+      - "index.html"
+      - "reports/**"
+      - "data/raw/**"
+      - "data/processed/**"
+      - "data/llm_cache/**"
   schedule:
     # 06:30 Asia/Shanghai.
     - cron: "30 22 * * *"
