@@ -1147,12 +1147,15 @@ def item_block(item: dict[str, Any], idx: int) -> str:
     ) or "\u65e0"
     keywords = "\u3001".join(str(term) for term in item.get("matched_keywords", [])[:8]) or "\u65e0"
     action = action_label_zh(summary.get("suggested_action", choose_action(item)).strip())
+    source_name = source.get("name") or "\u672a\u77e5\u6765\u6e90"
+    published_at = item.get("published_at") or "\u672a\u77e5"
+    primary_title = primary.get("title") or "\u672a\u5206\u7c7b"
     lines = [
         f"##### {idx}. [{item.get('title')}]({item.get('url')})",
         f"- \u9605\u8bfb\u4f18\u5148\u7ea7\uff1a{tier_label_zh(item.get('reading_tier', 'ARCHIVE'))}",
-        f"- \u6765\u6e90\uff1a{source.get('name', '\u672a\u77e5\u6765\u6e90')}\uff08{source_kind_label_zh(source.get('kind', 'unknown'))}\uff1b\u89d2\u8272={source_role_label(item)}\uff09",
-        f"- \u53d1\u5e03\u65f6\u95f4\uff1a{item.get('published_at') or '\u672a\u77e5'}",
-        f"- \u4e3b\u65b9\u5411\uff1a{section_display_name(primary.get('id', ''), primary.get('title', '\u672a\u5206\u7c7b'))}",
+        f"- \u6765\u6e90\uff1a{source_name}\uff08{source_kind_label_zh(source.get('kind', 'unknown'))}\uff1b\u89d2\u8272={source_role_label(item)}\uff09",
+        f"- \u53d1\u5e03\u65f6\u95f4\uff1a{published_at}",
+        f"- \u4e3b\u65b9\u5411\uff1a{section_display_name(primary.get('id', ''), primary_title)}",
         f"- \u6b21\u7ea7\u6807\u7b7e\uff1a{tags}",
         f"- \u4f9d\u636e\u5c42\u7ea7\uff1a{grounding_label(item)}",
         f"- \u8bc4\u5206\uff1a\u4e2a\u4eba\u76f8\u5173\u5ea6={scores.get('personal_score', 0):.2f}\uff0c\u5168\u5c40\u70ed\u5ea6={scores.get('global_score', 0):.2f}\uff0c\u53ef\u4fe1\u5ea6={scores.get('credibility', 0):.2f}\uff0c\u8bc1\u636e\u5f3a\u5ea6={scores.get('evidence_strength', 0):.2f}\uff0c\u7092\u4f5c\u98ce\u9669={scores.get('hype_risk', 0):.2f}\uff0c\u53cd\u9988={scores.get('feedback_score', 0):.2f}",
@@ -2382,12 +2385,15 @@ def item_block(item: dict[str, Any], idx: int) -> str:
     ) or "\u65e0"
     keywords = "\u3001".join(str(term) for term in item.get("matched_keywords", [])[:8]) or "\u65e0"
     action = action_label_zh(summary.get("suggested_action", choose_action(item)).strip())
+    source_name = source.get("name") or "\u672a\u77e5\u6765\u6e90"
+    published_at = item.get("published_at") or "\u672a\u77e5"
+    primary_title = primary.get("title") or "\u672a\u5206\u7c7b"
     lines = [
         f"##### {idx}. [{item.get('title')}]({item.get('url')})",
         f"- \u9605\u8bfb\u4f18\u5148\u7ea7\uff1a{tier_label_zh(item.get('reading_tier', 'ARCHIVE'))}",
-        f"- \u6765\u6e90\uff1a{source.get('name', '\u672a\u77e5\u6765\u6e90')}\uff08{source_kind_label_zh(source.get('kind', 'unknown'))}\uff1b\u89d2\u8272={source_role_label(item)}\uff09",
-        f"- \u53d1\u5e03\u65f6\u95f4\uff1a{item.get('published_at') or '\u672a\u77e5'}",
-        f"- \u4e3b\u65b9\u5411\uff1a{section_display_name(primary.get('id', ''), primary.get('title', '\u672a\u5206\u7c7b'))}",
+        f"- \u6765\u6e90\uff1a{source_name}\uff08{source_kind_label_zh(source.get('kind', 'unknown'))}\uff1b\u89d2\u8272={source_role_label(item)}\uff09",
+        f"- \u53d1\u5e03\u65f6\u95f4\uff1a{published_at}",
+        f"- \u4e3b\u65b9\u5411\uff1a{section_display_name(primary.get('id', ''), primary_title)}",
         f"- \u6b21\u7ea7\u6807\u7b7e\uff1a{tags}",
         f"- \u4f9d\u636e\u5c42\u7ea7\uff1a{grounding_label(item)}",
         f"- \u8bc4\u5206\uff1a\u4e2a\u4eba\u76f8\u5173\u5ea6={scores.get('personal_score', 0):.2f}\uff0c\u5168\u5c40\u70ed\u5ea6={scores.get('global_score', 0):.2f}\uff0c\u53ef\u4fe1\u5ea6={scores.get('credibility', 0):.2f}\uff0c\u8bc1\u636e\u5f3a\u5ea6={scores.get('evidence_strength', 0):.2f}\uff0c\u7092\u4f5c\u98ce\u9669={scores.get('hype_risk', 0):.2f}\uff0c\u53cd\u9988={scores.get('feedback_score', 0):.2f}",
