@@ -149,8 +149,9 @@
 ## 2. 支撑性 AI 基础方向
 
 ### 上下文 / 记忆
-- [Chat2Scenic: An Iterative RAG-Based Framework for Scenario Generation in Autonomous Driving](https://arxiv.org/abs/2607.14387) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.77；全局热度=0.48；炒作风险=0.00）
+- [Chat2Scenic: An Iterative RAG-Based Framework for Scenario Generation in Autonomous Driving](https://arxiv.org/abs/2607.14387) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.77；全局热度=0.49；炒作风险=0.00）
 - [LMCache: An Efficient KV Cache Layer for Enterprise-Scale LLM Inference](https://arxiv.org/abs/2510.09665) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.74；全局热度=0.43；炒作风险=0.00）
+- [Zep: A Temporal Knowledge Graph Architecture for Agent Memory](https://arxiv.org/abs/2501.13956) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.69；全局热度=0.43；炒作风险=0.00）
 
 ### 通用 Agent / 推理
 - [BrainPilot: Automating Brain Discovery with Agentic Research](https://arxiv.org/abs/2607.15079v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.87；全局热度=0.42；炒作风险=0.00）
@@ -177,7 +178,7 @@
 
 ### 模型蒸馏
 - [From Draft to Draft-Free: One-Step Video Object Removal via Privileged Distillation and Fast Planting](https://arxiv.org/abs/2607.14976v1) （关注；模型蒸馏 / 模型压缩；个人相关度=0.80；全局热度=0.39；炒作风险=0.00）
-- [WanSong v1.0 Technical Report](https://arxiv.org/abs/2607.14749) （关注；模型蒸馏 / 模型压缩；个人相关度=0.69；全局热度=0.51；炒作风险=0.00）
+- [WanSong v1.0 Technical Report](https://arxiv.org/abs/2607.14749) （关注；模型蒸馏 / 模型压缩；个人相关度=0.68；全局热度=0.47；炒作风险=0.00）
 - [Embarrassingly Simple Self-Distillation Improves Code Generation](https://machinelearning.apple.com/research/simple-self-distillation) （关注；模型蒸馏 / 模型压缩；个人相关度=0.62；全局热度=0.38；炒作风险=0.00）
 
 ## 3. 跨方向连接
@@ -293,7 +294,7 @@
 ##### 1. [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)
 - 阅读优先级：研读代码
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-07-18T16:06:47+00:00
+- 发布时间：2026-07-18T18:32:36+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -309,7 +310,7 @@
 ##### 2. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-07-18T17:50:02+00:00
+- 发布时间：2026-07-18T23:27:41+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -407,7 +408,7 @@
   - 学校 / 实验室：Hugging Face
   - 类型：paper
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.90
+  - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.89
   - 建议行动：skim
 - [Symbal: Detecting Systematic Misalignments in Model-Generated Captions](https://arxiv.org/abs/2607.15216v1)
   - 学校 / 实验室：Stanford University
@@ -505,16 +506,15 @@
 ## 13. 来源健康状态
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
-- GitHub AI Research Projects：time budget exhausted（25 条） - 时间预算已耗尽 after 25 items
-- Meta AI Blog：0 items（0 条） - fetch completed with 0 items
+- GitHub AI Research Projects：time budget exhausted（24 条） - 时间预算已耗尽 after 24 items
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. 采集说明
 
-- 生成时间：2026-07-18T18:09:50.211963+00:00
-- 来源数量：31
-- 原始条目数：685
-- 去重后条目数：556
+- 生成时间：2026-07-18T23:31:01.812496+00:00
+- 来源数量：32
+- 原始条目数：699
+- 去重后条目数：562
 - API 请求总数：0
 - 各供应商 API 请求数：无
 - 缓存命中：0
