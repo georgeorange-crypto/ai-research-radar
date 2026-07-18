@@ -37,12 +37,12 @@ def test_must_read_diversity_and_report_snapshot() -> None:
     out_dir.mkdir(exist_ok=True)
     report_path = out_dir / "daily.md"
     rendered = generate_report(processed, report_path, report_date="2026-07-18", latest_path=None, archive_latest=False, generate_html=False)
-    assert "AI Systems / HPC / Distributed Training & Inference" in rendered
-    assert "GPU-Centric I/O / Networking / Storage" in rendered
-    assert "Scholar Radar" in rendered
-    assert "Company Research Radar" in rendered
-    assert "Source Health" in rendered
-    assert "Project relevance" in rendered
+    assert "AI 系统 / HPC / 分布式训练与推理" in rendered
+    assert "GPU 中心 I/O / 网络 / 存储" in rendered
+    assert "学者雷达" in rendered
+    assert "公司研究雷达" in rendered
+    assert "来源健康状态" in rendered
+    assert "项目相关性" in rendered
 
 
 def test_processed_json_has_v02_defaults() -> None:

@@ -1,173 +1,173 @@
 # AI Research Radar - {{ report_date }}
 
-- Profile: George Research Profile v2
-- Summary mode: {{ collection.summary_mode }}
-- Provider: {{ collection.provider }}
-- Model: {{ collection.model }}
-{% if collection.roles %}- Role pipeline:
+- 研究画像：George Research Profile v2
+- 总结模式：{{ collection.summary_mode }}
+- 供应商：{{ collection.provider }}
+- 模型：{{ collection.model }}
+{% if collection.roles %}- 角色流水线：
 {{ collection.roles }}
 {% endif %}
-- LLM summary calls: {{ collection.llm_summary_calls }}
-- Estimated cost: RMB {{ collection.estimated_llm_cost_rmb }} / {{ collection.daily_llm_budget_rmb }}
-- Last LLM error: {{ collection.last_llm_error }}
-- provider_disabled: {{ collection.provider_disabled }}
-- reason: {{ collection.provider_disabled_reason }}
+- LLM 总结调用次数：{{ collection.llm_summary_calls }}
+- 估算成本：RMB {{ collection.estimated_llm_cost_rmb }} / {{ collection.daily_llm_budget_rmb }}
+- 最近一次 LLM 错误：{{ collection.last_llm_error }}
+- 已禁用供应商：{{ collection.provider_disabled }}
+- 原因：{{ collection.provider_disabled_reason }}
 
 {% if collection.local_summary_notice %}
 > {{ collection.local_summary_notice }}
 {% endif %}
 
-## 0. Daily Overview
+## 0. 每日概览
 
-- Most important direction: {{ overview.most_important_direction }}
-- Must Read count: {{ overview.must_read_count }}{% if overview.must_read_titles %} ({{ overview.must_read_titles }}){% endif %}
-- Skim count: {{ overview.skim_count }}{% if overview.skim_titles %} ({{ overview.skim_titles }}){% endif %}
-- Watch count: {{ overview.watch_count }}{% if overview.watch_titles %} ({{ overview.watch_titles }}){% endif %}
-- Keywords: {{ overview.keywords }}
-- Judgement: {{ overview.judgement }}
+- 最重要方向：{{ overview.most_important_direction }}
+- 必读数量：{{ overview.must_read_count }}{% if overview.must_read_titles %}（{{ overview.must_read_titles }}）{% endif %}
+- 略读数量：{{ overview.skim_count }}{% if overview.skim_titles %}（{{ overview.skim_titles }}）{% endif %}
+- 关注数量：{{ overview.watch_count }}{% if overview.watch_titles %}（{{ overview.watch_titles }}）{% endif %}
+- 关键词：{{ overview.keywords }}
+- 判断：{{ overview.judgement }}
 
-## 1. Core Research Tracks
+## 1. 核心研究方向
 
-### 1.1 AI Systems / HPC / Distributed Training & Inference
+### 1.1 AI 系统 / HPC / 分布式训练与推理
 
-#### Must Read
+#### 必读
 {{ primary.ai_systems_hpc.must_read }}
 
-#### Skim
+#### 略读
 {{ primary.ai_systems_hpc.skim }}
 
-#### Watch
+#### 关注
 {{ primary.ai_systems_hpc.watch }}
 
-### 1.2 GPU-Centric I/O / Networking / Storage
+### 1.2 GPU 中心 I/O / 网络 / 存储
 
-#### Must Read
+#### 必读
 {{ primary.gpu_data_path_storage.must_read }}
 
-#### Skim
+#### 略读
 {{ primary.gpu_data_path_storage.skim }}
 
-#### Watch
+#### 关注
 {{ primary.gpu_data_path_storage.watch }}
 
-### 1.3 Compression / Reliability for AI Infrastructure
+### 1.3 AI 基础设施压缩 / 可靠性
 
-#### Must Read
+#### 必读
 {{ primary.compression_reliability.must_read }}
 
-#### Skim
+#### 略读
 {{ primary.compression_reliability.skim }}
 
-#### Watch
+#### 关注
 {{ primary.compression_reliability.watch }}
 
-### 1.4 Agent Runtime / RL Infrastructure / Scheduling
+### 1.4 Agent 运行时 / RL 基础设施 / 调度
 
-#### Must Read
+#### 必读
 {{ primary.agent_rl_infrastructure.must_read }}
 
-#### Skim
+#### 略读
 {{ primary.agent_rl_infrastructure.skim }}
 
-#### Watch
+#### 关注
 {{ primary.agent_rl_infrastructure.watch }}
 
-### 1.5 Embodied Intelligence / VLA / World Models
+### 1.5 具身智能 / VLA / 世界模型
 
-#### Must Read
+#### 必读
 {{ primary.embodied_world_models.must_read }}
 
-#### Skim
+#### 略读
 {{ primary.embodied_world_models.skim }}
 
-#### Watch
+#### 关注
 {{ primary.embodied_world_models.watch }}
 
-## 2. Supporting AI Foundations
+## 2. 支撑性 AI 基础方向
 
-### Context / Memory
+### 上下文 / 记忆
 {{ supporting.context_compression.watch }}
 
-### Generic Agents / Reasoning
+### 通用 Agent / 推理
 {{ supporting.agents.watch }}
 
-### Reinforcement Learning
+### 强化学习
 {{ supporting.rl }}
 
-### Model Architecture
+### 模型架构
 {{ supporting.model_architecture }}
 
-### Multimodal / VLM / CV
+### 多模态 / VLM / 计算机视觉
 {{ supporting.cv }}
 
 ### NLP
 {{ supporting.nlp }}
 
-### Open-World / Continual Learning
+### 开放世界 / 持续学习
 {{ supporting.open_world_learning.watch }}
 
-### Model Distillation
+### 模型蒸馏
 {{ supporting.model_distillation.watch }}
 
-## 3. Cross-Track Connections
+## 3. 跨方向连接
 
 {{ cross_track_connections }}
 
-## 4. Benchmark / Dataset / Evaluation
+## 4. Benchmark / 数据集 / 评测
 
 {{ benchmark_evaluation }}
 
-## 5. GitHub / Open Source Projects
+## 5. GitHub / 开源项目
 
 {{ github_projects }}
 
-## 6. Scholar Radar
+## 6. 学者雷达
 
 {{ scholar_radar }}
 
-## 7. University / Lab Radar
+## 7. 高校 / 实验室雷达
 
 {{ university_lab_radar }}
 
-## 8. Company Research Radar
+## 8. 公司研究雷达
 
 {{ company_radar }}
 
-## 9. Associations / Awards / Fellows / Leadership
+## 9. 学会 / 奖项 / Fellow / 领导层
 
-### Associations
+### 学会
 {{ association_radar }}
 
-### Awards & Notable Papers
+### 奖项与代表论文
 {{ awards_notable_papers }}
 
-## 10. Notable Conference and Journal Papers
+## 10. 重要会议与期刊论文
 
 {{ venue_radar }}
 
-## 11. Evergreen Classics
+## 11. 常青经典
 
 {{ classic_revisit }}
 
-## 12. Feedback-Aware Recommendations
+## 12. 反馈感知推荐
 
 {{ feedback_recommendations }}
 
-## 13. Source Health
+## 13. 来源健康状态
 
 {{ collection.source_health }}
 
-## 14. Collection Notes
+## 14. 采集说明
 
-- Generated at: {{ collection.generated_at }}
-- Source count: {{ collection.source_count }}
-- Raw item count: {{ collection.raw_count }}
-- Dedup item count: {{ collection.dedup_count }}
-- API requests total: {{ collection.api_requests_total }}
-- API requests by provider: {{ collection.api_requests_by_provider }}
-- Cache hits: {{ collection.cache_hits }}
-- Cache misses: {{ collection.cache_misses }}
-{% if collection.benchmark_appendix %}- Benchmark appendix: {{ collection.benchmark_appendix }}
+- 生成时间：{{ collection.generated_at }}
+- 来源数量：{{ collection.source_count }}
+- 原始条目数：{{ collection.raw_count }}
+- 去重后条目数：{{ collection.dedup_count }}
+- API 请求总数：{{ collection.api_requests_total }}
+- 各供应商 API 请求数：{{ collection.api_requests_by_provider }}
+- 缓存命中：{{ collection.cache_hits }}
+- 缓存未命中：{{ collection.cache_misses }}
+{% if collection.benchmark_appendix %}- Benchmark 附录：{{ collection.benchmark_appendix }}
 {% endif %}
-- Report path: {{ collection.report_path }}
-- Previous report link: {{ collection.previous_report_link }}
+- 报告路径：{{ collection.report_path }}
+- 上一份报告链接：{{ collection.previous_report_link }}

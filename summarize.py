@@ -449,6 +449,110 @@ GROUNDING_LABELS = {
     "repo_readme": "repo README",
 }
 
+ZH_PHRASES = {
+    "AI Systems / HPC / Distributed Training & Inference": "AI 系统 / HPC / 分布式训练与推理",
+    "GPU-Centric I/O / Networking / Storage": "GPU 中心 I/O / 网络 / 存储",
+    "Compression / Reliability for AI Infrastructure": "AI 基础设施压缩 / 可靠性",
+    "Agent Runtime / RL Infrastructure / Scheduling": "Agent 运行时 / RL 基础设施 / 调度",
+    "Embodied Intelligence / VLA / World Models": "具身智能 / VLA / 世界模型",
+    "Agent / Reasoning / Inference-time Scaling / Planning": "Agent / 推理 / 推理时扩展 / 规划",
+    "Context Compression / Long Context / Memory": "上下文压缩 / 长上下文 / 记忆",
+    "Benchmark / Dataset / Evaluation": "Benchmark / 数据集 / 评测",
+    "GitHub / Open Source Projects": "GitHub / 开源项目",
+    "Other Highlights": "其他亮点",
+    "Tool Library": "工具库",
+    "Model Architecture": "模型架构",
+    "Model Distillation / Model Compression / Efficient Training": "模型蒸馏 / 压缩 / 高效训练",
+    "Open Source": "开源",
+    "full text grounding": "全文依据",
+    "full text source": "全文来源",
+    "local fallback": "\u672c\u5730\u515c\u5e95",
+    "tier=MUST_READ": "\u9605\u8bfb\u4f18\u5148\u7ea7=\u5fc5\u8bfb",
+    "tier=SKIM": "\u9605\u8bfb\u4f18\u5148\u7ea7=\u7565\u8bfb",
+    "tier=WATCH": "\u9605\u8bfb\u4f18\u5148\u7ea7=\u5173\u6ce8",
+    "tier=ARCHIVE": "\u9605\u8bfb\u4f18\u5148\u7ea7=\u5f52\u6863",
+    "editorial_priority": "\u7f16\u8f91\u4f18\u5148\u7ea7",
+    "personal=": "\u4e2a\u4eba\u76f8\u5173\u5ea6=",
+    "relevance=": "\u7814\u7a76\u76f8\u5173\u5ea6=",
+    "read_pdf": "\u8bfb PDF",
+    "study_code": "\u7814\u8bfb\u4ee3\u7801",
+    "clone_and_run": "\u514b\u9686\u8fd0\u884c",
+}
+
+TIER_LABELS_ZH = {
+    "MUST_READ": "必读",
+    "SKIM": "略读",
+    "WATCH": "关注",
+    "ARCHIVE": "归档",
+    "IGNORE": "忽略",
+    "clone_and_run": "克隆运行",
+    "study_code": "研读代码",
+    "use_as_baseline": "作为基线",
+    "read_readme": "阅读 README",
+    "save": "保存",
+    "archive": "归档",
+}
+
+ACTION_LABELS_ZH = {
+    "read_pdf": "读 PDF",
+    "skim": "快速扫读",
+    "watch": "持续关注",
+    "save": "保存",
+    "ignore": "忽略",
+    "use_as_eval": "作为评测",
+    "clone_and_run": "克隆运行",
+    "study_code": "研读代码",
+    "use_as_baseline": "作为基线",
+    "read_readme": "阅读 README",
+    "archive": "归档",
+}
+
+SOURCE_KIND_LABELS_ZH = {
+    "primary": "一手来源",
+    "aggregator": "聚合来源",
+    "media": "媒体摘要",
+    "unknown": "未知来源类型",
+}
+
+SOURCE_ROLE_LABELS_ZH = {
+    "paper_source": "论文来源",
+    "institution_authority": "机构权威来源",
+    "code_actionability": "代码可操作性来源",
+    "benchmark_source": "评测来源",
+    "community_signal": "社区信号",
+    "industry_signal": "产业信号",
+    "editorial_signal": "编辑信号",
+}
+
+GROUNDING_LABELS_ZH = {
+    "title_only": "仅标题",
+    "abstract_only": "仅摘要",
+    "full_text": "全文",
+    "repo_readme": "仓库 README",
+}
+
+
+def zh_text(value: Any) -> str:
+    text = str(value or "")
+    for src, dst in sorted(ZH_PHRASES.items(), key=lambda pair: len(pair[0]), reverse=True):
+        text = text.replace(src, dst)
+    return text
+
+
+def tier_label_zh(value: Any) -> str:
+    text = str(value or "")
+    return TIER_LABELS_ZH.get(text, text)
+
+
+def action_label_zh(value: Any) -> str:
+    text = str(value or "")
+    return ACTION_LABELS_ZH.get(text, zh_text(text))
+
+
+def source_kind_label_zh(value: Any) -> str:
+    text = str(value or "unknown")
+    return SOURCE_KIND_LABELS_ZH.get(text, zh_text(text))
+
 
 def metadata_dict(item: dict[str, Any]) -> dict[str, Any]:
     metadata = item.get("metadata")
@@ -486,7 +590,7 @@ def grounding_level(item: dict[str, Any]) -> str:
 
 
 def grounding_label(item: dict[str, Any]) -> str:
-    return GROUNDING_LABELS.get(grounding_level(item), "abstract only")
+    return GROUNDING_LABELS_ZH.get(grounding_level(item), "仅摘要")
 
 
 def allowed_evidence_text(item: dict[str, Any]) -> str:
@@ -644,32 +748,34 @@ def contribution_hint_cn(item: dict[str, Any], names: list[str]) -> str:
 
 
 def full_text_fallback_summary(item: dict[str, Any]) -> dict[str, Any]:
-    title = item.get("title") or "未命名条目"
-    section = item.get("primary_category", item.get("primary_section", {})).get("title", "相关方向")
-    summary = trim(str(item.get("summary") or item.get("abstract") or ""), 520)
+    title = item.get("title") or "\u672a\u547d\u540d\u6761\u76ee"
+    section = section_display_name(
+        item.get("primary_category", item.get("primary_section", {})).get("id", ""),
+        item.get("primary_category", item.get("primary_section", {})).get("title", "\u76f8\u5173\u65b9\u5411"),
+    )
     scores = item.get("scores", {})
     tier = item.get("reading_tier", "ARCHIVE")
     lower_title = str(title).lower()
+    terms = "\u3001".join(salient_terms(item, limit=4)) or "\u6b63\u6587\u4e3b\u9898"
 
     if "adaptive parallel reasoning" in lower_title:
-        what_is_it = "Adaptive Parallel Reasoning 讨论如何把推理时计算从单一路径扩展为多条并行候选路径，并在搜索、验证或聚合后得到更稳的答案。"
-        problem = "它针对的是复杂问题中串行 chain-of-thought 容易早早走偏、单次采样难以覆盖多种解法的问题。"
-        method = "方法范式是 inference-time scaling：并行生成多个推理分支，再用选择、交叉检查或自适应预算分配把计算集中到更有希望的路径上。"
-        importance = "这类工作直接关系到 agent planning、长上下文任务和测试时计算分配，说明提升推理能力不只依赖更大模型，也依赖更好的推理组织方式。"
+        what_is_it = "Adaptive Parallel Reasoning \u8ba8\u8bba\u5982\u4f55\u628a\u63a8\u7406\u65f6\u8ba1\u7b97\u4ece\u5355\u4e00\u8def\u5f84\u6269\u5c55\u4e3a\u591a\u6761\u5e76\u884c\u5019\u9009\u8def\u5f84\uff0c\u5e76\u5728\u641c\u7d22\u3001\u9a8c\u8bc1\u6216\u805a\u5408\u540e\u5f97\u5230\u66f4\u7a33\u7684\u7b54\u6848\u3002"
+        problem = "\u5b83\u9488\u5bf9\u7684\u662f\u590d\u6742\u95ee\u9898\u4e2d\u4e32\u884c chain-of-thought \u5bb9\u6613\u65e9\u65e9\u8d70\u504f\u3001\u5355\u6b21\u91c7\u6837\u96be\u4ee5\u8986\u76d6\u591a\u79cd\u89e3\u6cd5\u7684\u95ee\u9898\u3002"
+        method = "\u65b9\u6cd5\u8303\u5f0f\u662f\u63a8\u7406\u65f6\u6269\u5c55\uff1a\u5e76\u884c\u751f\u6210\u591a\u4e2a\u63a8\u7406\u5206\u652f\uff0c\u518d\u7528\u9009\u62e9\u3001\u4ea4\u53c9\u68c0\u67e5\u6216\u81ea\u9002\u5e94\u9884\u7b97\u5206\u914d\u628a\u8ba1\u7b97\u96c6\u4e2d\u5230\u66f4\u6709\u5e0c\u671b\u7684\u8def\u5f84\u4e0a\u3002"
+        importance = "\u8fd9\u7c7b\u5de5\u4f5c\u76f4\u63a5\u5173\u7cfb\u5230 agent planning\u3001\u957f\u4e0a\u4e0b\u6587\u4efb\u52a1\u548c\u6d4b\u8bd5\u65f6\u8ba1\u7b97\u5206\u914d\uff0c\u8bf4\u660e\u63d0\u5347\u63a8\u7406\u80fd\u529b\u4e0d\u53ea\u4f9d\u8d56\u66f4\u5927\u6a21\u578b\uff0c\u4e5f\u4f9d\u8d56\u66f4\u597d\u7684\u63a8\u7406\u7ec4\u7ec7\u65b9\u5f0f\u3002"
     else:
-        lead = summary or f"该条目来自 full text source，主题是 {title}。"
-        what_is_it = f"{title} 是一篇围绕 {section} 的研究或技术文章；从正文摘要看，重点是：{lead}"
-        problem = f"它关注 {section} 中尚未被充分解决的建模、推理、系统或评测问题，具体问题线索来自原文正文而不是标题关键词。"
-        method = "它的贡献需要按正文脉络理解：先界定问题，再给出方法、系统设计、实验观察或研究范式，而不是只用关键词归类。"
-        importance = f"该来源具备 full text grounding，适合用作当天判断 {section} 方向变化的实质材料；personal={scores.get('personal_score', 0):.2f}, relevance={scores.get('research_relevance', 0):.2f}。"
+        what_is_it = f"{title} \u662f\u4e00\u7bc7\u56f4\u7ed5 {section} \u7684\u7814\u7a76\u6216\u6280\u672f\u6587\u7ae0\uff1b\u5f53\u524d\u672c\u5730\u6458\u8981\u4f9d\u636e\u5168\u6587\u6293\u53d6\u5185\u5bb9\u548c\u5173\u952e\u8bcd\u8fdb\u884c\u5f52\u7eb3\uff0c\u6838\u5fc3\u7ebf\u7d22\u5305\u62ec\uff1a{terms}\u3002"
+        problem = f"\u5b83\u5173\u6ce8 {section} \u4e2d\u5c1a\u672a\u88ab\u5145\u5206\u89e3\u51b3\u7684\u5efa\u6a21\u3001\u63a8\u7406\u3001\u7cfb\u7edf\u6216\u8bc4\u6d4b\u95ee\u9898\uff1b\u5177\u4f53\u95ee\u9898\u9700\u8981\u7ed3\u5408\u539f\u6587\u4e0a\u4e0b\u6587\u8fdb\u4e00\u6b65\u786e\u8ba4\u3002"
+        method = "\u5b83\u7684\u8d21\u732e\u9700\u8981\u6309\u6b63\u6587\u8109\u7edc\u7406\u89e3\uff1a\u5148\u754c\u5b9a\u95ee\u9898\uff0c\u518d\u7ed9\u51fa\u65b9\u6cd5\u3001\u7cfb\u7edf\u8bbe\u8ba1\u3001\u5b9e\u9a8c\u89c2\u5bdf\u6216\u7814\u7a76\u8303\u5f0f\uff0c\u800c\u4e0d\u662f\u53ea\u7528\u5173\u952e\u8bcd\u5f52\u7c7b\u3002"
+        importance = f"\u8be5\u6765\u6e90\u5177\u5907\u5168\u6587\u4f9d\u636e\uff0c\u9002\u5408\u7528\u4f5c\u5f53\u5929\u5224\u65ad {section} \u65b9\u5411\u53d8\u5316\u7684\u5b9e\u8d28\u6750\u6599\uff1b\u4e2a\u4eba\u76f8\u5173\u5ea6={scores.get('personal_score', 0):.2f}\uff0c\u7814\u7a76\u76f8\u5173\u5ea6={scores.get('research_relevance', 0):.2f}\u3002"
 
     action = choose_action(item)
     if tier == "MUST_READ":
-        deep_read = "建议今天深读，重点看问题设定、方法范式和实验是否能迁移到自己的研究主线。"
+        deep_read = "\u5efa\u8bae\u4eca\u5929\u6df1\u8bfb\uff0c\u91cd\u70b9\u770b\u95ee\u9898\u8bbe\u5b9a\u3001\u65b9\u6cd5\u8303\u5f0f\u548c\u5b9e\u9a8c\u662f\u5426\u80fd\u8fc1\u79fb\u5230\u81ea\u5df1\u7684\u7814\u7a76\u4e3b\u7ebf\u3002"
     elif tier == "SKIM":
-        deep_read = "建议略读正文，先抓住问题定义和方法框架。"
+        deep_read = "\u5efa\u8bae\u7565\u8bfb\u6b63\u6587\uff0c\u5148\u6293\u4f4f\u95ee\u9898\u5b9a\u4e49\u548c\u65b9\u6cd5\u6846\u67b6\u3002"
     else:
-        deep_read = "今天不必深读，但建议保留为后续方向判断的背景材料。"
+        deep_read = "\u4eca\u5929\u4e0d\u5fc5\u6df1\u8bfb\uff0c\u4f46\u5efa\u8bae\u4fdd\u7559\u4e3a\u540e\u7eed\u65b9\u5411\u5224\u65ad\u7684\u80cc\u666f\u6750\u6599\u3002"
 
     return {
         "what_is_it": what_is_it,
@@ -680,12 +786,14 @@ def full_text_fallback_summary(item: dict[str, Any]) -> dict[str, Any]:
         "suggested_action": action,
     }
 
-
 def fallback_summary(item: dict[str, Any]) -> dict[str, Any]:
     if grounding_level(item) == "full_text" and not is_repository_item(item):
         return full_text_fallback_summary(item)
 
-    section = item.get("primary_category", item.get("primary_section", {})).get("title", "相关方向")
+    section = section_display_name(
+        item.get("primary_category", item.get("primary_section", {})).get("id", ""),
+        item.get("primary_category", item.get("primary_section", {})).get("title", "相关方向"),
+    )
     tier = item.get("reading_tier", "ARCHIVE")
     scores = item.get("scores", {})
     names = salient_terms(item)
@@ -705,7 +813,10 @@ def fallback_summary(item: dict[str, Any]) -> dict[str, Any]:
 
     method_or_contribution = contribution_hint_cn(item, names)
 
-    importance_parts = [f"tier={tier}", f"editorial_priority={item.get('editorial_priority', 0):.2f}"]
+    importance_parts = [
+        f"阅读优先级：{tier_label_zh(tier)}",
+        f"编辑优先级：{item.get('editorial_priority', 0):.2f}",
+    ]
     if tier == "MUST_READ":
         importance_parts.append("今天安排深读。")
     elif tier == "SKIM":
@@ -719,7 +830,10 @@ def fallback_summary(item: dict[str, Any]) -> dict[str, Any]:
     else:
         importance_parts.append("不进入正文阅读队列。")
 
-    importance_parts.append(f"personal={scores.get('personal_score', 0):.2f}，relevance={scores.get('research_relevance', 0):.2f}。")
+    importance_parts.append(
+        f"个人相关度：{scores.get('personal_score', 0):.2f}，"
+        f"研究相关度：{scores.get('research_relevance', 0):.2f}。"
+    )
 
     action = choose_action(item)
     deep_read = "建议今天深读。" if action == "read_pdf" else "今天不深读，先按行动建议处理。"
@@ -956,11 +1070,10 @@ def score_line(item: dict[str, Any]) -> str:
 def source_role_label(item: dict[str, Any]) -> str:
     roles = item.get("source", {}).get("source_role")
     if not roles:
-        return "未标注"
+        return "\u672a\u6807\u6ce8"
     if isinstance(roles, list):
-        return "、".join(str(role) for role in roles)
-    return str(roles)
-
+        return "\u3001".join(SOURCE_ROLE_LABELS_ZH.get(str(role), zh_text(role)) for role in roles)
+    return SOURCE_ROLE_LABELS_ZH.get(str(roles), zh_text(roles))
 
 def signal_line(item: dict[str, Any]) -> str:
     signals = item.get("source_signals", {})
@@ -1019,90 +1132,55 @@ def recommendation_source_line(item: dict[str, Any]) -> str:
 
 def item_block(item: dict[str, Any], idx: int) -> str:
     source = item.get("source", {})
-    kind = source.get("kind", "primary")
-    published = item.get("published_at") or "未知"
-    keywords = "、".join(item.get("matched_keywords", [])[:10]) or "无明显关键词"
     primary = item.get("primary_category") or item.get("primary_section", {})
-    focus = section_display_name(primary.get("id", ""), primary.get("title", "未分类"))
-    secondary_tags = "、".join(str(tag.get("title") or tag.get("id")) for tag in item.get("secondary_tags", [])[:8] if isinstance(tag, dict)) or "无"
-    duplicate_names = sorted({s.get("name", "") for s in item.get("duplicate_sources", []) if s.get("name")})
-    duplicate_text = "、".join(duplicate_names[:5]) if len(duplicate_names) > 1 else ""
+    scores = item.get("scores", {})
     summary = summarize_item(item)
-    tier_caption = "行动标签" if is_repository_item(item) else "阅读层级"
-
+    project_rel = item.get("project_relevance") or {}
+    if isinstance(project_rel, dict) and project_rel:
+        project_line = "\u3001".join(f"{key}={float(value):.2f}" for key, value in project_rel.items())
+    else:
+        project_line = "\u65e0"
+    tags = "\u3001".join(
+        zh_text(str(tag.get("title") or tag.get("id")))
+        for tag in item.get("secondary_tags", [])[:6]
+        if isinstance(tag, dict)
+    ) or "\u65e0"
+    keywords = "\u3001".join(str(term) for term in item.get("matched_keywords", [])[:8]) or "\u65e0"
+    action = action_label_zh(summary.get("suggested_action", choose_action(item)).strip())
     lines = [
         f"##### {idx}. [{item.get('title')}]({item.get('url')})",
-        f"- {tier_caption}：{TIER_LABELS.get(item.get('reading_tier'), item.get('reading_tier', 'ARCHIVE'))}",
-        f"- 来源：{source.get('name', '未知')}",
-        f"- 来源类型：{KIND_LABELS.get(kind, kind)}",
-        f"- source_role：{source_role_label(item)}",
-        f"- 证据来源：{grounding_label(item)}",
-        f"- 原文链接：{item.get('url')}",
-        f"- 发布时间：{published}",
-        f"- 这是什么？{summary.get('what_is_it', '').strip()}",
-        f"- 解决了什么问题？{summary.get('problem', '').strip()}",
-        f"- 方法或贡献是什么？{summary.get('method_or_contribution', '').strip()}",
-        f"- 为什么对我重要？{summary.get('why_important', '').strip()}",
-        f"- 是否建议深读？{summary.get('deep_read', '').strip()}",
-        f"- 建议行动：{summary.get('suggested_action', choose_action(item)).strip()}",
-        f"- 评分：{score_line(item)}",
-        f"- 多源信号：{signal_line(item)}",
-        f"- 推荐解释：{recommendation_explanation_line(item)}",
-        f"- 风险提示：{recommendation_risk_line(item)}",
-        f"- 来源级别：{recommendation_source_line(item)}",
-        f"- 命中方向：{focus}",
-        f"- 相关标签：{secondary_tags}",
-        f"- 命中关键词：{keywords}",
+        f"- \u9605\u8bfb\u4f18\u5148\u7ea7\uff1a{tier_label_zh(item.get('reading_tier', 'ARCHIVE'))}",
+        f"- \u6765\u6e90\uff1a{source.get('name', '\u672a\u77e5\u6765\u6e90')}\uff08{source_kind_label_zh(source.get('kind', 'unknown'))}\uff1b\u89d2\u8272={source_role_label(item)}\uff09",
+        f"- \u53d1\u5e03\u65f6\u95f4\uff1a{item.get('published_at') or '\u672a\u77e5'}",
+        f"- \u4e3b\u65b9\u5411\uff1a{section_display_name(primary.get('id', ''), primary.get('title', '\u672a\u5206\u7c7b'))}",
+        f"- \u6b21\u7ea7\u6807\u7b7e\uff1a{tags}",
+        f"- \u4f9d\u636e\u5c42\u7ea7\uff1a{grounding_label(item)}",
+        f"- \u8bc4\u5206\uff1a\u4e2a\u4eba\u76f8\u5173\u5ea6={scores.get('personal_score', 0):.2f}\uff0c\u5168\u5c40\u70ed\u5ea6={scores.get('global_score', 0):.2f}\uff0c\u53ef\u4fe1\u5ea6={scores.get('credibility', 0):.2f}\uff0c\u8bc1\u636e\u5f3a\u5ea6={scores.get('evidence_strength', 0):.2f}\uff0c\u7092\u4f5c\u98ce\u9669={scores.get('hype_risk', 0):.2f}\uff0c\u53cd\u9988={scores.get('feedback_score', 0):.2f}",
+        f"- \u9879\u76ee\u76f8\u5173\u6027\uff1a{project_line}",
+        f"- \u662f\u4ec0\u4e48\uff1a{zh_text(summary.get('what_is_it', '').strip())}",
+        f"- \u95ee\u9898\uff1a{zh_text(summary.get('problem', '').strip())}",
+        f"- \u65b9\u6cd5 / \u8d21\u732e\uff1a{zh_text(summary.get('method_or_contribution', '').strip())}",
+        f"- \u4e3a\u4ec0\u4e48\u5bf9 George \u91cd\u8981\uff1a{zh_text(summary.get('why_important', '').strip())}",
+        f"- \u5efa\u8bae\u52a8\u4f5c\uff1a{action}",
+        f"- \u547d\u4e2d\u5173\u952e\u8bcd\uff1a{keywords}",
     ]
-    if item.get("is_open_source_project"):
-        metadata = item.get("metadata", {})
-        metrics = item.get("metrics", {})
-        if metrics.get("stars") is not None:
-            stars = metrics.get("stars", 0)
-            forks = metrics.get("forks", 0)
-            license_info = metadata.get("license", "") or "未知"
-            def signal_icon(value: Any) -> str:
-                if value is True:
-                    return "✅"
-                if value is False:
-                    return "❌"
-                return "未知"
-
-            has_examples = signal_icon(metadata.get("has_examples"))
-            has_docs = signal_icon(metadata.get("has_docs"))
-            has_repro = signal_icon(metadata.get("has_reproducible_script"))
-            has_weights = signal_icon(metadata.get("has_pretrained_weights"))
-            paper_link = metadata.get("paper_link", "")
-            readme_summary = metadata.get("repo_readme_summary", "") or metadata.get("readme_excerpt", "")[:300]
-            
-            lines.append(f"- 开源信号：⭐ {stars} | 🍴 {forks} | 📜 {license_info}")
-            lines.append(f"- 示例/文档/复现：示例 {has_examples} | 文档 {has_docs} | 脚本 {has_repro} | 权重 {has_weights}")
-            if metadata.get("readme_fetch_status") and metadata.get("readme_fetch_status") != "ok":
-                lines.append(f"- README 抓取状态：{metadata.get('readme_fetch_status')}，示例/文档/脚本字段按未知处理。")
-            if paper_link:
-                lines.append(f"- 关联论文：{paper_link}")
-            if readme_summary:
-                lines.append(f"- README 摘要：{readme_summary[:300]}")
-        else:
-            lines.append("- 开源信号：标题、摘要或来源中出现代码/开源线索。")
-    if item.get("link_quality") == "low":
-        lines.insert(5, "- link_quality: low")
-    if duplicate_text:
-        lines.append(f"- 去重信息：同一内容也出现在 {duplicate_text}")
     if item.get("requires_primary_source_check"):
-        lines.append("- 风险提示：该条含发现/社区/中文媒体信号，结论需以论文、代码或官方公告为准。")
+        lines.append("- \u98ce\u9669\u63d0\u793a\uff1a\u9700\u8981\u6838\u5bf9\u4e00\u624b\u6765\u6e90\u3002")
     return "\n".join(lines)
 
-
 def compact_item(item: dict[str, Any]) -> str:
-    section = item.get("primary_section", {}).get("title", "未分类")
-    scores = item.get("scores", {})
-    tier = item.get("reading_tier", "ARCHIVE")
-    return (
-        f"- [{item.get('title')}]({item.get('url')})"
-        f"（{tier}，{section}，证据 {grounding_label(item)}，personal {scores.get('personal_score', 0):.2f}，global {scores.get('global_score', 0):.2f}）"
+    section = section_display_name(
+        item.get("primary_section", {}).get("id", ""),
+        item.get("primary_section", {}).get("title", "\u672a\u5206\u7c7b"),
     )
-
+    scores = item.get("scores", {})
+    return (
+        f"- [{item.get('title')}]({item.get('url')}) "
+        f"\uff08{tier_label_zh(item.get('reading_tier', 'ARCHIVE'))}\uff1b{section}\uff1b"
+        f"\u4e2a\u4eba\u76f8\u5173\u5ea6={scores.get('personal_score', 0):.2f}\uff1b"
+        f"\u5168\u5c40\u70ed\u5ea6={scores.get('global_score', 0):.2f}\uff1b"
+        f"\u7092\u4f5c\u98ce\u9669={scores.get('hype_risk', 0):.2f}\uff09"
+    )
 
 def grouped_sections(
     processed: dict[str, Any],
@@ -1369,8 +1447,7 @@ def render_classics(classics: list[dict[str, Any]]) -> list[str]:
 
 
 def section_display_name(section_id: str, fallback: str | None = None) -> str:
-    return SECTION_DISPLAY_NAMES.get(section_id, fallback or section_id)
-
+    return zh_text(SECTION_DISPLAY_NAMES.get(section_id, fallback or section_id))
 
 def get_section(processed: dict[str, Any], section_id: str) -> dict[str, Any]:
     for section in processed.get("sections", []):
@@ -1676,7 +1753,7 @@ def benchmark_block(item: dict[str, Any], idx: int) -> str:
     return "\n".join(
         [
             f"##### {idx}. [{item.get('title')}]({item.get('url')})",
-            f"- 阅读层级：{tier}",
+            f"- 阅读层级：{tier_label_zh(tier)}",
             f"- 来源：{source.get('name', '未知')}",
             f"- 证据来源：{grounding_label(item)}",
             f"- benchmark 评估什么能力：{benchmark_ability(item)}",
@@ -1959,19 +2036,30 @@ def source_count(processed: dict[str, Any]) -> int:
 def render_source_health(processed: dict[str, Any]) -> str:
     events = processed.get("source_health") or []
     if not events:
-        return "- No source health warnings recorded."
+        return "- \u672a\u8bb0\u5f55\u6765\u6e90\u5065\u5eb7\u544a\u8b66\u3002"
+    status_labels = {
+        "warning": "\u8b66\u544a",
+        "error": "\u9519\u8bef",
+        "timeout": "\u8d85\u65f6",
+        "ok": "\u6b63\u5e38",
+    }
+    detail_phrases = {
+        "time budget exhausted": "\u65f6\u95f4\u9884\u7b97\u5df2\u8017\u5c3d",
+        "Expecting value": "\u8fd4\u56de\u5185\u5bb9\u4e3a\u7a7a\u6216\u4e0d\u662f\u5408\u6cd5 JSON",
+    }
     lines: list[str] = []
     for event in events:
         if not isinstance(event, dict):
             continue
-        source = event.get("source") or "unknown source"
-        status = event.get("status") or "warning"
-        detail = event.get("detail") or ""
+        source = event.get("source") or "\u672a\u77e5\u6765\u6e90"
+        status = status_labels.get(str(event.get("status") or "warning"), str(event.get("status") or "warning"))
+        detail = str(event.get("detail") or "")
+        for src, dst in detail_phrases.items():
+            detail = detail.replace(src, dst)
         items = event.get("items")
-        suffix = f" ({items} items)" if items not in (None, "") else ""
-        lines.append(f"- {source}: {status}{suffix}" + (f" - {detail}" if detail else ""))
-    return "\n".join(lines) if lines else "- No source health warnings recorded."
-
+        suffix = f"\uff08{items} \u6761\uff09" if items not in (None, "") else ""
+        lines.append(f"- {source}\uff1a{status}{suffix}" + (f" - {detail}" if detail else ""))
+    return "\n".join(lines) if lines else "- \u672a\u8bb0\u5f55\u6765\u6e90\u5065\u5eb7\u544a\u8b66\u3002"
 
 def top_keywords(items: list[dict[str, Any]], *, limit: int = 10) -> str:
     counter: Counter[str] = Counter()
@@ -2125,7 +2213,7 @@ def build_overview(processed: dict[str, Any]) -> dict[str, Any]:
     keywords = top_keywords(tracked or items, limit=8)
     judgement = _generate_trend_judgement(must, direction)
     return {
-        "most_important_direction": direction,
+        "most_important_direction": zh_text(direction),
         "must_read_count": len(must),
         "must_read_titles": must_titles,
         "skim_count": len(skim),
@@ -2284,42 +2372,50 @@ def item_block(item: dict[str, Any], idx: int) -> str:
     summary = summarize_item(item)
     project_rel = item.get("project_relevance") or {}
     if isinstance(project_rel, dict) and project_rel:
-        project_line = ", ".join(f"{key}={float(value):.2f}" for key, value in project_rel.items())
+        project_line = "\u3001".join(f"{key}={float(value):.2f}" for key, value in project_rel.items())
     else:
-        project_line = "none"
-    tags = ", ".join(str(tag.get("title") or tag.get("id")) for tag in item.get("secondary_tags", [])[:6] if isinstance(tag, dict)) or "none"
-    keywords = ", ".join(str(term) for term in item.get("matched_keywords", [])[:8]) or "none"
+        project_line = "\u65e0"
+    tags = "\u3001".join(
+        zh_text(str(tag.get("title") or tag.get("id")))
+        for tag in item.get("secondary_tags", [])[:6]
+        if isinstance(tag, dict)
+    ) or "\u65e0"
+    keywords = "\u3001".join(str(term) for term in item.get("matched_keywords", [])[:8]) or "\u65e0"
+    action = action_label_zh(summary.get("suggested_action", choose_action(item)).strip())
     lines = [
         f"##### {idx}. [{item.get('title')}]({item.get('url')})",
-        f"- Reading tier: {item.get('reading_tier', 'ARCHIVE')}",
-        f"- Source: {source.get('name', 'unknown')} ({source.get('kind', 'unknown')}; role={source_role_label(item)})",
-        f"- Published: {item.get('published_at') or 'unknown'}",
-        f"- Primary track: {section_display_name(primary.get('id', ''), primary.get('title', 'Unclassified'))}",
-        f"- Secondary tags: {tags}",
-        f"- Grounding level: {grounding_label(item)}",
-        f"- Scores: personal={scores.get('personal_score', 0):.2f}, global={scores.get('global_score', 0):.2f}, credibility={scores.get('credibility', 0):.2f}, evidence={scores.get('evidence_strength', 0):.2f}, hype_risk={scores.get('hype_risk', 0):.2f}, feedback={scores.get('feedback_score', 0):.2f}",
-        f"- Project relevance: {project_line}",
-        f"- What it is: {summary.get('what_is_it', '').strip()}",
-        f"- Problem: {summary.get('problem', '').strip()}",
-        f"- Method/contribution: {summary.get('method_or_contribution', '').strip()}",
-        f"- Why important to George: {summary.get('why_important', '').strip()}",
-        f"- Suggested action: {summary.get('suggested_action', choose_action(item)).strip()}",
-        f"- Matched keywords: {keywords}",
+        f"- \u9605\u8bfb\u4f18\u5148\u7ea7\uff1a{tier_label_zh(item.get('reading_tier', 'ARCHIVE'))}",
+        f"- \u6765\u6e90\uff1a{source.get('name', '\u672a\u77e5\u6765\u6e90')}\uff08{source_kind_label_zh(source.get('kind', 'unknown'))}\uff1b\u89d2\u8272={source_role_label(item)}\uff09",
+        f"- \u53d1\u5e03\u65f6\u95f4\uff1a{item.get('published_at') or '\u672a\u77e5'}",
+        f"- \u4e3b\u65b9\u5411\uff1a{section_display_name(primary.get('id', ''), primary.get('title', '\u672a\u5206\u7c7b'))}",
+        f"- \u6b21\u7ea7\u6807\u7b7e\uff1a{tags}",
+        f"- \u4f9d\u636e\u5c42\u7ea7\uff1a{grounding_label(item)}",
+        f"- \u8bc4\u5206\uff1a\u4e2a\u4eba\u76f8\u5173\u5ea6={scores.get('personal_score', 0):.2f}\uff0c\u5168\u5c40\u70ed\u5ea6={scores.get('global_score', 0):.2f}\uff0c\u53ef\u4fe1\u5ea6={scores.get('credibility', 0):.2f}\uff0c\u8bc1\u636e\u5f3a\u5ea6={scores.get('evidence_strength', 0):.2f}\uff0c\u7092\u4f5c\u98ce\u9669={scores.get('hype_risk', 0):.2f}\uff0c\u53cd\u9988={scores.get('feedback_score', 0):.2f}",
+        f"- \u9879\u76ee\u76f8\u5173\u6027\uff1a{project_line}",
+        f"- \u662f\u4ec0\u4e48\uff1a{zh_text(summary.get('what_is_it', '').strip())}",
+        f"- \u95ee\u9898\uff1a{zh_text(summary.get('problem', '').strip())}",
+        f"- \u65b9\u6cd5 / \u8d21\u732e\uff1a{zh_text(summary.get('method_or_contribution', '').strip())}",
+        f"- \u4e3a\u4ec0\u4e48\u5bf9 George \u91cd\u8981\uff1a{zh_text(summary.get('why_important', '').strip())}",
+        f"- \u5efa\u8bae\u52a8\u4f5c\uff1a{action}",
+        f"- \u547d\u4e2d\u5173\u952e\u8bcd\uff1a{keywords}",
     ]
     if item.get("requires_primary_source_check"):
-        lines.append("- Risk note: requires primary-source verification.")
+        lines.append("- \u98ce\u9669\u63d0\u793a\uff1a\u9700\u8981\u6838\u5bf9\u4e00\u624b\u6765\u6e90\u3002")
     return "\n".join(lines)
 
 
 def compact_item(item: dict[str, Any]) -> str:
-    section = item.get("primary_section", {}).get("title", "Unclassified")
+    section = section_display_name(
+        item.get("primary_section", {}).get("id", ""),
+        item.get("primary_section", {}).get("title", "\u672a\u5206\u7c7b"),
+    )
     scores = item.get("scores", {})
     return (
         f"- [{item.get('title')}]({item.get('url')}) "
-        f"({item.get('reading_tier', 'ARCHIVE')}; {section}; "
-        f"personal={scores.get('personal_score', 0):.2f}; "
-        f"global={scores.get('global_score', 0):.2f}; "
-        f"hype={scores.get('hype_risk', 0):.2f})"
+        f"\uff08{tier_label_zh(item.get('reading_tier', 'ARCHIVE'))}\uff1b{section}\uff1b"
+        f"\u4e2a\u4eba\u76f8\u5173\u5ea6={scores.get('personal_score', 0):.2f}\uff1b"
+        f"\u5168\u5c40\u70ed\u5ea6={scores.get('global_score', 0):.2f}\uff1b"
+        f"\u7092\u4f5c\u98ce\u9669={scores.get('hype_risk', 0):.2f}\uff09"
     )
 
 
@@ -2394,7 +2490,7 @@ def previous_report_link(report_date: str) -> str:
 
 def format_count_map(value: Any) -> str:
     if not isinstance(value, dict) or not value:
-        return "none"
+        return "\u65e0"
     return ", ".join(f"{key}:{count}" for key, count in sorted(value.items()))
 
 
@@ -2494,9 +2590,9 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "source_health": render_source_health(processed),
             "raw_count": processed.get("counts", {}).get("raw", 0),
             "dedup_count": processed.get("counts", {}).get("deduped", 0),
-            "summary_mode": backend.get("summary_mode", "local"),
-            "provider": backend.get("provider", "local"),
-            "model": backend.get("model", "local fallback"),
+            "summary_mode": zh_text(backend.get("summary_mode", "local")).replace("single", "单模型").replace("local", "本地兜底"),
+            "provider": zh_text(backend.get("provider", "local")).replace("local", "本地兜底"),
+            "model": zh_text(backend.get("model", "local fallback")),
             "roles": backend.get("roles", ""),
             "llm_summary_calls": runtime_stats["api_requests_total"],
             "llm_items_processed": runtime_stats["llm_items_processed"],
@@ -2507,9 +2603,9 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "api_requests_by_role": runtime_stats["api_requests_by_role"],
             "cache_hits": runtime_stats["cache_hits"],
             "cache_misses": runtime_stats["cache_misses"],
-            "last_llm_error": runtime_stats["last_llm_error"],
-            "provider_disabled": runtime_stats["provider_disabled"],
-            "provider_disabled_reason": runtime_stats["provider_disabled_reason"],
+            "last_llm_error": zh_text(runtime_stats["last_llm_error"]).replace("none", "无"),
+            "provider_disabled": zh_text(runtime_stats["provider_disabled"]).replace("none", "无"),
+            "provider_disabled_reason": zh_text(runtime_stats["provider_disabled_reason"]).replace("none", "无"),
             "daily_llm_budget_rmb": runtime_stats["daily_llm_budget_rmb"],
             "estimated_llm_cost_rmb": runtime_stats["estimated_llm_cost_rmb"],
             "estimated_input_tokens": runtime_stats["estimated_input_tokens"],
@@ -2517,11 +2613,11 @@ def build_template_context(processed: dict[str, Any], report_date: str, report_p
             "cost_guard_blocked_calls": runtime_stats["cost_guard_blocked_calls"],
             "cost_guard_enabled": runtime_stats["cost_guard_enabled"],
             "llm_zero_call_warning": (
-                "API key configured but no LLM summary calls were made; check budget, cache, grounding, or provider errors."
+                "\u5df2\u914d\u7f6e API key\uff0c\u4f46\u672c\u6b21\u6ca1\u6709\u4ea7\u751f LLM \u6458\u8981\u8c03\u7528\uff1b\u8bf7\u68c0\u67e5\u9884\u7b97\u3001\u7f13\u5b58\u3001\u4f9d\u636e\u5c42\u7ea7\u6216\u4f9b\u5e94\u5546\u9519\u8bef\u3002"
                 if has_any_llm_api_key() and runtime_stats["api_requests_total"] == 0 and llm_enabled
                 else ""
             ),
-            "local_summary_notice": "" if llm_enabled else "No API key was available; generated deterministic local fallback summaries.",
+            "local_summary_notice": "" if llm_enabled else "未检测到可用 API key；本次使用确定性的本地兜底摘要。",
             "benchmark_appendix": benchmark_appendix,
             "report_path": str(report_path).replace("\\", "/"),
             "previous_report_link": previous_report_link(report_date),
