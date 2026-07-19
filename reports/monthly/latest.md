@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-07
 
-- 纳入日报：19 份
-- 跟踪条目：2332；MUST_READ 27；SKIM 94；ARCHIVE 770
+- 纳入日报：20 份
+- 跟踪条目：2333；MUST_READ 27；SKIM 96；ARCHIVE 771
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -99,18 +99,18 @@
   - [FreqDepthKV: Frequency-Guided Depth Sharing for Robust KV Cache Compression in Long-Context LLM Inference](https://arxiv.org/abs/2607.06519v1)
   - [SeKV: Resolution-Adaptive KV Cache with Hierarchical Semantic Memory for Long-Context LLM Inference](https://arxiv.org/abs/2606.31145)
   - [Self-Guided Test-Time Training for Long-Context LLMs](https://arxiv.org/abs/2607.09415v1)
+- Model Architecture：36 条进入跟踪；高频信号：attention、transformer、nlp、architecture、robotics、cs.LG、framework、inference。
+  - [MuonSSM: Orthogonalizing State Space Models for Sequence Modeling](https://arxiv.org/abs/2606.30461v1)
+  - [XRFormer: Multiscale Tokenization for XRF Representation Learning](https://arxiv.org/abs/2607.06424v1)
+  - [FaceMoE: Mixture of Experts for Low-Resolution Face Recognition](https://arxiv.org/abs/2606.32040v1)
+  - [VAIOM: Continuous-Input, Discrete-Output Decoder-Only Financial Sequence Modeling](https://arxiv.org/abs/2607.13929v1)
+  - [Transformer Architectures as Complete Bayes Processes: A Formal Proof in the Measure-Theoretic Kernel Framework](https://arxiv.org/abs/2606.30440v1)
 - Novel Class Discovery / Open-World Learning / OOD / Continual Learning：35 条进入跟踪；高频信号：nlp、robotics、framework、out-of-distribution、cs.LG、cs.CV、clustering、domain shift。
   - [MARVEL: Margin-Aware Robust von Mises-Fischer Expert Learning for Long-Tailed Out-of-Distribution Detection](https://arxiv.org/abs/2607.02435v1)
   - [TCLA: Training-Free Class-wise Logit Adaptation for Medical Vision-Language Models](https://arxiv.org/abs/2607.09562v1)
   - [The 2nd International StepUP Competition for Biometric Footstep Recognition: From Steps to Strides](https://arxiv.org/abs/2607.13905v1)
   - [FlatManifold: Robust Continual Learning under Severe Label Noise and Domain Shifts via Intrinsic Manifold Flattening](https://arxiv.org/abs/2607.05201v1)
   - [From Critic to Confidence: PPO for Language-Based Quantitative Prediction with Confidence Estimation](https://arxiv.org/abs/2607.12687v1)
-- Model Architecture：35 条进入跟踪；高频信号：attention、nlp、transformer、robotics、architecture、cs.LG、framework、inference。
-  - [MuonSSM: Orthogonalizing State Space Models for Sequence Modeling](https://arxiv.org/abs/2606.30461v1)
-  - [XRFormer: Multiscale Tokenization for XRF Representation Learning](https://arxiv.org/abs/2607.06424v1)
-  - [FaceMoE: Mixture of Experts for Low-Resolution Face Recognition](https://arxiv.org/abs/2606.32040v1)
-  - [VAIOM: Continuous-Input, Discrete-Output Decoder-Only Financial Sequence Modeling](https://arxiv.org/abs/2607.13929v1)
-  - [Transformer Architectures as Complete Bayes Processes: A Formal Proof in the Measure-Theoretic Kernel Framework](https://arxiv.org/abs/2606.30440v1)
 - GitHub / Open Source Projects：34 条进入跟踪；高频信号：github、github.com、open-source、framework、inference、long-context、dataset、image。
   - [Collaborative Synthetic Data Generation for Knowledge Transfer in Federated Learning](https://arxiv.org/abs/2607.07565v1)
   - [Heuristic Learning for Active Flow Control Using Coding Agents](https://arxiv.org/abs/2607.11565v1)

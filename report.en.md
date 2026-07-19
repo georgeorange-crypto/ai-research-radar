@@ -1,4 +1,4 @@
-# AI Research Radar - 2026-07-19
+# AI Research Radar - 2026-07-20
 
 - Profile: George Research Profile v2
 - Summary mode: single
@@ -18,10 +18,10 @@
 ## 0. Daily Overview
 
 - Most important direction: Embodied Intelligence / VLA / World Models
-- Must Read count: 3 (2026 BAIR Graduate Showcase; LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget; Symbal: Detecting Systematic Misalignments in Model-Generated Captions)
-- Skim count: 8 (SEED: Self-Evolving On-Policy Distillation for Agentic Reinforcement Learning; Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling; UniVR: Thinking in Visual Space for Unified Visual Reasoning; Concurrent Image Understanding and Generation: Self-Correcting Coupled Markov Jump Processes; RoboTTT: Context Scaling for Robot Policies)
-- Watch count: 12 (Identifying Interactions at Scale for LLMs; BrainPilot: Automating Brain Discovery with Agentic Research; Full-Pipeline Inference Optimization for MiMo-V2.5 Series: Pushing Hybrid SWA Efficiency to the Limit; Cross-Core Inference Offload as an Operating-System Service on Dual-Core Microcontrollers; Towards Hierarchical Structure Understanding of Newspaper Images)
-- Keywords: nlp, agentic, attention, language model, framework, reasoning, inference, long-context
+- Must Read count: 2 (2026 BAIR Graduate Showcase; Symbal: Detecting Systematic Misalignments in Model-Generated Captions)
+- Skim count: 8 (SEED: Self-Evolving On-Policy Distillation for Agentic Reinforcement Learning; Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling; Full-Pipeline Inference Optimization for MiMo-V2.5 Series: Pushing Hybrid SWA Efficiency to the Limit; UniVR: Thinking in Visual Space for Unified Visual Reasoning; Concurrent Image Understanding and Generation: Self-Correcting Coupled Markov Jump Processes)
+- Watch count: 12 (Identifying Interactions at Scale for LLMs; BrainPilot: Automating Brain Discovery with Agentic Research; Cross-Core Inference Offload as an Operating-System Service on Dual-Core Microcontrollers; LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget; Towards Hierarchical Structure Understanding of Newspaper Images)
+- Keywords: language model, agentic, image, framework, reasoning, github, multimodal, attention
 - Judgement: 今日主线: 推理时扩展正在从顺序 CoT 转向自适应并行推理与可选择的搜索路径; 同时 Agentic RL 正从单次结果打分推进到长程轨迹, 环境feedback和策略更新的闭环.
 
 ## 1. Core Research Tracks
@@ -29,21 +29,7 @@
 ### 1.1 AI Systems / HPC / Distributed Training & Inference
 
 #### Must Read
-##### 1. [LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget](https://arxiv.org/abs/2607.14952v1)
-- Reading tier: MUST_READ
-- Source: arXiv AI/ML/NLP/Vision/Robotics (primary; role=paper_source)
-- Published: 2026-07-16T13:00:32+00:00
-- Primary track: AI Systems / HPC / Distributed Training & Inference
-- Secondary tags: Compression / Reliability for AI Infrastructure, Agent Runtime / RL Infrastructure / Scheduling, GPU-Centric I/O / Networking / Storage, Embodied Intelligence / VLA / World Models
-- Grounding level: abstract only
-- Scores: personal=0.85, global=0.48, credibility=1.00, evidence=1.00, hype_risk=0.00, feedback=0.00
-- Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
-- What it is: LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget: 研究论文, 方向为“AI Systems / HPC / Distributed Training & Inference”; 主要线索: architecture, attention, cs.DC, cs.LG.
-- Problem: 它关注“AI Systems / HPC / Distributed Training & Inference”里的 architecture, attention, cs.DC, cs.LG 等问题.
-- Method/contribution: 摘要可确认它偏向评测或数据构建; 具体任务定义, 指标和样本规模需读原文确认.
-- Why important to George: Reading tier: MUST_READ editorial_priority: 0.79 schedule deep read today. personal: 0.85, relevance: 1.00.
-- Suggested action: read_pdf
-- Matched keywords: architecture, attention, cs.DC, cs.LG, generalization, gradient, grpo, inference
+- 无。
 
 #### Skim
 - 无。
@@ -51,7 +37,7 @@
 #### Watch
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.87；全局热度=0.41；炒作风险=0.00）
 - [Cross-Core Inference Offload as an Operating-System Service on Dual-Core Microcontrollers](https://arxiv.org/abs/2607.12620v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.85；全局热度=0.44；炒作风险=0.00）
-- [In-Place Tokenizer Expansion for Pre-trained LLMs](https://arxiv.org/abs/2607.15232v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.82；全局热度=0.39；炒作风险=0.00）
+- [LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget](https://arxiv.org/abs/2607.14952v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.84；全局热度=0.44；炒作风险=0.00）
 
 ### 1.2 GPU-Centric I/O / Networking / Storage
 
@@ -59,12 +45,25 @@
 - 无。
 
 #### Skim
-- 无。
+##### 1. [Full-Pipeline Inference Optimization for MiMo-V2.5 Series: Pushing Hybrid SWA Efficiency to the Limit](https://arxiv.org/abs/2607.13095v1)
+- Reading tier: SKIM
+- Source: arXiv Systems/HPC/GPU Data Path (primary; role=paper_source)
+- Published: 2026-07-14T03:38:06+00:00
+- Primary track: GPU-Centric I/O / Networking / Storage
+- Secondary tags: AI Systems / HPC / Distributed Training & Inference, Agent Runtime / RL Infrastructure / Scheduling, Embodied Intelligence / VLA / World Models, CV
+- Grounding level: abstract only
+- Scores: personal=0.85, global=0.47, credibility=1.00, evidence=1.00, hype_risk=0.00, feedback=0.00
+- Project relevance: skyfs=0.44, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
+- What it is: Full-Pipeline Inference Optimization for MiMo-V2.5 Series: Pushing Hybrid SWA Efficiency to the Limit: 研究论文, 方向为“GPU-Centric I/O / Networking / Storage”; 主要线索: HPC, RDMA, architecture, attention.
+- Problem: 它关注“GPU-Centric I/O / Networking / Storage”里的 HPC, RDMA, architecture, attention 等问题.
+- Method/contribution: 摘要可确认它提出或引入了 HPC, RDMA, architecture, attention; 具体训练设置, 指标和消融细节需读原文确认.
+- Why important to George: Reading tier: SKIM editorial_priority: 0.76 今天快速扫读. personal: 0.85, relevance: 1.00.
+- Suggested action: skim
+- Matched keywords: HPC, RDMA, architecture, attention, cs.AI, cs.AR, data path, gpu
 
 #### Watch
-- [Full-Pipeline Inference Optimization for MiMo-V2.5 Series: Pushing Hybrid SWA Efficiency to the Limit](https://arxiv.org/abs/2607.13095v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.85；全局热度=0.47；炒作风险=0.00）
 - [MARS: Multi-stage Accelerated Read Stack for Large-buffer Buffered Reads](https://arxiv.org/abs/2607.13604v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.75；全局热度=0.34；炒作风险=0.00）
-- [ANet Patu-1: The Value of Connection in the Agent Network](https://arxiv.org/abs/2607.15053v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.74；全局热度=0.39；炒作风险=0.00）
+- [ANet Patu-1: The Value of Connection in the Agent Network](https://arxiv.org/abs/2607.15053v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.74；全局热度=0.35；炒作风险=0.00）
 
 ### 1.3 Compression / Reliability for AI Infrastructure
 
@@ -75,8 +74,8 @@
 - 无。
 
 #### Watch
-- [Optimal Self-Distillation for Rectified Flow via Linear Probing](https://arxiv.org/abs/2607.14947v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.74；全局热度=0.38；炒作风险=0.00）
 - [Multivariate Cryptography-Based Anonymous Certificate Scheme](https://arxiv.org/abs/2607.13554v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.73；全局热度=0.34；炒作风险=0.00）
+- [Optimal Self-Distillation for Rectified Flow via Linear Probing](https://arxiv.org/abs/2607.14947v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.73；全局热度=0.35；炒作风险=0.00）
 
 ### 1.4 Agent Runtime / RL Infrastructure / Scheduling
 
@@ -87,7 +86,7 @@
 - 无。
 
 #### Watch
-- [SearchOS-V1: Towards Robust Open-Domain Information-Seeking Agent Collaboration](https://arxiv.org/abs/2607.15257v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.78；全局热度=0.41；炒作风险=0.00）
+- [SearchOS-V1: Towards Robust Open-Domain Information-Seeking Agent Collaboration](https://arxiv.org/abs/2607.15257v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.77；全局热度=0.37；炒作风险=0.00）
 
 ### 1.5 Embodied Intelligence / VLA / World Models
 
@@ -109,53 +108,22 @@
 - Matched keywords: AI systems, action chunking, agent, agentic, ai for science, ai systems, berkeley.edu, biology
 
 #### Skim
-##### 1. [RoboTTT: Context Scaling for Robot Policies](https://arxiv.org/abs/2607.15275v1)
-- Reading tier: SKIM
-- Source: arXiv AI/ML/NLP/Vision/Robotics (primary; role=paper_source)
-- Published: 2026-07-16T17:59:06+00:00
-- Primary track: Embodied Intelligence / VLA / World Models
-- Secondary tags: Agent Runtime / RL Infrastructure / Scheduling, AI Systems / HPC / Distributed Training & Inference, Compression / Reliability for AI Infrastructure, 上下文压缩 / 长上下文 / 记忆
-- Grounding level: abstract only
-- Scores: personal=0.81, global=0.51, credibility=1.00, evidence=1.00, hype_risk=0.00, feedback=0.00
-- Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.22
-- What it is: RoboTTT: Context Scaling for Robot Policies: 研究论文, 方向为“Embodied Intelligence / VLA / World Models”; 主要线索: cs.AI, cs.LG, cs.RO, gradient.
-- Problem: 它关注“Embodied Intelligence / VLA / World Models”里的 cs.AI, cs.LG, cs.RO, gradient 等问题.
-- Method/contribution: 摘要可确认它提出或引入了 cs.AI, cs.LG, cs.RO, gradient; 具体训练设置, 指标和消融细节需读原文确认.
-- Why important to George: Reading tier: SKIM editorial_priority: 0.78 今天快速扫读. personal: 0.81, relevance: 1.00.
-- Suggested action: skim
-- Matched keywords: cs.AI, cs.LG, cs.RO, gradient, inference, long-context, long-horizon, manipulation
-
-##### 2. [Long-Context Fine-Tuning with Limited VRAM](https://arxiv.org/abs/2607.15105v1)
-- Reading tier: SKIM
-- Source: arXiv AI/ML/NLP/Vision/Robotics (primary; role=paper_source)
-- Published: 2026-07-16T15:16:06+00:00
-- Primary track: Embodied Intelligence / VLA / World Models
-- Secondary tags: Agent Runtime / RL Infrastructure / Scheduling, AI Systems / HPC / Distributed Training & Inference, GPU-Centric I/O / Networking / Storage, 上下文压缩 / 长上下文 / 记忆
-- Grounding level: abstract only
-- Scores: personal=0.80, global=0.49, credibility=1.00, evidence=1.00, hype_risk=0.00, feedback=0.00
-- Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
-- What it is: Long-Context Fine-Tuning with Limited VRAM: 研究论文, 方向为“Embodied Intelligence / VLA / World Models”; 主要线索: NVMe, attention, cs.AI, implementation.
-- Problem: 它关注“Embodied Intelligence / VLA / World Models”里的 NVMe, attention, cs.AI, implementation 等问题.
-- Method/contribution: 摘要可确认它偏向评测或数据构建; 具体任务定义, 指标和样本规模需读原文确认.
-- Why important to George: Reading tier: SKIM editorial_priority: 0.77 今天快速扫读. personal: 0.80, relevance: 0.85.
-- Suggested action: skim
-- Matched keywords: NVMe, attention, cs.AI, evaluation, implementation, long-context, nlp, optimizer
+- 无。
 
 #### Watch
-- [Towards Hierarchical Structure Understanding of Newspaper Images](https://arxiv.org/abs/2607.15082v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.83；全局热度=0.41；炒作风险=0.00）
-- [AlphaWiSE: Adaptive Weight Interpolation for Continual Multimodal Representation Learning](https://arxiv.org/abs/2607.15094v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.83；全局热度=0.40；炒作风险=0.00）
-- [BadWAM: When World-Action Models Dream Right but Act Wrong](https://arxiv.org/abs/2607.15207v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.82；全局热度=0.40；炒作风险=0.00）
+- [Towards Hierarchical Structure Understanding of Newspaper Images](https://arxiv.org/abs/2607.15082v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.83；全局热度=0.37；炒作风险=0.00）
+- [AlphaWiSE: Adaptive Weight Interpolation for Continual Multimodal Representation Learning](https://arxiv.org/abs/2607.15094v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.82；全局热度=0.36；炒作风险=0.00）
+- [Giving robots a better feel for object manipulation](https://www.csail.mit.edu/news/giving-robots-better-feel-object-manipulation-0) （关注；具身智能 / VLA / 世界模型；个人相关度=0.81；全局热度=0.35；炒作风险=0.00）
 
 ## 2. Supporting AI Foundations
 
 ### Context / Memory
 - [Chat2Scenic: An Iterative RAG-Based Framework for Scenario Generation in Autonomous Driving](https://arxiv.org/abs/2607.14387) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.77；全局热度=0.49；炒作风险=0.00）
-- [LMCache: An Efficient KV Cache Layer for Enterprise-Scale LLM Inference](https://arxiv.org/abs/2510.09665) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.74；全局热度=0.43；炒作风险=0.00）
 - [Zep: A Temporal Knowledge Graph Architecture for Agent Memory](https://arxiv.org/abs/2501.13956) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.69；全局热度=0.43；炒作风险=0.00）
 
 ### Generic Agents / Reasoning
-- [BrainPilot: Automating Brain Discovery with Agentic Research](https://arxiv.org/abs/2607.15079v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.87；全局热度=0.42；炒作风险=0.00）
-- [Plover: Steering GUI Agents through Plan-Centric Interaction](https://arxiv.org/abs/2607.15193v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.83；全局热度=0.40；炒作风险=0.00）
+- [BrainPilot: Automating Brain Discovery with Agentic Research](https://arxiv.org/abs/2607.15079v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.86；全局热度=0.38；炒作风险=0.00）
+- [Plover: Steering GUI Agents through Plan-Centric Interaction](https://arxiv.org/abs/2607.15193v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.82；全局热度=0.36；炒作风险=0.00）
 - [Self-Improvements in Modern Agentic Systems: A Survey](https://arxiv.org/abs/2607.13104) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.80；全局热度=0.50；炒作风险=0.00）
 
 ### Reinforcement Learning
@@ -166,20 +134,20 @@
 - [Geometric Context Transformer for Streaming 3D Reconstruction](https://arxiv.org/abs/2604.14141) （归档；模型架构；个人相关度=0.57；全局热度=0.42；炒作风险=0.00）
 
 ### Multimodal / VLM / CV
-- [Weakly-Supervised RGB-D Salient Object Detection via SAM-driven Pseudo Annotation and State Space Interaction-based Diffusion](https://arxiv.org/abs/2607.15041v1) （关注；CV；个人相关度=0.71；全局热度=0.39；炒作风险=0.00）
+- [Weakly-Supervised RGB-D Salient Object Detection via SAM-driven Pseudo Annotation and State Space Interaction-based Diffusion](https://arxiv.org/abs/2607.15041v1) （关注；CV；个人相关度=0.70；全局热度=0.36；炒作风险=0.00）
 - [Show Me Examples: Inferring Visual Concepts from Image Sets](https://machinelearning.apple.com/research/visual-concept-inference) （归档；CV；个人相关度=0.58；全局热度=0.38；炒作风险=0.00）
 
 ### NLP
-- [Expanding the Lexicon of Ge'ez Based African Languages: A Comparative Study of Amharic and Tigrinya](https://arxiv.org/abs/2607.15209v1) （关注；NLP；个人相关度=0.66；全局热度=0.38；炒作风险=0.00）
-- [Rubrics on Trial: Evolving Rubrics from a Single Query via Synthetic Pairwise Evidence](https://arxiv.org/abs/2607.15092v1) （关注；NLP；个人相关度=0.62；全局热度=0.39；炒作风险=0.00）
+- [Expanding the Lexicon of Ge'ez Based African Languages: A Comparative Study of Amharic and Tigrinya](https://arxiv.org/abs/2607.15209v1) （关注；NLP；个人相关度=0.65；全局热度=0.35；炒作风险=0.00）
+- [Rubrics on Trial: Evolving Rubrics from a Single Query via Synthetic Pairwise Evidence](https://arxiv.org/abs/2607.15092v1) （归档；NLP；个人相关度=0.61；全局热度=0.36；炒作风险=0.00）
 
 ### Open-World / Continual Learning
 - 无。
 
 ### Model Distillation
-- [From Draft to Draft-Free: One-Step Video Object Removal via Privileged Distillation and Fast Planting](https://arxiv.org/abs/2607.14976v1) （关注；模型蒸馏 / 模型压缩；个人相关度=0.80；全局热度=0.39；炒作风险=0.00）
-- [WanSong v1.0 Technical Report](https://arxiv.org/abs/2607.14749) （关注；模型蒸馏 / 模型压缩；个人相关度=0.68；全局热度=0.47；炒作风险=0.00）
-- [Embarrassingly Simple Self-Distillation Improves Code Generation](https://machinelearning.apple.com/research/simple-self-distillation) （关注；模型蒸馏 / 模型压缩；个人相关度=0.62；全局热度=0.38；炒作风险=0.00）
+- [From Draft to Draft-Free: One-Step Video Object Removal via Privileged Distillation and Fast Planting](https://arxiv.org/abs/2607.14976v1) （关注；模型蒸馏 / 模型压缩；个人相关度=0.79；全局热度=0.35；炒作风险=0.00）
+- [WanSong v1.0 Technical Report](https://arxiv.org/abs/2607.14749) （关注；模型蒸馏 / 模型压缩；个人相关度=0.68；全局热度=0.48；炒作风险=0.00）
+- [Embarrassingly Simple Self-Distillation Improves Code Generation](https://machinelearning.apple.com/research/simple-self-distillation) （关注；模型蒸馏 / 模型压缩；个人相关度=0.61；全局热度=0.34；炒作风险=0.00）
 
 ## 3. Cross-Track Connections
 
@@ -267,16 +235,7 @@
 - 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
 - 建议行动：save
 
-##### 4. [CFM-Bench: A Unified Multi-Domain, Multi-Task Benchmark for Channel Foundation Models](https://arxiv.org/abs/2607.14975v1)
-- 阅读层级：关注
-- Source: arXiv AI/ML/NLP/Vision/Robotics
-- 证据来源：仅摘要
-- benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。
-- 适合用于什么研究：适合用于多模态泛化或跨域评测设计参考。
-- 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
-- 建议行动：skim
-
-##### 5. [CLIP-3D: Closed-Loop Evaluation of Performance and Physical Constraints for 3D ICs](https://arxiv.org/abs/2607.12788v1)
+##### 4. [CLIP-3D: Closed-Loop Evaluation of Performance and Physical Constraints for 3D ICs](https://arxiv.org/abs/2607.12788v1)
 - 阅读层级：关注
 - Source: arXiv Systems/HPC/GPU Data Path
 - 证据来源：仅摘要
@@ -285,8 +244,17 @@
 - 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
 - 建议行动：skim
 
+##### 5. [CFM-Bench: A Unified Multi-Domain, Multi-Task Benchmark for Channel Foundation Models](https://arxiv.org/abs/2607.14975v1)
+- 阅读层级：关注
+- Source: arXiv AI/ML/NLP/Vision/Robotics
+- 证据来源：仅摘要
+- benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。
+- 适合用于什么研究：适合用于多模态泛化或跨域评测设计参考。
+- 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
+- 建议行动：skim
+
 ### Other Benchmarks
-- 其余 4 个只进入附录标题列表：reports/appendix/2026-07-19-benchmarks.md
+- 其余 4 个只进入附录标题列表：reports/appendix/2026-07-20-benchmarks.md
 
 ## 5. GitHub / Open Source Projects
 
@@ -294,7 +262,7 @@
 ##### 1. [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands)
 - Reading tier: study_code
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-07-18T18:32:36+00:00
+- Published: 2026-07-19T18:03:48+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -310,7 +278,7 @@
 ##### 2. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-07-18T23:27:41+00:00
+- Published: 2026-07-19T23:29:37+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: AI Systems / HPC / Distributed Training & Inference, Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -326,7 +294,7 @@
 ##### 3. [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-07-18T05:57:11+00:00
+- Published: 2026-07-19T18:47:08+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: 上下文压缩 / 长上下文 / 记忆, Benchmark / 数据集 / 评测, Agent Runtime / RL Infrastructure / Scheduling, 其他亮点, 工具库
 - Grounding level: repo README
@@ -379,12 +347,12 @@
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: CV, Agent Runtime / RL Infrastructure / Scheduling, 其他亮点, 工具库
 - Grounding level: repo README
-- Scores: personal=0.66, global=0.62, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
+- Scores: personal=0.65, global=0.59, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
 - Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
 - What it is: TauricResearch/TradingAgents: 开源项目, 方向为“GitHub / 开源项目推荐”; 主要线索: agent, detection, framework, github.
 - Problem: 它关注“GitHub / 开源项目推荐”里的 agent, detection, framework, github 等问题.
 - Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
-- Why important to George: Reading tier: 克隆运行 editorial_priority: 0.28 按 GitHub 项目动作处理. personal: 0.66, relevance: 0.63.
+- Why important to George: Reading tier: 克隆运行 editorial_priority: 0.25 按 GitHub 项目动作处理. personal: 0.65, relevance: 0.63.
 - Suggested action: clone_and_run
 - Matched keywords: agent, detection, framework, github, github.com, open-source, safety
 
@@ -414,7 +382,7 @@
   - 学校 / 实验室：Stanford University
   - 类型：paper
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：具身智能 / VLA / 世界模型，personal 0.89
+  - 与我的研究方向关系：具身智能 / VLA / 世界模型，personal 0.88
   - 建议行动：read_pdf
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
   - 学校 / 实验室：UC Berkeley
@@ -433,7 +401,7 @@
   - 类型：paper
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：GPU 中心 I/O / 网络 / 存储，personal 0.85
-  - 建议行动：watch
+  - 建议行动：skim
 
 ## 8. Company Research Radar
 
@@ -479,25 +447,12 @@
 - topic_tags：rl、agents
 - 关联方向：Agent / Reasoning / Inference-time Scaling / Planning、RL
 - 为什么经典：PPO 是现代 RL 和 RLHF 语境里反复出现的基础算法，适合对照 agentic RL、长程轨迹优化和偏好优化系统。
-- 今日新论文继承了什么问题：2026 BAIR Graduate Showcase；LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
+- 今日新论文继承了什么问题：2026 BAIR Graduate Showcase 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
 - 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
 - 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
 - 预备知识：了解 policy gradient 和 actor-critic。
 - 相关今日条目：
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（Embodied Intelligence / VLA / World Models；连接词：long-horizon、reinforcement learning、rl、rlhf）
-  - [LongStraw: Long-Context RL Beyond 2M Tokens under a Fixed GPU Budget](https://arxiv.org/abs/2607.14952v1)（AI Systems / HPC / Distributed Training & Inference；连接词：policy optimization、rl）
-
-### 2. [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)（2022）
-- 作者：Shunyu Yao、Jeffrey Zhao、Dian Yu、Nan Du、Izhak Shafran、Karthik Narasimhan、Yuan Cao
-- topic_tags：agents、planning
-- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
-- 为什么经典：ReAct 把推理轨迹和行动轨迹放在同一循环中，是今天 tool use、web agent、GUI agent 和长程任务规划的经典起点。
-- 今日新论文继承了什么问题：2026 BAIR Graduate Showcase 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
-- 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
-- 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
-- 预备知识：熟悉 prompting、chain-of-thought 和基础强化学习任务表述。
-- 相关今日条目：
-  - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（Embodied Intelligence / VLA / World Models；连接词：long-horizon、planning、reasoning）
 
 ## 12. Feedback-Aware Recommendations
 
@@ -511,7 +466,7 @@
 
 ## 14. Collection Notes
 
-- Generated at: 2026-07-18T23:31:01.812496+00:00
+- Generated at: 2026-07-19T23:32:44.404778+00:00
 - Source count: 32
 - Raw item count: 699
 - Dedup item count: 562
@@ -519,7 +474,7 @@
 - API requests by provider: none
 - Cache hits: 0
 - Cache misses: 0
-- Benchmark appendix: reports/appendix/2026-07-19-benchmarks.md
+- Benchmark appendix: reports/appendix/2026-07-20-benchmarks.md
 
-- Report path: reports/daily/2026/07/2026-07-19.md
-- 上一份报告链接：reports/daily/2026/07/2026-07-18.md
+- Report path: reports/daily/2026/07/2026-07-20.md
+- 上一份报告链接：reports/daily/2026/07/2026-07-19.md
