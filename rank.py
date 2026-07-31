@@ -1918,7 +1918,7 @@ def composite_scores(
     return clamp_score(global_score), clamp_score(personal_score)
 
 
-def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
+def score_item(item: dict[str, Any], config: dict[str, Any], now: datetime | None = None) -> dict[str, Any]:
     enrich_item_sources(item, config)
     enrich_item_identifiers(item)
     ensure_grounding_metadata(item)
@@ -1941,7 +1941,7 @@ def score_item(item: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     conference_payload = extract_conference_signal(item, config)
     multi_source_payload = multi_source_confirmation(item, config)
     credibility = credibility_score(item, config)
-    novelty = novelty_score(item)
+    novelty = novelty_score(item, now=now)
     evidence_strength = evidence_strength_score(item, config)
     community_signal = community_signal_score(item)
     actionability = actionability_score(item, matched_terms, config)
@@ -2921,6 +2921,22 @@ def parse_report_date(report_date: str | None) -> datetime:
     return datetime.now()
 
 
+def report_now(report_date: str | None) -> datetime:
+    """Return a UTC tz-aware datetime for `report_date` to anchor recency scoring.
+
+    Ranking must be reproducible for a given date (tests and historical/backfill
+    runs), so recency is measured against the report date rather than the real
+    wall clock. `novelty_score` subtracts this from a tz-aware `published`, so the
+    result must be tz-aware.
+    """
+    if report_date:
+        try:
+            return datetime.strptime(report_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        except ValueError:
+            pass
+    return datetime.now(timezone.utc)
+
+
 def rotation_topic(report_date: str | None) -> tuple[str, set[str]]:
     return CLASSIC_ROTATION[parse_report_date(report_date).weekday()]
 
@@ -3099,7 +3115,8 @@ def process_items(
 ) -> dict[str, Any]:
     config = load_radar_config(keywords_path)
     deduped = dedupe_items(items)
-    scored = [score_item(item, config) for item in deduped]
+    effective_now = report_now(report_date)
+    scored = [score_item(item, config, now=effective_now) for item in deduped]
     scored.sort(key=score_rank_key, reverse=True)
     if limit:
         scored = scored[:limit]
