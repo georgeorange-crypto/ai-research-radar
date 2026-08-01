@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W31
 
 - 日期范围：2026-07-27 至 2026-08-02
-- 纳入日报：2 份
-- 跟踪条目：472；MUST_READ 3；SKIM 9；ARCHIVE 191
+- 纳入日报：3 份
+- 跟踪条目：474；MUST_READ 3；SKIM 10；ARCHIVE 193
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.98，global 0.44）
@@ -31,7 +31,7 @@
   - [MixFrag: Fragility-Guided Mixed-Precision Post-Training Quantization for Vision Transformers](https://arxiv.org/abs/2607.28589v1)
   - [FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation](https://arxiv.org/abs/2607.28596v1)
   - [CACHE-UK: A Stability-Aware Memory Editor for Sequentially Updated Quantized LLMs in Finance](https://arxiv.org/abs/2607.28292v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：49 条进入跟踪；高频信号：agent、reasoning、framework、agentic、language model、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：50 条进入跟踪；高频信号：agent、framework、reasoning、agentic、language model、inference。
   - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
   - [Rethinking Inference-Time Scaling in Local Computer-Use Agents: Failure Modes and Compute Tradeoffs](https://arxiv.org/abs/2607.28573v1)
   - [LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger](https://arxiv.org/abs/2607.28374v1)
@@ -43,12 +43,12 @@
   - [New framework for auditing machine unlearning](https://research.google/blog/new-framework-for-auditing-machine-unlearning/)
   - [CSAIL's Daskalakis wins ACM Grace Murray Hopper Award](https://www.csail.mit.edu/news/csails-daskalakis-wins-acm-grace-murray-hopper-award)
   - [Massive Foundation Model for Biomolecular Sciences Now Available via NVIDIA BioNeMo](https://blogs.nvidia.com/blog/evo-2-biomolecular-ai/)
-- Institutional Updates：45 条进入跟踪；高频信号：anthropic.com、openai.com、deepmind.google、microsoft.com、research.google、nvidia.com。
+- Institutional Updates：46 条进入跟踪；高频信号：openai.com、anthropic.com、deepmind.google、microsoft.com、research.google、nvidia.com。
   - [Jul 27, 2026 Announcements Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients](https://www.anthropic.com/news/cognizant-anthropic)
   - [Google DeepMind and A24 announce first-of-its-kind research partnership](https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/)
   - [Echoverse: Deep, evolving environments for computer-use agents](https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/)
   - [EvoLib: Turning experience into evolving knowledge](https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/)
-  - [Univé builds an AI-ready workforce](https://openai.com/index/unive)
+  - [Ten advances in mathematics and theoretical computer science](https://openai.com/index/ten-advances-in-mathematics)
 - GitHub / Open Source Projects：25 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression。
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)

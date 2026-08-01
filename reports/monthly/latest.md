@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：1 份
-- 跟踪条目：457；MUST_READ 3；SKIM 8；ARCHIVE 185
+- 纳入日报：2 份
+- 跟踪条目：459；MUST_READ 3；SKIM 10；ARCHIVE 187
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -16,6 +16,8 @@
 - [Change2Task: From Repository Changes to Executable Coding Agent Tasks and Environments](https://arxiv.org/abs/2607.28591v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.78）
 - [Capturing Token Tendencies for Training-Free Token Pruning in Multimodal Large Language Models](https://arxiv.org/abs/2607.28341v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.77）
 - [Correcting What You Cannot See: Credit Assignment for Perception Distillation in Multimodal Reasoners](https://arxiv.org/abs/2607.28336v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.75）
+- [Metis: Memory Foundation Model](https://arxiv.org/abs/2607.26760)（SKIM，Context Compression / Long Context / Memory，score 0.74）
+- [Can Large Language Models Execute Parent Orders?](https://arxiv.org/abs/2607.28410v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.74）
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)（WATCH，AI Systems / HPC / Distributed Training & Inference，score 0.87）
 - [Kimi K3: Open Frontier Intelligence](https://arxiv.org/abs/2607.24653)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，score 0.86）
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（WATCH，Agent / Reasoning / Inference-time Scaling / Planning，score 0.85）
@@ -23,8 +25,6 @@
 - [MixFrag: Fragility-Guided Mixed-Precision Post-Training Quantization for Vision Transformers](https://arxiv.org/abs/2607.28589v1)（WATCH，Embodied Intelligence / VLA / World Models，score 0.84）
 - [FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation](https://arxiv.org/abs/2607.28596v1)（WATCH，Embodied Intelligence / VLA / World Models，score 0.84）
 - [CACHE-UK: A Stability-Aware Memory Editor for Sequentially Updated Quantized LLMs in Finance](https://arxiv.org/abs/2607.28292v1)（WATCH，Embodied Intelligence / VLA / World Models，score 0.84）
-- [WIDE: Boosting Adaptive LLM Inference via Token-level Dynamic Width Pruning](https://arxiv.org/abs/2607.28418v1)（WATCH，Embodied Intelligence / VLA / World Models，score 0.83）
-- [PAC-MAN: Perception-Aware CBF-RL for Whole-Body Safety in Humanoid Dodgeball](https://arxiv.org/abs/2607.28623v1)（WATCH，Embodied Intelligence / VLA / World Models，score 0.83）
 
 ## 分方向趋势
 - AI Systems / HPC / Distributed Training & Inference：109 条进入跟踪；高频信号：HPC、data path、systems、cs.DC、framework、cs.LG、cs.NI、architecture。
@@ -39,7 +39,7 @@
   - [MixFrag: Fragility-Guided Mixed-Precision Post-Training Quantization for Vision Transformers](https://arxiv.org/abs/2607.28589v1)
   - [FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation](https://arxiv.org/abs/2607.28596v1)
   - [CACHE-UK: A Stability-Aware Memory Editor for Sequentially Updated Quantized LLMs in Finance](https://arxiv.org/abs/2607.28292v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：45 条进入跟踪；高频信号：reasoning、agent、framework、agentic、language model、inference、nlp、planning。
+- Agent / Reasoning / Inference-time Scaling / Planning：46 条进入跟踪；高频信号：reasoning、agent、framework、agentic、language model、inference、nlp、planning。
   - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
   - [Rethinking Inference-Time Scaling in Local Computer-Use Agents: Failure Modes and Compute Tradeoffs](https://arxiv.org/abs/2607.28573v1)
   - [LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger](https://arxiv.org/abs/2607.28374v1)
@@ -51,12 +51,12 @@
   - [New framework for auditing machine unlearning](https://research.google/blog/new-framework-for-auditing-machine-unlearning/)
   - [CSAIL's Daskalakis wins ACM Grace Murray Hopper Award](https://www.csail.mit.edu/news/csails-daskalakis-wins-acm-grace-murray-hopper-award)
   - [Massive Foundation Model for Biomolecular Sciences Now Available via NVIDIA BioNeMo](https://blogs.nvidia.com/blog/evo-2-biomolecular-ai/)
-- Institutional Updates：41 条进入跟踪；高频信号：anthropic.com、openai.com、deepmind.google、microsoft.com、research.google、nvidia.com、partnership、stanford.edu。
+- Institutional Updates：42 条进入跟踪；高频信号：anthropic.com、openai.com、deepmind.google、microsoft.com、research.google、nvidia.com、partnership、stanford.edu。
   - [Jul 27, 2026 Announcements Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients](https://www.anthropic.com/news/cognizant-anthropic)
   - [Google DeepMind and A24 announce first-of-its-kind research partnership](https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/)
+  - [Ten advances in mathematics and theoretical computer science](https://openai.com/index/ten-advances-in-mathematics)
   - [Univé builds an AI-ready workforce](https://openai.com/index/unive)
   - [Echoverse: Deep, evolving environments for computer-use agents](https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/)
-  - [EvoLib: Turning experience into evolving knowledge](https://www.microsoft.com/en-us/research/blog/evolib-turning-experience-into-evolving-knowledge/)
 - GitHub / Open Source Projects：25 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression、inference、attention。
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
