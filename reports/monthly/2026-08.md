@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：2 份
-- 跟踪条目：459；MUST_READ 3；SKIM 10；ARCHIVE 187
+- 纳入日报：3 份
+- 跟踪条目：475；MUST_READ 3；SKIM 10；ARCHIVE 200
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,42 +33,42 @@
   - [HARGO: Heterogeneity-Aware Reward-Guided Optimization for RL Post-Training of LLMs on HPC Tasks](https://arxiv.org/abs/2607.28301v1)
   - [AI systems and the reproduction of (standard) language ideologies in World Englishes](https://arxiv.org/abs/2607.28528v1)
   - [From CUDA to MLX: How K-Search Brings Decades of Kernel Expertise to Apple Silicon](http://bair.berkeley.edu/blog/2026/07/29/cuda-to-mlx-k-search/)
-- Embodied Intelligence / VLA / World Models：91 条进入跟踪；高频信号：nlp、robotics、framework、cs.AI、cs.CV、cs.LG、language model、image。
+- Embodied Intelligence / VLA / World Models：92 条进入跟踪；高频信号：nlp、robotics、framework、cs.AI、cs.CV、cs.LG、language model、image。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [ACE-Data-0: Human-Centric Ambient Capture as Embodied Data Engine](https://arxiv.org/abs/2607.28625v1)
   - [MixFrag: Fragility-Guided Mixed-Precision Post-Training Quantization for Vision Transformers](https://arxiv.org/abs/2607.28589v1)
   - [FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation](https://arxiv.org/abs/2607.28596v1)
   - [CACHE-UK: A Stability-Aware Memory Editor for Sequentially Updated Quantized LLMs in Finance](https://arxiv.org/abs/2607.28292v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：46 条进入跟踪；高频信号：reasoning、agent、framework、agentic、language model、inference、nlp、planning。
-  - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
-  - [Rethinking Inference-Time Scaling in Local Computer-Use Agents: Failure Modes and Compute Tradeoffs](https://arxiv.org/abs/2607.28573v1)
-  - [LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger](https://arxiv.org/abs/2607.28374v1)
-  - [Qwen-UI-Agent Technical Report: Toward Next-Generation Real-World Centric Foundation GUI Agents](https://arxiv.org/abs/2607.28227)
-  - [Change2Task: From Repository Changes to Executable Coding Agent Tasks and Environments](https://arxiv.org/abs/2607.28591v1)
-- Other Highlights：45 条进入跟踪；高频信号：cmu.edu、stanford.edu、open-source、security、institute、anthropic.com、mit.edu、openai.com。
+- Other Highlights：51 条进入跟踪；高频信号：stanford.edu、cmu.edu、open-source、security、institute、anthropic.com、meta.com、mit.edu。
   - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
   - [Advancing responsible AI across Europe](https://openai.com/index/advancing-responsible-ai-across-europe)
   - [New framework for auditing machine unlearning](https://research.google/blog/new-framework-for-auditing-machine-unlearning/)
   - [CSAIL's Daskalakis wins ACM Grace Murray Hopper Award](https://www.csail.mit.edu/news/csails-daskalakis-wins-acm-grace-murray-hopper-award)
   - [Massive Foundation Model for Biomolecular Sciences Now Available via NVIDIA BioNeMo](https://blogs.nvidia.com/blog/evo-2-biomolecular-ai/)
-- Institutional Updates：42 条进入跟踪；高频信号：anthropic.com、openai.com、deepmind.google、microsoft.com、research.google、nvidia.com、partnership、stanford.edu。
+- Agent / Reasoning / Inference-time Scaling / Planning：47 条进入跟踪；高频信号：reasoning、framework、agent、agentic、language model、inference、nlp、planning。
+  - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
+  - [Rethinking Inference-Time Scaling in Local Computer-Use Agents: Failure Modes and Compute Tradeoffs](https://arxiv.org/abs/2607.28573v1)
+  - [LEDGERMIND: Provenance-Constrained Multimodal Agentic Reasoning with a Structured Evidence Ledger](https://arxiv.org/abs/2607.28374v1)
+  - [Qwen-UI-Agent Technical Report: Toward Next-Generation Real-World Centric Foundation GUI Agents](https://arxiv.org/abs/2607.28227)
+  - [Change2Task: From Repository Changes to Executable Coding Agent Tasks and Environments](https://arxiv.org/abs/2607.28591v1)
+- Institutional Updates：47 条进入跟踪；高频信号：anthropic.com、openai.com、deepmind.google、microsoft.com、research.google、nvidia.com、meta.com、partnership。
   - [Jul 27, 2026 Announcements Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients](https://www.anthropic.com/news/cognizant-anthropic)
   - [Google DeepMind and A24 announce first-of-its-kind research partnership](https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/)
   - [Ten advances in mathematics and theoretical computer science](https://openai.com/index/ten-advances-in-mathematics)
   - [Univé builds an AI-ready workforce](https://openai.com/index/unive)
   - [Echoverse: Deep, evolving environments for computer-use agents](https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/)
-- GitHub / Open Source Projects：25 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression、inference、attention。
-  - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
-  - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
-  - [OpenGVLab/VideoChat-Flash](https://github.com/OpenGVLab/VideoChat-Flash)
-  - [thu-coai/Glyph](https://github.com/thu-coai/Glyph)
-  - [grishahq/recursive-llm](https://github.com/grishahq/recursive-llm)
-- Benchmark / Dataset / Evaluation：24 条进入跟踪；高频信号：evaluation、benchmark、cs.AI、nlp、language model、robotics、dataset、github。
+- Benchmark / Dataset / Evaluation：26 条进入跟踪；高频信号：evaluation、benchmark、cs.AI、nlp、language model、robotics、dataset、github。
   - [ReToken: One Token to Improve Vision-Language Models for Visual Retrieval](https://arxiv.org/abs/2607.28627v1)
   - [OSReward: Instituting Standardized Evaluation for Cross-Platform Computer-Use Reward Models](https://arxiv.org/abs/2607.28609v1)
   - [How Benchmarks Mis-Score Computer-Use Agents](https://arxiv.org/abs/2607.28367v1)
+  - [GigaWorld-1: A Roadmap to Build World Models for Robot Policy Evaluation](https://arxiv.org/abs/2607.02642)
   - [Quantum Fidelity-per-Cost: A Metric for Evaluation of Quantum Computing Systems](https://arxiv.org/abs/2607.28572v1)
-  - [LLMET: Enabling Cross-Layer Evaluation of Emerging M3D Memories for Energy-Efficient LLM Serving](https://arxiv.org/abs/2607.26491v1)
+- GitHub / Open Source Projects：26 条进入跟踪；高频信号：github、github.com、open-source、agent、compression、framework、inference、detection。
+  - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
+  - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
+  - [juyterman1000/entroly](https://github.com/juyterman1000/entroly)
+  - [OpenGVLab/VideoChat-Flash](https://github.com/OpenGVLab/VideoChat-Flash)
+  - [thu-coai/Glyph](https://github.com/thu-coai/Glyph)
 - NLP：20 条进入跟踪；高频信号：nlp、cs.CL、princeton、robotics、language model、natural language processing、framework、dataset。
   - [Would You Walk to the Car Wash? Revealing the Salience Bias of Large Language Models in Commonsense Reasoning](https://arxiv.org/abs/2607.28478v1)
   - [Beyond Sentiment: Structured Information Extraction from Financial News](https://arxiv.org/abs/2607.28496v1)
@@ -144,7 +144,7 @@
 ## 月度判断
 - AI Systems / HPC / Distributed Training & Inference：本月可继续沿着 [Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering](https://arxiv.org/abs/2607.28568v1) 追踪。
 - Embodied Intelligence / VLA / World Models：本月可继续沿着 [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) 追踪。
-- Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703) 追踪。
 - Other Highlights：本月可继续沿着 [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots) 追踪。
+- Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703) 追踪。
 - Institutional Updates：本月可继续沿着 [Jul 27, 2026 Announcements Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients](https://www.anthropic.com/news/cognizant-anthropic) 追踪。
-- GitHub / Open Source Projects：本月可继续沿着 [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) 追踪。
+- Benchmark / Dataset / Evaluation：本月可继续沿着 [ReToken: One Token to Improve Vision-Language Models for Visual Retrieval](https://arxiv.org/abs/2607.28627v1) 追踪。
