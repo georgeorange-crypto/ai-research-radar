@@ -2,7 +2,6 @@
 
 以下条目只列标题，未在日报正文展开。
 
-- [Performance Evaluation of RF-powered IoT in Rural Areas: The Wireless Power Digital Divide](https://arxiv.org/abs/2607.25817v1) （关注；Benchmark / 数据集 / 评测；个人相关度=0.62；全局热度=0.34；炒作风险=0.00）
 - [MPIE-Bench: Benchmarking Anatomically Plausible Multi-Person Interaction Editing](https://arxiv.org/abs/2607.27616) （归档；Benchmark / 数据集 / 评测；个人相关度=0.56；全局热度=0.48；炒作风险=0.00）
 - [How enabling two settings tripled our scores on the ARC-AGI-3 benchmark](https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores) （归档；Benchmark / 数据集 / 评测；个人相关度=0.54；全局热度=0.45；炒作风险=0.00）
 - [NVIDIA Nemotron Achieves Benchmark-Leading Performance With LangChain Deep Agents Harness](https://blogs.nvidia.com/blog/nemotron-langchain-agents-open-stack/) （归档；Benchmark / 数据集 / 评测；个人相关度=0.52；全局热度=0.43；炒作风险=0.00）
