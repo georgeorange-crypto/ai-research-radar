@@ -6,6 +6,14 @@ on:
   push:
     branches: ["main"]
 
+  # Runs after the daily radar workflow finishes. The daily job pushes as
+  # github-actions[bot] using GITHUB_TOKEN, and GitHub suppresses `push`
+  # triggers from those commits (anti-recursion), so a workflow_run trigger
+  # is required to publish the freshly generated report.
+  workflow_run:
+    workflows: ["Daily AI Research Radar"]
+    types: [completed]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
