@@ -741,11 +741,11 @@
 </ul>
 
 <ul>
-<li>LLM 总结调用次数：2</li>
+<li>LLM 总结调用次数：7</li>
 <li>估算成本：RMB 0.0 / 1.0</li>
-<li>最近一次 LLM 错误：provider=kimi; model=moonshot-v1-8k; base_url=https://api.moonshot.cn/v1; HTTP status=401; error={"error":{"message":"Incorrect API key provided","type":"incorrect_api_key_error"}}</li>
-<li>已禁用供应商：deepseek, kimi</li>
-<li>原因：deepseek:unauthorized, kimi:unauthorized</li>
+<li>最近一次 LLM 错误：provider=deepseek; model=deepseek-v4-flash; base_url=https://api.deepseek.com; HTTP status=n/a; error=Could not parse JSON response:</li>
+<li>已禁用供应商：kimi</li>
+<li>原因：unauthorized</li>
 </ul>
 
 
@@ -913,7 +913,7 @@
 <ul>
 <li><a href="https://arxiv.org/abs/2607.24653">Kimi K3: Open Frontier Intelligence</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.86；全局热度=0.44；炒作风险=0.00）</li>
 <li><a href="http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/">Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.85；全局热度=0.40；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2607.25388">SGTP: Sampling-based Game-Theoretic Planning for Real-Time Multi-Vehicle Autonomous Racing</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.84；全局热度=0.42；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2607.25388">SGTP: Sampling-based Game-Theoretic Planning for Real-Time Multi-Vehicle Autonomous Racing</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.84；全局热度=0.43；炒作风险=0.00）</li>
 </ul>
 
 <h3>强化学习</h3>
@@ -947,7 +947,7 @@
 
 <h3>模型蒸馏</h3>
 <ul>
-<li><a href="https://arxiv.org/abs/2608.01735">DAPD: Dual-Anchored Policy Distillation</a> （关注；模型蒸馏 / 模型压缩；个人相关度=0.64；全局热度=0.50；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2608.01735">DAPD: Dual-Anchored Policy Distillation</a> （关注；模型蒸馏 / 模型压缩；个人相关度=0.64；全局热度=0.51；炒作风险=0.00）</li>
 </ul>
 
 <h2>3. 跨方向连接</h2>
@@ -976,18 +976,7 @@
 <li>建议行动：use_as_eval</li>
 </ul>
 
-<h5>2. <a href="https://arxiv.org/abs/2607.28996">SULAND v2: A Refined RGB Dataset and Deep Learning Object Detection Benchmark for UAV/UGV-Based SUrface LANDmine Detection Under Domain Shift</a></h5>
-<ul>
-<li>阅读层级：关注</li>
-<li>来源：Hugging Face Daily Papers</li>
-<li>证据来源：仅摘要</li>
-<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
-<li>适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。</li>
-<li>可否作为实验基准：可以优先评估是否作为实验基准。</li>
-<li>建议行动：use_as_eval</li>
-</ul>
-
-<h5>3. <a href="https://arxiv.org/abs/2608.02595v1">onepot-Bench 0: towards lab-aware in silico chemistry benchmarks</a></h5>
+<h5>2. <a href="https://arxiv.org/abs/2608.02595v1">onepot-Bench 0: towards lab-aware in silico chemistry benchmarks</a></h5>
 <ul>
 <li>阅读层级：关注</li>
 <li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
@@ -998,7 +987,7 @@
 <li>建议行动：use_as_eval</li>
 </ul>
 
-<h5>4. <a href="https://arxiv.org/abs/2608.02315v1">GEOID-Flood: A Large-Scale Multi-Modal Benchmark Dataset for Flood Segmentation</a></h5>
+<h5>3. <a href="https://arxiv.org/abs/2608.02315v1">GEOID-Flood: A Large-Scale Multi-Modal Benchmark Dataset for Flood Segmentation</a></h5>
 <ul>
 <li>阅读层级：关注</li>
 <li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
@@ -1009,12 +998,23 @@
 <li>建议行动：skim</li>
 </ul>
 
-<h5>5. <a href="https://arxiv.org/abs/2608.02372v1">PredAct-Bench: Benchmarking Tool-Augmented Dialogue under Controlled Tool Noise</a></h5>
+<h5>4. <a href="https://arxiv.org/abs/2608.02372v1">PredAct-Bench: Benchmarking Tool-Augmented Dialogue under Controlled Tool Noise</a></h5>
 <ul>
 <li>阅读层级：关注</li>
 <li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
 <li>证据来源：仅摘要</li>
 <li>benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。</li>
+<li>适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。</li>
+<li>可否作为实验基准：可以优先评估是否作为实验基准。</li>
+<li>建议行动：use_as_eval</li>
+</ul>
+
+<h5>5. <a href="http://bair.berkeley.edu/blog/2026/01/10/information-driven-imaging/">Information-Driven Design of Imaging Systems</a></h5>
+<ul>
+<li>阅读层级：关注</li>
+<li>来源：BAIR Blog</li>
+<li>证据来源：全文</li>
+<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
 <li>适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。</li>
 <li>可否作为实验基准：可以优先评估是否作为实验基准。</li>
 <li>建议行动：use_as_eval</li>
@@ -1078,7 +1078,7 @@
 
 <h3>Other Benchmarks</h3>
 <ul>
-<li>其余 6 个只进入附录标题列表：reports/appendix/2026-08-04-benchmarks.md</li>
+<li>其余 5 个只进入附录标题列表：reports/appendix/2026-08-04-benchmarks.md</li>
 </ul>
 
 <h2>5. GitHub / 开源项目</h2>
@@ -1088,7 +1088,7 @@
 <ul>
 <li>阅读优先级：克隆运行</li>
 <li>来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）</li>
-<li>发布时间：2026-08-04T07:50:16+00:00</li>
+<li>发布时间：2026-08-04T10:14:16+00:00</li>
 <li>主方向：GitHub / 开源项目推荐</li>
 <li>次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、工具库</li>
 <li>依据层级：仓库 README</li>
@@ -1333,19 +1333,20 @@
 <ul>
 <li>OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)</li>
 <li>GitHub AI Research Projects：time budget exhausted（25 条） - 时间预算已耗尽 after 25 items</li>
-<li>Meta AI Blog：0 items（0 条） - fetch completed with 0 items</li>
+<li>MIT CSAIL News：超时（0 条） - timeout after 25s</li>
+<li>CMU AI：超时（0 条） - timeout after 25s</li>
 <li>The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch</li>
 </ul>
 
 <h2>14. 采集说明</h2>
 
 <ul>
-<li>生成时间：2026-08-04T08:50:41.752846+00:00</li>
-<li>来源数量：31</li>
-<li>原始条目数：685</li>
-<li>去重后条目数：568</li>
-<li>API 请求总数：2</li>
-<li>各供应商 API 请求数：deepseek:1, kimi:1</li>
+<li>生成时间：2026-08-04T10:26:30.998271+00:00</li>
+<li>来源数量：30</li>
+<li>原始条目数：676</li>
+<li>去重后条目数：553</li>
+<li>API 请求总数：7</li>
+<li>各供应商 API 请求数：deepseek:6, kimi:1</li>
 <li>缓存命中：0</li>
 <li>缓存未命中：6</li>
 <li>Benchmark 附录：reports/appendix/2026-08-04-benchmarks.md</li>
