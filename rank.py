@@ -65,6 +65,11 @@ OFFICIAL_HINTS = [
 ]
 
 MUST_READ_LIMIT = 3
+# A paper that was already surfaced as MUST_READ within this many prior days is
+# not eligible for MUST_READ again; it falls back to SKIM/WATCH. This prevents a
+# single strong-but-static item (e.g. a monthly showcase/roundup page) from
+# occupying a must-read slot for weeks and starving fresher work.
+MUST_READ_DEDUP_DAYS = 14
 SKIM_LIMIT = 8
 MUST_READ_PERSONAL_MIN = 0.85
 MUST_READ_RESEARCH_RELEVANCE_MIN = 0.85
@@ -2482,7 +2487,16 @@ def github_project_action(item: dict[str, Any]) -> str:
     return "save"
 
 
-def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
+def assign_reading_tiers(items: list[dict[str, Any]], report_date: str | None = None) -> None:
+    prior_must_reads = previous_must_read_titles(report_date)
+
+    def blocked_by_recent_must_read(item: dict[str, Any]) -> bool:
+        if not prior_must_reads:
+            return False
+        if explicit_editorial_override(item):
+            return False
+        return normalize_title(item.get("title", "")) in prior_must_reads
+
     for item in items:
         item["editorial_priority"] = round(editorial_priority_score(item), 3)
 
@@ -2512,7 +2526,10 @@ def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
             [
                 item
                 for item in paper_items
-                if id(item) not in used_ids and must_read_eligible(item) and must_bucket(item) == bucket
+                if id(item) not in used_ids
+                and must_read_eligible(item)
+                and not blocked_by_recent_must_read(item)
+                and must_bucket(item) == bucket
             ],
             key=lambda item, bucket=bucket: must_bucket_rank_key(item, bucket),
             reverse=True,
@@ -2534,7 +2551,9 @@ def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
         fallback_candidates = [
             item
             for item in paper_items
-            if id(item) not in used_ids and must_read_eligible(item)
+            if id(item) not in used_ids
+            and must_read_eligible(item)
+            and not blocked_by_recent_must_read(item)
         ]
         for item in fallback_candidates:
             source_name = str(item.get("source", {}).get("name") or item.get("source", {}).get("id") or "")
@@ -2549,7 +2568,11 @@ def assign_reading_tiers(items: list[dict[str, Any]]) -> None:
 
     if len(must_selected) < MUST_READ_LIMIT:
         for item in paper_items:
-            if id(item) in used_ids or not must_read_eligible(item):
+            if (
+                id(item) in used_ids
+                or not must_read_eligible(item)
+                or blocked_by_recent_must_read(item)
+            ):
                 continue
             must_selected.append(item)
             used_ids.add(id(item))
@@ -2694,6 +2717,45 @@ def previous_daily_report_text(report_date: str | None, *, days: int = 30) -> st
         except OSError:
             continue
     return "\n".join(pieces)
+
+
+def previous_must_read_titles(report_date: str | None, *, days: int = MUST_READ_DEDUP_DAYS) -> set[str]:
+    """Normalized titles that appeared in a `#### 必读` section of the daily
+    reports for the previous `days` days. Only must-read entries (rendered as
+    `##### N. [Title](url)`) are collected, so an item surfaced merely as
+    SKIM/WATCH does not block a future must-read.
+    """
+    if not report_date:
+        return set()
+    try:
+        current = datetime.strptime(report_date, "%Y-%m-%d")
+    except ValueError:
+        return set()
+    titles: set[str] = set()
+    for offset in range(1, days + 1):
+        day = current - timedelta(days=offset)
+        path = Path("reports") / "daily" / day.strftime("%Y") / day.strftime("%m") / f"{day.strftime('%Y-%m-%d')}.md"
+        if not path.exists():
+            continue
+        try:
+            lines = path.read_text(encoding="utf-8", errors="ignore").splitlines()
+        except OSError:
+            continue
+        in_must_read = False
+        for line in lines:
+            if line.startswith("#### "):
+                in_must_read = line.strip() == "#### 必读"
+                continue
+            if line.startswith("### ") or line.startswith("## "):
+                in_must_read = False
+                continue
+            if in_must_read:
+                match = re.match(r"#####\s+\d+\.\s+\[([^\]]+)\]", line)
+                if match:
+                    normalized = normalize_title(match.group(1))
+                    if normalized:
+                        titles.add(normalized)
+    return titles
 
 
 def recently_recommended_project(item: dict[str, Any], history_text: str) -> bool:
@@ -3120,7 +3182,7 @@ def process_items(
     scored.sort(key=score_rank_key, reverse=True)
     if limit:
         scored = scored[:limit]
-    assign_reading_tiers(scored)
+    assign_reading_tiers(scored, report_date=report_date)
 
     tier_counts = Counter(item.get("reading_tier", "IGNORE") for item in scored)
     sections = build_section_payloads(scored, config)
