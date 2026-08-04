@@ -2,6 +2,7 @@
 
 | 日期 | 今日 Must Read 数量 | 今日主要方向 | 链接 |
 |---|---:|---|---|
+| 2026-08-05 | 0 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-08-05.md](daily/2026/08/2026-08-05.md) |
 | 2026-08-04 | 1 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-08-04.md](daily/2026/08/2026-08-04.md) |
 | 2026-08-03 | 3 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-08-03.md](daily/2026/08/2026-08-03.md) |
 | 2026-08-02 | 3 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-08-02.md](daily/2026/08/2026-08-02.md) |
