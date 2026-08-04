@@ -2,7 +2,7 @@
 
 - 日期范围：2026-08-03 至 2026-08-09
 - 纳入日报：2 份
-- 跟踪条目：718；MUST_READ 4；SKIM 15；ARCHIVE 221
+- 跟踪条目：719；MUST_READ 4；SKIM 15；ARCHIVE 221
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.97，global 0.41）
@@ -55,7 +55,7 @@
   - [Does Explainability Transfer? A Controlled Benchmark of Attribution Methods on Vision Transformers and CNNs](https://arxiv.org/abs/2608.02396v1)
   - [FriendBench: Benchmarking Dyadic Familiarity Inference in Humans and Multimodal Large Language Models](https://arxiv.org/abs/2607.29602v1)
   - [SULAND v2: A Refined RGB Dataset and Deep Learning Object Detection Benchmark for UAV/UGV-Based SUrface LANDmine Detection Under Domain Shift](https://arxiv.org/abs/2607.28996)
-- GitHub / Open Source Projects：25 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression。
+- GitHub / Open Source Projects：26 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression。
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
   - [juyterman1000/entroly](https://github.com/juyterman1000/entroly)

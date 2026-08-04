@@ -15,12 +15,12 @@
 
 ## 0. 每日概览
 
-- 最重要方向：具身智能 / VLA / 世界模型
-- 必读数量：2（2026 BAIR Graduate Showcase；Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training）
+- 最重要方向：AI 系统 / HPC / 分布式训练与推理
+- 必读数量：1（Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training）
 - 略读数量：8（Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；EchoCache: Energy-Guided Cross-Modal Caching for Efficient Audio-Driven Video Generation；Qwen-CUA: Native Computer Use for (almost) Everything；TRACE: Ergodic Trajectory Optimization for Active Scene Reconstruction；LongHorizon-Harness: Advancing Long-Horizon Agents for Real-World Tasks）
-- 关注数量：12（Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering；Identifying Interactions at Scale for LLMs；Kimi K3: Open Frontier Intelligence；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Abduction Without a Body? Representational Grounding and the Abduction Loop for Scientific Hypothesis Generation）
+- 关注数量：12（2026 BAIR Graduate Showcase；Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering；Identifying Interactions at Scale for LLMs；Kimi K3: Open Frontier Intelligence；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling）
 - 关键词：agent、nlp、cs.LG、github、language model、robotics、gradient、framework
-- 判断：今日主线：推理时扩展正在从顺序 CoT 转向自适应并行推理与可选择的搜索路径；同时 Agentic RL 正从单次结果打分推进到长程轨迹、环境反馈和策略更新的闭环。
+- 判断：今日主线：Agentic RL 正从单次结果打分推进到长程轨迹、环境反馈和策略更新的闭环。
 
 ## 1. 核心研究方向
 
@@ -93,21 +93,7 @@
 ### 1.5 具身智能 / VLA / 世界模型
 
 #### 必读
-##### 1. [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
-- 阅读优先级：必读
-- 来源：BAIR Blog（一手来源；角色=机构权威来源）
-- 发布时间：2026-07-01T09:00:00+00:00
-- 主方向：具身智能 / VLA / 世界模型
-- 次级标签：Agent / 推理 / 推理时扩展 / 规划、AI 系统 / HPC / 分布式训练与推理、其他亮点、Agent 运行时 / RL 基础设施 / 调度
-- 依据层级：全文
-- 评分：个人相关度=0.97，全局热度=0.41，可信度=1.00，证据强度=0.95，炒作风险=0.00，反馈=0.00
-- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=1.00
-- 是什么：2026 BAIR Graduate Showcase 是一篇围绕 具身智能 / VLA / 世界模型 的研究或技术文章；当前本地摘要依据全文抓取内容和关键词进行归纳，核心线索包括：AI systems、action chunking、agent、agentic。
-- 问题：它关注 具身智能 / VLA / 世界模型 中尚未被充分解决的建模、推理、系统或评测问题；具体问题需要结合原文上下文进一步确认。
-- 方法 / 贡献：它的贡献需要按正文脉络理解：先界定问题，再给出方法、系统设计、实验观察或研究范式，而不是只用关键词归类。
-- 为什么对 George 重要：该来源具备全文依据，适合用作当天判断 具身智能 / VLA / 世界模型 方向变化的实质材料；个人相关度=0.97，研究相关度=1.00。
-- 建议动作：读 PDF
-- 命中关键词：AI systems、action chunking、agent、agentic、ai for science、ai systems、berkeley.edu、biology
+- 无。
 
 #### 略读
 ##### 1. [EchoCache: Energy-Guided Cross-Modal Caching for Efficient Audio-Driven Video Generation](https://arxiv.org/abs/2608.02474v1)
@@ -127,9 +113,9 @@
 - 命中关键词：alignment、benchmark、cs.CV、diffusion、framework、github、inference、lab
 
 #### 关注
+- [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) （关注；具身智能 / VLA / 世界模型；个人相关度=0.97；全局热度=0.41；炒作风险=0.00）
 - [Abduction Without a Body? Representational Grounding and the Abduction Loop for Scientific Hypothesis Generation](https://arxiv.org/abs/2608.02505v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.43；炒作风险=0.00）
 - [GROVE: Growing and Reasoning over Temporally Stratified Memory from Streaming Video Experience](https://arxiv.org/abs/2608.02392v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.42；炒作风险=0.00）
-- [Ego2Robot: Scalable Robot Data Synthesis from Egocentric Human Data](https://arxiv.org/abs/2608.02580v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.42；炒作风险=0.00）
 
 ## 2. 支撑性 AI 基础方向
 
@@ -270,7 +256,7 @@
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 5 个只进入附录标题列表：reports/appendix/2026-08-04-benchmarks.md
+- 其余 6 个只进入附录标题列表：reports/appendix/2026-08-04-benchmarks.md
 
 ## 5. GitHub / 开源项目
 
@@ -373,7 +359,21 @@
 - 命中关键词：attention、github、github.com、inference、long-context、open-source、release、sparse attention
 
 ### Evergreen Toolkits
-- 今日无需要重复推荐的常青工具库。
+##### 1. [jiazhou-garland/EventBind](https://github.com/jiazhou-garland/EventBind)
+- 阅读优先级：保存
+- 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
+- 发布时间：2025-10-09T03:32:32+00:00
+- 主方向：GitHub / 开源项目推荐
+- 次级标签：Benchmark / 数据集 / 评测、CV、工具库
+- 依据层级：仓库 README
+- 评分：个人相关度=0.66，全局热度=0.41，可信度=0.83，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
+- 是什么：jiazhou-garland/EventBind：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：clip、github、github.com、implementation。
+- 问题：它关注“GitHub / 开源项目推荐”里的 clip、github、github.com、implementation 等问题。
+- 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
+- 为什么对 George 重要：阅读优先级：保存 编辑优先级：0.11 按 GitHub 项目动作处理。 个人相关度：0.66，研究相关度：0.72。
+- 建议动作：保存
+- 命中关键词：clip、dataset、github、github.com、implementation、open-source、repo、repository
 
 
 ## 6. 学者雷达
@@ -463,25 +463,12 @@
 - topic_tags：rl、agents
 - 关联方向：Agent / Reasoning / Inference-time Scaling / Planning、RL
 - 为什么经典：PPO 是现代 RL 和 RLHF 语境里反复出现的基础算法，适合对照 agentic RL、长程轨迹优化和偏好优化系统。
-- 今日新论文继承了什么问题：2026 BAIR Graduate Showcase；Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
+- 今日新论文继承了什么问题：Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
 - 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
 - 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
 - 预备知识：了解 policy gradient 和 actor-critic。
 - 相关今日条目：
-  - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（Embodied Intelligence / VLA / World Models；连接词：long-horizon、reinforcement learning、rl、rlhf）
   - [Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training](https://arxiv.org/abs/2608.02391v1)（AI Systems / HPC / Distributed Training & Inference；连接词：reinforcement learning、rl）
-
-### 2. [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)（2022）
-- 作者：Shunyu Yao、Jeffrey Zhao、Dian Yu、Nan Du、Izhak Shafran、Karthik Narasimhan、Yuan Cao
-- topic_tags：agents、planning
-- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
-- 为什么经典：ReAct 把推理轨迹和行动轨迹放在同一循环中，是今天 tool use、web agent、GUI agent 和长程任务规划的经典起点。
-- 今日新论文继承了什么问题：2026 BAIR Graduate Showcase 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
-- 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
-- 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
-- 预备知识：熟悉 prompting、chain-of-thought 和基础强化学习任务表述。
-- 相关今日条目：
-  - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（Embodied Intelligence / VLA / World Models；连接词：long-horizon、planning、reasoning）
 
 ## 12. 反馈感知推荐
 
@@ -490,17 +477,15 @@
 ## 13. 来源健康状态
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
-- GitHub AI Research Projects：time budget exhausted（25 条） - 时间预算已耗尽 after 25 items
-- MIT CSAIL News：超时（0 条） - timeout after 25s
-- CMU AI：超时（0 条） - timeout after 25s
+- GitHub AI Research Projects：time budget exhausted（26 条） - 时间预算已耗尽 after 26 items
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. 采集说明
 
-- 生成时间：2026-08-04T10:26:30.998271+00:00
-- 来源数量：30
-- 原始条目数：676
-- 去重后条目数：553
+- 生成时间：2026-08-04T10:50:36.662500+00:00
+- 来源数量：32
+- 原始条目数：701
+- 去重后条目数：578
 - API 请求总数：7
 - 各供应商 API 请求数：deepseek:6, kimi:1
 - 缓存命中：0

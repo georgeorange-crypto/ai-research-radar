@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
 - 纳入日报：4 份
-- 跟踪条目：881；MUST_READ 6；SKIM 23；ARCHIVE 230
+- 跟踪条目：882；MUST_READ 6；SKIM 23；ARCHIVE 230
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -69,7 +69,7 @@
   - [Fast and Accurate Quotation Attribution in Literary Texts](https://arxiv.org/abs/2608.02359v1)
   - [Token-Native Storage: Read and Write in your Agent's Language](https://arxiv.org/abs/2608.02376v1)
   - [Bridging the Question-Answer Gap in Retrieval-Augmented Generation: Hypothetical Prompt Embeddings](https://arxiv.org/abs/2607.29402v1)
-- GitHub / Open Source Projects：26 条进入跟踪；高频信号：github、github.com、open-source、agent、compression、framework、inference、detection。
+- GitHub / Open Source Projects：27 条进入跟踪；高频信号：github、github.com、open-source、agent、compression、framework、inference、detection。
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
   - [juyterman1000/entroly](https://github.com/juyterman1000/entroly)
