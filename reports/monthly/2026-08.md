@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：8 份
-- 跟踪条目：1372；MUST_READ 12；SKIM 40；ARCHIVE 292
+- 纳入日报：9 份
+- 跟踪条目：1375；MUST_READ 12；SKIM 42；ARCHIVE 295
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,13 +33,13 @@
   - [BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning](https://arxiv.org/abs/2607.29302v1)
   - [ProDVI: Programmatic Dynamics Priors for Value Network Initialization](https://arxiv.org/abs/2608.06015v1)
   - [ACE-Data-0: Human-Centric Ambient Capture as Embodied Data Engine](https://arxiv.org/abs/2607.28625v1)
-- AI Systems / HPC / Distributed Training & Inference：382 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、framework、cs.DC、nlp、robotics。
+- AI Systems / HPC / Distributed Training & Inference：383 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、framework、cs.DC、nlp、robotics。
   - [Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering](https://arxiv.org/abs/2607.28568v1)
   - [TokTier: Exact Stateful Tokenization for Agentic LLM Serving](https://arxiv.org/abs/2607.29678v1)
   - [Consistency-Driven Co-Evolution for Self-Supervised Cross-Representation Learning](https://arxiv.org/abs/2608.04926)
   - [Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training](https://arxiv.org/abs/2608.02391v1)
   - [Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering](https://arxiv.org/abs/2607.28568)
-- Agent / Reasoning / Inference-time Scaling / Planning：137 条进入跟踪；高频信号：agent、reasoning、framework、language model、agentic、nlp、inference、long-horizon。
+- Agent / Reasoning / Inference-time Scaling / Planning：138 条进入跟踪；高频信号：agent、framework、reasoning、language model、agentic、nlp、inference、long-horizon。
   - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [Recursive Synthesis for Long-Horizon Terminal Tasks](https://arxiv.org/abs/2608.05466)
@@ -81,7 +81,7 @@
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
   - [juyterman1000/entroly](https://github.com/juyterman1000/entroly)
   - [OpenGVLab/VideoChat-Flash](https://github.com/OpenGVLab/VideoChat-Flash)
-- Compression / Reliability for AI Infrastructure：26 条进入跟踪；高频信号：nlp、cs.LG、robotics、compression、cs.NI、HPC、data path、framework。
+- Compression / Reliability for AI Infrastructure：27 条进入跟踪；高频信号：nlp、cs.LG、robotics、compression、cs.NI、HPC、data path、framework。
   - [FedCritic-MIMO: Communication-Efficient Serverless Federated Critic Learning for Massive-MIMO Resource Control in Open and Disaggregated 6G RANs](https://arxiv.org/abs/2608.03852v1)
   - [Sign compression for Muon: SignMuon, MuonSign, and the Limits of Error Feedback](https://arxiv.org/abs/2607.29674v1)
   - [Operationally Feasible Synthetic Power-Grid Scenarios via Learning the AC-Operable Joint Distribution](https://arxiv.org/abs/2608.03878v1)

@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W32
 
 - 日期范围：2026-08-03 至 2026-08-09
-- 纳入日报：6 份
-- 跟踪条目：1209；MUST_READ 10；SKIM 32；ARCHIVE 283
+- 纳入日报：7 份
+- 跟踪条目：1212；MUST_READ 10；SKIM 34；ARCHIVE 286
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.97，global 0.41）
@@ -19,7 +19,7 @@
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.85，global 0.40）
 
 ## 分方向趋势
-- AI Systems / HPC / Distributed Training & Inference：335 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、framework。
+- AI Systems / HPC / Distributed Training & Inference：336 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、framework。
   - [TokTier: Exact Stateful Tokenization for Agentic LLM Serving](https://arxiv.org/abs/2607.29678v1)
   - [Consistency-Driven Co-Evolution for Self-Supervised Cross-Representation Learning](https://arxiv.org/abs/2608.04926)
   - [Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training](https://arxiv.org/abs/2608.02391v1)
@@ -31,7 +31,7 @@
   - [BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning](https://arxiv.org/abs/2607.29302v1)
   - [ProDVI: Programmatic Dynamics Priors for Value Network Initialization](https://arxiv.org/abs/2608.06015v1)
   - [PRISM: Powerful Time Series to Image (TS2I) Representations for Multivariate Anomaly Detection](https://arxiv.org/abs/2608.03926v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：122 条进入跟踪；高频信号：agent、reasoning、framework、language model、agentic、nlp。
+- Agent / Reasoning / Inference-time Scaling / Planning：123 条进入跟踪；高频信号：agent、reasoning、framework、language model、agentic、nlp。
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [Recursive Synthesis for Long-Horizon Terminal Tasks](https://arxiv.org/abs/2608.05466)
   - [LongHorizon-Harness: Advancing Long-Horizon Agents for Real-World Tasks](https://arxiv.org/abs/2608.01964)
@@ -73,7 +73,7 @@
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
   - [juyterman1000/entroly](https://github.com/juyterman1000/entroly)
   - [OpenGVLab/VideoChat-Flash](https://github.com/OpenGVLab/VideoChat-Flash)
-- Compression / Reliability for AI Infrastructure：22 条进入跟踪；高频信号：nlp、cs.LG、compression、robotics、cs.NI、framework。
+- Compression / Reliability for AI Infrastructure：23 条进入跟踪；高频信号：nlp、cs.LG、compression、robotics、cs.NI、framework。
   - [FedCritic-MIMO: Communication-Efficient Serverless Federated Critic Learning for Massive-MIMO Resource Control in Open and Disaggregated 6G RANs](https://arxiv.org/abs/2608.03852v1)
   - [Sign compression for Muon: SignMuon, MuonSign, and the Limits of Error Feedback](https://arxiv.org/abs/2607.29674v1)
   - [Operationally Feasible Synthetic Power-Grid Scenarios via Learning the AC-Operable Joint Distribution](https://arxiv.org/abs/2608.03878v1)
