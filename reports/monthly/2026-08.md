@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：9 份
-- 跟踪条目：1375；MUST_READ 12；SKIM 42；ARCHIVE 295
+- 纳入日报：10 份
+- 跟踪条目：1377；MUST_READ 12；SKIM 42；ARCHIVE 296
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,7 +33,7 @@
   - [BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning](https://arxiv.org/abs/2607.29302v1)
   - [ProDVI: Programmatic Dynamics Priors for Value Network Initialization](https://arxiv.org/abs/2608.06015v1)
   - [ACE-Data-0: Human-Centric Ambient Capture as Embodied Data Engine](https://arxiv.org/abs/2607.28625v1)
-- AI Systems / HPC / Distributed Training & Inference：383 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、framework、cs.DC、nlp、robotics。
+- AI Systems / HPC / Distributed Training & Inference：385 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、framework、cs.DC、nlp、robotics。
   - [Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering](https://arxiv.org/abs/2607.28568v1)
   - [TokTier: Exact Stateful Tokenization for Agentic LLM Serving](https://arxiv.org/abs/2607.29678v1)
   - [Consistency-Driven Co-Evolution for Self-Supervised Cross-Representation Learning](https://arxiv.org/abs/2608.04926)
@@ -142,9 +142,9 @@
 - [rednote-machine-learning/RedKnot](https://github.com/rednote-machine-learning/RedKnot)（GitHub / Open Source Projects，stars 1518）
 - [microsoft/MInference](https://github.com/microsoft/MInference)（GitHub / Open Source Projects，stars 1224）
 - [wilpel/caveman-compression](https://github.com/wilpel/caveman-compression)（GitHub / Open Source Projects，stars 1082）
+- [Paritok-official/paritok-4b-v1](https://github.com/Paritok-official/paritok-4b-v1)（GitHub / Open Source Projects，stars 914）
 - [verygoodplugins/automem](https://github.com/verygoodplugins/automem)（GitHub / Open Source Projects，stars 794）
 - [caspianmoon/memoripy](https://github.com/caspianmoon/memoripy)（GitHub / Open Source Projects，stars 693）
-- [marv1nnnnn/llm-min.txt](https://github.com/marv1nnnnn/llm-min.txt)（GitHub / Open Source Projects，stars 677）
 
 ## 月度判断
 - Embodied Intelligence / VLA / World Models：本月可继续沿着 [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) 追踪。
