@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：15 份
-- 跟踪条目：2153；MUST_READ 20；SKIM 72；ARCHIVE 397
+- 纳入日报：16 份
+- 跟踪条目：2190；MUST_READ 20；SKIM 72；ARCHIVE 401
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,25 +33,25 @@
   - [BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning](https://arxiv.org/abs/2607.29302v1)
   - [ProDVI: Programmatic Dynamics Priors for Value Network Initialization](https://arxiv.org/abs/2608.06015v1)
   - [ACE-Data-0: Human-Centric Ambient Capture as Embodied Data Engine](https://arxiv.org/abs/2607.28625v1)
-- AI Systems / HPC / Distributed Training & Inference：606 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、nlp、framework、cs.DC、robotics。
+- AI Systems / HPC / Distributed Training & Inference：634 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、framework、cs.DC、nlp、robotics。
   - [Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering](https://arxiv.org/abs/2607.28568v1)
   - [TokTier: Exact Stateful Tokenization for Agentic LLM Serving](https://arxiv.org/abs/2607.29678v1)
   - [Scheduling Mixed RL Rollouts Beyond Prefix Locality](https://arxiv.org/abs/2608.11152v1)
   - [Consistency-Driven Co-Evolution for Self-Supervised Cross-Representation Learning](https://arxiv.org/abs/2608.04926)
   - [Cooperative Coevolution for Resource-Constrained Agentic LLM Post-Training](https://arxiv.org/abs/2608.02391v1)
-- Benchmark / Dataset / Evaluation：218 条进入跟踪；高频信号：benchmark、evaluation、nlp、cs.AI、language model、robotics、framework、cs.CL。
+- Benchmark / Dataset / Evaluation：221 条进入跟踪；高频信号：benchmark、evaluation、nlp、cs.AI、language model、robotics、framework、cs.CL。
   - [H2R-Bench: Benchmarking Human-to-Robot Manipulation Video Generation in World Models](https://arxiv.org/abs/2608.13049)
   - [DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?](https://arxiv.org/abs/2608.10366)
   - [XPolicyLab: A Unified Standard and Open Ecosystem for Robot Policy Evaluation and Deployment](https://arxiv.org/abs/2608.09892v1)
   - [ReToken: One Token to Improve Vision-Language Models for Visual Retrieval](https://arxiv.org/abs/2607.28627v1)
   - [HarnessOpt-Bench: Evaluating LLMs at Harness Optimization](https://arxiv.org/abs/2608.06301v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：203 条进入跟踪；高频信号：agent、reasoning、framework、language model、agentic、nlp、inference、evaluation。
+- Agent / Reasoning / Inference-time Scaling / Planning：204 条进入跟踪；高频信号：agent、reasoning、framework、language model、agentic、nlp、inference、evaluation。
   - [Motif 3: Technical Report](https://arxiv.org/abs/2608.09119)
   - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [Recursive Synthesis for Long-Horizon Terminal Tasks](https://arxiv.org/abs/2608.05466)
   - [LongHorizon-Harness: Advancing Long-Horizon Agents for Real-World Tasks](https://arxiv.org/abs/2608.01964)
-- NLP：77 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、framework、corpus、evaluation、natural language processing。
+- NLP：78 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、framework、corpus、evaluation、natural language processing。
   - [AURORA-LM: Autoencoding Unified Representation for Continuous-Latent Diffusion Language Modeling](https://arxiv.org/abs/2608.02602v1)
   - [myMediWhisper: Construction of Burmese Medical Speech Corpus and Whisper Fine-Tuning for Clinical Dialogue ASR](https://arxiv.org/abs/2608.11036v1)
   - [Poly-Dialectal Neural Machine Translation System for Bangla Regional Dialects](https://arxiv.org/abs/2608.12018v1)
@@ -75,7 +75,7 @@
   - [From Synthesis to Removal: Physics-Grounded Reflection Simulation and Diffusion-Based Video Dereflection](https://arxiv.org/abs/2608.11562)
   - [Mage-VL: An Efficient Codec-Native Streaming Multimodal Foundation Model](https://arxiv.org/abs/2607.24904)
   - [ChronoVision: Temporal Reasoning via Latent State Reconstruction](https://arxiv.org/abs/2608.05631)
-- Compression / Reliability for AI Infrastructure：40 条进入跟踪；高频信号：nlp、cs.LG、robotics、compression、framework、cs.NI、HPC、data path。
+- Compression / Reliability for AI Infrastructure：43 条进入跟踪；高频信号：nlp、cs.LG、robotics、framework、cs.NI、compression、HPC、data path。
   - [FedCritic-MIMO: Communication-Efficient Serverless Federated Critic Learning for Massive-MIMO Resource Control in Open and Disaggregated 6G RANs](https://arxiv.org/abs/2608.03852v1)
   - [Sign compression for Muon: SignMuon, MuonSign, and the Limits of Error Feedback](https://arxiv.org/abs/2607.29674v1)
   - [Operationally Feasible Synthetic Power-Grid Scenarios via Learning the AC-Operable Joint Distribution](https://arxiv.org/abs/2608.03878v1)
@@ -111,12 +111,12 @@
   - [The Ingestion Tax: Adopting File-Backed Weights in Tensor Frameworks](https://arxiv.org/abs/2608.12114v1)
   - [GPU-Resident CUDA Acceleration for OCUDU 5G PHY and O-RAN Fronthaul: Architecture and Preliminary Performance](https://arxiv.org/abs/2608.04338v1)
   - [Filtered Vector Search in a Disaggregated Lakehouse: Composing Table-Format Pruning with Per-File ANN](https://arxiv.org/abs/2608.05441v1)
-- Model Architecture：14 条进入跟踪；高频信号：attention、architecture、sparse attention、transformer、video、diffusion、language model、apple.com。
+- Model Architecture：15 条进入跟踪；高频信号：attention、architecture、transformer、sparse attention、video、diffusion、inference、language model。
   - [LongCat-Video Technical Report](https://arxiv.org/abs/2510.22200)
+  - [Maglev: Sliding Recurrent Memory](https://arxiv.org/abs/2608.02870)
   - [Geometric Context Transformer for Streaming 3D Reconstruction](https://arxiv.org/abs/2604.14141)
   - [Massive Activations in Hybrid Linear Attention Large Language Models: Pre-Attention Spikes and Inter-Spike Plateaus](https://arxiv.org/abs/2608.12149)
   - [Beyond Sequence Order: Syntax-Informed Positional Embeddings for Transformers](https://arxiv.org/abs/2608.06111)
-  - [Accelerating Text-to-Video Generation with Calibrated Sparse Attention](https://machinelearning.apple.com/research/calibrated-sparse-attention)
 - Learning Methods / Optimization / Representation Learning：9 条进入跟踪；高频信号：optimization、generalization、gradient、framework、nlp、robotics、attention、github。
   - [RxnCLF: Contrastive Transformation-Aware Reaction Foundation Model for Improved Reactivity Prediction](https://arxiv.org/abs/2608.06259v1)
   - [What exactly does word2vec learn?](http://bair.berkeley.edu/blog/2025/09/01/qwem-word2vec-theory/)
