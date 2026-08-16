@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：16 份
-- 跟踪条目：2190；MUST_READ 20；SKIM 72；ARCHIVE 401
+- 纳入日报：17 份
+- 跟踪条目：2193；MUST_READ 20；SKIM 74；ARCHIVE 403
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [SHE: Trajectory-driven Safety Harness Evolution for LLM Agents](https://arxiv.org/abs/2608.09885v1)（MUST_READ，Agent Runtime / RL Infrastructure / Scheduling，score 0.85）
 
 ## 分方向趋势
-- Embodied Intelligence / VLA / World Models：656 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG、language model、image。
+- Embodied Intelligence / VLA / World Models：657 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG、language model、image。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Depth-Guided Video Object Counting in Crowded Scenes](https://arxiv.org/abs/2608.06236v1)
   - [BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning](https://arxiv.org/abs/2607.29302v1)
@@ -45,7 +45,7 @@
   - [XPolicyLab: A Unified Standard and Open Ecosystem for Robot Policy Evaluation and Deployment](https://arxiv.org/abs/2608.09892v1)
   - [ReToken: One Token to Improve Vision-Language Models for Visual Retrieval](https://arxiv.org/abs/2607.28627v1)
   - [HarnessOpt-Bench: Evaluating LLMs at Harness Optimization](https://arxiv.org/abs/2608.06301v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：204 条进入跟踪；高频信号：agent、reasoning、framework、language model、agentic、nlp、inference、evaluation。
+- Agent / Reasoning / Inference-time Scaling / Planning：205 条进入跟踪；高频信号：agent、reasoning、framework、language model、agentic、nlp、inference、evaluation。
   - [Motif 3: Technical Report](https://arxiv.org/abs/2608.09119)
   - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
@@ -69,7 +69,7 @@
   - [New framework for auditing machine unlearning](https://research.google/blog/new-framework-for-auditing-machine-unlearning/)
   - [CSAIL's Daskalakis wins ACM Grace Murray Hopper Award](https://www.csail.mit.edu/news/csails-daskalakis-wins-acm-grace-murray-hopper-award)
   - [MemSFT: Mitigating Alignment Tax with an External Parametric Memory](https://arxiv.org/abs/2607.25614)
-- CV：53 条进入跟踪；高频信号：image、diffusion、multimodal、framework、video、visual、github、benchmark。
+- CV：54 条进入跟踪；高频信号：image、diffusion、multimodal、visual、framework、video、github、benchmark。
   - [AmalthAI: An Open-Source Computer Vision Platform for Cultural Heritage](https://arxiv.org/abs/2608.13343v1)
   - [KVAE: Family of Tokenizers for Multimodal Generative Models](https://arxiv.org/abs/2608.05798)
   - [From Synthesis to Removal: Physics-Grounded Reflection Simulation and Diffusion-Based Video Dereflection](https://arxiv.org/abs/2608.11562)

@@ -1,4 +1,4 @@
-# AI Research Radar - 2026-08-16
+# AI Research Radar - 2026-08-17
 
 - 研究画像：George Research Profile v2
 - 总结模式：单模型
@@ -17,9 +17,9 @@
 
 - 最重要方向：上下文压缩 / 长上下文 / 记忆
 - 必读数量：0
-- 略读数量：8（Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Vero: Can AI Agents Build Formally Verified Software Repositories?；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；When Local Variance Optimality Is Not Enough: RoPE-Aligned Q/K Rotations for Dynamic 4-Bit Quantisation；Mind the Context: Continual Learning of Socially Appropriate Robot Actions via Environmental-Social Disentanglement）
-- 关注数量：12（2026 BAIR Graduate Showcase；Identifying Interactions at Scale for LLMs；Spatial Memory Agent: Experience-Grounded Procedure Memory for Spatial Intelligence；CoverPrune: Coverage-Driven Token Pruning for 3D VLMs via Optimal Transport；AutoDesign: Meta-Harness Optimization for Long-Horizon Agentic Design）
-- 关键词：agent、framework、nlp、robotics、attention、evaluation、berkeley.edu、cs.LG
+- 略读数量：8（Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；LycheeMemory V2: Efficient Long-Term Memory for LLM Agents via Semantic Segment-Level Consolidation；Mind the Context: Continual Learning of Socially Appropriate Robot Actions via Environmental-Social Disentanglement；Context-Matched Distillation: Teacher Causality for Autoregressive Video Distillation）
+- 关注数量：12（2026 BAIR Graduate Showcase；Identifying Interactions at Scale for LLMs；Spatial Memory Agent: Experience-Grounded Procedure Memory for Spatial Intelligence；Vero: Can AI Agents Build Formally Verified Software Repositories?；CoverPrune: Coverage-Driven Token Pruning for 3D VLMs via Optimal Transport）
+- 关键词：agent、framework、reasoning、agent memory、nlp、robotics、attention、berkeley.edu
 - 判断：今日主线：没有强制深读项，建议归档观察。
 
 ## 1. 核心研究方向
@@ -30,26 +30,12 @@
 - 无。
 
 #### 略读
-##### 1. [When Local Variance Optimality Is Not Enough: RoPE-Aligned Q/K Rotations for Dynamic 4-Bit Quantisation](https://arxiv.org/abs/2608.13365v1)
-- 阅读优先级：略读
-- 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
-- 发布时间：2026-08-13T15:31:01+00:00
-- 主方向：AI 系统 / HPC / 分布式训练与推理
-- 次级标签：具身智能 / VLA / 世界模型、AI 基础设施压缩 / 可靠性、Agent 运行时 / RL 基础设施 / 调度、上下文压缩 / 长上下文 / 记忆
-- 依据层级：仅摘要
-- 评分：个人相关度=0.83，全局热度=0.47，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
-- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：When Local Variance Optimality Is Not Enough: RoPE-Aligned Q/K Rotations for Dynamic 4-Bit Quantisation：研究论文，方向为“AI 系统 / HPC / 分布式训练与推理”；主要线索：attention、checkpoint、cs.LG、implementation。
-- 问题：它关注“AI 系统 / HPC / 分布式训练与推理”里的 attention、checkpoint、cs.LG、implementation 等问题。
-- 方法 / 贡献：摘要可确认它偏向评测或数据构建；具体任务定义、指标和样本规模需读原文确认。
-- 为什么对 George 重要：阅读优先级：略读 编辑优先级：0.78 今天快速扫读。 个人相关度：0.83，研究相关度：0.97。
-- 建议动作：快速扫读
-- 命中关键词：attention、checkpoint、cs.LG、implementation、long context、nlp、robotics、training
+- 无。
 
 #### 关注
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.87；全局热度=0.41；炒作风险=0.00）
-- [Intern-S2-Preview: Scientific Agentic Foundation Model](https://arxiv.org/abs/2608.13505v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.83；全局热度=0.40；炒作风险=0.00）
-- [OpenAI's letter to Governor Abbott on responsible AI infrastructure in Texas](https://openai.com/index/responsible-ai-infrastructure-texas) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.82；全局热度=0.44；炒作风险=0.00）
+- [When Local Variance Optimality Is Not Enough: RoPE-Aligned Q/K Rotations for Dynamic 4-Bit Quantisation](https://arxiv.org/abs/2608.13365v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.83；全局热度=0.43；炒作风险=0.00）
+- [Intern-S2-Preview: Scientific Agentic Foundation Model](https://arxiv.org/abs/2608.13505v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.82；全局热度=0.37；炒作风险=0.00）
 
 ### 1.2 GPU 中心 I/O / 网络 / 存储
 
@@ -61,7 +47,7 @@
 
 #### 关注
 - [The Ingestion Tax: Adopting File-Backed Weights in Tensor Frameworks](https://arxiv.org/abs/2608.12114v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.81；全局热度=0.35；炒作风险=0.00）
-- [TopoIntent: Compiling Security Intent into Executable, Compliance-Checked Network Topologies](https://arxiv.org/abs/2608.13389v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.80；全局热度=0.40；炒作风险=0.00）
+- [TopoIntent: Compiling Security Intent into Executable, Compliance-Checked Network Topologies](https://arxiv.org/abs/2608.13389v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.79；全局热度=0.36；炒作风险=0.00）
 
 ### 1.3 AI 基础设施压缩 / 可靠性
 
@@ -72,9 +58,9 @@
 - 无。
 
 #### 关注
-- [Exponential quantum advantage for learning signals with a single qubit](https://arxiv.org/abs/2608.13521v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.81；全局热度=0.39；炒作风险=0.00）
 - [FaCTz: Fast Critical-Point and Topology-Aware GPU Compression for Scientific Vector Fields](https://arxiv.org/abs/2608.10586v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.81；全局热度=0.34；炒作风险=0.00）
-- [The data geometry of masking diffusion: Certified-optimal schedules via unmasking growth complexity](https://arxiv.org/abs/2608.13520v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.78；全局热度=0.38；炒作风险=0.00）
+- [Exponential quantum advantage for learning signals with a single qubit](https://arxiv.org/abs/2608.13521v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.80；全局热度=0.36；炒作风险=0.00）
+- [The data geometry of masking diffusion: Certified-optimal schedules via unmasking growth complexity](https://arxiv.org/abs/2608.13520v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.77；全局热度=0.35；炒作风险=0.00）
 
 ### 1.4 Agent 运行时 / RL 基础设施 / 调度
 
@@ -82,26 +68,12 @@
 - 无。
 
 #### 略读
-##### 1. [Vero: Can AI Agents Build Formally Verified Software Repositories?](https://arxiv.org/abs/2608.13522v1)
-- 阅读优先级：略读
-- 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
-- 发布时间：2026-08-13T17:41:27+00:00
-- 主方向：Agent 运行时 / RL 基础设施 / 调度
-- 次级标签：具身智能 / VLA / 世界模型、AI 系统 / HPC / 分布式训练与推理、AI 基础设施压缩 / 可靠性、Benchmark / 数据集 / 评测
-- 依据层级：仅摘要
-- 评分：个人相关度=0.86，全局热度=0.42，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
-- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：Vero: Can AI Agents Build Formally Verified Software Repositories?：研究论文，方向为“Agent 运行时 / RL 基础设施 / 调度”；主要线索：agent、cs.AI、cs.LG、distributed systems。
-- 问题：它关注“Agent 运行时 / RL 基础设施 / 调度”里的 agent、cs.AI、cs.LG、distributed systems 等问题。
-- 方法 / 贡献：摘要可确认它提出或引入了 agent、cs.AI、cs.LG、distributed systems；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对 George 重要：阅读优先级：略读 编辑优先级：0.78 今天快速扫读。 个人相关度：0.86，研究相关度：0.98。
-- 建议动作：快速扫读
-- 命中关键词：agent、benchmark、cs.AI、cs.LG、distributed systems、evaluation、github、implementation
+- 无。
 
 #### 关注
-- [MARC v1: An Open-Source Multi-Agent Framework for Clinical AI Reasoning and Coordination](https://arxiv.org/abs/2608.13476v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.81；全局热度=0.42；炒作风险=0.00）
-- [Training AI Scientists to Replicate Research](https://arxiv.org/abs/2608.13331v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.79；全局热度=0.38；炒作风险=0.00）
-- [Capability Sheaves for Compositional Agent-Harness Repair: Controlled Quotients and a Real-Repository Stress Test](https://arxiv.org/abs/2608.13228v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.79；全局热度=0.38；炒作风险=0.00）
+- [Vero: Can AI Agents Build Formally Verified Software Repositories?](https://arxiv.org/abs/2608.13522v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.85；全局热度=0.38；炒作风险=0.00）
+- [MARC v1: An Open-Source Multi-Agent Framework for Clinical AI Reasoning and Coordination](https://arxiv.org/abs/2608.13476v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.80；全局热度=0.38；炒作风险=0.00）
+- [Training AI Scientists to Replicate Research](https://arxiv.org/abs/2608.13331v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.78；全局热度=0.34；炒作风险=0.00）
 
 ### 1.5 具身智能 / VLA / 世界模型
 
@@ -116,52 +88,51 @@
 - 主方向：具身智能 / VLA / 世界模型
 - 次级标签：其他亮点、Novel Class Discovery / Open-World Learning / OOD / Continual Learning、AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度
 - 依据层级：仅摘要
-- 评分：个人相关度=0.82，全局热度=0.51，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.81，全局热度=0.47，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.22
 - 是什么：Mind the Context: Continual Learning of Socially Appropriate Robot Actions via Environmental-Social Disentanglement：研究论文，方向为“具身智能 / VLA / 世界模型”；主要线索：agent、continual learning、cs.RO、framework。
 - 问题：它关注“具身智能 / VLA / 世界模型”里的 agent、continual learning、cs.RO、framework 等问题。
 - 方法 / 贡献：摘要可确认它偏向评测或数据构建；具体任务定义、指标和样本规模需读原文确认。
-- 为什么对 George 重要：阅读优先级：略读 编辑优先级：0.78 今天快速扫读。 个人相关度：0.82，研究相关度：1.00。
+- 为什么对 George 重要：阅读优先级：略读 编辑优先级：0.74 今天快速扫读。 个人相关度：0.81，研究相关度：1.00。
 - 建议动作：快速扫读
 - 命中关键词：agent、continual learning、cs.RO、framework、github、nlp、robot、robotics
 
 #### 关注
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) （关注；具身智能 / VLA / 世界模型；个人相关度=0.97；全局热度=0.41；炒作风险=0.00）
-- [CoverPrune: Coverage-Driven Token Pruning for 3D VLMs via Optimal Transport](https://arxiv.org/abs/2608.13226v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.40；炒作风险=0.00）
-- [AutoDesign: Meta-Harness Optimization for Long-Horizon Agentic Design](https://arxiv.org/abs/2608.13560v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.42；炒作风险=0.00）
+- [CoverPrune: Coverage-Driven Token Pruning for 3D VLMs via Optimal Transport](https://arxiv.org/abs/2608.13226v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.83；全局热度=0.36；炒作风险=0.00）
+- [AutoDesign: Meta-Harness Optimization for Long-Horizon Agentic Design](https://arxiv.org/abs/2608.13560v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.83；全局热度=0.38；炒作风险=0.00）
 
 ## 2. 支撑性 AI 基础方向
 
 ### 上下文 / 记忆
-- [Zep: A Temporal Knowledge Graph Architecture for Agent Memory](https://arxiv.org/abs/2501.13956) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.69；全局热度=0.43；炒作风险=0.00）
-- [Full-bandwidth transformer](https://arxiv.org/abs/2608.08888) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.67；全局热度=0.42；炒作风险=0.00）
+- [Full-bandwidth transformer](https://arxiv.org/abs/2608.08888) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.67；全局热度=0.43；炒作风险=0.00）
 
 ### 通用 Agent / 推理
 - [Spatial Memory Agent: Experience-Grounded Procedure Memory for Spatial Intelligence](https://arxiv.org/abs/2608.12743) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.86；全局热度=0.49；炒作风险=0.00）
-- [AVA-Encoder: Towards Agent-Native Video Representation Learning](https://arxiv.org/abs/2608.12313) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.82；全局热度=0.49；炒作风险=0.00）
-- [AaLLM: An End-to-End Analog Circuit Design Framework from Topology Generation to Sizing Using Large Language Models](https://arxiv.org/abs/2608.13472v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.82；全局热度=0.40；炒作风险=0.00）
+- [AVA-Encoder: Towards Agent-Native Video Representation Learning](https://arxiv.org/abs/2608.12313) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.82；全局热度=0.50；炒作风险=0.00）
+- [AaLLM: An End-to-End Analog Circuit Design Framework from Topology Generation to Sizing Using Large Language Models](https://arxiv.org/abs/2608.13472v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.81；全局热度=0.37；炒作风险=0.00）
 
 ### 强化学习
 - [Parameter Exploration for RLVR via Variational Learning](https://arxiv.org/abs/2608.09805) （归档；RL；个人相关度=0.59；全局热度=0.45；炒作风险=0.00）
 - [Import AI 460: Reward hacking society, RSI data from Anthropic; and RL-based quadcopter racing](https://jack-clark.net/2026/06/08/import-ai-460-reward-hacking-society-rsi-data-from-anthropic-and-rl-based-quadcopter-racing/) （归档；RL；个人相关度=0.38；全局热度=0.30；炒作风险=0.28）
 
 ### 模型架构
-- [Maglev: Sliding Recurrent Memory](https://arxiv.org/abs/2608.02870) （归档；模型架构；个人相关度=0.60；全局热度=0.41；炒作风险=0.00）
+- [Maglev: Sliding Recurrent Memory](https://arxiv.org/abs/2608.02870) （归档；模型架构；个人相关度=0.60；全局热度=0.42；炒作风险=0.00）
 - [Massive Activations in Hybrid Linear Attention Large Language Models: Pre-Attention Spikes and Inter-Spike Plateaus](https://arxiv.org/abs/2608.12149) （归档；模型架构；个人相关度=0.57；全局热度=0.48；炒作风险=0.00）
 
 ### 多模态 / VLM / 计算机视觉
-- [AmalthAI: An Open-Source Computer Vision Platform for Cultural Heritage](https://arxiv.org/abs/2608.13343v1) （关注；CV；个人相关度=0.74；全局热度=0.41；炒作风险=0.00）
-- [LiveAnimate: Stable Long-Form Streaming Human Animation in Real-Time](https://arxiv.org/abs/2608.11745) （关注；CV；个人相关度=0.69；全局热度=0.48；炒作风险=0.00）
+- [AmalthAI: An Open-Source Computer Vision Platform for Cultural Heritage](https://arxiv.org/abs/2608.13343v1) （关注；CV；个人相关度=0.73；全局热度=0.37；炒作风险=0.00）
+- [LiveAnimate: Stable Long-Form Streaming Human Animation in Real-Time](https://arxiv.org/abs/2608.11745) （关注；CV；个人相关度=0.69；全局热度=0.49；炒作风险=0.00）
 
 ### NLP
-- [Motor, Cognitive, or Corpus? What Survives Cross-Lingual Transfer in Speech-Based Parkinsons Disease Detection](https://arxiv.org/abs/2608.13425v1) （关注；NLP；个人相关度=0.64；全局热度=0.40；炒作风险=0.00）
-- [CROP: Task Relevance via Counterfactuals for Selective On-Policy Distillation](https://arxiv.org/abs/2608.13387v1) （归档；NLP；个人相关度=0.59；全局热度=0.38；炒作风险=0.00）
+- [Motor, Cognitive, or Corpus? What Survives Cross-Lingual Transfer in Speech-Based Parkinsons Disease Detection](https://arxiv.org/abs/2608.13425v1) （归档；NLP；个人相关度=0.64；全局热度=0.36；炒作风险=0.00）
+- [CROP: Task Relevance via Counterfactuals for Selective On-Policy Distillation](https://arxiv.org/abs/2608.13387v1) （归档；NLP；个人相关度=0.58；全局热度=0.34；炒作风险=0.00）
 
 ### 开放世界 / 持续学习
 - 无。
 
 ### 模型蒸馏
-- [PixSDS: Why Latent SDS Makes Noisy Pixels](https://arxiv.org/abs/2608.12997) （关注；模型蒸馏 / 模型压缩；个人相关度=0.68；全局热度=0.45；炒作风险=0.00）
+- [PixSDS: Why Latent SDS Makes Noisy Pixels](https://arxiv.org/abs/2608.12997) （关注；模型蒸馏 / 模型压缩；个人相关度=0.69；全局热度=0.47；炒作风险=0.00）
 - [Locking Pretrained Weights via Deep Low-Rank Residual Distillation](https://machinelearning.apple.com/research/locking-pretrained-weights) （关注；模型蒸馏 / 模型压缩；个人相关度=0.66；全局热度=0.29；炒作风险=0.00）
 
 ## 3. 跨方向连接
@@ -269,7 +240,7 @@
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 5 个只进入附录标题列表：reports/appendix/2026-08-16-benchmarks.md
+- 其余 4 个只进入附录标题列表：reports/appendix/2026-08-17-benchmarks.md
 
 ## 5. GitHub / 开源项目
 
@@ -277,7 +248,7 @@
 ##### 1. [Paritok-official/paritok-4b-v1](https://github.com/Paritok-official/paritok-4b-v1)
 - 阅读优先级：研读代码
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-08-15T20:50:24+00:00
+- 发布时间：2026-08-16T02:39:50+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：上下文压缩 / 长上下文 / 记忆、Agent / 推理 / 推理时扩展 / 规划、AI 基础设施压缩 / 可靠性、Benchmark / 数据集 / 评测、工具库
 - 依据层级：仓库 README
@@ -293,7 +264,7 @@
 ##### 2. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-08-15T22:36:21+00:00
+- 发布时间：2026-08-16T22:43:12+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -309,7 +280,7 @@
 ##### 3. [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-08-15T13:41:21+00:00
+- 发布时间：2026-08-16T15:54:06+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：Agent / 推理 / 推理时扩展 / 规划、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -457,14 +428,15 @@
 
 ## 11. 常青经典
 
-### 1. [Highly accurate protein structure prediction with AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)（2021）
-- 作者：John Jumper、Richard Evans、Alexander Pritzel、Tim Green、Michael Figurnov、Olaf Ronneberger、Kathryn Tunyasuvunakool、Russ Bates 等
-- topic_tags：ai_for_science、biology
-- 关联方向：Other Highlights
-- 为什么经典：AlphaFold 是 AI for Science 的标志性成果，适合在生物、蛋白质、科学发现和世界模型相关进展出现时重读。
-- 今日新论文继承了什么问题：今天的相关条目 与这篇经典论文共享一个概念问题，而不仅是关键词重合。
-- 它挑战了什么经典假设：需要阅读新论文后确认它是否改变了经典论文中的数据、模型或评估假设。
-- 它推进到什么新场景：暂时把它作为背景坐标，用来判断新工作是否只是换任务，还是确实推进了方法边界。
+### 1. [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)（2020）
+- 作者：Patrick Lewis、Ethan Perez、Aleksandra Piktus、Fabio Petroni、Vladimir Karpukhin、Naman Goyal、Heinrich Kuttler、Mike Lewis 等
+- topic_tags：context_compression、long_context、nlp
+- 关联方向：Context Compression / Long Context / Memory、NLP
+- 为什么经典：RAG 把参数记忆和外部检索连接起来，是理解今天检索增强、agent memory、记忆有效性和上下文预算取舍的关键参照。
+- 今日新论文继承了什么问题：今天的相关条目 延续了经典工作里的核心问题：有限上下文、外部记忆与状态复用如何支撑更长程的推理。
+- 它挑战了什么经典假设：它挑战的是静态检索、固定窗口或只读记忆的假设，转向会随新证据更新的工作记忆和缓存管理。
+- 它推进到什么新场景：新场景从语言建模推进到 agent memory、动态 workflow 和长上下文服务系统。
+- 预备知识：了解 seq2seq、dense retrieval 和生成式问答。
 
 ## 12. 反馈感知推荐
 
@@ -474,20 +446,20 @@
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
 - GitHub AI Research Projects：time budget exhausted（23 条） - 时间预算已耗尽 after 23 items
-- Meta AI Blog：0 items（0 条） - fetch completed with 0 items
+- MIT CSAIL News：超时（0 条） - timeout after 25s
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. 采集说明
 
-- 生成时间：2026-08-15T22:52:36.951649+00:00
+- 生成时间：2026-08-16T22:51:31.297616+00:00
 - 来源数量：31
-- 原始条目数：686
-- 去重后条目数：562
+- 原始条目数：692
+- 去重后条目数：563
 - API 请求总数：7
 - 各供应商 API 请求数：deepseek:6, kimi:1
 - 缓存命中：1
 - 缓存未命中：5
-- Benchmark 附录：reports/appendix/2026-08-16-benchmarks.md
+- Benchmark 附录：reports/appendix/2026-08-17-benchmarks.md
 
-- 报告路径：reports/daily/2026/08/2026-08-16.md
-- 上一份报告链接：reports/daily/2026/08/2026-08-15.md
+- 报告路径：reports/daily/2026/08/2026-08-17.md
+- 上一份报告链接：reports/daily/2026/08/2026-08-16.md
