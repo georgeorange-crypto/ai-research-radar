@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：22 份
-- 跟踪条目：3129；MUST_READ 24；SKIM 102；ARCHIVE 523
+- 纳入日报：23 份
+- 跟踪条目：3134；MUST_READ 24；SKIM 102；ARCHIVE 527
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [Video-DeepResearch: Towards the Next-Generation Multimodal Deepresearch Agent](https://arxiv.org/abs/2608.03979v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.85）
 
 ## 分方向趋势
-- Embodied Intelligence / VLA / World Models：996 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG、language model、image。
+- Embodied Intelligence / VLA / World Models：998 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG、language model、image。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Depth-Guided Video Object Counting in Crowded Scenes](https://arxiv.org/abs/2608.06236v1)
   - [BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning](https://arxiv.org/abs/2607.29302v1)
@@ -45,7 +45,7 @@
   - [XPolicyLab: A Unified Standard and Open Ecosystem for Robot Policy Evaluation and Deployment](https://arxiv.org/abs/2608.09892v1)
   - [FM-Bench: A Benchmark for Long-Horizon Management with Competing Agents](https://arxiv.org/abs/2608.18423)
   - [ReToken: One Token to Improve Vision-Language Models for Visual Retrieval](https://arxiv.org/abs/2607.28627v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：279 条进入跟踪；高频信号：agent、framework、reasoning、language model、agentic、nlp、cs.AI、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：280 条进入跟踪；高频信号：agent、framework、reasoning、language model、agentic、nlp、cs.AI、inference。
   - [SPADE: Self-Play in Adaptive Synthetic Executable Environments](https://arxiv.org/abs/2608.19197v1)
   - [Motif 3: Technical Report](https://arxiv.org/abs/2608.09119)
   - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
@@ -75,7 +75,7 @@
   - [Offering Zero Data Retention for frontier models](https://openai.com/index/offering-zero-data-retention-for-frontier-models)
   - [Pacing model development in an era of cyber-critical capabilities](https://openai.com/index/pacing-model-development-cyber-capabilities)
   - [Position: AI Agents in Scientific Teams Should Be Studied as Human-Agent Systems](https://arxiv.org/abs/2608.14667)
-- CV：66 条进入跟踪；高频信号：image、diffusion、framework、visual、multimodal、language model、video、github。
+- CV：67 条进入跟踪；高频信号：image、diffusion、framework、visual、multimodal、video、language model、github。
   - [AmalthAI: An Open-Source Computer Vision Platform for Cultural Heritage](https://arxiv.org/abs/2608.13343v1)
   - [KVAE: Family of Tokenizers for Multimodal Generative Models](https://arxiv.org/abs/2608.05798)
   - [From Synthesis to Removal: Physics-Grounded Reflection Simulation and Diffusion-Based Video Dereflection](https://arxiv.org/abs/2608.11562)
@@ -111,7 +111,7 @@
   - [Information Abundance Paradox: Long-Context Training Undermines Parametric Knowledge](https://arxiv.org/abs/2608.12218v1)
   - [Zero-Mem: Zero-Token Memory Operations for LLM Agents](https://arxiv.org/abs/2607.29377v1)
   - [Zero-Mem: Zero-Token Memory Operations for LLM Agents](https://arxiv.org/abs/2607.29377)
-- Model Architecture：20 条进入跟踪；高频信号：attention、architecture、transformer、sparse attention、language model、video、inference、recurrent。
+- Model Architecture：21 条进入跟踪；高频信号：attention、architecture、transformer、sparse attention、language model、video、inference、recurrent。
   - [LongCat-Video Technical Report](https://arxiv.org/abs/2510.22200)
   - [Maglev: Sliding Recurrent Memory](https://arxiv.org/abs/2608.02870)
   - [Temporal Multi-Signal Fusion for Token-Level Hallucination Detection](https://arxiv.org/abs/2608.18115)
