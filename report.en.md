@@ -1,4 +1,4 @@
-# AI Research Radar - 2026-08-23
+# AI Research Radar - 2026-08-24
 
 - Profile: George Research Profile v2
 - Summary mode: single
@@ -7,7 +7,7 @@
 
 - LLM summary calls: 7
 - Estimated cost: RMB 0.0 / 1.0
-- Last LLM error: provider=deepseek; model=deepseek-v4-flash; base_url=https://api.deepseek.com; HTTP status=n/a; error=Could not parse JSON response: { "what_is_it": "这是一篇来自 BAIR Blog 的景观综述兼观点文章, 聚焦『自适应并行推理』 (Adaptive
+- Last LLM error: provider=deepseek; model=deepseek-v4-flash; base_url=https://api.deepseek.com; HTTP status=n/a; error=Could not parse JSON response:
 - provider_disabled: kimi
 - reason: unauthorized
 
@@ -15,12 +15,12 @@
 
 ## 0. Daily Overview
 
-- Most important direction: Embodied Intelligence / VLA / World Models
-- Must Read count: 1 (Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference)
+- Most important direction: Agent / 推理 / 推理时扩展 / 规划
+- Must Read count: 0
 - Skim count: 8 (Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction; Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling; G-MARK: Grounded Multi-Agent Reasoning for Cooperative Driving via Knowledge Graphs; Swift-Image: Exploring the Performance Frontier of Compact Unified Image Generation Models; FlashPrefill V2: Block-Sparse Prefill Attention for Long-Context LLM Serving)
-- Watch count: 12 (2026 BAIR Graduate Showcase; RoMAN-Flow: Taming Autoregressive Normalizing Flows for Offline Reinforcement Learning in Robotic Manipulation; Identifying Interactions at Scale for LLMs; Securing the AI Agent: A Unified Framework for Multi-Layer Agent Red Teaming; MAI-UI Technical Report: Real-World Centric Foundation GUI Agents)
-- Keywords: nlp, framework, reasoning, attention, cs.CL, inference, language model, agent
-- Judgement: 今日主线: 围绕《Daedalus-150M: A Convolution-Attention Hybrid Designed for C》展开, 建议从其问题设定和可复现实验切入.
+- Watch count: 12 (2026 BAIR Graduate Showcase; Identifying Interactions at Scale for LLMs; Securing the AI Agent: A Unified Framework for Multi-Layer Agent Red Teaming; RoMAN-Flow: Taming Autoregressive Normalizing Flows for Offline Reinforcement Learning in Robotic Manipulation; MAI-UI Technical Report: Real-World Centric Foundation GUI Agents)
+- Keywords: framework, nlp, reasoning, agent, attention, multimodal, robotics, berkeley.edu
+- Judgement: 今日主线: 没有强制深读项, 建议归档观察.
 
 ## 1. Core Research Tracks
 
@@ -58,9 +58,9 @@
 - 无。
 
 #### Watch
-- [Learning how to Forget: Fine-tuning for Long-Context Sparse Attention](https://arxiv.org/abs/2608.19920v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.82；全局热度=0.40；炒作风险=0.00）
-- [A Layered Simplex Architecture for Large Alphabets](https://arxiv.org/abs/2608.19908v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.82；全局热度=0.47；炒作风险=0.00）
-- [Green BOA: Determining the environmental break-even point for ML-based data compression](https://arxiv.org/abs/2608.19994v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.78；全局热度=0.38；炒作风险=0.00）
+- [Learning how to Forget: Fine-tuning for Long-Context Sparse Attention](https://arxiv.org/abs/2608.19920v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.81；全局热度=0.37；炒作风险=0.00）
+- [A Layered Simplex Architecture for Large Alphabets](https://arxiv.org/abs/2608.19908v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.81；全局热度=0.43；炒作风险=0.00）
+- [SiNMULI: Novel Signed Network Approach for Malicious URL Identification](https://arxiv.org/abs/2608.19190v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.77；全局热度=0.36；炒作风险=0.00）
 
 ### 1.4 Agent Runtime / RL Infrastructure / Scheduling
 
@@ -71,36 +71,22 @@
 - 无。
 
 #### Watch
-- [Task-CoEvolve: Efficient Harness Optimization via Adaptive Validation Task Selection](https://arxiv.org/abs/2608.20169v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.85；全局热度=0.41；炒作风险=0.00）
-- [Zetta ζ: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence](https://arxiv.org/abs/2608.16590) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.82；全局热度=0.53；炒作风险=0.00）
+- [Task-CoEvolve: Efficient Harness Optimization via Adaptive Validation Task Selection](https://arxiv.org/abs/2608.20169v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.84；全局热度=0.38；炒作风险=0.00）
+- [Zetta ζ: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence](https://arxiv.org/abs/2608.16590) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.81；全局热度=0.48；炒作风险=0.00）
 - [PolicyGuide: From Guarding One Action to Guiding the Whole Workflow for Policy-Compliant LLM Agents](https://arxiv.org/abs/2608.19861) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.78；全局热度=0.46；炒作风险=0.00）
 
 ### 1.5 Embodied Intelligence / VLA / World Models
 
 #### Must Read
-##### 1. [Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference](https://arxiv.org/abs/2608.20210v1)
-- Reading tier: MUST_READ
-- Source: arXiv AI/ML/NLP/Vision/Robotics (primary; role=paper_source)
-- Published: 2026-08-20T16:09:43+00:00
-- Primary track: Embodied Intelligence / VLA / World Models
-- Secondary tags: Agent Runtime / RL Infrastructure / Scheduling, AI Systems / HPC / Distributed Training & Inference, Compression / Reliability for AI Infrastructure, NLP
-- Grounding level: abstract only
-- Scores: personal=0.85, global=0.49, credibility=1.00, evidence=1.00, hype_risk=0.00, feedback=0.00
-- Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
-- What it is: Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference: 研究论文, 方向为“Embodied Intelligence / VLA / World Models”; 主要线索: architecture, attention, cs.AI, cs.CL.
-- Problem: 它关注“Embodied Intelligence / VLA / World Models”里的 architecture, attention, cs.AI, cs.CL 等问题.
-- Method/contribution: 摘要可确认它偏向评测或数据构建; 具体任务定义, 指标和样本规模需读原文确认.
-- Why important to George: Reading tier: MUST_READ editorial_priority: 0.79 schedule deep read today. personal: 0.85, relevance: 0.97.
-- Suggested action: read_pdf
-- Matched keywords: architecture, attention, benchmark, cs.AI, cs.CL, cs.LG, inference, language model
+- 无。
 
 #### Skim
 - 无。
 
 #### Watch
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) （关注；具身智能 / VLA / 世界模型；个人相关度=0.97；全局热度=0.41；炒作风险=0.00）
-- [RoMAN-Flow: Taming Autoregressive Normalizing Flows for Offline Reinforcement Learning in Robotic Manipulation](https://arxiv.org/abs/2608.20208v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.87；全局热度=0.42；炒作风险=0.00）
-- [From Street View Imagery to Street Quality Indicators: Vision Language Inference for the Suburban 15-minute City](https://arxiv.org/abs/2608.20026v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.39；炒作风险=0.00）
+- [RoMAN-Flow: Taming Autoregressive Normalizing Flows for Offline Reinforcement Learning in Robotic Manipulation](https://arxiv.org/abs/2608.20208v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.86；全局热度=0.39；炒作风险=0.00）
+- [Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference](https://arxiv.org/abs/2608.20210v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.85；全局热度=0.45；炒作风险=0.00）
 
 ## 2. Supporting AI Foundations
 
@@ -109,7 +95,7 @@
 
 ### Generic Agents / Reasoning
 - [MAI-UI Technical Report: Real-World Centric Foundation GUI Agents](https://arxiv.org/abs/2512.22047) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.85；全局热度=0.45；炒作风险=0.00）
-- [MidTool: Mid-training Data Synthesis for Agentic Tool Use](https://arxiv.org/abs/2608.20314v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.83；全局热度=0.39；炒作风险=0.00）
+- [MidTool: Mid-training Data Synthesis for Agentic Tool Use](https://arxiv.org/abs/2608.20314v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.82；全局热度=0.36；炒作风险=0.00）
 - [Co-RL: Unsupervised Reasoning Emerges from Diverse Cohort in Multi-agent RL](https://arxiv.org/abs/2608.17253) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.81；全局热度=0.51；炒作风险=0.00）
 
 ### Reinforcement Learning
@@ -121,11 +107,11 @@
 - [Temporal Multi-Signal Fusion for Token-Level Hallucination Detection](https://arxiv.org/abs/2608.18115) （归档；模型架构；个人相关度=0.58；全局热度=0.37；炒作风险=0.00）
 
 ### Multimodal / VLM / CV
-- [Dynamic Gated Cross-Modal Fusion with Sarcastic-aware Contrastive Regularization for Multimodal Sarcasm Detection](https://arxiv.org/abs/2608.19942v1) （关注；CV；个人相关度=0.61；全局热度=0.38；炒作风险=0.00）
+- [Dynamic Gated Cross-Modal Fusion with Sarcastic-aware Contrastive Regularization for Multimodal Sarcasm Detection](https://arxiv.org/abs/2608.19942v1) （归档；CV；个人相关度=0.60；全局热度=0.34；炒作风险=0.00）
 - [Reproducing paintings that make an impression](https://www.csail.mit.edu/news/reproducing-paintings-make-impression) （归档；CV；个人相关度=0.55；全局热度=0.35；炒作风险=0.00）
 
 ### NLP
-- [When Text and Numbers Disagree: Evidence Arbitration in Large Language Models](https://arxiv.org/abs/2608.20116v1) （归档；NLP；个人相关度=0.60；全局热度=0.39；炒作风险=0.00）
+- [When Text and Numbers Disagree: Evidence Arbitration in Large Language Models](https://arxiv.org/abs/2608.20116v1) （归档；NLP；个人相关度=0.59；全局热度=0.35；炒作风险=0.00）
 - [MeZO: Fine-Tuning Language Models with Just Forward Passes](https://princeton-nlp.github.io/mezo/) （归档；NLP；个人相关度=0.49；全局热度=0.34；炒作风险=0.00）
 
 ### Open-World / Continual Learning
@@ -240,7 +226,7 @@
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 11 个只进入附录标题列表：reports/appendix/2026-08-23-benchmarks.md
+- 其余 11 个只进入附录标题列表：reports/appendix/2026-08-24-benchmarks.md
 
 ## 5. GitHub / Open Source Projects
 
@@ -248,7 +234,7 @@
 ##### 1. [Paritok-official/paritok-4b-v1](https://github.com/Paritok-official/paritok-4b-v1)
 - Reading tier: study_code
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-08-22T17:17:08+00:00
+- Published: 2026-08-23T10:14:55+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: 上下文压缩 / 长上下文 / 记忆, Agent / 推理 / 推理时扩展 / 规划, Compression / Reliability for AI Infrastructure, Benchmark / 数据集 / 评测, 工具库
 - Grounding level: repo README
@@ -264,7 +250,7 @@
 ##### 2. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-08-22T22:24:02+00:00
+- Published: 2026-08-23T22:50:08+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: AI Systems / HPC / Distributed Training & Inference, Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -280,7 +266,7 @@
 ##### 3. [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-08-22T09:24:20+00:00
+- Published: 2026-08-23T07:51:41+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: Agent / 推理 / 推理时扩展 / 规划, Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -428,17 +414,15 @@
 
 ## 11. Evergreen Classics
 
-### 1. [Transformer-XL](https://arxiv.org/abs/1901.02860)（2019）
-- 作者：Zihang Dai、Zhilin Yang、Yiming Yang、Jaime Carbonell、Quoc V. Le、Ruslan Salakhutdinov
-- topic_tags：context_compression、long_context、model_architecture
-- 关联方向：Context Compression / Long Context / Memory、Model Architecture
-- 为什么经典：它系统化处理长距离依赖和跨片段记忆，适合回看今天关于长上下文、状态压缩和记忆复用的新工作。
-- 今日新论文继承了什么问题：Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference 延续了经典工作里的核心问题：有限上下文、外部记忆与状态复用如何支撑更长程的推理。
+### 1. [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)（2020）
+- 作者：Patrick Lewis、Ethan Perez、Aleksandra Piktus、Fabio Petroni、Vladimir Karpukhin、Naman Goyal、Heinrich Kuttler、Mike Lewis 等
+- topic_tags：context_compression、long_context、nlp
+- 关联方向：Context Compression / Long Context / Memory、NLP
+- 为什么经典：RAG 把参数记忆和外部检索连接起来，是理解今天检索增强、agent memory、记忆有效性和上下文预算取舍的关键参照。
+- 今日新论文继承了什么问题：今天的相关条目 延续了经典工作里的核心问题：有限上下文、外部记忆与状态复用如何支撑更长程的推理。
 - 它挑战了什么经典假设：它挑战的是静态检索、固定窗口或只读记忆的假设，转向会随新证据更新的工作记忆和缓存管理。
 - 它推进到什么新场景：新场景从语言建模推进到 agent memory、动态 workflow 和长上下文服务系统。
-- 预备知识：熟悉 Transformer 自注意力和语言模型训练。
-- 相关今日条目：
-  - [Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference](https://arxiv.org/abs/2608.20210v1)（Embodied Intelligence / VLA / World Models；连接词：memory）
+- 预备知识：了解 seq2seq、dense retrieval 和生成式问答。
 
 ## 12. Feedback-Aware Recommendations
 
@@ -452,15 +436,15 @@
 
 ## 14. Collection Notes
 
-- Generated at: 2026-08-22T22:53:20.412205+00:00
+- Generated at: 2026-08-23T22:52:58.958877+00:00
 - Source count: 32
 - Raw item count: 701
-- Dedup item count: 574
+- Dedup item count: 576
 - API requests total: 7
 - API requests by provider: deepseek:6, kimi:1
 - Cache hits: 1
 - Cache misses: 5
-- Benchmark appendix: reports/appendix/2026-08-23-benchmarks.md
+- Benchmark appendix: reports/appendix/2026-08-24-benchmarks.md
 
-- Report path: reports/daily/2026/08/2026-08-23.md
-- 上一份报告链接：reports/daily/2026/08/2026-08-22.md
+- Report path: reports/daily/2026/08/2026-08-24.md
+- 上一份报告链接：reports/daily/2026/08/2026-08-23.md
