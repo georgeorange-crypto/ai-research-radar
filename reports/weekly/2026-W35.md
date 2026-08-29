@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W35
 
 - 日期范围：2026-08-24 至 2026-08-30
-- 纳入日报：5 份
-- 跟踪条目：1289；MUST_READ 8；SKIM 37；ARCHIVE 297
+- 纳入日报：6 份
+- 跟踪条目：1297；MUST_READ 8；SKIM 40；ARCHIVE 303
 
 ## 本周最重要论文 / 动态
 - [WeMM-Embedding: WeChat Multi-Modal Embedding Technical Report](https://arxiv.org/abs/2608.24053)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，personal 0.88，global 0.57）
@@ -19,19 +19,19 @@
 - [GRAIN: Bridging Name and Narrative Shifts in Real-World Graph Reasoning through Invariance-Rewarded Agentic RL](https://arxiv.org/abs/2608.27142v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.85，global 0.43）
 
 ## 分方向趋势
-- AI Systems / HPC / Distributed Training & Inference：368 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、framework、nlp。
+- AI Systems / HPC / Distributed Training & Inference：369 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、framework、nlp。
   - [WeMM-Embedding: WeChat Multi-Modal Embedding Technical Report](https://arxiv.org/abs/2608.24053)
   - [Puro-2B: Poor Lab's Qwen2-1.5B Trained on RTX 5090 within $5090](https://arxiv.org/abs/2608.27370v1)
   - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
   - [Securing the AI Agent: A Unified Framework for Multi-Layer Agent Red Teaming](https://arxiv.org/abs/2606.31227)
   - [Agentic Autoresearch for Cell-Edge Power Control: Radically Redefining the Researcher's Role](https://arxiv.org/abs/2608.26093v1)
-- Embodied Intelligence / VLA / World Models：357 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、language model。
+- Embodied Intelligence / VLA / World Models：358 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、language model。
   - [FRAME: separating sampling variation from representational cause in medical imaging fairness](https://arxiv.org/abs/2608.25981v1)
   - [Mover360: Controllable Object Manipulation in 360° Panoramic Images](https://arxiv.org/abs/2608.23238v1)
   - [When Text Misleads: Inconsistent-Aware Reasoning for Audio-Grounded Dialogue](https://arxiv.org/abs/2608.27176v1)
   - [PACE: A Unified Condense-and-Extract Paradigm for Fast VLM Inference](https://arxiv.org/abs/2608.27206v1)
   - [DF-MoE: Generalizable Deepfake Detection via Multimodal Sparse Mixture-of-Experts](https://arxiv.org/abs/2608.23363v1)
-- Benchmark / Dataset / Evaluation：132 条进入跟踪；高频信号：benchmark、evaluation、nlp、dataset、robotics、cs.AI。
+- Benchmark / Dataset / Evaluation：135 条进入跟踪；高频信号：benchmark、evaluation、nlp、dataset、robotics、cs.AI。
   - [MobilePA-Bench: Benchmarking Mobile Planner Agents on Complex Real-World Tasks](https://arxiv.org/abs/2608.23035)
   - [Trustworthy RAG: An Evaluation Agent for Detecting Misinformation and Knowledge Poisoning in Generative AI Systems](https://arxiv.org/abs/2608.21095v1)
   - [AI4AI-Bench: Benchmarking LLM Agents in Algorithmic Design for Recursive Self-Improvement](https://arxiv.org/abs/2608.20318v1)
@@ -43,7 +43,7 @@
   - [ProgRouter: Online Progress-Guided Orchestration for Multi-Agent LLM Workflows under Quality-Cost Tradeoffs](https://arxiv.org/abs/2608.25992v1)
   - [Repair or Resample? Rethinking Failure Debugging in LLM Multi-Agent Systems](https://arxiv.org/abs/2608.25920v1)
   - [G-MARK: Grounded Multi-Agent Reasoning for Cooperative Driving via Knowledge Graphs](https://arxiv.org/abs/2608.19964v1)
-- Institutional Updates：69 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、research.google、nvidia.com、meta.com。
+- Institutional Updates：72 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、research.google、nvidia.com、meta.com。
   - [Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training](https://openai.com/index/what-students-gain-from-chatgpt-critical-thinking-training)
   - [Jul 27, 2026 Announcements Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients](https://www.anthropic.com/news/cognizant-anthropic)
   - [Google DeepMind and A24 announce first-of-its-kind research partnership](https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/)
