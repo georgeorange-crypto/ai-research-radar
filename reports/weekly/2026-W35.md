@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W35
 
 - 日期范围：2026-08-24 至 2026-08-30
-- 纳入日报：6 份
-- 跟踪条目：1297；MUST_READ 8；SKIM 40；ARCHIVE 303
+- 纳入日报：7 份
+- 跟踪条目：1308；MUST_READ 8；SKIM 43；ARCHIVE 308
 
 ## 本周最重要论文 / 动态
 - [WeMM-Embedding: WeChat Multi-Modal Embedding Technical Report](https://arxiv.org/abs/2608.24053)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，personal 0.88，global 0.57）
@@ -25,19 +25,19 @@
   - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
   - [Securing the AI Agent: A Unified Framework for Multi-Layer Agent Red Teaming](https://arxiv.org/abs/2606.31227)
   - [Agentic Autoresearch for Cell-Edge Power Control: Radically Redefining the Researcher's Role](https://arxiv.org/abs/2608.26093v1)
-- Embodied Intelligence / VLA / World Models：358 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、language model。
+- Embodied Intelligence / VLA / World Models：359 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、language model。
   - [FRAME: separating sampling variation from representational cause in medical imaging fairness](https://arxiv.org/abs/2608.25981v1)
   - [Mover360: Controllable Object Manipulation in 360° Panoramic Images](https://arxiv.org/abs/2608.23238v1)
   - [When Text Misleads: Inconsistent-Aware Reasoning for Audio-Grounded Dialogue](https://arxiv.org/abs/2608.27176v1)
   - [PACE: A Unified Condense-and-Extract Paradigm for Fast VLM Inference](https://arxiv.org/abs/2608.27206v1)
   - [DF-MoE: Generalizable Deepfake Detection via Multimodal Sparse Mixture-of-Experts](https://arxiv.org/abs/2608.23363v1)
-- Benchmark / Dataset / Evaluation：135 条进入跟踪；高频信号：benchmark、evaluation、nlp、dataset、robotics、cs.AI。
+- Benchmark / Dataset / Evaluation：137 条进入跟踪；高频信号：benchmark、evaluation、nlp、dataset、robotics、cs.AI。
   - [MobilePA-Bench: Benchmarking Mobile Planner Agents on Complex Real-World Tasks](https://arxiv.org/abs/2608.23035)
   - [Trustworthy RAG: An Evaluation Agent for Detecting Misinformation and Knowledge Poisoning in Generative AI Systems](https://arxiv.org/abs/2608.21095v1)
   - [AI4AI-Bench: Benchmarking LLM Agents in Algorithmic Design for Recursive Self-Improvement](https://arxiv.org/abs/2608.20318v1)
   - [How Robust Are Automated Fact-Checking Systems? A Cross-Benchmark Evaluation](https://arxiv.org/abs/2608.25934v1)
   - [Ancient-Bench: A Comprehensive Multi-millennial, Multi-medium, and Multi-script Benchmark for Ancient Chinese Artifact Text Recognition](https://arxiv.org/abs/2608.27169v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：111 条进入跟踪；高频信号：agent、framework、language model、reasoning、agentic、nlp。
+- Agent / Reasoning / Inference-time Scaling / Planning：115 条进入跟踪；高频信号：agent、framework、reasoning、language model、agentic、nlp。
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [GRAIN: Bridging Name and Narrative Shifts in Real-World Graph Reasoning through Invariance-Rewarded Agentic RL](https://arxiv.org/abs/2608.27142v1)
   - [ProgRouter: Online Progress-Guided Orchestration for Multi-Agent LLM Workflows under Quality-Cost Tradeoffs](https://arxiv.org/abs/2608.25992v1)
@@ -55,7 +55,7 @@
   - [Offering Zero Data Retention for frontier models](https://openai.com/index/offering-zero-data-retention-for-frontier-models)
   - [CSAIL's Daskalakis wins ACM Grace Murray Hopper Award](https://www.csail.mit.edu/news/csails-daskalakis-wins-acm-grace-murray-hopper-award)
   - [Pacing model development in an era of cyber-critical capabilities](https://openai.com/index/pacing-model-development-cyber-capabilities)
-- NLP：51 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、framework、princeton。
+- NLP：52 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、framework、princeton。
   - [When Personality Meets Quantization: A Layer-wise MBTI Analysis of Quantized LLMs](https://arxiv.org/abs/2608.25977v1)
   - [A Comprehensive Analysis of Arabic Natural Language Processing Research: Trends, Topic Evolution, and Research Gaps -- A Bibliometric and Topic-Based Study](https://arxiv.org/abs/2608.23421v1)
   - [A Scalable Cross-Domain Event Extraction System via a Unified Generative Training Framework](https://arxiv.org/abs/2608.23261v1)
@@ -79,7 +79,7 @@
   - [TwinKV: A Composable Repair Pass for KV Cache Eviction via Pairwise Key Redundancy](https://arxiv.org/abs/2608.27128v1)
   - [Learning how to Forget: Fine-tuning for Long-Context Sparse Attention](https://arxiv.org/abs/2608.19920v1)
   - [A Layered Simplex Architecture for Large Alphabets](https://arxiv.org/abs/2608.19908v1)
-- CV：23 条进入跟踪；高频信号：multimodal、image、language model、detection、diffusion、video。
+- CV：24 条进入跟踪；高频信号：multimodal、image、language model、video、detection、diffusion。
   - [DEFUSE: Generalizable Backdoor Defense for Self-Supervised Encoders with Generative Priors](https://arxiv.org/abs/2608.25851v1)
   - [CaRGo-T: Causal Reasoning Graph-of-Thought improves Multimodal Humor Comprehension](https://arxiv.org/abs/2608.23172)
   - [STARFlow2: Bridging Language Models and Normalizing Flows for Unified Multimodal Generation](https://machinelearning.apple.com/research/starflow2-multimodal-generation)
@@ -97,30 +97,30 @@
   - [TileMix: Tile-Centric Mixed-Precision Attention for LLM Inference Acceleration](https://arxiv.org/abs/2608.17336)
   - [FlashPrefill V2: Block-Sparse Prefill Attention for Long-Context LLM Serving](https://arxiv.org/abs/2608.19758)
   - [EvoWiki: Incremental State Overwriting and Traceable Question Answering for Cross-Meeting Knowledge Evolution](https://arxiv.org/abs/2608.23265v1)
-- Model Distillation / Model Compression / Efficient Training：8 条进入跟踪；高频信号：distillation、architecture、cs.CV、image、nlp、attention。
+- Model Distillation / Model Compression / Efficient Training：9 条进入跟踪；高频信号：distillation、architecture、image、attention、framework、inference。
   - [Swift-Image: Exploring the Performance Frontier of Compact Unified Image Generation Models](https://arxiv.org/abs/2608.20334v1)
   - [Knowledge Distillation Driven Semantic NOMA with GAN Refinement for 6G Robotic Vehicle Networks](https://arxiv.org/abs/2608.27198v1)
+  - [EditaLive! Unified Character Video Editing for Live Streaming](https://arxiv.org/abs/2608.27123)
   - [Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference](https://arxiv.org/abs/2608.20210)
   - [On-Policy Self-Distillation in Diffusion Models](https://arxiv.org/abs/2608.24646)
-  - [PROOF-Gen: From Optimized Data to Better Distillation](https://machinelearning.apple.com/research/proof-gen-optimized-distillation)
 - GPU-Centric I/O / Networking / Storage：6 条进入跟踪；高频信号：HPC、data path、gpu、cs.NI、systems、storage。
   - [Building A CSFQ-Inspired Transport for Switched CXL Memory Pooling](https://arxiv.org/abs/2608.21731v1)
   - [SxSSD: A Secure and Extensible Software-defined Solid State Drive](https://arxiv.org/abs/2608.23365v1)
   - [Asynchronous Verifiable Information Dispersal with Low Space and Communication Complexity](https://arxiv.org/abs/2608.24636v2)
   - [Threat Aware Task Offloading and Caching for Secure UAV Assisted Vehicular Consumer Electronics](https://arxiv.org/abs/2608.17794v1)
   - [Generalizing and accelerating consistency checking for non-transactional distributed storage systems](https://arxiv.org/abs/2608.17388v1)
+- RL：6 条进入跟踪；高频信号：language model、optimization、reinforcement learning、rl、policy optimization、reasoning。
+  - [TTPO: Test-Time Policy Optimization](https://arxiv.org/abs/2608.27448v1)
+  - [Annotations as Rollouts: Efficient and Scalable Reinforcement Learning for Video MLLMs](https://arxiv.org/abs/2608.20492)
+  - [TTPO: Test-Time Policy Optimization](https://arxiv.org/abs/2608.27448)
+  - [GRPO Beyond English: A Large-Scale Study of GRPO in Non-English and Multilingual Settings](https://machinelearning.apple.com/research/grpo-beyond-english)
+  - [Agent Lightning: Train ANY AI Agents with Reinforcement Learning](https://arxiv.org/abs/2508.03680)
 - Novel Class Discovery / Open-World Learning / OOD / Continual Learning：5 条进入跟踪；高频信号：framework、out-of-distribution、ood、nlp、detection、language model。
   - [When Adaptation Hurts: Connecting Representational Drift to OOD Failures in MedSAM Fine-Tuning](https://arxiv.org/abs/2608.21300v1)
   - [SPK: Eliciting Structured Prior Knowledge for Interpretable Out-of-Distribution Detection in Real-Time Object Detection](https://arxiv.org/abs/2608.19080)
   - [LLMs Get Smarter from Targeted Synthetic Multilingual Data](https://arxiv.org/abs/2608.15964)
   - [Evidence-Consistent Generative Detection under Scenario-Level Distribution Shift](https://arxiv.org/abs/2608.21043v1)
   - [Scaling Creative Writing Beyond Story-Centric Data with Attribute-Guided Genre Expansion](https://arxiv.org/abs/2608.13947)
-- RL：5 条进入跟踪；高频信号：language model、optimization、reinforcement learning、rl、policy optimization、reasoning。
-  - [TTPO: Test-Time Policy Optimization](https://arxiv.org/abs/2608.27448v1)
-  - [Annotations as Rollouts: Efficient and Scalable Reinforcement Learning for Video MLLMs](https://arxiv.org/abs/2608.20492)
-  - [GRPO Beyond English: A Large-Scale Study of GRPO in Non-English and Multilingual Settings](https://machinelearning.apple.com/research/grpo-beyond-english)
-  - [Agent Lightning: Train ANY AI Agents with Reinforcement Learning](https://arxiv.org/abs/2508.03680)
-  - [Import AI 460: Reward hacking society, RSI data from Anthropic; and RL-based quadcopter racing](https://jack-clark.net/2026/06/08/import-ai-460-reward-hacking-society-rsi-data-from-anthropic-and-rl-based-quadcopter-racing/)
 - Learning Methods / Optimization / Representation Learning：3 条进入跟踪；高频信号：attention、gradient、language model、benchmark、berkeley.edu、corpus。
   - [What exactly does word2vec learn?](http://bair.berkeley.edu/blog/2025/09/01/qwem-word2vec-theory/)
   - [Listening Forward: Next Patch Embedding Prediction Enables Scalable Audio Learners](https://arxiv.org/abs/2608.19863)

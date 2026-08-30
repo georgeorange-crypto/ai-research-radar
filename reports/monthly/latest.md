@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-08
 
-- 纳入日报：29 份
-- 跟踪条目：3946；MUST_READ 32；SKIM 134；ARCHIVE 617
+- 纳入日报：30 份
+- 跟踪条目：3956；MUST_READ 32；SKIM 137；ARCHIVE 621
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -27,7 +27,7 @@
 - [Consistency-Driven Co-Evolution for Self-Supervised Cross-Representation Learning](https://arxiv.org/abs/2608.04926)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，score 0.86）
 
 ## 分方向趋势
-- Embodied Intelligence / VLA / World Models：1266 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、language model、cs.LG、image。
+- Embodied Intelligence / VLA / World Models：1267 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、language model、cs.LG、image。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Depth-Guided Video Object Counting in Crowded Scenes](https://arxiv.org/abs/2608.06236v1)
   - [BWM: A Low-Cost High-Fidelity World Simulator for Robot Learning](https://arxiv.org/abs/2607.29302v1)
@@ -39,13 +39,13 @@
   - [Thinking in a Low-Resource Language: What SFT Builds, What RL Fixes, What Accuracy Cannot See](https://arxiv.org/abs/2608.17744v1)
   - [TokTier: Exact Stateful Tokenization for Agentic LLM Serving](https://arxiv.org/abs/2607.29678v1)
   - [Scheduling Mixed RL Rollouts Beyond Prefix Locality](https://arxiv.org/abs/2608.11152v1)
-- Benchmark / Dataset / Evaluation：427 条进入跟踪；高频信号：benchmark、evaluation、nlp、cs.AI、language model、robotics、dataset、framework。
+- Benchmark / Dataset / Evaluation：429 条进入跟踪；高频信号：benchmark、evaluation、nlp、cs.AI、language model、robotics、dataset、framework。
   - [H2R-Bench: Benchmarking Human-to-Robot Manipulation Video Generation in World Models](https://arxiv.org/abs/2608.13049)
   - [DSAgentBench: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?](https://arxiv.org/abs/2608.10366)
   - [MobilePA-Bench: Benchmarking Mobile Planner Agents on Complex Real-World Tasks](https://arxiv.org/abs/2608.23035)
   - [XPolicyLab: A Unified Standard and Open Ecosystem for Robot Policy Evaluation and Deployment](https://arxiv.org/abs/2608.09892v1)
   - [FM-Bench: A Benchmark for Long-Horizon Management with Competing Agents](https://arxiv.org/abs/2608.18423)
-- Agent / Reasoning / Inference-time Scaling / Planning：353 条进入跟踪；高频信号：agent、framework、reasoning、language model、agentic、nlp、cs.AI、github。
+- Agent / Reasoning / Inference-time Scaling / Planning：357 条进入跟踪；高频信号：agent、framework、reasoning、language model、agentic、nlp、cs.AI、github。
   - [SPADE: Self-Play in Adaptive Synthetic Executable Environments](https://arxiv.org/abs/2608.19197v1)
   - [Motif 3: Technical Report](https://arxiv.org/abs/2608.09119)
   - [SpatialCLI: Learning to Reason With Spatial Tools, Then Without Them](https://arxiv.org/abs/2607.27703)
@@ -69,7 +69,7 @@
   - [Operationally Feasible Synthetic Power-Grid Scenarios via Learning the AC-Operable Joint Distribution](https://arxiv.org/abs/2608.03878v1)
   - [Omega-S: A Functional Resilience Index for LLM Fine-Tuning](https://arxiv.org/abs/2608.03887v1)
   - [ResKV: Reconstructing Omitted Attention Contributions for Fixed-Budget KV Cache Compression](https://arxiv.org/abs/2607.29591v1)
-- CV：80 条进入跟踪；高频信号：image、multimodal、diffusion、framework、visual、language model、video、github。
+- CV：81 条进入跟踪；高频信号：image、multimodal、diffusion、framework、visual、video、language model、github。
   - [AmalthAI: An Open-Source Computer Vision Platform for Cultural Heritage](https://arxiv.org/abs/2608.13343v1)
   - [DEFUSE: Generalizable Backdoor Defense for Self-Supervised Encoders with Generative Priors](https://arxiv.org/abs/2608.25851v1)
   - [KVAE: Family of Tokenizers for Multimodal Generative Models](https://arxiv.org/abs/2608.05798)
@@ -87,7 +87,7 @@
   - [Offering Zero Data Retention for frontier models](https://openai.com/index/offering-zero-data-retention-for-frontier-models)
   - [Pacing model development in an era of cyber-critical capabilities](https://openai.com/index/pacing-model-development-cyber-capabilities)
   - [The Hugging Face incident and the road ahead](https://openai.com/index/hugging-face-incident-and-the-road-ahead)
-- Model Distillation / Model Compression / Efficient Training：38 条进入跟踪；高频信号：distillation、inference、framework、github、language model、image、nlp、knowledge distillation。
+- Model Distillation / Model Compression / Efficient Training：39 条进入跟踪；高频信号：distillation、inference、framework、image、github、language model、nlp、knowledge distillation。
   - [Swift-Image: Exploring the Performance Frontier of Compact Unified Image Generation Models](https://arxiv.org/abs/2608.20334v1)
   - [Context-Matched Distillation: Teacher Causality for Autoregressive Video Distillation](https://arxiv.org/abs/2608.13391)
   - [Context-Matched Distillation: Teacher Causality for Autoregressive Video Distillation](https://arxiv.org/abs/2608.13391v1)
@@ -117,7 +117,7 @@
   - [Temporal Multi-Signal Fusion for Token-Level Hallucination Detection](https://arxiv.org/abs/2608.18115)
   - [Geometric Context Transformer for Streaming 3D Reconstruction](https://arxiv.org/abs/2604.14141)
   - [Massive Activations in Hybrid Linear Attention Large Language Models: Pre-Attention Spikes and Inter-Spike Plateaus](https://arxiv.org/abs/2608.12149)
-- RL：13 条进入跟踪；高频信号：optimization、reinforcement learning、policy optimization、language model、rl、reasoning、grpo、distillation。
+- RL：14 条进入跟踪；高频信号：optimization、reinforcement learning、policy optimization、language model、rl、reasoning、distillation、grpo。
   - [Distill Where You Fail: Recovering Learning Signals of Negative RL-Groups from Adaptive Teacher Guidance](https://arxiv.org/abs/2608.00782)
   - [TTPO: Test-Time Policy Optimization](https://arxiv.org/abs/2608.27448v1)
   - [GRPO Beyond English: A Large-Scale Study of GRPO in Non-English and Multilingual Settings](https://machinelearning.apple.com/research/grpo-beyond-english)
