@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-09
 
-- 纳入日报：5 份
-- 跟踪条目：847；MUST_READ 6；SKIM 34；ARCHIVE 290
+- 纳入日报：6 份
+- 跟踪条目：849；MUST_READ 6；SKIM 36；ARCHIVE 290
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -11,8 +11,8 @@
 - [Toward Trustworthy Robot-Assisted Sliding Palpation for Shallow Vessel Localisation with a Calibrated Digital Twin](https://arxiv.org/abs/2608.29396v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.86）
 - [Real-Time Video Anomaly Detection Using YOLO Pose Estimation and CLIP-Based Semantic Scoring](https://arxiv.org/abs/2608.31074v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.85）
 - [Does Imitation Learning Preserve Temporal Robustness in Dexterous Manipulation? An Expert-Learner Comparison Across Task Execution Speeds](https://arxiv.org/abs/2609.01453)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.85）
+- [Editable Visual Design](https://arxiv.org/abs/2609.04034)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.86）
 - [ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL](https://arxiv.org/abs/2608.28476)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.86）
-- [Editable Visual Design](https://arxiv.org/abs/2609.04034)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.85）
 - [Scaffolding Foundation Models into Physical-World Agents Pushes the Frontier of Long-Horizon Navigation](https://arxiv.org/abs/2608.30396)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.85）
 - [AgenticRag-R1: Agentic Reinforcement Learning with Stack Memory for Multi-Step Reasoning, Retrieval and Memorizing](https://arxiv.org/abs/2608.29622v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.84）
 - [UI-Venus-2 Technical Report](https://arxiv.org/abs/2609.00028)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.83）
@@ -20,11 +20,11 @@
 - [CAST: Critique-Aware Supervision for Training Reliable Long-Horizon Tool-Calling Agents](https://arxiv.org/abs/2608.30147)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.83）
 - [Polimill builds Japan's next-generation public AI infrastructure](https://openai.com/index/polimill)（SKIM，AI Systems / HPC / Distributed Training & Inference，score 0.83）
 - [nnMNet: Baseline for Martian Terrain Semantic Segmentation](https://arxiv.org/abs/2608.29609v1)（SKIM，Embodied Intelligence / VLA / World Models，score 0.82）
+- [Locked at the Entrance, Open Inside: Where RLVR Narrows the Solution Space](https://arxiv.org/abs/2608.29188)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.82）
 - [TRIPPULSE: Multi-Agent Travel Planning with Review-Grounded Reasoning](https://arxiv.org/abs/2608.30924v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.81）
 - [Reconciling Process Supervision with Outcome-Based Credit in Agentic Policy Optimization](https://arxiv.org/abs/2608.31077v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.81）
 - [LevelSyn: Physical-Aware Logic Synthesis via Level-Asynchronous Graph Neural Networks](https://arxiv.org/abs/2609.03594v1)（SKIM，AI Systems / HPC / Distributed Training & Inference，score 0.81）
 - [AceSpec: An Asymmetric Edge-Cloud Collaborative Framework for Communication-Efficient LLM Inference](https://arxiv.org/abs/2609.02514v1)（SKIM，AI Systems / HPC / Distributed Training & Inference，score 0.81）
-- [SolarWM: Open Data and Scalable Training for Long-Horizon Video World Models](https://arxiv.org/abs/2609.02886)（SKIM，Embodied Intelligence / VLA / World Models，score 0.81）
 
 ## 分方向趋势
 - AI Systems / HPC / Distributed Training & Inference：230 条进入跟踪；高频信号：HPC、data path、systems、cs.DC、cs.LG、framework、inference、cs.AR。
@@ -33,15 +33,15 @@
   - [LevelSyn: Physical-Aware Logic Synthesis via Level-Asynchronous Graph Neural Networks](https://arxiv.org/abs/2609.03594v1)
   - [AceSpec: An Asymmetric Edge-Cloud Collaborative Framework for Communication-Efficient LLM Inference](https://arxiv.org/abs/2609.02514v1)
   - [Securing the AI Agent: A Unified Framework for Multi-Layer Agent Red Teaming](https://arxiv.org/abs/2606.31227)
-- Embodied Intelligence / VLA / World Models：145 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、benchmark、cs.LG、cs.RO。
+- Embodied Intelligence / VLA / World Models：146 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、benchmark、cs.LG、cs.RO。
   - [$\mathcal{N}_0$-Foundation: Towards the Age of Tactile Intelligence](https://arxiv.org/abs/2608.29601v1)
   - [Toward Trustworthy Robot-Assisted Sliding Palpation for Shallow Vessel Localisation with a Calibrated Digital Twin](https://arxiv.org/abs/2608.29396v1)
   - [Real-Time Video Anomaly Detection Using YOLO Pose Estimation and CLIP-Based Semantic Scoring](https://arxiv.org/abs/2608.31074v1)
   - [Does Imitation Learning Preserve Temporal Robustness in Dexterous Manipulation? An Expert-Learner Comparison Across Task Execution Speeds](https://arxiv.org/abs/2609.01453)
   - [VeriCam: A Verification Baseline for the Classification of Unknown Data](https://arxiv.org/abs/2608.31107v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：95 条进入跟踪；高频信号：reasoning、agent、language model、framework、agentic、benchmark、nlp、github。
-  - [ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL](https://arxiv.org/abs/2608.28476)
+- Agent / Reasoning / Inference-time Scaling / Planning：96 条进入跟踪；高频信号：reasoning、agent、language model、framework、agentic、benchmark、nlp、github。
   - [Editable Visual Design](https://arxiv.org/abs/2609.04034)
+  - [ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL](https://arxiv.org/abs/2608.28476)
   - [Scaffolding Foundation Models into Physical-World Agents Pushes the Frontier of Long-Horizon Navigation](https://arxiv.org/abs/2608.30396)
   - [AgenticRag-R1: Agentic Reinforcement Learning with Stack Memory for Multi-Step Reasoning, Retrieval and Memorizing](https://arxiv.org/abs/2608.29622v1)
   - [UI-Venus-2 Technical Report](https://arxiv.org/abs/2609.00028)
@@ -152,7 +152,7 @@
 ## 月度判断
 - AI Systems / HPC / Distributed Training & Inference：本月可继续沿着 [Fine-Tuning Low-Bit Models with Gradient in Quantized Code Space](https://arxiv.org/abs/2608.30908v1) 追踪。
 - Embodied Intelligence / VLA / World Models：本月可继续沿着 [$\mathcal{N}_0$-Foundation: Towards the Age of Tactile Intelligence](https://arxiv.org/abs/2608.29601v1) 追踪。
-- Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL](https://arxiv.org/abs/2608.28476) 追踪。
+- Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [Editable Visual Design](https://arxiv.org/abs/2609.04034) 追踪。
 - Benchmark / Dataset / Evaluation：本月可继续沿着 [AlgoWorlds: Benchmarking Tool Use for Global Optimization in Algorithmic Worlds](https://arxiv.org/abs/2608.29397v1) 追踪。
 - Institutional Updates：本月可继续沿着 [Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training](https://openai.com/index/what-students-gain-from-chatgpt-critical-thinking-training) 追踪。
 - Other Highlights：本月可继续沿着 [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots) 追踪。

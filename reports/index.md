@@ -2,6 +2,7 @@
 
 | 日期 | 今日 Must Read 数量 | 今日主要方向 | 链接 |
 |---|---:|---|---|
+| 2026-09-06 | 0 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-09-06.md](daily/2026/09/2026-09-06.md) |
 | 2026-09-05 | 1 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-09-05.md](daily/2026/09/2026-09-05.md) |
 | 2026-09-04 | 0 | Context Compression / Long Context / Memory | [2026-09-04.md](daily/2026/09/2026-09-04.md) |
 | 2026-09-03 | 1 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-09-03.md](daily/2026/09/2026-09-03.md) |
