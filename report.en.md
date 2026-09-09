@@ -1,4 +1,4 @@
-# AI Research Radar - 2026-09-08
+# AI Research Radar - 2026-09-09
 
 - Profile: George Research Profile v2
 - Summary mode: single
@@ -15,12 +15,12 @@
 
 ## 0. Daily Overview
 
-- Most important direction: Agent Runtime / RL Infrastructure / Scheduling
-- Must Read count: 1 (Substrate-Aware AI Agents: Execution Context as a First-Class Input)
-- Skim count: 8 (PRICE: A Systematic Study of LLM Adaptation Choices for Bitcoin Price Forecasting; How to Speculate about Uncertainty in Agentic Coding? A Draft-Model Gate Method; Locked at the Entrance, Open Inside: Where RLVR Narrows the Solution Space; RISE: Recursive Improvement via Self-Extrapolating Policy Distillation; Large Language Models for HVAC Operations in Building Energy Systems: A Critical Review of Methods, Applications, and Deployment Readiness)
-- Watch count: 12 (Dr. Claw: An AI Scientist Workspace for Vibe Research; First Things First: Teaching LLM-Based Agents to Prioritize Must-Haves before Nice-to-Haves; Lightweight Vision Transformer Compression for On-Device Plant Disease Detection in Resource-Constrained Agricultural Field Conditions; TacPAC: Tactile Prediction and Real-Time Action Correction in World-Action Models for Contact-Rich Manipulation; Design Docs Are All You Need: An AI-native Machine-Learning Performance Tool)
-- Keywords: nlp, agent, cs.AI, robotics, language model, trajectory, evaluation, agentic
-- Judgement: 今日主线: 围绕《Substrate-Aware AI Agents: Execution Context as a First-Clas》展开, 建议从其问题设定和可复现实验切入.
+- Most important direction: Agent / 推理 / 推理时扩展 / 规划
+- Must Read count: 0
+- Skim count: 8 (Substrate-Aware AI Agents: Execution Context as a First-Class Input; PRICE: A Systematic Study of LLM Adaptation Choices for Bitcoin Price Forecasting; How to Speculate about Uncertainty in Agentic Coding? A Draft-Model Gate Method; RISE: Recursive Improvement via Self-Extrapolating Policy Distillation; LevelSyn: Physical-Aware Logic Synthesis via Level-Asynchronous Graph Neural Networks)
+- Watch count: 12 (Unlocking Lossless Speedups in LLMs via Discrete Diffusion; Dr. Claw: An AI Scientist Workspace for Vibe Research; First Things First: Teaching LLM-Based Agents to Prioritize Must-Haves before Nice-to-Haves; Lightweight Vision Transformer Compression for On-Device Plant Disease Detection in Resource-Constrained Agricultural Field Conditions; TacPAC: Tactile Prediction and Real-Time Action Correction in World-Action Models for Contact-Rich Manipulation)
+- Keywords: cs.AI, nlp, robotics, language model, agent, cs.LG, agentic, reasoning
+- Judgement: 今日主线: 没有强制深读项, 建议归档观察.
 
 ## 1. Core Research Tracks
 
@@ -30,7 +30,21 @@
 - 无。
 
 #### Skim
-- 无。
+##### 1. [LevelSyn: Physical-Aware Logic Synthesis via Level-Asynchronous Graph Neural Networks](https://arxiv.org/abs/2609.03594v1)
+- Reading tier: SKIM
+- Source: arXiv Systems/HPC/GPU Data Path (primary; role=paper_source)
+- Published: 2026-09-03T09:46:02+00:00
+- Primary track: AI Systems / HPC / Distributed Training & Inference
+- Secondary tags: Agent Runtime / RL Infrastructure / Scheduling, Embodied Intelligence / VLA / World Models, Compression / Reliability for AI Infrastructure, Learning Methods / Optimization / Representation Learning
+- Grounding level: abstract only
+- Scores: personal=0.80, global=0.47, credibility=1.00, evidence=1.00, hype_risk=0.00, feedback=0.00
+- Project relevance: skyfs=0.22, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
+- What it is: LevelSyn: Physical-Aware Logic Synthesis via Level-Asynchronous Graph Neural Networks: 研究论文, 方向为“AI Systems / HPC / Distributed Training & Inference”; 主要线索: HPC, cs.AI, cs.AR, cs.LG.
+- Problem: 它关注“AI Systems / HPC / Distributed Training & Inference”里的 HPC, cs.AI, cs.AR, cs.LG 等问题.
+- Method/contribution: 摘要可确认它提出或引入了 HPC, cs.AI, cs.AR, cs.LG; 具体训练设置, 指标和消融细节需读原文确认.
+- Why important to George: Reading tier: SKIM editorial_priority: 0.74 今天快速扫读. personal: 0.80, relevance: 1.00.
+- Suggested action: skim
+- Matched keywords: HPC, benchmark, cs.AI, cs.AR, cs.LG, data path, framework, network
 
 #### Watch
 - [Design Docs Are All You Need: An AI-native Machine-Learning Performance Tool](https://arxiv.org/abs/2609.05364v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.82；全局热度=0.37；炒作风险=0.00）
@@ -58,13 +72,16 @@
 
 #### Watch
 - [Coarse-Graining Hidden Representations: Unsupervised Neuron Selection via Mapping Entropy](https://arxiv.org/abs/2609.05126v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.73；全局热度=0.34；炒作风险=0.00）
-- [Supporting independent journalism in Ukraine](https://openai.com/index/supporting-independent-journalism-in-ukraine) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.70；全局热度=0.50；炒作风险=0.00）
+- [Supporting independent journalism in Ukraine](https://openai.com/index/supporting-independent-journalism-in-ukraine) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.70；全局热度=0.47；炒作风险=0.00）
 
 ### 1.4 Agent Runtime / RL Infrastructure / Scheduling
 
 #### Must Read
+- 无。
+
+#### Skim
 ##### 1. [Substrate-Aware AI Agents: Execution Context as a First-Class Input](https://arxiv.org/abs/2609.05232v1)
-- Reading tier: MUST_READ
+- Reading tier: SKIM
 - Source: arXiv AI/ML/NLP/Vision/Robotics (primary; role=paper_source)
 - Published: 2026-09-04T14:57:17+00:00
 - Primary track: Agent Runtime / RL Infrastructure / Scheduling
@@ -75,12 +92,9 @@
 - What it is: Substrate-Aware AI Agents: Execution Context as a First-Class Input: 研究论文, 方向为“Agent Runtime / RL Infrastructure / Scheduling”; 主要线索: agent, corpus, cs.AI, implementation.
 - Problem: 它关注“Agent Runtime / RL Infrastructure / Scheduling”里的 agent, corpus, cs.AI, implementation 等问题.
 - Method/contribution: 方法细节未在摘要中充分展开, 细节需读原文确认.
-- Why important to George: Reading tier: MUST_READ editorial_priority: 0.76 schedule deep read today. personal: 0.86, relevance: 1.00.
-- Suggested action: read_pdf
+- Why important to George: Reading tier: SKIM editorial_priority: 0.76 今天快速扫读. personal: 0.86, relevance: 1.00.
+- Suggested action: skim
 - Matched keywords: agent, corpus, cs.AI, implementation, nlp, planning, robotics, runtime
-
-#### Skim
-- 无。
 
 #### Watch
 - [Online Change-point Detection for Cooperative Multi-Agent Reinforcement Learning](https://arxiv.org/abs/2609.05298v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.82；全局热度=0.36；炒作风险=0.00）
@@ -121,16 +135,16 @@
 - [Does Your Agent's Memory Survive a Model Upgrade? A Controlled Study of Memory Portability](https://arxiv.org/abs/2609.05339v1) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.75；全局热度=0.35；炒作风险=0.00）
 
 ### Generic Agents / Reasoning
-- [Dr. Claw: An AI Scientist Workspace for Vibe Research](https://arxiv.org/abs/2609.00365) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.84；全局热度=0.44；炒作风险=0.00）
+- [Unlocking Lossless Speedups in LLMs via Discrete Diffusion](https://arxiv.org/abs/2609.04010) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.88；全局热度=0.52；炒作风险=0.00）
+- [Dr. Claw: An AI Scientist Workspace for Vibe Research](https://arxiv.org/abs/2609.00365) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.84；全局热度=0.47；炒作风险=0.00）
 - [First Things First: Teaching LLM-Based Agents to Prioritize Must-Haves before Nice-to-Haves](https://arxiv.org/abs/2609.05224v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.83；全局热度=0.37；炒作风险=0.00）
-- [HarvestBench: Measuring Whether LLM Agents Will Pay to Avoid Killing Animals](https://arxiv.org/abs/2609.04444) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.79；全局热度=0.46；炒作风险=0.00）
 
 ### Reinforcement Learning
 - [Group Adaptive Clipping Policy Optimization](https://arxiv.org/abs/2609.00444) （归档；RL；个人相关度=0.64；全局热度=0.41；炒作风险=0.00）
 
 ### Model Architecture
 - [RF-DETR: Neural Architecture Search for Real-Time Detection Transformers](https://arxiv.org/abs/2511.09554) （归档；模型架构；个人相关度=0.52；全局热度=0.42；炒作风险=0.00）
-- [Scal3R: Learning Efficient Multi-Relative Pose Query for Scalable Online 3D Reconstruction](https://arxiv.org/abs/2609.04201) （归档；模型架构；个人相关度=0.47；全局热度=0.47；炒作风险=0.00）
+- [Unlimited OCR Works](https://arxiv.org/abs/2606.23050) （归档；模型架构；个人相关度=0.45；全局热度=0.41；炒作风险=0.00）
 
 ### Multimodal / VLM / CV
 - [Training-Free Speech-Centric Omni Understanding with Frozen VLMs](https://arxiv.org/abs/2609.04242) （关注；CV；个人相关度=0.65；全局热度=0.39；炒作风险=0.00）
@@ -195,9 +209,9 @@
 - 可否作为实验基准：可以优先评估是否作为实验基准。
 - 建议行动：use_as_eval
 
-##### 5. [VeriPhy: Agentic Physical Reasoning for World Model Evaluation and Refinement](https://arxiv.org/abs/2609.03153)
+##### 5. [Multi-Step Tool-Calling over Korean Open Public APIs: A Benchmark and a Data-Synthesis Recipe](https://arxiv.org/abs/2609.05395v1)
 - 阅读层级：关注
-- Source: Hugging Face Daily Papers
+- Source: arXiv AI/ML/NLP/Vision/Robotics
 - 证据来源：仅摘要
 - benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。
 - 适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。
@@ -251,7 +265,7 @@
 - 建议行动：save
 
 ### Other Benchmarks
-- 其余 7 个只进入附录标题列表：reports/appendix/2026-09-08-benchmarks.md
+- 其余 7 个只进入附录标题列表：reports/appendix/2026-09-09-benchmarks.md
 
 ## 5. GitHub / Open Source Projects
 
@@ -259,7 +273,7 @@
 ##### 1. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-09-08T00:13:38+00:00
+- Published: 2026-09-09T00:13:51+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: AI Systems / HPC / Distributed Training & Inference, Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -275,7 +289,7 @@
 ##### 2. [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-09-07T10:43:01+00:00
+- Published: 2026-09-08T16:05:10+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: Agent / 推理 / 推理时扩展 / 规划, Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -291,7 +305,7 @@
 ##### 3. [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-09-07T07:12:53+00:00
+- Published: 2026-09-08T05:33:57+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: 上下文压缩 / 长上下文 / 记忆, Benchmark / 数据集 / 评测, Agent Runtime / RL Infrastructure / Scheduling, 其他亮点, 工具库
 - Grounding level: repo README
@@ -308,16 +322,16 @@
 ##### 1. [Paritok-official/paritok-4b-v1](https://github.com/Paritok-official/paritok-4b-v1)
 - Reading tier: study_code
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-09-02T03:46:34+00:00
+- Published: 2026-09-08T01:27:40+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: 上下文压缩 / 长上下文 / 记忆, Agent / 推理 / 推理时扩展 / 规划, Compression / Reliability for AI Infrastructure, Benchmark / 数据集 / 评测, 工具库
 - Grounding level: repo README
-- Scores: personal=0.68, global=0.56, credibility=0.88, evidence=0.69, hype_risk=0.00, feedback=0.00
+- Scores: personal=0.69, global=0.62, credibility=0.88, evidence=0.69, hype_risk=0.00, feedback=0.00
 - Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
 - What it is: Paritok-official/paritok-4b-v1: 开源项目, 方向为“GitHub / 开源项目推荐”; 主要线索: agent, agentic, compression, context window.
 - Problem: 它关注“GitHub / 开源项目推荐”里的 agent, agentic, compression, context window 等问题.
 - Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
-- Why important to George: Reading tier: 研读代码 editorial_priority: 0.22 按 GitHub 项目动作处理. personal: 0.68, relevance: 0.69.
+- Why important to George: Reading tier: 研读代码 editorial_priority: 0.29 按 GitHub 项目动作处理. personal: 0.69, relevance: 0.69.
 - Suggested action: study_code
 - Matched keywords: agent, agentic, compression, context window, evaluation, github, github.com, open-source
 
@@ -344,17 +358,31 @@
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: Agent Runtime / RL Infrastructure / Scheduling, 其他亮点, 工具库
 - Grounding level: repo README
-- Scores: personal=0.65, global=0.62, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
+- Scores: personal=0.64, global=0.59, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
 - Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
 - What it is: TauricResearch/TradingAgents: 开源项目, 方向为“GitHub / 开源项目推荐”; 主要线索: agent, framework, github, github.com.
 - Problem: 它关注“GitHub / 开源项目推荐”里的 agent, framework, github, github.com 等问题.
 - Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
-- Why important to George: Reading tier: 克隆运行 editorial_priority: 0.27 按 GitHub 项目动作处理. personal: 0.65, relevance: 0.61.
+- Why important to George: Reading tier: 克隆运行 editorial_priority: 0.24 按 GitHub 项目动作处理. personal: 0.64, relevance: 0.61.
 - Suggested action: clone_and_run
 - Matched keywords: agent, framework, github, github.com, open-source, safety
 
 ### Evergreen Toolkits
-- 今日无需要重复推荐的常青工具库。
+##### 1. [TencentYoutuResearch/OpenWorld-DeepFakeAttribution](https://github.com/TencentYoutuResearch/OpenWorld-DeepFakeAttribution)
+- Reading tier: save
+- Source: GitHub AI Research Projects (aggregator; role=code_actionability)
+- Published: 2025-11-17T03:51:50+00:00
+- Primary track: GitHub / 开源项目推荐
+- Secondary tags: 工具库
+- Grounding level: title only
+- Scores: personal=0.50, global=0.32, credibility=0.84, evidence=0.65, hype_risk=0.00, feedback=0.00
+- Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
+- What it is: 从标题可判断, 这是关于“TencentYoutuResearch/OpenWorld-DeepFakeAttribution”的开源项目, 目前缺少摘要支撑.
+- Problem: 它关注“GitHub / 开源项目推荐”里的 github, github.com, open-source, TencentYoutuResearch 等问题.
+- Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
+- Why important to George: Reading tier: 保存 editorial_priority: 0.01 按 GitHub 项目动作处理. personal: 0.50, relevance: 0.51.
+- Suggested action: save
+- Matched keywords: github, github.com, open-source
 
 
 ## 6. Scholar Radar
@@ -369,24 +397,24 @@
 
 ## 7. University / Lab Radar
 
+- [Unlocking Lossless Speedups in LLMs via Discrete Diffusion](https://arxiv.org/abs/2609.04010)
+  - 学校 / 实验室：Hugging Face
+  - 类型：paper
+  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
+  - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.88
+  - 建议行动：watch
 - [Substrate-Aware AI Agents: Execution Context as a First-Class Input](https://arxiv.org/abs/2609.05232v1)
   - 学校 / 实验室：OpenAI
   - 类型：paper
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent 运行时 / RL 基础设施 / 调度，personal 0.86
-  - 建议行动：read_pdf
+  - 建议行动：skim
 - [Dr. Claw: An AI Scientist Workspace for Vibe Research](https://arxiv.org/abs/2609.00365)
   - 学校 / 实验室：Hugging Face
   - 类型：paper
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.84
   - 建议行动：watch
-- [Locked at the Entrance, Open Inside: Where RLVR Narrows the Solution Space](https://arxiv.org/abs/2608.29188)
-  - 学校 / 实验室：Hugging Face
-  - 类型：paper
-  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.82
-  - 建议行动：skim
 - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - 学校 / 实验室：MIT
   - 类型：project
@@ -439,16 +467,14 @@
 
 ## 11. Evergreen Classics
 
-### 1. [Tree of Thoughts](https://arxiv.org/abs/2305.10601)（2023）
-- 作者：Shunyu Yao、Dian Yu、Jeffrey Zhao、Izhak Shafran、Thomas L. Griffiths、Yuan Cao、Karthik Narasimhan
-- topic_tags：agents、planning
-- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
-- 为什么经典：Tree of Thoughts 把单一路径 CoT 扩展为可搜索、可回溯的思维树，适合连接今天关于自适应并行推理、搜索式规划和 agent reasoning 的工作。
-- 今日新论文继承了什么问题：Substrate-Aware AI Agents: Execution Context as a First-Class Input 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
-- 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
-- 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
-- 相关今日条目：
-  - [Substrate-Aware AI Agents: Execution Context as a First-Class Input](https://arxiv.org/abs/2609.05232v1)（Agent Runtime / RL Infrastructure / Scheduling；连接词：planning）
+### 1. [iCaRL](https://arxiv.org/abs/1611.07725)（2016）
+- 作者：Sylvestre-Alvise Rebuffi、Alexander Kolesnikov、Georg Sperl、Christoph H. Lampert
+- topic_tags：open_world_learning、continual_learning
+- 关联方向：Novel Class Discovery / Open-World Learning / OOD / Continual Learning
+- 为什么经典：iCaRL 把类增量学习、样本记忆和分类器更新结合起来，适合连接今天的新类发现、持续学习和语义漂移问题。
+- 今日新论文继承了什么问题：今天的相关条目 继承了开放世界学习对未知类、分布漂移和持续更新的关注。
+- 它挑战了什么经典假设：它挑战封闭标签集和一次性训练/测试划分的假设，更强调在线发现、语义漂移和真实部署反馈。
+- 它推进到什么新场景：新场景从传统视觉分类推进到多模态、开放词表和可复用 benchmark。
 
 ## 12. Feedback-Aware Recommendations
 
@@ -457,21 +483,21 @@
 ## 13. Source Health
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
-- GitHub AI Research Projects：time budget exhausted（24 条） - 时间预算已耗尽 after 24 items
+- GitHub AI Research Projects：time budget exhausted（22 条） - 时间预算已耗尽 after 22 items
 - BAIR Blog：超时（0 条） - timeout after 25s
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. Collection Notes
 
-- Generated at: 2026-09-08T00:40:12.191085+00:00
+- Generated at: 2026-09-09T00:31:28.552722+00:00
 - Source count: 31
-- Raw item count: 688
-- Dedup item count: 563
+- Raw item count: 686
+- Dedup item count: 561
 - API requests total: 7
 - API requests by provider: deepseek:6, kimi:1
 - Cache hits: 0
 - Cache misses: 6
-- Benchmark appendix: reports/appendix/2026-09-08-benchmarks.md
+- Benchmark appendix: reports/appendix/2026-09-09-benchmarks.md
 
-- Report path: reports/daily/2026/09/2026-09-08.md
-- 上一份报告链接：reports/daily/2026/09/2026-09-07.md
+- Report path: reports/daily/2026/09/2026-09-09.md
+- 上一份报告链接：reports/daily/2026/09/2026-09-08.md
