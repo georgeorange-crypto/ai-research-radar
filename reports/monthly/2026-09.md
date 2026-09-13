@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-09
 
-- 纳入日报：12 份
-- 跟踪条目：1652；MUST_READ 11；SKIM 68；ARCHIVE 410
+- 纳入日报：13 份
+- 跟踪条目：1654；MUST_READ 11；SKIM 69；ARCHIVE 411
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -24,15 +24,15 @@
 - [PRICE: A Systematic Study of LLM Adaptation Choices for Bitcoin Price Forecasting](https://arxiv.org/abs/2609.05235v1)（SKIM，Embodied Intelligence / VLA / World Models，score 0.85）
 - [AgenticRag-R1: Agentic Reinforcement Learning with Stack Memory for Multi-Step Reasoning, Retrieval and Memorizing](https://arxiv.org/abs/2608.29622v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.84）
 - [Forgetting Only What Matters: Layer-Selective Unlearning toward Robust LLMs](https://arxiv.org/abs/2609.10439v1)（SKIM，Embodied Intelligence / VLA / World Models，score 0.84）
-- [ToolLoop: Closed-Loop Tool-Use Data Synthesis via Decomposed Generation and Dynamic Self-Feedback](https://arxiv.org/abs/2609.09072v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，score 0.84）
+- [CARDEA: Auditable Reasoning Grounded in Spatial Evidence for End-to-End Coronary Angiography Interpretation](https://arxiv.org/abs/2609.06931)（SKIM，AI Systems / HPC / Distributed Training & Inference，score 0.84）
 
 ## 分方向趋势
 - AI Systems / HPC / Distributed Training & Inference：450 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、framework、nlp、robotics。
   - [Fine-Tuning Low-Bit Models with Gradient in Quantized Code Space](https://arxiv.org/abs/2608.30908v1)
   - [IBIB: A Protocol for Measuring Enterprise AI Systems by Serving Route, Not Model Identifier](https://arxiv.org/abs/2609.10494v1)
+  - [CARDEA: Auditable Reasoning Grounded in Spatial Evidence for End-to-End Coronary Angiography Interpretation](https://arxiv.org/abs/2609.06931)
   - [Polimill builds Japan's next-generation public AI infrastructure](https://openai.com/index/polimill)
   - [LevelSyn: Physical-Aware Logic Synthesis via Level-Asynchronous Graph Neural Networks](https://arxiv.org/abs/2609.03594v1)
-  - [AceSpec: An Asymmetric Edge-Cloud Collaborative Framework for Communication-Efficient LLM Inference](https://arxiv.org/abs/2609.02514v1)
 - Embodied Intelligence / VLA / World Models：429 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.RO、language model、cs.LG。
   - [Toward Unified Robot Learning: Bridging Representation, Vision-Language-Action, and World Models](https://arxiv.org/abs/2609.03927v1)
   - [$\mathcal{N}_0$-Foundation: Towards the Age of Tactile Intelligence](https://arxiv.org/abs/2608.29601v1)
@@ -87,7 +87,7 @@
   - [BeaconKV: Key-Value Cache Compression Guided by Beacon Queries for Efficient Large Reasoning Model Inference](https://arxiv.org/abs/2609.04971)
   - [On the Resilience of Text-to-Video Diffusion Models to Hardware Faults](https://arxiv.org/abs/2608.29598v1)
   - [TAP-Path: Task-Adaptive Structural and Token Pruning for Efficient and Trustworthy Pathology Foundation Models](https://arxiv.org/abs/2609.04071v1)
-- GitHub / Open Source Projects：29 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、inference、compression、evaluation。
+- GitHub / Open Source Projects：30 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、implementation、inference、compression。
   - [PaperCompiler: Faithful Paper-to-Code Generation via Repository-Level Specification Compilation](https://arxiv.org/abs/2609.02272)
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
@@ -111,7 +111,7 @@
   - [PerfReasoning: How Well Do LLMs Reason on Hardware Performance?](https://arxiv.org/abs/2609.04476v1)
   - [Unified AI Gateway: A Framework for Joint Model Routing and KV Cache Management](https://arxiv.org/abs/2609.06940v1)
   - [Attestream: Usage-Aware Intermittent Data Distribution with Verifiable Lifecycle Provenance for Machine-Learning Data Streams](https://arxiv.org/abs/2609.07641v1)
-- Model Architecture：10 条进入跟踪；高频信号：attention、architecture、transformer、sparse attention、KV cache、moe、scaling law、inference。
+- Model Architecture：11 条进入跟踪；高频信号：architecture、attention、transformer、sparse attention、KV cache、moe、scaling law、inference。
   - [SMELT: Scaling Laws for Compute-Matched MoE Looped Transformers](https://arxiv.org/abs/2609.01343)
   - [FreeFlow: A Bias-free Hierarchical Transformer for Optical Flow Estimation](https://arxiv.org/abs/2609.11486)
   - [RF-DETR: Neural Architecture Search for Real-Time Detection Transformers](https://arxiv.org/abs/2511.09554)

@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W37
 
 - 日期范围：2026-09-07 至 2026-09-13
-- 纳入日报：6 份
-- 跟踪条目：1146；MUST_READ 5；SKIM 38；ARCHIVE 314
+- 纳入日报：7 份
+- 跟踪条目：1148；MUST_READ 5；SKIM 39；ARCHIVE 315
 
 ## 本周最重要论文 / 动态
 - [Toward Unified Robot Learning: Bridging Representation, Vision-Language-Action, and World Models](https://arxiv.org/abs/2609.03927v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.91，global 0.34）
@@ -14,17 +14,17 @@
 - [SpatialBlock: Enhancing Spatial Intelligence in LVLMs via Synthetic Block-Stacking Problem](https://arxiv.org/abs/2609.07064)（SKIM，Embodied Intelligence / VLA / World Models，personal 0.86，global 0.50）
 - [PRICE: A Systematic Study of LLM Adaptation Choices for Bitcoin Price Forecasting](https://arxiv.org/abs/2609.05235v1)（SKIM，Embodied Intelligence / VLA / World Models，personal 0.85，global 0.44）
 - [Forgetting Only What Matters: Layer-Selective Unlearning toward Robust LLMs](https://arxiv.org/abs/2609.10439v1)（SKIM，Embodied Intelligence / VLA / World Models，personal 0.84，global 0.48）
+- [CARDEA: Auditable Reasoning Grounded in Spatial Evidence for End-to-End Coronary Angiography Interpretation](https://arxiv.org/abs/2609.06931)（SKIM，AI Systems / HPC / Distributed Training & Inference，personal 0.84，global 0.47）
 - [ToolLoop: Closed-Loop Tool-Use Data Synthesis via Decomposed Generation and Dynamic Self-Feedback](https://arxiv.org/abs/2609.09072v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.84，global 0.52）
 - [Editable Visual Design](https://arxiv.org/abs/2609.04034v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.83，global 0.38）
-- [Deep Learning-Based Detection of Electrical Faults and Power Quality Disturbances in Aerospace Power Systems](https://arxiv.org/abs/2609.10479v1)（SKIM，Embodied Intelligence / VLA / World Models，personal 0.83，global 0.48）
 
 ## 分方向趋势
 - AI Systems / HPC / Distributed Training & Inference：313 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、nlp。
   - [IBIB: A Protocol for Measuring Enterprise AI Systems by Serving Route, Not Model Identifier](https://arxiv.org/abs/2609.10494v1)
+  - [CARDEA: Auditable Reasoning Grounded in Spatial Evidence for End-to-End Coronary Angiography Interpretation](https://arxiv.org/abs/2609.06931)
   - [LevelSyn: Physical-Aware Logic Synthesis via Level-Asynchronous Graph Neural Networks](https://arxiv.org/abs/2609.03594v1)
   - [KVShareArena: KV-Cache Reuse Across Contexts and Model Checkpoints](https://arxiv.org/abs/2609.10266v1)
   - [Hardware-Aware FP4 FlashAttention-4](https://arxiv.org/abs/2609.04105v1)
-  - [CARDEA: Auditable Reasoning Grounded in Spatial Evidence for End-to-End Coronary Angiography Interpretation](https://arxiv.org/abs/2609.06931)
 - Embodied Intelligence / VLA / World Models：306 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、cs.RO。
   - [Toward Unified Robot Learning: Bridging Representation, Vision-Language-Action, and World Models](https://arxiv.org/abs/2609.03927v1)
   - [OpenWAM: An Open, Modular Exploration Towards Systematic World-Action Model Pretraining](https://arxiv.org/abs/2609.07398)
@@ -73,18 +73,18 @@
   - [Bioinfoysis Technical Report](https://arxiv.org/abs/2609.03871v1)
   - [A-JIT: Agentic Just-In-Time Software Construction](https://arxiv.org/abs/2609.10248v1)
   - [A Blind Trust, the Bloody Thrust: When Attacker-Controlled Hook Updates Steer AI Agent Harnesses towards Malicious Behaviors](https://arxiv.org/abs/2609.03884v1)
+- GitHub / Open Source Projects：27 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression。
+  - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
+  - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
+  - [OpenWAM/OpenWAM](https://github.com/OpenWAM/OpenWAM)
+  - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
+  - [OpenMOSS/OpenETA](https://github.com/OpenMOSS/OpenETA)
 - Compression / Reliability for AI Infrastructure：26 条进入跟踪；高频信号：cs.LG、nlp、robotics、framework、compression、recovery。
   - [Random Attention: Rethinking KV Cache Eviction for Efficient Reasoning](https://arxiv.org/abs/2609.03430)
   - [BeaconKV: Key-Value Cache Compression Guided by Beacon Queries for Efficient Large Reasoning Model Inference](https://arxiv.org/abs/2609.04971)
   - [TAP-Path: Task-Adaptive Structural and Token Pruning for Efficient and Trustworthy Pathology Foundation Models](https://arxiv.org/abs/2609.04071v1)
   - [Answer-Distribution Trajectories: A Stochastic-Dynamics View of LLM Reasoning](https://arxiv.org/abs/2609.09030v1)
   - [Differentiable Hybrid Modelling for Learning and Optimising Chemical Transport Processes from Experimental Data](https://arxiv.org/abs/2609.04011v1)
-- GitHub / Open Source Projects：26 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression。
-  - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
-  - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
-  - [OpenWAM/OpenWAM](https://github.com/OpenWAM/OpenWAM)
-  - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
-  - [OpenMOSS/OpenETA](https://github.com/OpenMOSS/OpenETA)
 - Context Compression / Long Context / Memory：13 条进入跟踪；高频信号：inference、nlp、language model、long-context、attention、framework。
   - [Why Gated DeltaNet Survives 4-Bit Quantization: NVFP4 W4A4 for the Recurrent Half of a Hybrid 27B LLM](https://arxiv.org/abs/2609.04098v1)
   - [ConvMem: Convolutional Memory for Long-Context Reasoning](https://arxiv.org/abs/2609.10441v1)
@@ -103,7 +103,7 @@
   - [PerfReasoning: How Well Do LLMs Reason on Hardware Performance?](https://arxiv.org/abs/2609.04476v1)
   - [Unified AI Gateway: A Framework for Joint Model Routing and KV Cache Management](https://arxiv.org/abs/2609.06940v1)
   - [Attestream: Usage-Aware Intermittent Data Distribution with Verifiable Lifecycle Provenance for Machine-Learning Data Streams](https://arxiv.org/abs/2609.07641v1)
-- Model Architecture：8 条进入跟踪；高频信号：architecture、attention、transformer、sparse attention、inference、detection。
+- Model Architecture：9 条进入跟踪；高频信号：architecture、attention、transformer、sparse attention、inference、detection。
   - [FreeFlow: A Bias-free Hierarchical Transformer for Optical Flow Estimation](https://arxiv.org/abs/2609.11486)
   - [RF-DETR: Neural Architecture Search for Real-Time Detection Transformers](https://arxiv.org/abs/2511.09554)
   - [Graph Machine: Towards Better Pretraining via Edges](https://arxiv.org/abs/2609.02881)
