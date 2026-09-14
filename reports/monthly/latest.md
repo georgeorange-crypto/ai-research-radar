@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-09
 
-- 纳入日报：13 份
-- 跟踪条目：1654；MUST_READ 11；SKIM 69；ARCHIVE 411
+- 纳入日报：14 份
+- 跟踪条目：1655；MUST_READ 11；SKIM 71；ARCHIVE 411
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -45,7 +45,7 @@
   - [Paint What You See: Benchmarking Dexterous Visual Tool Use in Multimodal Agents](https://arxiv.org/abs/2608.25417)
   - [$Φ$-Bench: Can Large Language Models Engineer the Infrastructure That Powers Them?](https://arxiv.org/abs/2609.10226v1)
   - [Performance Evaluation of RED-ONION: A High-Speed Disk-to-Disk Transfer System](https://arxiv.org/abs/2608.29053v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：166 条进入跟踪；高频信号：agent、reasoning、language model、framework、nlp、agentic、environment、github。
+- Agent / Reasoning / Inference-time Scaling / Planning：167 条进入跟踪；高频信号：agent、reasoning、language model、framework、nlp、agentic、environment、github。
   - [Editable Visual Design](https://arxiv.org/abs/2609.04034)
   - [Environments as Scaffold: Enriching Feedback to Bootstrap Self-Evolving Agents in Long-Horizon Tasks](https://arxiv.org/abs/2609.08404)
   - [ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL](https://arxiv.org/abs/2608.28476)
