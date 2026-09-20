@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W38
 
 - 日期范围：2026-09-14 至 2026-09-20
-- 纳入日报：6 份
-- 跟踪条目：1113；MUST_READ 11；SKIM 39；ARCHIVE 291
+- 纳入日报：7 份
+- 跟踪条目：1114；MUST_READ 11；SKIM 39；ARCHIVE 292
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.97，global 0.41）
@@ -49,7 +49,7 @@
   - [How Cooley is accelerating IPO work with ChatGPT](https://openai.com/index/cooley-gopublic)
   - [How Fyxer built an AI executive assistant people trust](https://openai.com/index/fyxer)
   - [Helping older adults use AI in everyday life](https://openai.com/index/helping-older-adults-use-ai-in-everyday-life)
-- Other Highlights：54 条进入跟踪；高频信号：stanford.edu、cmu.edu、openai.com、anthropic.com、security、open source。
+- Other Highlights：55 条进入跟踪；高频信号：stanford.edu、cmu.edu、openai.com、anthropic.com、safety、security。
   - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
   - [Paul Christiano joins OpenAI Foundation Board](https://openai.com/index/paul-christiano-joins-openai-foundation-board)
   - [CSAIL's Daskalakis wins ACM Grace Murray Hopper Award](https://www.csail.mit.edu/news/csails-daskalakis-wins-acm-grace-murray-hopper-award)

@@ -1,11 +1,11 @@
-# AI Research Radar - 2026-09-19
+# AI Research Radar - 2026-09-20
 
 - 研究画像：George Research Profile v2
 - 总结模式：单模型
 - 供应商：deepseek
 - 模型：deepseek-v4-flash
 
-- LLM 总结调用次数：5
+- LLM 总结调用次数：7
 - 估算成本：RMB 0.0 / 1.0
 - 最近一次 LLM 错误：provider=deepseek; model=deepseek-v4-flash; base_url=https://api.deepseek.com; HTTP status=n/a; error=Could not parse JSON response:
 - 已禁用供应商：kimi
@@ -16,11 +16,11 @@
 ## 0. 每日概览
 
 - 最重要方向：具身智能 / VLA / 世界模型
-- 必读数量：3（CoRef-GS: Cooperative Referring Gaussian Splatting for Multi-Agent Scene Understanding；Paint-Anything: Unified Any-Color Control for Image Generation and Editing；Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic）
-- 略读数量：8（Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Chronicle: Cut-Point Replay for Regression Testing of LLM Agents；StageGuard: Learning Stage Transitions for Long-Horizon Robot Tasks via Agentic Distillation；On-Demand Attention: Language Models Know When to Recall）
-- 关注数量：12（2026 BAIR Graduate Showcase；Identifying Interactions at Scale for LLMs；Zero-I/O Fault Recovery for Sharded Deep Learning via Dynamic Framework Dependency Rebinding；DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression；A Simulation Platform for AUV Fault Recovery: Exploring LLM-Based Diagnostic Strategies）
+- 必读数量：1（CoRef-GS: Cooperative Referring Gaussian Splatting for Multi-Agent Scene Understanding）
+- 略读数量：8（Paint-Anything: Unified Any-Color Control for Image Generation and Editing；Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Chronicle: Cut-Point Replay for Regression Testing of LLM Agents；StageGuard: Learning Stage Transitions for Long-Horizon Robot Tasks via Agentic Distillation）
+- 关注数量：12（2026 BAIR Graduate Showcase；Identifying Interactions at Scale for LLMs；Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic；A Simulation Platform for AUV Fault Recovery: Exploring LLM-Based Diagnostic Strategies；Zero-I/O Fault Recovery for Sharded Deep Learning via Dynamic Framework Dependency Rebinding）
 - 关键词：nlp、agent、framework、inference、language model、agentic、benchmark、cs.RO
-- 判断：今日主线：模型压缩的关注点从单纯变小转向保留推理结构、排序一致性和部署可用性。
+- 判断：今日主线：围绕《CoRef-GS: Cooperative Referring Gaussian Splatting for Multi》展开，建议从其问题设定和可复现实验切入。
 
 ## 1. 核心研究方向
 
@@ -34,7 +34,7 @@
 
 #### 关注
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.86；全局热度=0.39；炒作风险=0.00）
-- [Zero-I/O Fault Recovery for Sharded Deep Learning via Dynamic Framework Dependency Rebinding](https://arxiv.org/abs/2609.18178v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.85；全局热度=0.47；炒作风险=0.00）
+- [Zero-I/O Fault Recovery for Sharded Deep Learning via Dynamic Framework Dependency Rebinding](https://arxiv.org/abs/2609.18178v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.84；全局热度=0.44；炒作风险=0.00）
 - [RISC-V and machine learning: a survey](https://arxiv.org/abs/2609.20677v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.84；全局热度=0.41；炒作风险=0.00）
 
 ### 1.2 GPU 中心 I/O / 网络 / 存储
@@ -46,34 +46,20 @@
 - 无。
 
 #### 关注
-- [Towards Training Private LLMs: Exploring Fine-Tuning Language Models on Apple Silicon with RDMA over Thunderbolt](https://arxiv.org/abs/2609.18066v2) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.81；全局热度=0.38；炒作风险=0.00）
+- [Towards Training Private LLMs: Exploring Fine-Tuning Language Models on Apple Silicon with RDMA over Thunderbolt](https://arxiv.org/abs/2609.18066v2) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.80；全局热度=0.34；炒作风险=0.00）
 - [Rapidly scaling online storage to serve over 1 billion ChatGPT users](https://openai.com/index/scaling-storage-one-billion-users-part-one) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.77；全局热度=0.41；炒作风险=0.00）
-- [SSD-LLaMA: SSD-Native Inference for Trillion-Parameter MoE at 1+ Token/s on a Consumer PC](https://arxiv.org/abs/2609.18110v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.77；全局热度=0.38；炒作风险=0.00）
+- [SSD-LLaMA: SSD-Native Inference for Trillion-Parameter MoE at 1+ Token/s on a Consumer PC](https://arxiv.org/abs/2609.18110v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.76；全局热度=0.34；炒作风险=0.00）
 
 ### 1.3 AI 基础设施压缩 / 可靠性
 
 #### 必读
-##### 1. [Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic](https://arxiv.org/abs/2609.19743v1)
-- 阅读优先级：必读
-- 来源：arXiv Systems/HPC/GPU Data Path（一手来源；角色=论文来源）
-- 发布时间：2026-09-17T06:09:12+00:00
-- 主方向：AI 基础设施压缩 / 可靠性
-- 次级标签：AI 系统 / HPC / 分布式训练与推理、GPU 中心 I/O / 网络 / 存储、Agent 运行时 / RL 基础设施 / 调度、Benchmark / 数据集 / 评测
-- 依据层级：仅摘要
-- 评分：个人相关度=0.85，全局热度=0.48，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
-- 项目相关性：skyfs=0.44、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic：研究论文，方向为“AI 基础设施压缩 / 可靠性”；主要线索：HPC、checksum、cs.DC、data path。
-- 问题：它关注“AI 基础设施压缩 / 可靠性”里的 HPC、checksum、cs.DC、data path 等问题。
-- 方法 / 贡献：摘要可确认它提出或引入了 HPC、checksum、cs.DC、data path；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对 George 重要：阅读优先级：必读 编辑优先级：0.79 今天安排深读。 个人相关度：0.85，研究相关度：1.00。
-- 建议动作：读 PDF
-- 命中关键词：HPC、checksum、cs.DC、data path、evaluation、fault tolerance、inference、network
+- 无。
 
 #### 略读
 - 无。
 
 #### 关注
-- [DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression](https://arxiv.org/abs/2609.19969) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.84；全局热度=0.52；炒作风险=0.00）
+- [Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic](https://arxiv.org/abs/2609.19743v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.85；全局热度=0.48；炒作风险=0.00）
 - [Sketching the Error, Not the Product: Post Hoc Fault Recovery for Half Precision GPU Matrix Multiplication](https://arxiv.org/abs/2609.19758v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.84；全局热度=0.46；炒作风险=0.00）
 - [NS3Learn: Transferring 5G NR Mode-2 Reception Realism from ns-3 to the Veins/SUMO Stack for Connected-Vehicle Safety Assessment](https://arxiv.org/abs/2609.20578v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.84；全局热度=0.41；炒作风险=0.00）
 
@@ -93,8 +79,25 @@
 ### 1.5 具身智能 / VLA / 世界模型
 
 #### 必读
-##### 1. [Paint-Anything: Unified Any-Color Control for Image Generation and Editing](https://arxiv.org/abs/2609.20816v1)
+##### 1. [CoRef-GS: Cooperative Referring Gaussian Splatting for Multi-Agent Scene Understanding](https://arxiv.org/abs/2609.20586v1)
 - 阅读优先级：必读
+- 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
+- 发布时间：2026-09-17T15:39:25+00:00
+- 主方向：具身智能 / VLA / 世界模型
+- 次级标签：Agent / 推理 / 推理时扩展 / 规划、其他亮点、Novel Class Discovery / Open-World Learning / OOD / Continual Learning、GitHub / 开源项目
+- 依据层级：仅摘要
+- 评分：个人相关度=0.86，全局热度=0.41，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
+- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
+- 是什么：CoRef-GS: Cooperative Referring Gaussian Splatting for Multi-Agent Scene Understanding：研究论文，方向为“具身智能 / VLA / 世界模型”；主要线索：agent、alignment、cs.CV、cs.RO。
+- 问题：它关注“具身智能 / VLA / 世界模型”里的 agent、alignment、cs.CV、cs.RO 等问题。
+- 方法 / 贡献：摘要可确认它提出或引入了 agent、alignment、cs.CV、cs.RO；具体训练设置、指标和消融细节需读原文确认。
+- 为什么对 George 重要：阅读优先级：必读 编辑优先级：0.78 今天安排深读。 个人相关度：0.86，研究相关度：1.00。
+- 建议动作：读 PDF
+- 命中关键词：agent、alignment、benchmark、cs.CV、cs.RO、framework、github、multi-agent
+
+#### 略读
+##### 1. [Paint-Anything: Unified Any-Color Control for Image Generation and Editing](https://arxiv.org/abs/2609.20816v1)
+- 阅读优先级：略读
 - 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
 - 发布时间：2026-09-17T17:59:30+00:00
 - 主方向：具身智能 / VLA / 世界模型
@@ -105,12 +108,9 @@
 - 是什么：Paint-Anything: Unified Any-Color Control for Image Generation and Editing：研究论文，方向为“具身智能 / VLA / 世界模型”；主要线索：cs.AI、cs.CV、cs.LG、image。
 - 问题：它关注“具身智能 / VLA / 世界模型”里的 cs.AI、cs.CV、cs.LG、image 等问题。
 - 方法 / 贡献：摘要可确认它提出或引入了 cs.AI、cs.CV、cs.LG、image；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对 George 重要：阅读优先级：必读 编辑优先级：0.80 今天安排深读。 个人相关度：0.86，研究相关度：1.00。
-- 建议动作：读 PDF
+- 为什么对 George 重要：阅读优先级：略读 编辑优先级：0.80 今天快速扫读。 个人相关度：0.86，研究相关度：1.00。
+- 建议动作：快速扫读
 - 命中关键词：benchmark、cs.AI、cs.CV、cs.LG、image、inference、language model、nlp
-
-#### 略读
-- 无。
 
 #### 关注
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) （关注；具身智能 / VLA / 世界模型；个人相关度=0.97；全局热度=0.41；炒作风险=0.00）
@@ -120,16 +120,16 @@
 ## 2. 支撑性 AI 基础方向
 
 ### 上下文 / 记忆
-- [SpectralShift: Effective Context Window Extension of Gated DeltaNet via Spectral Reparameterization](https://arxiv.org/abs/2609.14320) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.72；全局热度=0.48；炒作风险=0.00）
+- [SpectralShift: Effective Context Window Extension of Gated DeltaNet via Spectral Reparameterization](https://arxiv.org/abs/2609.14320) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.71；全局热度=0.43；炒作风险=0.00）
 - [Fathom: Per-Query Read Depth for Sparse Decoding over Offloaded KV Caches](https://arxiv.org/abs/2609.17652) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.67；全局热度=0.45；炒作风险=0.00）
 
 ### 通用 Agent / 推理
 - [ZGCM-1: A Fully Open and Extremely Efficient Foundation Model for Math and Agentic Search](https://arxiv.org/abs/2609.13356) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.84；全局热度=0.44；炒作风险=0.00）
 - [SoL-Pi: Recursively Scaling Auto-Research Loops for Efficient Agent Harness](https://arxiv.org/abs/2609.20519v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.79；全局热度=0.42；炒作风险=0.00）
-- [Self-Evolving Search Index](https://arxiv.org/abs/2609.19656) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.78；全局热度=0.50；炒作风险=0.00）
+- [Verifiable Social Reasoning for LLM Assistants](https://arxiv.org/abs/2609.17496) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.78；全局热度=0.50；炒作风险=0.00）
 
 ### 强化学习
-- [DACA-GRPO: Denoising-Aware Credit Assignment for Reinforcement Learning in Diffusion Language Models](https://machinelearning.apple.com/research/denoising-aware-credit-assignment) （关注；RL；个人相关度=0.65；全局热度=0.38；炒作风险=0.00）
+- [DACA-GRPO: Denoising-Aware Credit Assignment for Reinforcement Learning in Diffusion Language Models](https://machinelearning.apple.com/research/denoising-aware-credit-assignment) （关注；RL；个人相关度=0.64；全局热度=0.34；炒作风险=0.00）
 - [Rethinking Critic Learning in PPO: Understanding and Mitigating Value Flattening](https://arxiv.org/abs/2609.18708) （归档；RL；个人相关度=0.63；全局热度=0.49；炒作风险=0.00）
 
 ### 模型架构
@@ -255,7 +255,7 @@
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 8 个只进入附录标题列表：reports/appendix/2026-09-19-benchmarks.md
+- 其余 8 个只进入附录标题列表：reports/appendix/2026-09-20-benchmarks.md
 
 ## 5. GitHub / 开源项目
 
@@ -263,7 +263,7 @@
 ##### 1. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-09-19T00:26:23+00:00
+- 发布时间：2026-09-20T00:12:23+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -279,7 +279,7 @@
 ##### 2. [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-09-18T23:44:05+00:00
+- 发布时间：2026-09-19T23:43:07+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：Agent / 推理 / 推理时扩展 / 规划、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -295,16 +295,16 @@
 ##### 3. [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-09-16T04:08:39+00:00
+- 发布时间：2026-09-19T07:54:25+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：上下文压缩 / 长上下文 / 记忆、Benchmark / 数据集 / 评测、Agent 运行时 / RL 基础设施 / 调度、其他亮点、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.63，全局热度=0.48，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.63，全局热度=0.51，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
 - 是什么：Shubhamsaboo/awesome-llm-apps：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：RAG、agent、eval、github。
 - 问题：它关注“GitHub / 开源项目推荐”里的 RAG、agent、eval、github 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.21 按 GitHub 项目动作处理。 个人相关度：0.63，研究相关度：0.65。
+- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.24 按 GitHub 项目动作处理。 个人相关度：0.63，研究相关度：0.65。
 - 建议动作：克隆运行
 - 命中关键词：RAG、agent、eval、github、github.com、open source、open-source、security
 
@@ -341,21 +341,21 @@
 - 建议动作：研读代码
 - 命中关键词：compression、environment、eval、github、github.com、image、inference、open-source
 
-##### 3. [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents)
+##### 3. [microsoft/MInference](https://github.com/microsoft/MInference)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-09-18T05:43:45+00:00
+- 发布时间：2026-09-10T13:47:40+00:00
 - 主方向：GitHub / 开源项目推荐
-- 次级标签：Agent 运行时 / RL 基础设施 / 调度、其他亮点、工具库
+- 次级标签：上下文压缩 / 长上下文 / 记忆、模型架构、AI 系统 / HPC / 分布式训练与推理、其他亮点、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.65，全局热度=0.62，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.65，全局热度=0.51，可信度=0.88，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：TauricResearch/TradingAgents：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：agent、framework、github、github.com。
-- 问题：它关注“GitHub / 开源项目推荐”里的 agent、framework、github、github.com 等问题。
+- 是什么：microsoft/MInference：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：attention、github、github.com、inference。
+- 问题：它关注“GitHub / 开源项目推荐”里的 attention、github、github.com、inference 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.27 按 GitHub 项目动作处理。 个人相关度：0.65，研究相关度：0.61。
+- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.17 按 GitHub 项目动作处理。 个人相关度：0.65，研究相关度：0.65。
 - 建议动作：克隆运行
-- 命中关键词：agent、framework、github、github.com、open-source、safety
+- 命中关键词：attention、github、github.com、inference、long-context、open-source、release、sparse attention
 
 ### Evergreen Toolkits
 - 今日无需要重复推荐的常青工具库。
@@ -385,17 +385,17 @@
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.85
   - 建议行动：skim
-- [DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression](https://arxiv.org/abs/2609.19969)
-  - 学校 / 实验室：Hugging Face
-  - 类型：paper
-  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：AI 基础设施压缩 / 可靠性，personal 0.84
-  - 建议行动：watch
 - [ZGCM-1: A Fully Open and Extremely Efficient Foundation Model for Math and Agentic Search](https://arxiv.org/abs/2609.13356)
   - 学校 / 实验室：Hugging Face
   - 类型：paper
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.84
+  - 建议行动：watch
+- [DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression](https://arxiv.org/abs/2609.19969)
+  - 学校 / 实验室：Hugging Face
+  - 类型：paper
+  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
+  - 与我的研究方向关系：AI 基础设施压缩 / 可靠性，personal 0.84
   - 建议行动：watch
 - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - 学校 / 实验室：MIT
@@ -448,18 +448,6 @@
 - topic_tags：agents、planning
 - 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
 - 为什么经典：Tree of Thoughts 把单一路径 CoT 扩展为可搜索、可回溯的思维树，适合连接今天关于自适应并行推理、搜索式规划和 agent reasoning 的工作。
-- 今日新论文继承了什么问题：CoRef-GS: Cooperative Referring Gaussian Splatting for Multi-Agent Scene Understanding；Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
-- 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
-- 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
-- 相关今日条目：
-  - [CoRef-GS: Cooperative Referring Gaussian Splatting for Multi-Agent Scene Understanding](https://arxiv.org/abs/2609.20586v1)（Embodied Intelligence / VLA / World Models；连接词：reasoning）
-  - [Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic](https://arxiv.org/abs/2609.19743v1)（Compression / Reliability for AI Infrastructure；连接词：search）
-
-### 2. [Graph of Thoughts](https://arxiv.org/abs/2308.09687)（2023）
-- 作者：Maciej Besta、Nils Blach、Ales Kubicek、Robert Gerstenberger、Lukas Gianinazzi、Joanna Gajda、Tomasz Lehmann、Michal Podstawski 等
-- topic_tags：agents、planning
-- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
-- 为什么经典：Graph of Thoughts 把推理状态组织成图结构，适合连接今天从顺序 CoT 走向并行、合并、回溯和结构化搜索的 agent reasoning 工作。
 - 今日新论文继承了什么问题：CoRef-GS: Cooperative Referring Gaussian Splatting for Multi-Agent Scene Understanding 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
 - 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
 - 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
@@ -473,22 +461,21 @@
 ## 13. 来源健康状态
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
-- GitHub AI Research Projects：time budget exhausted（23 条） - 时间预算已耗尽 after 23 items
-- Meta AI Blog：0 items（0 条） - fetch completed with 0 items
+- GitHub AI Research Projects：time budget exhausted（24 条） - 时间预算已耗尽 after 24 items
 - RSS Robotics：0 items（0 条） - fetch completed with 0 items
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. 采集说明
 
-- 生成时间：2026-09-19T00:34:17.473386+00:00
-- 来源数量：30
-- 原始条目数：669
-- 去重后条目数：549
-- API 请求总数：5
-- 各供应商 API 请求数：deepseek:4, kimi:1
+- 生成时间：2026-09-20T00:20:33.594647+00:00
+- 来源数量：31
+- 原始条目数：685
+- 去重后条目数：560
+- API 请求总数：7
+- 各供应商 API 请求数：deepseek:6, kimi:1
 - 缓存命中：0
-- 缓存未命中：4
-- Benchmark 附录：reports/appendix/2026-09-19-benchmarks.md
+- 缓存未命中：6
+- Benchmark 附录：reports/appendix/2026-09-20-benchmarks.md
 
-- 报告路径：reports/daily/2026/09/2026-09-19.md
-- 上一份报告链接：reports/daily/2026/09/2026-09-18.md
+- 报告路径：reports/daily/2026/09/2026-09-20.md
+- 上一份报告链接：reports/daily/2026/09/2026-09-19.md

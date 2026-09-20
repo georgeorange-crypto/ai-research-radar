@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-09
 
-- 纳入日报：19 份
-- 跟踪条目：2489；MUST_READ 22；SKIM 102；ARCHIVE 501
+- 纳入日报：20 份
+- 跟踪条目：2490；MUST_READ 22；SKIM 102；ARCHIVE 502
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -63,7 +63,7 @@
   - [Jul 27, 2026 Announcements Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients](https://www.anthropic.com/news/cognizant-anthropic)
   - [GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models](https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/)
   - [Introducing Astra for Law](https://openai.com/index/astra-for-law)
-- Other Highlights：71 条进入跟踪；高频信号：stanford.edu、cmu.edu、openai.com、safety、security、framework、anthropic.com、alignment。
+- Other Highlights：72 条进入跟踪；高频信号：stanford.edu、cmu.edu、openai.com、safety、security、framework、anthropic.com、alignment。
   - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
   - [Paul Christiano joins OpenAI Foundation Board](https://openai.com/index/paul-christiano-joins-openai-foundation-board)
   - [Path to Astra: critical capabilities and frontier safeguards](https://openai.com/index/path-to-astra)
