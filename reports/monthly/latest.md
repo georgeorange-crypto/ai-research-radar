@@ -1,18 +1,21 @@
 # AI Research Radar Monthly - 2026-09
 
-- 纳入日报：22 份
-- 跟踪条目：2717；MUST_READ 25；SKIM 108；ARCHIVE 530
+- 纳入日报：23 份
+- 跟踪条目：2905；MUST_READ 28；SKIM 113；ARCHIVE 551
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.97）
 - [Toward Unified Robot Learning: Bridging Representation, Vision-Language-Action, and World Models](https://arxiv.org/abs/2609.03927v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.91）
+- [RRSI: Regularized Recursive Self-Improvement of Agent Harnesses](https://arxiv.org/abs/2609.24972v1)（MUST_READ，Agent Runtime / RL Infrastructure / Scheduling，score 0.90）
 - [$\mathcal{N}_0$-Foundation: Towards the Age of Tactile Intelligence](https://arxiv.org/abs/2608.29601v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.89）
 - [FluxVLA Engine: A One-Stop VLA Engineering Platform for Embodied Intelligence](https://arxiv.org/abs/2609.17210v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.89）
 - [Omni Interaction Agent Technical Report](https://arxiv.org/abs/2609.08977v1)（MUST_READ，Agent Runtime / RL Infrastructure / Scheduling，score 0.87）
 - [Fine-Tuning Low-Bit Models with Gradient in Quantized Code Space](https://arxiv.org/abs/2608.30908v1)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，score 0.87）
+- [PrismGPT: Proxy-Guided Learning for Region-Aware Photo Editing with Self-Synthesized Reasoning](https://arxiv.org/abs/2609.24768v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.87）
 - [Proportional-Fair Resource Allocation and Dual-Threshold Early-Exit Inference for Secure Cooperative Multi-Layer Edge Intelligence](https://arxiv.org/abs/2609.15847v1)（MUST_READ，Compression / Reliability for AI Infrastructure，score 0.87）
 - [Random Attention: Rethinking KV Cache Eviction for Efficient Reasoning](https://arxiv.org/abs/2609.03430)（MUST_READ，Compression / Reliability for AI Infrastructure，score 0.87）
+- [Decoding Guardrails: XAI-Guided Perturbation Analysis of Prompt Injection Detection](https://arxiv.org/abs/2609.24801v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.86）
 - [Paint-Anything: Unified Any-Color Control for Image Generation and Editing](https://arxiv.org/abs/2609.20816v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.86）
 - [Scalable Packet Tracking on FPGAs for Erasure-Coded RDMA over Lossy WANs](https://arxiv.org/abs/2609.21774v1)（MUST_READ，GPU-Centric I/O / Networking / Storage，score 0.86）
 - [From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving](https://arxiv.org/abs/2609.23130v1)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，score 0.86）
@@ -22,66 +25,63 @@
 - [Toward Trustworthy Robot-Assisted Sliding Palpation for Shallow Vessel Localisation with a Calibrated Digital Twin](https://arxiv.org/abs/2608.29396v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.86）
 - [FIERCE: From Generalist Robot Policies to Fast Specialists via Progress-Failure Feedback](https://arxiv.org/abs/2609.18651v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.86）
 - [Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic](https://arxiv.org/abs/2609.19743v1)（MUST_READ，Compression / Reliability for AI Infrastructure，score 0.85）
-- [Real-Time Video Anomaly Detection Using YOLO Pose Estimation and CLIP-Based Semantic Scoring](https://arxiv.org/abs/2608.31074v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.85）
-- [OpenWAM: An Open, Modular Exploration Towards Systematic World-Action Model Pretraining](https://arxiv.org/abs/2609.07398)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.85）
-- [Multimodal Cultural Heritage Architectural Style Classification for Residential Buildings in the UAE Based on CLIP Embeddings and SVM](https://arxiv.org/abs/2609.17181v1)（MUST_READ，Embodied Intelligence / VLA / World Models，score 0.85）
 
 ## 分方向趋势
-- AI Systems / HPC / Distributed Training & Inference：812 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、nlp、framework、robotics。
+- Embodied Intelligence / VLA / World Models：861 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、cs.RO、language model、cs.LG。
+  - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
+  - [Toward Unified Robot Learning: Bridging Representation, Vision-Language-Action, and World Models](https://arxiv.org/abs/2609.03927v1)
+  - [$\mathcal{N}_0$-Foundation: Towards the Age of Tactile Intelligence](https://arxiv.org/abs/2608.29601v1)
+  - [FluxVLA Engine: A One-Stop VLA Engineering Platform for Embodied Intelligence](https://arxiv.org/abs/2609.17210v1)
+  - [PrismGPT: Proxy-Guided Learning for Region-Aware Photo Editing with Self-Synthesized Reasoning](https://arxiv.org/abs/2609.24768v1)
+- AI Systems / HPC / Distributed Training & Inference：861 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、nlp、framework、robotics。
   - [Fine-Tuning Low-Bit Models with Gradient in Quantized Code Space](https://arxiv.org/abs/2608.30908v1)
   - [From Inference Engine to Inference Control Plane: Connecting vLLM, llm-d, and the Evolution of Efficient Distributed LLM Serving](https://arxiv.org/abs/2609.23130v1)
   - [Zero-I/O Fault Recovery for Sharded Deep Learning via Dynamic Framework Dependency Rebinding](https://arxiv.org/abs/2609.18178v1)
   - [IBIB: A Protocol for Measuring Enterprise AI Systems by Serving Route, Not Model Identifier](https://arxiv.org/abs/2609.10494v1)
   - [Accurate Distributed Tracing for Large-Scale AI Infrastructure: Time Synchronization as a Foundation for Reliable Observability](https://arxiv.org/abs/2609.23301v1)
-- Embodied Intelligence / VLA / World Models：789 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、cs.RO、cs.LG、language model。
-  - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
-  - [Toward Unified Robot Learning: Bridging Representation, Vision-Language-Action, and World Models](https://arxiv.org/abs/2609.03927v1)
-  - [$\mathcal{N}_0$-Foundation: Towards the Age of Tactile Intelligence](https://arxiv.org/abs/2608.29601v1)
-  - [FluxVLA Engine: A One-Stop VLA Engineering Platform for Embodied Intelligence](https://arxiv.org/abs/2609.17210v1)
-  - [Paint-Anything: Unified Any-Color Control for Image Generation and Editing](https://arxiv.org/abs/2609.20816v1)
-- Benchmark / Dataset / Evaluation：278 条进入跟踪；高频信号：evaluation、benchmark、nlp、robotics、dataset、language model、framework、cs.CL。
+- Benchmark / Dataset / Evaluation：293 条进入跟踪；高频信号：evaluation、benchmark、nlp、robotics、dataset、language model、cs.AI、framework。
   - [FolDeX: A Physical-World Benchmark for Long-Horizon Robotic Manipulation of Deformable Objects](https://arxiv.org/abs/2609.10243v1)
   - [AlgoWorlds: Benchmarking Tool Use for Global Optimization in Algorithmic Worlds](https://arxiv.org/abs/2608.29397v1)
   - [Paint What You See: Benchmarking Dexterous Visual Tool Use in Multimodal Agents](https://arxiv.org/abs/2608.25417)
+  - [DUMA-Bench: A Dual-Control Multi-Agent Benchmark for Evaluating LLM Agent Security](https://arxiv.org/abs/2609.24662v1)
   - [Benchmark Radar: A Living Database and Search Engine for AI Benchmarks and Evaluation](https://arxiv.org/abs/2609.11115)
-  - [FedLTLib: A Comprehensive Benchmark for Federated Long-Tail Learning](https://arxiv.org/abs/2609.15625v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：250 条进入跟踪；高频信号：agent、reasoning、framework、language model、nlp、agentic、benchmark、environment。
+- Agent / Reasoning / Inference-time Scaling / Planning：268 条进入跟踪；高频信号：agent、reasoning、framework、language model、nlp、agentic、benchmark、environment。
   - [ModularRSI: Modular and Generalizable Recursive Harness Self-Improvement](https://arxiv.org/abs/2609.14857)
   - [Editable Visual Design](https://arxiv.org/abs/2609.04034)
   - [Environments as Scaffold: Enriching Feedback to Bootstrap Self-Evolving Agents in Long-Horizon Tasks](https://arxiv.org/abs/2609.08404)
   - [ContextPilot: Teaching Agents for Proactive Context Management via Fine-grained RL](https://arxiv.org/abs/2608.28476)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
-- NLP：104 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、framework、reasoning、evaluation、inference。
+- NLP：114 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、framework、reasoning、evaluation、corpus。
   - [AuK Technical Report: An Open-Source Foundational Model for Speech Generation and Editing](https://arxiv.org/abs/2609.08936v1)
   - [Enabling Streaming User Transcription in Full-Duplex Speech-to-Speech Models](https://arxiv.org/abs/2609.15759v1)
   - [FRAUDSkill: Structured Frozen-Weight Skill Optimization for Audio Anti-Fraud Detection](https://arxiv.org/abs/2609.18766v1)
   - [JPO: Juris Policy Optimization for Structured Legal Reasoning in Criminal Judgment Prediction](https://arxiv.org/abs/2608.29616v1)
   - [Euston: Training Away Mathematical Sycophancy Without Losing the Mathematics](https://arxiv.org/abs/2609.23205v1)
-- Institutional Updates：86 条进入跟踪；高频信号：openai.com、deepmind.google、research.google、anthropic.com、nvidia.com、meta.com、microsoft.com、lab。
+- Institutional Updates：89 条进入跟踪；高频信号：openai.com、deepmind.google、research.google、anthropic.com、nvidia.com、meta.com、microsoft.com、lab。
   - [How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules](https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials)
   - [Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training](https://openai.com/index/what-students-gain-from-chatgpt-critical-thinking-training)
   - [Jul 27, 2026 Announcements Cognizant and Anthropic expand their partnership to bring Claude to enterprise clients](https://www.anthropic.com/news/cognizant-anthropic)
   - [GigaPath-Flash and GigaTIME-Flash: Toward population-scale discovery with efficient pathology foundation models](https://www.microsoft.com/en-us/research/blog/gigapath-flash-and-gigatime-flash-toward-population-scale-discovery-with-efficient-pathology-foundation-models/)
   - [Introducing Astra for Law](https://openai.com/index/astra-for-law)
-- Other Highlights：73 条进入跟踪；高频信号：stanford.edu、cmu.edu、openai.com、safety、security、framework、anthropic.com、alignment。
+- Other Highlights：76 条进入跟踪；高频信号：stanford.edu、cmu.edu、openai.com、safety、security、framework、anthropic.com、alignment。
   - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
   - [Paul Christiano joins OpenAI Foundation Board](https://openai.com/index/paul-christiano-joins-openai-foundation-board)
   - [Path to Astra: critical capabilities and frontier safeguards](https://openai.com/index/path-to-astra)
   - [StepGuard: Learning Step-Level Guardrails with Scalable Supervision and Safety-Utility Balancing](https://arxiv.org/abs/2608.24777)
   - [Aug 31, 2026 Improving our alignment and security efforts](https://www.anthropic.com/news/improving-alignment-security-efforts)
-- CV：61 条进入跟踪；高频信号：image、video、language model、framework、visual、multimodal、diffusion、vision-language。
+- CV：64 条进入跟踪；高频信号：image、framework、video、language model、visual、diffusion、multimodal、vision-language。
   - [NeoMME: A Single-Tower Multimodal-Native Multilingual Foundation Encoder for Efficient Fine-Tuning and Inference](https://arxiv.org/abs/2609.01657)
   - [LynnReal-Omni: Native multi-modal Video Generation for Agentic Visual Workflows](https://arxiv.org/abs/2609.15863v1)
   - [LLaDA-Image: Building Strong Image Generators with Fully Open Training Recipes](https://arxiv.org/abs/2609.03796)
   - [Qwen-Drive-1.0: An Initial Step towards a Vision-Language Foundation Model for Autonomous Driving](https://arxiv.org/abs/2609.00111)
   - [Harnessing CLIP and DINO: An Uncertainty-Aware Cascaded Fusion Network for Generalizable Deepfake Image Detection](https://arxiv.org/abs/2609.07670)
-- Agent Runtime / RL Infrastructure / Scheduling：57 条进入跟踪；高频信号：agent、cs.AI、nlp、cs.LG、robotics、framework、runtime、evaluation。
+- Agent Runtime / RL Infrastructure / Scheduling：62 条进入跟踪；高频信号：agent、cs.AI、nlp、cs.LG、robotics、framework、runtime、agentic。
+  - [RRSI: Regularized Recursive Self-Improvement of Agent Harnesses](https://arxiv.org/abs/2609.24972v1)
   - [Omni Interaction Agent Technical Report](https://arxiv.org/abs/2609.08977v1)
   - [EvoOntology: A Self-Evolving Ontology Layer for Data Agents](https://arxiv.org/abs/2609.15779v1)
   - [Substrate-Aware AI Agents: Execution Context as a First-Class Input](https://arxiv.org/abs/2609.05232v1)
   - [Stellar Colosseum: A Many-Agent Harness for Long-Horizon Research in Mathematics and Theoretical Computer Science](https://arxiv.org/abs/2609.15983v1)
-  - [HazardAuditor: From Executable Threats to Safer Computer-Use Agents](https://arxiv.org/abs/2609.15134)
-- Compression / Reliability for AI Infrastructure：51 条进入跟踪；高频信号：nlp、cs.LG、robotics、cs.NI、framework、HPC、data path、compression。
+- Compression / Reliability for AI Infrastructure：57 条进入跟踪；高频信号：nlp、cs.LG、robotics、cs.NI、HPC、data path、framework、compression。
   - [Proportional-Fair Resource Allocation and Dual-Threshold Early-Exit Inference for Secure Cooperative Multi-Layer Edge Intelligence](https://arxiv.org/abs/2609.15847v1)
   - [Random Attention: Rethinking KV Cache Eviction for Efficient Reasoning](https://arxiv.org/abs/2609.03430)
   - [Syndrome Decoding for Silent Data Corruption in Quantized Integer GPU Arithmetic](https://arxiv.org/abs/2609.19743v1)
@@ -99,18 +99,18 @@
   - [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
   - [OpenWAM/OpenWAM](https://github.com/OpenWAM/OpenWAM)
   - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
-- GPU-Centric I/O / Networking / Storage：26 条进入跟踪；高频信号：HPC、data path、gpu、storage、cs.DC、systems、architecture、cs.NI。
+- GPU-Centric I/O / Networking / Storage：29 条进入跟踪；高频信号：HPC、data path、gpu、storage、cs.DC、systems、cs.NI、architecture。
   - [Scalable Packet Tracking on FPGAs for Erasure-Coded RDMA over Lossy WANs](https://arxiv.org/abs/2609.21774v1)
   - [Cnuas: A Software-Defined AI/HPC Rack-scale Emulation Platform and Hyperscale Data Center Facility Twin](https://arxiv.org/abs/2609.15889v1)
   - [Towards Training Private LLMs: Exploring Fine-Tuning Language Models on Apple Silicon with RDMA over Thunderbolt](https://arxiv.org/abs/2609.18066v1)
   - [Towards Training Private LLMs: Exploring Fine-Tuning Language Models on Apple Silicon with RDMA over Thunderbolt](https://arxiv.org/abs/2609.18066v2)
   - [mKernel: Fast Multi-GPU, Multi-Node Fused Kernels](https://arxiv.org/abs/2609.13585v1)
-- Model Distillation / Model Compression / Efficient Training：20 条进入跟踪；高频信号：distillation、framework、language model、alignment、inference、video、github、diffusion。
+- Model Distillation / Model Compression / Efficient Training：21 条进入跟踪；高频信号：distillation、framework、alignment、language model、inference、video、github、dataset。
   - [Mask Forcing: Improving Autoregressive Video Diffusion Distillation via Dual-Noise Masking Rollout](https://arxiv.org/abs/2609.09123v1)
   - [X-AuT: Progressive Audio-Encoder Compression for Speech LLMs with Cross-Scale Distillation](https://arxiv.org/abs/2609.11412)
   - [On-Policy Distillation for Vision-Language Model Adaptation, an Effective Paradigm on Low-Quality Multimodal Data](https://arxiv.org/abs/2609.10321v1)
+  - [DTKDP: A Dual Teacher Knowledge Distillation and Pruning Framework for Lightweight Oriented SAR Ship Detection](https://arxiv.org/abs/2609.24872v1)
   - [FlashRender: Few-Step Generative Rendering via Camera-Controlled Video MeanFlow](https://arxiv.org/abs/2609.03563)
-  - [Lightning Weave: Improving the Accuracy-Efficiency Frontier of Reasoning Models through Capability Composition](https://arxiv.org/abs/2609.14708)
 - Model Architecture：16 条进入跟踪；高频信号：attention、architecture、transformer、sparse attention、github、optimization、agent、cs.CL。
   - [Persistent Recurrent Memory Between Transformer Layers - Improves Language Model Generalization](https://arxiv.org/abs/2609.17251v1)
   - [LongCat-Video Technical Report](https://arxiv.org/abs/2510.22200)
@@ -154,8 +154,8 @@
 - [wilpel/caveman-compression](https://github.com/wilpel/caveman-compression)（GitHub / Open Source Projects，stars 1096）
 
 ## 月度判断
-- AI Systems / HPC / Distributed Training & Inference：本月可继续沿着 [Fine-Tuning Low-Bit Models with Gradient in Quantized Code Space](https://arxiv.org/abs/2608.30908v1) 追踪。
 - Embodied Intelligence / VLA / World Models：本月可继续沿着 [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) 追踪。
+- AI Systems / HPC / Distributed Training & Inference：本月可继续沿着 [Fine-Tuning Low-Bit Models with Gradient in Quantized Code Space](https://arxiv.org/abs/2608.30908v1) 追踪。
 - Benchmark / Dataset / Evaluation：本月可继续沿着 [FolDeX: A Physical-World Benchmark for Long-Horizon Robotic Manipulation of Deformable Objects](https://arxiv.org/abs/2609.10243v1) 追踪。
 - Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [ModularRSI: Modular and Generalizable Recursive Harness Self-Improvement](https://arxiv.org/abs/2609.14857) 追踪。
 - NLP：本月可继续沿着 [AuK Technical Report: An Open-Source Foundational Model for Speech Generation and Editing](https://arxiv.org/abs/2609.08936v1) 追踪。
