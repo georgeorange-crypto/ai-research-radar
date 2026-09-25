@@ -2,6 +2,7 @@
 
 | 日期 | 今日 Must Read 数量 | 今日主要方向 | 链接 |
 |---|---:|---|---|
+| 2026-09-25 | 2 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-09-25.md](daily/2026/09/2026-09-25.md) |
 | 2026-09-24 | 3 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-09-24.md](daily/2026/09/2026-09-24.md) |
 | 2026-09-23 | 3 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-09-23.md](daily/2026/09/2026-09-23.md) |
 | 2026-09-22 | 3 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-09-22.md](daily/2026/09/2026-09-22.md) |
