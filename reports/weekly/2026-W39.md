@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W39
 
 - 日期范围：2026-09-21 至 2026-09-27
-- 纳入日报：6 份
-- 跟踪条目：1441；MUST_READ 12；SKIM 35；ARCHIVE 313
+- 纳入日报：7 份
+- 跟踪条目：1443；MUST_READ 12；SKIM 35；ARCHIVE 315
 
 ## 本周最重要论文 / 动态
 - [RRSI: Regularized Recursive Self-Improvement of Agent Harnesses](https://arxiv.org/abs/2609.24972v1)（MUST_READ，Agent Runtime / RL Infrastructure / Scheduling，personal 0.90，global 0.54）
@@ -37,7 +37,7 @@
   - [SWE-Serve: Benchmarking Agentic Engineering For Production Inference Serving](https://arxiv.org/abs/2609.26777v1)
   - [To Trust or Not to Trust: Retrieval-Augmented Fact Checking in Speech](https://arxiv.org/abs/2609.30227v1)
   - [AERIAL: Adversarial Evaluation of Robustness in Accuracy-Preserving Low-Precision EEG Decoders](https://arxiv.org/abs/2609.30037v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：113 条进入跟踪；高频信号：agent、reasoning、agentic、framework、nlp、language model。
+- Agent / Reasoning / Inference-time Scaling / Planning：114 条进入跟踪；高频信号：agent、reasoning、agentic、framework、nlp、language model。
   - [Qwen-Planner-Agent: A Closed-Loop AI-for-AI Framework for Real-World Mobile Planner Agents](https://arxiv.org/abs/2609.29892)
   - [The Tasteful Agent: Measuring and Improving Taste in Long-Horizon Tasks](https://arxiv.org/abs/2609.25804)
   - [Verifiable Hidden Dynamics Play: Generating Agentic RL Environments from Solved Mechanisms](https://arxiv.org/abs/2609.27321)
@@ -109,18 +109,18 @@
   - [Your Transformer Can Hold Two Thoughts at Once: Evidence of Linear Superposition in LLMs](https://arxiv.org/abs/2609.29845)
   - [Unlimited OCR Works](https://arxiv.org/abs/2606.23050)
   - [NVIDIA Releases New AI Models and Developer Tools to Advance Autonomous Vehicle Ecosystem](https://blogs.nvidia.com/blog/autonomous-vehicle-ecosystem-ai-models-developer-tools/)
+- Learning Methods / Optimization / Representation Learning：6 条进入跟踪；高频信号：gradient、optimization、language model、framework、implementation、nlp。
+  - [Riemannian Gradient Descent for Gaussian Mixture Models with unknown diagonal covariances](https://arxiv.org/abs/2609.30220v1)
+  - [What exactly does word2vec learn?](http://bair.berkeley.edu/blog/2025/09/01/qwem-word2vec-theory/)
+  - [A Zeroth-Order Paradigm for LLM Preference Alignment](https://arxiv.org/abs/2609.19144)
+  - [PaddleOCR-VL-1.6: Expanding the Frontier of Document Parsing with Under-Optimized Region Refinement and Progressive Post-Training](https://arxiv.org/abs/2606.03264)
+  - [PyTorch Distributed: Experiences on Accelerating Data Parallel Training](https://arxiv.org/abs/2006.15704)
 - RL：5 条进入跟踪；高频信号：evaluation、optimization、policy optimization、reinforcement learning、framework、diffusion。
   - [RewardVerse: Rubric-Guided Policy Optimization for Video Reward Modeling](https://arxiv.org/abs/2609.22947)
   - [AV-GRPO: Modality-Anchored Decoupling Diffusion Reinforcement Learning for Joint Audio-Video Generation](https://arxiv.org/abs/2609.29816)
   - [DACA-GRPO: Denoising-Aware Credit Assignment for Reinforcement Learning in Diffusion Language Models](https://machinelearning.apple.com/research/denoising-aware-credit-assignment)
   - [RULER: Instance-aware Rubric Rewards for SVG Generation](https://arxiv.org/abs/2609.25270)
   - [Rethinking Critic Learning in PPO: Understanding and Mitigating Value Flattening](https://arxiv.org/abs/2609.18708)
-- Learning Methods / Optimization / Representation Learning：5 条进入跟踪；高频信号：gradient、optimization、language model、framework、implementation、nlp。
-  - [Riemannian Gradient Descent for Gaussian Mixture Models with unknown diagonal covariances](https://arxiv.org/abs/2609.30220v1)
-  - [What exactly does word2vec learn?](http://bair.berkeley.edu/blog/2025/09/01/qwem-word2vec-theory/)
-  - [A Zeroth-Order Paradigm for LLM Preference Alignment](https://arxiv.org/abs/2609.19144)
-  - [PaddleOCR-VL-1.6: Expanding the Frontier of Document Parsing with Under-Optimized Region Refinement and Progressive Post-Training](https://arxiv.org/abs/2606.03264)
-  - [Transfer learning for genomic prediction in underrepresented populations](https://research.google/blog/transfer-learning-for-genomic-prediction-in-underrepresented-populations/)
 - Novel Class Discovery / Open-World Learning / OOD / Continual Learning：3 条进入跟踪；高频信号：framework、alignment、cs.CL、dataset、multimodal、nlp。
   - [Low resource cross-modal alignment using HGNN to enhance speech representation](https://arxiv.org/abs/2609.23191v1)
   - [Learning to Discover Interesting Mathematics](https://arxiv.org/abs/2609.28603)

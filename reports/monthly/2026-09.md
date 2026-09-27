@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-09
 
-- 纳入日报：26 份
-- 跟踪条目：3471；MUST_READ 34；SKIM 129；ARCHIVE 615
+- 纳入日报：27 份
+- 跟踪条目：3472；MUST_READ 34；SKIM 129；ARCHIVE 616
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -123,7 +123,7 @@
   - [Expert-Space Exploration in MoE Reinforcement Learning](https://arxiv.org/abs/2609.13058)
   - [When Does Predictor-Based RL Align with Human Perception? A Study of Subjective Rewards in Codec-Based Speech Language Models](https://arxiv.org/abs/2608.31035v1)
   - [DACA-GRPO: Denoising-Aware Credit Assignment for Reinforcement Learning in Diffusion Language Models](https://machinelearning.apple.com/research/denoising-aware-credit-assignment)
-- Learning Methods / Optimization / Representation Learning：10 条进入跟踪；高频信号：gradient、optimization、framework、nlp、robotics、recovery、stat.ML、attention。
+- Learning Methods / Optimization / Representation Learning：11 条进入跟踪；高频信号：gradient、optimization、framework、nlp、robotics、recovery、stat.ML、attention。
   - [Riemannian Gradient Descent for Gaussian Mixture Models with unknown diagonal covariances](https://arxiv.org/abs/2609.30220v1)
   - [What exactly does word2vec learn?](http://bair.berkeley.edu/blog/2025/09/01/qwem-word2vec-theory/)
   - [Self-Supervised Lexical Representation Learning for Fast, Large-Scale Phylogenetic Inference](https://arxiv.org/abs/2609.05262v1)

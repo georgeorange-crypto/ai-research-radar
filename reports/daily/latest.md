@@ -1,4 +1,4 @@
-# AI Research Radar - 2026-09-26
+# AI Research Radar - 2026-09-27
 
 - 研究画像：George Research Profile v2
 - 总结模式：单模型
@@ -15,12 +15,12 @@
 
 ## 0. 每日概览
 
-- 最重要方向：AI 基础设施压缩 / 可靠性
-- 必读数量：1（PUBG Ally: A Conversational Embodied Agent as an AI Teammate）
-- 略读数量：8（Qwen-Planner-Agent: A Closed-Loop AI-for-AI Framework for Real-World Mobile Planner Agents；Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Just-in-Time Memory: Learning to Curate Task-Adaptive Memory for LLM Agents；IterSynth: Rethinking Deep Search Agents via Role-Decoupled Iterative Synthesis）
-- 关注数量：12（2026 BAIR Graduate Showcase；LayerCheck: Adaptive Layer-wise Checkpointing for Large Language Model Post-training；Identifying Interactions at Scale for LLMs；Uranus: Building the Next-Generation Simulation Infrastructure for Embodied AI；Coding Agents for Generalized Task and Motion Planning Problems）
-- 关键词：agent、reasoning、agentic、long-horizon、llm agent、evaluation、environment、framework
-- 判断：今日主线：模型压缩的关注点从单纯变小转向保留推理结构、排序一致性和部署可用性。
+- 最重要方向：Agent / 推理 / 推理时扩展 / 规划
+- 必读数量：0
+- 略读数量：8（Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Qwen-Planner-Agent: A Closed-Loop AI-for-AI Framework for Real-World Mobile Planner Agents；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Just-in-Time Memory: Learning to Curate Task-Adaptive Memory for LLM Agents；IterSynth: Rethinking Deep Search Agents via Role-Decoupled Iterative Synthesis）
+- 关注数量：12（2026 BAIR Graduate Showcase；LayerCheck: Adaptive Layer-wise Checkpointing for Large Language Model Post-training；Uranus: Building the Next-Generation Simulation Infrastructure for Embodied AI；Identifying Interactions at Scale for LLMs；PUBG Ally: A Conversational Embodied Agent as an AI Teammate）
+- 关键词：reasoning、agent、long-horizon、llm agent、environment、framework、agentic、language model
+- 判断：今日主线：没有强制深读项，建议归档观察。
 
 ## 1. 核心研究方向
 
@@ -33,7 +33,7 @@
 - 无。
 
 #### 关注
-- [LayerCheck: Adaptive Layer-wise Checkpointing for Large Language Model Post-training](https://arxiv.org/abs/2609.27193v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.88；全局热度=0.39；炒作风险=0.00）
+- [LayerCheck: Adaptive Layer-wise Checkpointing for Large Language Model Post-training](https://arxiv.org/abs/2609.27193v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.87；全局热度=0.36；炒作风险=0.00）
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.86；全局热度=0.39；炒作风险=0.00）
 - [NNV3: Expanding Neural Network Verification to New Architectures and Domains](https://arxiv.org/abs/2609.30050v1) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.83；全局热度=0.39；炒作风险=0.00）
 
@@ -47,32 +47,19 @@
 
 #### 关注
 - [Paging the Experts: A Reproducible Characterization of Flash-Backed MoE Inference on iPhone](https://arxiv.org/abs/2609.29032v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.77；全局热度=0.38；炒作风险=0.00）
-- [Where Does Streaming State Cost Go? A Reproducible Comparison of Flink and Kafka Streams on Kafka](https://arxiv.org/abs/2609.28779v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.77；全局热度=0.38；炒作风险=0.00）
-- [CerebroSim: Scalable Whole-Brain Simulator at 100-Trillion-Synapse Scale on the LineShine Supercomputer](https://arxiv.org/abs/2609.27482v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.77；全局热度=0.38；炒作风险=0.00）
+- [MemoryAthena: Adaptive Routing over Latent and Generated Memories](https://arxiv.org/abs/2609.25853) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.76；全局热度=0.46；炒作风险=0.00）
+- [Where Does Streaming State Cost Go? A Reproducible Comparison of Flink and Kafka Streams on Kafka](https://arxiv.org/abs/2609.28779v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.76；全局热度=0.35；炒作风险=0.00）
 
 ### 1.3 AI 基础设施压缩 / 可靠性
 
 #### 必读
-##### 1. [PUBG Ally: A Conversational Embodied Agent as an AI Teammate](https://arxiv.org/abs/2609.29837)
-- 阅读优先级：必读
-- 来源：Hugging Face Daily Papers（聚合来源；角色=论文来源）
-- 发布时间：2026-09-23T20:00:00+00:00
-- 主方向：AI 基础设施压缩 / 可靠性
-- 次级标签：Agent 运行时 / RL 基础设施 / 调度、Agent / 推理 / 推理时扩展 / 规划、模型蒸馏 / 压缩 / 高效训练、Benchmark / 数据集 / 评测
-- 依据层级：仅摘要
-- 评分：个人相关度=0.85，全局热度=0.50，可信度=0.87，证据强度=0.85，炒作风险=0.00，反馈=0.00
-- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：PUBG Ally: A Conversational Embodied Agent as an AI Teammate：研究论文，方向为“AI 基础设施压缩 / 可靠性”；主要线索：agent、agentic、communication、compression。
-- 问题：它关注“AI 基础设施压缩 / 可靠性”里的 agent、agentic、communication、compression 等问题。
-- 方法 / 贡献：摘要可确认它提出或引入了 agent、agentic、communication、compression；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对 George 重要：阅读优先级：必读 编辑优先级：0.73 今天安排深读。 个人相关度：0.85，研究相关度：0.98。
-- 建议动作：读 PDF
-- 命中关键词：agent、agentic、communication、compression、evaluation、model compression、recovery、runtime
+- 无。
 
 #### 略读
 - 无。
 
 #### 关注
+- [PUBG Ally: A Conversational Embodied Agent as an AI Teammate](https://arxiv.org/abs/2609.29837) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.84；全局热度=0.47；炒作风险=0.00）
 - [SAGE: Mitigating Long-Horizon Reasoning Biases via Topological Guidance](https://arxiv.org/abs/2609.30192v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.79；全局热度=0.40；炒作风险=0.00）
 - [Temporal Gradient Inversion for Private Trajectory Reconstruction in Embodied Reinforcement Learning](https://arxiv.org/abs/2609.30258v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.78；全局热度=0.39；炒作风险=0.00）
 
@@ -86,7 +73,7 @@
 
 #### 关注
 - [KernelOPT: Dispatch-Aware Agentic Search for GPU Kernel Optimization](https://arxiv.org/abs/2609.30059v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.84；全局热度=0.40；炒作风险=0.00）
-- [Rufus-Air: An Open LLM Post-Training Recipe](https://arxiv.org/abs/2609.29421) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.82；全局热度=0.51；炒作风险=0.00）
+- [Rufus-Air: An Open LLM Post-Training Recipe](https://arxiv.org/abs/2609.29421) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.81；全局热度=0.48；炒作风险=0.00）
 - [LLM Agents Can Easily Tamper With Their Own Traces](https://arxiv.org/abs/2609.30266v1) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.81；全局热度=0.39；炒作风险=0.00）
 
 ### 1.5 具身智能 / VLA / 世界模型
@@ -99,7 +86,7 @@
 
 #### 关注
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/) （关注；具身智能 / VLA / 世界模型；个人相关度=0.97；全局热度=0.41；炒作风险=0.00）
-- [Uranus: Building the Next-Generation Simulation Infrastructure for Embodied AI](https://arxiv.org/abs/2609.24815) （关注；具身智能 / VLA / 世界模型；个人相关度=0.86；全局热度=0.47；炒作风险=0.00）
+- [Uranus: Building the Next-Generation Simulation Infrastructure for Embodied AI](https://arxiv.org/abs/2609.24815) （关注；具身智能 / VLA / 世界模型；个人相关度=0.86；全局热度=0.48；炒作风险=0.00）
 - [Coding Agents for Generalized Task and Motion Planning Problems](https://arxiv.org/abs/2609.30233v1) （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.42；炒作风险=0.00）
 
 ## 2. 支撑性 AI 基础方向
@@ -113,15 +100,15 @@
 - [SciWalker: Synthesizing Scientific Coding Problems with Operator Graphs and Execution Feedback](https://arxiv.org/abs/2609.30054v1) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.80；全局热度=0.40；炒作风险=0.00）
 
 ### 强化学习
-- [AV-GRPO: Modality-Anchored Decoupling Diffusion Reinforcement Learning for Joint Audio-Video Generation](https://arxiv.org/abs/2609.29816) （关注；RL；个人相关度=0.70；全局热度=0.52；炒作风险=0.00）
 - [DACA-GRPO: Denoising-Aware Credit Assignment for Reinforcement Learning in Diffusion Language Models](https://machinelearning.apple.com/research/denoising-aware-credit-assignment) （关注；RL；个人相关度=0.62；全局热度=0.29；炒作风险=0.00）
+- [AV-GRPO: Modality-Anchored Decoupling Diffusion Reinforcement Learning for Joint Audio-Video Generation](https://arxiv.org/abs/2609.29816) （归档；RL；个人相关度=0.70；全局热度=0.48；炒作风险=0.00）
 
 ### 模型架构
-- [Your Transformer Can Hold Two Thoughts at Once: Evidence of Linear Superposition in LLMs](https://arxiv.org/abs/2609.29845) （归档；模型架构；个人相关度=0.52；全局热度=0.51；炒作风险=0.00）
+- [Your Transformer Can Hold Two Thoughts at Once: Evidence of Linear Superposition in LLMs](https://arxiv.org/abs/2609.29845) （归档；模型架构；个人相关度=0.51；全局热度=0.47；炒作风险=0.00）
 - [Unlimited OCR Works](https://arxiv.org/abs/2606.23050) （归档；模型架构；个人相关度=0.45；全局热度=0.41；炒作风险=0.00）
 
 ### 多模态 / VLM / 计算机视觉
-- [Rate-distortion optimization for full-reference image quality metrics via stochastic Hessian estimates](https://arxiv.org/abs/2609.30077) （归档；CV；个人相关度=0.58；全局热度=0.47；炒作风险=0.00）
+- [Rate-distortion optimization for full-reference image quality metrics via stochastic Hessian estimates](https://arxiv.org/abs/2609.30077) （归档；CV；个人相关度=0.57；全局热度=0.44；炒作风险=0.00）
 - [On the Diffusibility of High-Dimensional Latents](https://arxiv.org/abs/2609.28473) （归档；CV；个人相关度=0.56；全局热度=0.45；炒作风险=0.00）
 
 ### NLP
@@ -132,8 +119,8 @@
 - 无。
 
 ### 模型蒸馏
-- [ViRDM: Taming Representation Distribution Matching for Few-Step Causal Video Generation](https://arxiv.org/abs/2609.28923) （关注；模型蒸馏 / 模型压缩；个人相关度=0.78；全局热度=0.50；炒作风险=0.00）
 - [Six Layers Less: Encoder Pruning for Whisper with Label-Free Recovery](https://arxiv.org/abs/2609.27980) （关注；模型蒸馏 / 模型压缩；个人相关度=0.78；全局热度=0.48；炒作风险=0.00）
+- [ViRDM: Taming Representation Distribution Matching for Few-Step Causal Video Generation](https://arxiv.org/abs/2609.28923) （关注；模型蒸馏 / 模型压缩；个人相关度=0.78；全局热度=0.46；炒作风险=0.00）
 - [Compressing Streaming Neural Audio Encoders via Latent-Space Distillation](https://machinelearning.apple.com/research/latent-space-distillation) （关注；模型蒸馏 / 模型压缩；个人相关度=0.69；全局热度=0.38；炒作风险=0.00）
 
 ## 3. 跨方向连接
@@ -241,7 +228,7 @@
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 11 个只进入附录标题列表：reports/appendix/2026-09-26-benchmarks.md
+- 其余 11 个只进入附录标题列表：reports/appendix/2026-09-27-benchmarks.md
 
 ## 5. GitHub / 开源项目
 
@@ -253,19 +240,19 @@
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：上下文压缩 / 长上下文 / 记忆、NLP、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.61，全局热度=0.51，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.61，全局热度=0.48，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
 - 是什么：unclecode/crawl4ai：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：RAG、agent、github、github.com。
 - 问题：它关注“GitHub / 开源项目推荐”里的 RAG、agent、github、github.com 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：研读代码 编辑优先级：0.24 按 GitHub 项目动作处理。 个人相关度：0.61，研究相关度：0.62。
+- 为什么对 George 重要：阅读优先级：研读代码 编辑优先级：0.21 按 GitHub 项目动作处理。 个人相关度：0.61，研究相关度：0.62。
 - 建议动作：研读代码
 - 命中关键词：RAG、agent、github、github.com、nlp、open-source
 
 ##### 2. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-09-26T00:40:55+00:00
+- 发布时间：2026-09-27T00:47:16+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -278,36 +265,36 @@
 - 建议动作：克隆运行
 - 命中关键词：GPU cluster、agent、cluster、github、github.com、gpu、open-source
 
-##### 3. [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
+##### 3. [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-09-25T23:44:29+00:00
+- 发布时间：2026-09-26T08:27:01+00:00
 - 主方向：GitHub / 开源项目推荐
-- 次级标签：Model Compression、Quantization、工具库
+- 次级标签：上下文压缩 / 长上下文 / 记忆、Benchmark / 数据集 / 评测、Agent 运行时 / RL 基础设施 / 调度、其他亮点、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.78，全局热度=0.62，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.63，全局热度=0.51，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：NVIDIA/Model-Optimizer：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：architecture、checkpoint、distillation、github。
-- 问题：它关注“GitHub / 开源项目推荐”里的 architecture、checkpoint、distillation、github 等问题。
+- 是什么：Shubhamsaboo/awesome-llm-apps：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：RAG、agent、eval、github。
+- 问题：它关注“GitHub / 开源项目推荐”里的 RAG、agent、eval、github 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.33 按 GitHub 项目动作处理。 个人相关度：0.78，研究相关度：0.87。
+- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.24 按 GitHub 项目动作处理。 个人相关度：0.63，研究相关度：0.65。
 - 建议动作：克隆运行
-- 命中关键词：architecture、checkpoint、distillation、github、github.com、inference、library、open-source
+- 命中关键词：RAG、agent、eval、github、github.com、open source、open-source、security
 
 ### Paper-linked Repos
 ##### 1. [Paritok-official/paritok-4b-v1](https://github.com/Paritok-official/paritok-4b-v1)
 - 阅读优先级：研读代码
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-09-20T17:28:05+00:00
+- 发布时间：2026-09-26T23:01:53+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：上下文压缩 / 长上下文 / 记忆、Agent / 推理 / 推理时扩展 / 规划、AI 基础设施压缩 / 可靠性、Benchmark / 数据集 / 评测、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.68，全局热度=0.56，可信度=0.88，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.69，全局热度=0.62，可信度=0.88，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
 - 是什么：Paritok-official/paritok-4b-v1：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：agent、agentic、compression、context window。
 - 问题：它关注“GitHub / 开源项目推荐”里的 agent、agentic、compression、context window 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：研读代码 编辑优先级：0.22 按 GitHub 项目动作处理。 个人相关度：0.68，研究相关度：0.69。
+- 为什么对 George 重要：阅读优先级：研读代码 编辑优先级：0.29 按 GitHub 项目动作处理。 个人相关度：0.69，研究相关度：0.69。
 - 建议动作：研读代码
 - 命中关键词：agent、agentic、compression、context window、evaluation、github、github.com、open-source
 
@@ -327,21 +314,21 @@
 - 建议动作：研读代码
 - 命中关键词：compression、environment、eval、github、github.com、image、inference、open-source
 
-##### 3. [thu-ml/TurboDiffusion](https://github.com/thu-ml/TurboDiffusion)
+##### 3. [microsoft/MInference](https://github.com/microsoft/MInference)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-08-27T14:12:34+00:00
+- 发布时间：2026-09-10T13:47:40+00:00
 - 主方向：GitHub / 开源项目推荐
-- 次级标签：模型蒸馏 / 压缩 / 高效训练、CV、AI 系统 / HPC / 分布式训练与推理、模型架构、工具库
+- 次级标签：上下文压缩 / 长上下文 / 记忆、模型架构、AI 系统 / HPC / 分布式训练与推理、其他亮点、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.71，全局热度=0.51，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.65，全局热度=0.51，可信度=0.88，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：thu-ml/TurboDiffusion：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：attention、diffusion、distillation、framework。
-- 问题：它关注“GitHub / 开源项目推荐”里的 attention、diffusion、distillation、framework 等问题。
+- 是什么：microsoft/MInference：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：attention、github、github.com、inference。
+- 问题：它关注“GitHub / 开源项目推荐”里的 attention、github、github.com、inference 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.20 按 GitHub 项目动作处理。 个人相关度：0.71，研究相关度：0.78。
+- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.17 按 GitHub 项目动作处理。 个人相关度：0.65，研究相关度：0.65。
 - 建议动作：克隆运行
-- 命中关键词：attention、diffusion、distillation、framework、github、github.com、implementation、inference
+- 命中关键词：attention、github、github.com、inference、long-context、open-source、release、sparse attention
 
 ### Evergreen Toolkits
 - 今日无需要重复推荐的常青工具库。
@@ -359,12 +346,6 @@
 
 ## 7. 高校 / 实验室雷达
 
-- [Qwen-Planner-Agent: A Closed-Loop AI-for-AI Framework for Real-World Mobile Planner Agents](https://arxiv.org/abs/2609.29892)
-  - 学校 / 实验室：Hugging Face
-  - 类型：paper
-  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.86
-  - 建议行动：skim
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
   - 学校 / 实验室：UC Berkeley
   - 类型：project
@@ -377,6 +358,12 @@
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：具身智能 / VLA / 世界模型，personal 0.86
   - 建议行动：watch
+- [Qwen-Planner-Agent: A Closed-Loop AI-for-AI Framework for Real-World Mobile Planner Agents](https://arxiv.org/abs/2609.29892)
+  - 学校 / 实验室：Hugging Face
+  - 类型：paper
+  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
+  - 与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.85
+  - 建议行动：skim
 - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - 学校 / 实验室：UC Berkeley
   - 类型：dataset
@@ -429,16 +416,14 @@
 
 ## 11. 常青经典
 
-### 1. [Toolformer](https://arxiv.org/abs/2302.04761)（2023）
-- 作者：Timo Schick、Jane Dwivedi-Yu、Roberto Dessì、Roberta Raileanu、Maria Lomeli、Luke Zettlemoyer、Nicola Cancedda、Thomas Scialom
-- topic_tags：agents、tool_use
-- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
-- 为什么经典：它展示了语言模型如何自监督学习调用外部工具，适合对照今天的 function calling、agentic workflow 和工具学习系统。
-- 今日新论文继承了什么问题：PUBG Ally: A Conversational Embodied Agent as an AI Teammate 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
-- 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
-- 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
-- 相关今日条目：
-  - [PUBG Ally: A Conversational Embodied Agent as an AI Teammate](https://arxiv.org/abs/2609.29837)（Compression / Reliability for AI Infrastructure；连接词：tool use）
+### 1. [Highly accurate protein structure prediction with AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)（2021）
+- 作者：John Jumper、Richard Evans、Alexander Pritzel、Tim Green、Michael Figurnov、Olaf Ronneberger、Kathryn Tunyasuvunakool、Russ Bates 等
+- topic_tags：ai_for_science、biology
+- 关联方向：Other Highlights
+- 为什么经典：AlphaFold 是 AI for Science 的标志性成果，适合在生物、蛋白质、科学发现和世界模型相关进展出现时重读。
+- 今日新论文继承了什么问题：今天的相关条目 与这篇经典论文共享一个概念问题，而不仅是关键词重合。
+- 它挑战了什么经典假设：需要阅读新论文后确认它是否改变了经典论文中的数据、模型或评估假设。
+- 它推进到什么新场景：暂时把它作为背景坐标，用来判断新工作是否只是换任务，还是确实推进了方法边界。
 
 ## 12. 反馈感知推荐
 
@@ -447,21 +432,20 @@
 ## 13. 来源健康状态
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
-- GitHub AI Research Projects：time budget exhausted（26 条） - 时间预算已耗尽 after 26 items
-- Meta AI Blog：0 items（0 条） - fetch completed with 0 items
+- GitHub AI Research Projects：time budget exhausted（23 条） - 时间预算已耗尽 after 23 items
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
 
 ## 14. 采集说明
 
-- 生成时间：2026-09-26T00:50:18.706784+00:00
-- 来源数量：31
-- 原始条目数：675
-- 去重后条目数：561
+- 生成时间：2026-09-27T00:51:15.602444+00:00
+- 来源数量：32
+- 原始条目数：687
+- 去重后条目数：568
 - API 请求总数：7
 - 各供应商 API 请求数：deepseek:6, kimi:1
-- 缓存命中：0
-- 缓存未命中：6
-- Benchmark 附录：reports/appendix/2026-09-26-benchmarks.md
+- 缓存命中：1
+- 缓存未命中：5
+- Benchmark 附录：reports/appendix/2026-09-27-benchmarks.md
 
-- 报告路径：reports/daily/2026/09/2026-09-26.md
-- 上一份报告链接：reports/daily/2026/09/2026-09-25.md
+- 报告路径：reports/daily/2026/09/2026-09-27.md
+- 上一份报告链接：reports/daily/2026/09/2026-09-26.md
