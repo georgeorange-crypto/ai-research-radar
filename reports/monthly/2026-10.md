@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-10
 
-- 纳入日报：3 份
-- 跟踪条目：869；MUST_READ 6；SKIM 19；ARCHIVE 248
+- 纳入日报：4 份
+- 跟踪条目：871；MUST_READ 6；SKIM 19；ARCHIVE 248
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -69,12 +69,12 @@
   - [Counting and Min-Cost Encoding for Tokenization in Large Language Models](https://arxiv.org/abs/2610.01127v1)
   - [LLM2Jev: LLMs Are Already Jev-Style Decision Models -- When and How to Fine-Tune Them](https://arxiv.org/abs/2610.02076v1)
   - [HeadEdit: Calibrating Language Model Behavior Through the Frozen Unembedding Matrix](https://arxiv.org/abs/2610.01170v1)
-- GitHub / Open Source Projects：23 条进入跟踪；高频信号：github、github.com、open-source、agent、compression、RAG、evaluation、long-context。
+- GitHub / Open Source Projects：25 条进入跟踪；高频信号：github、github.com、open-source、agent、compression、RAG、benchmark、evaluation。
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [OpenWAM/OpenWAM](https://github.com/OpenWAM/OpenWAM)
+  - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
   - [OpenMOSS/OpenETA](https://github.com/OpenMOSS/OpenETA)
   - [OpenGVLab/VideoChat-Flash](https://github.com/OpenGVLab/VideoChat-Flash)
-  - [thu-coai/Glyph](https://github.com/thu-coai/Glyph)
 - CV：19 条进入跟踪；高频信号：image、video、visual、diffusion、language model、vision-language、detection、multimodal。
   - [PixelUMM: Encoder-Free Unified Image and Video Understanding and Generation](https://arxiv.org/abs/2609.38597)
   - [Beyond the Remembered World: Predictive 4D Belief for Persistent Navigation in Evolving Worlds](https://arxiv.org/abs/2609.39166)
@@ -143,11 +143,11 @@
 - [cleanlab/cleanlab](https://github.com/cleanlab/cleanlab)（GitHub / Open Source Projects，stars 11683）
 - [open-compass/opencompass](https://github.com/open-compass/opencompass)（GitHub / Open Source Projects，stars 7486）
 - [ymcui/Chinese-LLaMA-Alpaca-2](https://github.com/ymcui/Chinese-LLaMA-Alpaca-2)（GitHub / Open Source Projects，stars 7113）
+- [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)（GitHub / Open Source Projects，stars 5194）
 - [rednote-machine-learning/RedKnot](https://github.com/rednote-machine-learning/RedKnot)（GitHub / Open Source Projects，stars 2965）
 - [Paritok-official/paritok-4b-v1](https://github.com/Paritok-official/paritok-4b-v1)（GitHub / Open Source Projects，stars 1453）
 - [microsoft/MInference](https://github.com/microsoft/MInference)（GitHub / Open Source Projects，stars 1229）
 - [wilpel/caveman-compression](https://github.com/wilpel/caveman-compression)（GitHub / Open Source Projects，stars 1103）
-- [verygoodplugins/automem](https://github.com/verygoodplugins/automem)（GitHub / Open Source Projects，stars 821）
 
 ## 月度判断
 - AI Systems / HPC / Distributed Training & Inference：本月可继续沿着 [Faynt: Scaling and Optimizing Policies for Competitive Melee](https://arxiv.org/abs/2610.02144v1) 追踪。

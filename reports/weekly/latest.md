@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W40
 
 - 日期范围：2026-09-28 至 2026-10-04
-- 纳入日报：6 份
-- 跟踪条目：1504；MUST_READ 14；SKIM 38；ARCHIVE 321
+- 纳入日报：7 份
+- 跟踪条目：1505；MUST_READ 14；SKIM 38；ARCHIVE 321
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.97，global 0.41）
@@ -73,12 +73,12 @@
   - [Beyond the Remembered World: Predictive 4D Belief for Persistent Navigation in Evolving Worlds](https://arxiv.org/abs/2609.39166)
   - [SentZero: An Enhanced Sentence-Centric Vision-Language Pretraining for Multi-Task Zero-Shot Chest X-Ray Analysis](https://arxiv.org/abs/2609.34479)
   - [PreviewDiff: Multimodal Critic-Guided Search over Diffusion Latents](https://arxiv.org/abs/2609.36199)
-- GitHub / Open Source Projects：24 条进入跟踪；高频信号：github、github.com、open-source、agent、compression、RAG。
+- GitHub / Open Source Projects：25 条进入跟踪；高频信号：github、github.com、open-source、agent、compression、RAG。
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [OpenWAM/OpenWAM](https://github.com/OpenWAM/OpenWAM)
+  - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
   - [OpenMOSS/OpenETA](https://github.com/OpenMOSS/OpenETA)
   - [OpenGVLab/VideoChat-Flash](https://github.com/OpenGVLab/VideoChat-Flash)
-  - [thu-coai/Glyph](https://github.com/thu-coai/Glyph)
 - Compression / Reliability for AI Infrastructure：23 条进入跟踪；高频信号：cs.LG、nlp、compression、robotics、cs.NI、cs.AI。
   - [DeCoPrune: Efficient KV-Cache Pruning for Autoregressive Video Diffusion via Denoising Consistency](https://arxiv.org/abs/2609.39096v1)
   - [Distributed Learning as a Service: The Developer's Perspective](https://arxiv.org/abs/2609.31061v1)
