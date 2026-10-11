@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W41
 
 - 日期范围：2026-10-05 至 2026-10-11
-- 纳入日报：6 份
-- 跟踪条目：1348；MUST_READ 8；SKIM 32；ARCHIVE 305
+- 纳入日报：7 份
+- 跟踪条目：1353；MUST_READ 8；SKIM 32；ARCHIVE 309
 
 ## 本周最重要论文 / 动态
 - [Kandinsky 6.0 Video: Foundation Models for Synchronized Video and Audio Generation](https://arxiv.org/abs/2610.05608v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.89，global 0.52）
@@ -19,19 +19,19 @@
 - [Structuring MoE Expert Selection for Agentic Reinforcement Learning](https://arxiv.org/abs/2610.07332)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.85，global 0.46）
 
 ## 分方向趋势
-- AI Systems / HPC / Distributed Training & Inference：388 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、nlp。
+- AI Systems / HPC / Distributed Training & Inference：389 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、cs.DC、nlp。
   - [Rethinking Visual Provenance: Detection and Watermarking Across Direct Visual Generation and LLM-Driven Code Rendering](https://arxiv.org/abs/2610.08137v1)
   - [TokenRouter: Efficient Serving System for Token-Level LLM Routing](https://arxiv.org/abs/2610.12242v1)
   - [ResidualQuant: KV Cache Quantization for Looped Transformers with 2-Bit Residuals](https://arxiv.org/abs/2610.10381v1)
   - [OctoSense: Building a Unified Ecosystem for Open-Source Wireless Sensing](https://arxiv.org/abs/2610.12405v1)
   - [vLLM-Omni Technical Report: A Unified Serving Runtime for Omni-Modality Generation](https://arxiv.org/abs/2610.09307v1)
-- Embodied Intelligence / VLA / World Models：369 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、cs.RO。
+- Embodied Intelligence / VLA / World Models：370 条进入跟踪；高频信号：nlp、robotics、cs.AI、framework、cs.CV、cs.RO。
   - [Kandinsky 6.0 Video: Foundation Models for Synchronized Video and Audio Generation](https://arxiv.org/abs/2610.05608v1)
   - [Controllable Road Marking Generation](https://arxiv.org/abs/2610.05771v1)
   - [RoboQuest: Generalist Physical Agents that Search, Inspect and Test](https://arxiv.org/abs/2610.10388v1)
   - [HuMBLE: Human Motion-Driven Behavior Learning for Embodied Locomotion](https://arxiv.org/abs/2610.10489v1)
   - [Can We Model the Artifacts Explicitly? Disentangle Artifacts via Pairwise Edit Relations for Image Manipulation Localization](https://arxiv.org/abs/2610.07916v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：131 条进入跟踪；高频信号：agent、reasoning、agentic、language model、framework、inference。
+- Agent / Reasoning / Inference-time Scaling / Planning：132 条进入跟踪；高频信号：agent、reasoning、agentic、language model、framework、inference。
   - [MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement](https://arxiv.org/abs/2610.11959)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
   - [Structuring MoE Expert Selection for Agentic Reinforcement Learning](https://arxiv.org/abs/2610.07332)
@@ -55,7 +55,7 @@
   - [The Numerical Linear Algebra of Large Language Models](https://arxiv.org/abs/2610.04631)
   - [The AI Theorist reveals excitonic structure in α-RuCl_3](https://arxiv.org/abs/2610.02417)
   - [CSAIL's Daskalakis wins ACM Grace Murray Hopper Award](https://www.csail.mit.edu/news/csails-daskalakis-wins-acm-grace-murray-hopper-award)
-- CV：33 条进入跟踪；高频信号：image、video、visual、diffusion、language model、vision-language。
+- CV：34 条进入跟踪；高频信号：image、video、visual、diffusion、language model、detection。
   - [Rethinking Long-Video Efficiency: A Joint Allocation Perspective on Frames, Pixels, and Front-End Latency](https://arxiv.org/abs/2610.04318)
   - [Kandinsky 6.0 Video: Foundation Models for Synchronized Video and Audio Generation](https://arxiv.org/abs/2610.05608)
   - [PixelUMM: Encoder-Free Unified Image and Video Understanding and Generation](https://arxiv.org/abs/2609.38597)
@@ -79,7 +79,7 @@
   - [ReFold: Training-Free Reversible Inter-Turn Context Folding for Long-Horizon Agents](https://arxiv.org/abs/2610.07863v1)
   - [Nexus: An Execution Fabric for AI Agents Across Cloud, Edge, and Devices](https://arxiv.org/abs/2610.05709v1)
   - [POLAR: Ontology-Guided Risk Prevention for Tool-Calling LLM Agents](https://arxiv.org/abs/2610.08082v1)
-- NLP：22 条进入跟踪；高频信号：nlp、language model、cs.CL、robotics、princeton、alignment。
+- NLP：23 条进入跟踪；高频信号：nlp、language model、cs.CL、robotics、princeton、alignment。
   - [Nobody Truly Agrees on Sentiment: Humans, Bespoke Tools, and LLMs Struggle with Social Media Texts](https://arxiv.org/abs/2610.10318v1)
   - [Automatic Speech Recognition for Low-Resource Sinhala: A Critical Review of Methods, Challenges, and Future Directions](https://arxiv.org/abs/2610.05681v1)
   - [EngramEdit: Decoupled Knowledge Updates in LLMs through Conditional Memory](https://arxiv.org/abs/2610.10533v1)
