@@ -1,10 +1,11 @@
 # AI Research Radar Weekly - 2026-W42
 
 - 日期范围：2026-10-12 至 2026-10-18
-- 纳入日报：6 份
-- 跟踪条目：1338；MUST_READ 10；SKIM 38；ARCHIVE 324
+- 纳入日报：7 份
+- 跟踪条目：1342；MUST_READ 11；SKIM 37；ARCHIVE 328
 
 ## 本周最重要论文 / 动态
+- [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.97，global 0.41）
 - [Who Improves the Robot? Toward Physical Recursive Self-Improvement](https://arxiv.org/abs/2610.18842v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.88，global 0.52）
 - [Tev: Scaling Long-Horizon Agentic Environments with Dense Progress Rewards](https://arxiv.org/abs/2610.18868v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.86，global 0.48）
 - [From Training to Escalation: Forensic Analysis and Local Recreation of RL/RLHF-Induced Privilege Escalation in AI Agents (CVE-2026-65616)](https://arxiv.org/abs/2610.20437v1)（MUST_READ，Agent Runtime / RL Infrastructure / Scheduling，personal 0.86，global 0.50）
@@ -15,23 +16,22 @@
 - [Spark-0: Scaling Spatially Aligned Tactile Pretraining for Robot Dexterous Manipulation](https://arxiv.org/abs/2610.22342v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.86，global 0.41）
 - [MLExpert: Towards a Generalist Agentic Model for Autonomous Machine Learning Engineering](https://arxiv.org/abs/2610.22344v1)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，personal 0.85，global 0.48）
 - [Robot-WATCHDOG : failure detection through object-centric graph representation](https://arxiv.org/abs/2610.13403v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.85，global 0.41）
-- [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（SKIM，Embodied Intelligence / VLA / World Models，personal 0.97，global 0.41）
 - [Co-Evolving Acting and Forecasting for Language Agents](https://arxiv.org/abs/2610.20597v1)（SKIM，Agent / Reasoning / Inference-time Scaling / Planning，personal 0.88，global 0.52）
 
 ## 分方向趋势
-- Embodied Intelligence / VLA / World Models：363 条进入跟踪；高频信号：nlp、robotics、cs.CV、cs.AI、framework、cs.RO。
+- Embodied Intelligence / VLA / World Models：364 条进入跟踪；高频信号：nlp、robotics、cs.CV、cs.AI、framework、cs.RO。
+  - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Who Improves the Robot? Toward Physical Recursive Self-Improvement](https://arxiv.org/abs/2610.18842v1)
   - [Tev: Scaling Long-Horizon Agentic Environments with Dense Progress Rewards](https://arxiv.org/abs/2610.18868v1)
   - [3DCodeVerse: Exploring 3D Worlds as Code](https://arxiv.org/abs/2610.22341v1)
   - [Spark-0: Scaling Spatially Aligned Tactile Pretraining for Robot Dexterous Manipulation](https://arxiv.org/abs/2610.22342v1)
-  - [Robot-WATCHDOG : failure detection through object-centric graph representation](https://arxiv.org/abs/2610.13403v1)
 - AI Systems / HPC / Distributed Training & Inference：356 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、nlp、robotics。
   - [Taking Tokenization off the Host for Agentic LLM Serving](https://arxiv.org/abs/2610.13325v1)
   - [Two Clocks: Why Larger Rollout Batches Learn Slower but Fail on Schedule in Reinforcement Learning with Verifiable Rewards](https://arxiv.org/abs/2610.18853v1)
   - [MLExpert: Towards a Generalist Agentic Model for Autonomous Machine Learning Engineering](https://arxiv.org/abs/2610.22344v1)
   - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/)
   - [Revisiting Tabular Deep Regression: Objectives and the Limits of Global Early Stopping](https://arxiv.org/abs/2610.13909v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：140 条进入跟踪；高频信号：agent、reasoning、framework、agentic、language model、nlp。
+- Agent / Reasoning / Inference-time Scaling / Planning：141 条进入跟踪；高频信号：agent、reasoning、framework、agentic、language model、nlp。
   - [Co-Evolving Acting and Forecasting for Language Agents](https://arxiv.org/abs/2610.20597v1)
   - [Masked Diffusion Language Agents for Tool-Integrated Chemical Reasoning](https://arxiv.org/abs/2610.13330v1)
   - [SERO: Learning from Executable Oracle Continuations for Long-Horizon Agentic Reinforcement Learning](https://arxiv.org/abs/2610.19397)
@@ -43,7 +43,7 @@
   - [RATED: Reliability-Aware AI Agent Tool Retrieval via Execution Dynamics](https://arxiv.org/abs/2610.13889v1)
   - [CLASHarness: Benchmarking Multi-Agent Conflict in Computer Use via a Controllable and Verifiable Generation Pipeline](https://arxiv.org/abs/2610.19128)
   - [SqueezeBench: Saturation-Resilient Evaluation of Mathematical Capability](https://arxiv.org/abs/2610.13461v1)
-- Institutional Updates：63 条进入跟踪；高频信号：deepmind.google、openai.com、anthropic.com、research.google、nvidia.com、meta.com。
+- Institutional Updates：64 条进入跟踪；高频信号：deepmind.google、openai.com、anthropic.com、research.google、nvidia.com、meta.com。
   - [One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact](https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/)
   - [How Third Moment Research runs 10,000 agents for 36+ hours](https://openai.com/index/third-moment-research)
   - [Atlassian and OpenAI expand partnership to turn enterprise knowledge into action](https://openai.com/index/atlassian-partnership)
@@ -73,7 +73,7 @@
   - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
   - [OpenMOSS/OpenETA](https://github.com/OpenMOSS/OpenETA)
-- Compression / Reliability for AI Infrastructure：27 条进入跟踪；高频信号：cs.LG、nlp、robotics、framework、compression、HPC。
+- Compression / Reliability for AI Infrastructure：28 条进入跟踪；高频信号：cs.LG、nlp、robotics、framework、compression、recovery。
   - [Latent Compaction with Test-Time Training](https://arxiv.org/abs/2610.20582v1)
   - [MultiAlloc: Budget-Aware Precision Allocation for KV Cache Quantization](https://arxiv.org/abs/2610.18642v1)
   - [LCT: Losslessly Compressed Tensors with GPU friendly execution for Training](https://arxiv.org/abs/2610.22179v1)
@@ -130,7 +130,7 @@
 - [browser-use/browser-use](https://github.com/browser-use/browser-use)（GitHub / Open Source Projects，stars 118097）
 
 ## 下周跟踪建议
-- 继续跟踪 Embodied Intelligence / VLA / World Models：本周最强信号是 [Who Improves the Robot? Toward Physical Recursive Self-Improvement](https://arxiv.org/abs/2610.18842v1)。
+- 继续跟踪 Embodied Intelligence / VLA / World Models：本周最强信号是 [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)。
 - 继续跟踪 AI Systems / HPC / Distributed Training & Inference：本周最强信号是 [Taking Tokenization off the Host for Agentic LLM Serving](https://arxiv.org/abs/2610.13325v1)。
 - 继续跟踪 Agent / Reasoning / Inference-time Scaling / Planning：本周最强信号是 [Co-Evolving Acting and Forecasting for Language Agents](https://arxiv.org/abs/2610.20597v1)。
 - 继续跟踪 Benchmark / Dataset / Evaluation：本周最强信号是 [MC-EvoBench: Auditing Experience-Driven Self-Improvement in Minecraft Agents](https://arxiv.org/abs/2610.13829v1)。
