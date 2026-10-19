@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-10
 
-- 纳入日报：18 份
-- 跟踪条目：2936；MUST_READ 24；SKIM 78；ARCHIVE 503
+- 纳入日报：19 份
+- 跟踪条目：2939；MUST_READ 24；SKIM 78；ARCHIVE 505
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -51,7 +51,7 @@
   - [HumanoidToolBench: Benchmarking Humanoid Tool Use from Selection to Mobile Execution](https://arxiv.org/abs/2610.02089v1)
   - [RATED: Reliability-Aware AI Agent Tool Retrieval via Execution Dynamics](https://arxiv.org/abs/2610.13889v1)
   - [Label-Efficient Deep Learning for ECG Delineation: A Multi-Dataset Benchmark against Widely Used Delineation Tools](https://arxiv.org/abs/2610.07885v1)
-- Institutional Updates：83 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、research.google、nvidia.com、meta.com、microsoft.com、lab。
+- Institutional Updates：84 条进入跟踪；高频信号：openai.com、deepmind.google、anthropic.com、research.google、nvidia.com、meta.com、microsoft.com、lab。
   - [One year in: How Microsoft Research Asia – Singapore is advancing research, partnership and talent for real-world impact](https://www.microsoft.com/en-us/research/blog/one-year-in-how-microsoft-research-asia-singapore-is-advancing-research-partnership-and-talent-for-real-world-impact/)
   - [Atlassian and OpenAI expand partnership to turn enterprise knowledge into action](https://openai.com/index/atlassian-partnership)
   - [How Third Moment Research runs 10,000 agents for 36+ hours](https://openai.com/index/third-moment-research)
@@ -93,7 +93,7 @@
   - [GPU-Initiated Communication: Dissecting Down to the Bone](https://arxiv.org/abs/2610.01380v1)
   - [A Private IPFS Data Sanctuary for Verifiable Digital Collection Objects](https://arxiv.org/abs/2610.07970v1)
   - [Joint Effects of GPU Server Topology, Parallelism, and Congestion Control on MoE Inference: A Controlled Simulation Study](https://arxiv.org/abs/2609.37828v1)
-- Context Compression / Long Context / Memory：37 条进入跟踪；高频信号：long-context、attention、language model、agent、inference、nlp、framework、systems。
+- Context Compression / Long Context / Memory：39 条进入跟踪；高频信号：long-context、attention、language model、agent、framework、inference、nlp、systems。
   - [Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction](http://bair.berkeley.edu/blog/2026/07/26/abbel/)
   - [Virtual Head Attention](https://arxiv.org/abs/2610.17959)
   - [StreamErase: Towards Ultra-Fast Streaming Video Erasing](https://arxiv.org/abs/2610.20137)
