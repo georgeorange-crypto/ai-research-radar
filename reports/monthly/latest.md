@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-10
 
-- 纳入日报：24 份
-- 跟踪条目：3999；MUST_READ 34；SKIM 106；ARCHIVE 666
+- 纳入日报：25 份
+- 跟踪条目：4001；MUST_READ 34；SKIM 107；ARCHIVE 666
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -39,7 +39,7 @@
   - [Faynt: Scaling and Optimizing Policies for Competitive Melee](https://arxiv.org/abs/2610.02144v1)
   - [Taking Tokenization off the Host for Agentic LLM Serving](https://arxiv.org/abs/2610.13325v1)
   - [TokenRouter: Efficient Serving System for Token-Level LLM Routing](https://arxiv.org/abs/2610.12242v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：380 条进入跟踪；高频信号：agent、reasoning、framework、agentic、language model、nlp、github、environment。
+- Agent / Reasoning / Inference-time Scaling / Planning：382 条进入跟踪；高频信号：agent、reasoning、framework、agentic、language model、nlp、environment、github。
   - [MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement](https://arxiv.org/abs/2610.11959)
   - [Co-Evolving Acting and Forecasting for Language Agents](https://arxiv.org/abs/2610.20597v1)
   - [Masked Diffusion Language Agents for Tool-Integrated Chemical Reasoning](https://arxiv.org/abs/2610.13330v1)

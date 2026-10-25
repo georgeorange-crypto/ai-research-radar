@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W43
 
 - 日期范围：2026-10-19 至 2026-10-25
-- 纳入日报：6 份
-- 跟踪条目：1536；MUST_READ 10；SKIM 37；ARCHIVE 372
+- 纳入日报：7 份
+- 跟踪条目：1539；MUST_READ 10；SKIM 38；ARCHIVE 372
 
 ## 本周最重要论文 / 动态
 - [Cache Engineering for Agents](https://arxiv.org/abs/2610.28577v1)（MUST_READ，AI Systems / HPC / Distributed Training & Inference，personal 0.88，global 0.52）
@@ -37,7 +37,7 @@
   - [RoboValue: A Fine-Grained Sim-and-Real Benchmark for Unified Evaluation of Robotic Value Models](https://arxiv.org/abs/2610.26663v1)
   - [BiDex-100: A Comprehensive Benchmark for Bimanual Dexterous Manipulation Across 100+ Simulation Tasks](https://arxiv.org/abs/2610.25459)
   - [MindView: Benchmarking Generative Multi-View Spatial Intelligence](https://arxiv.org/abs/2610.28622v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：136 条进入跟踪；高频信号：agent、reasoning、agentic、nlp、framework、language model。
+- Agent / Reasoning / Inference-time Scaling / Planning：138 条进入跟踪；高频信号：agent、reasoning、agentic、framework、nlp、language model。
   - [Muse Glimmer 30B: An On-Device Agentic Model](https://arxiv.org/abs/2610.24628v1)
   - [SERO: Learning from Executable Oracle Continuations for Long-Horizon Agentic Reinforcement Learning](https://arxiv.org/abs/2610.19397)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
@@ -73,6 +73,12 @@
   - [On the Limits of Scale: Inverse Scaling in Vision-Language Models](https://arxiv.org/abs/2610.27360)
   - [Stuck on Shuffle: On Attribute-Object Binding in Vision-Language Models](https://arxiv.org/abs/2610.22602)
   - [Multimodal Reranking Is a System One Decision](https://arxiv.org/abs/2610.28435)
+- GitHub / Open Source Projects：27 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression。
+  - [Geometric Algebra for Neural Networks: A Survey](https://arxiv.org/abs/2610.30121v1)
+  - [Scalable Weak-to-Strong Verifier Hardening for Agent Environments](https://arxiv.org/abs/2610.15924)
+  - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
+  - [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
+  - [OpenMOSS/OpenETA](https://github.com/OpenMOSS/OpenETA)
 - GPU-Centric I/O / Networking / Storage：26 条进入跟踪；高频信号：gpu、HPC、data path、storage、cs.DC、cs.NI。
   - [BitMTP: When Multi-Token Prediction Meets Low-Bit Large Language Models](https://arxiv.org/abs/2610.28500v1)
   - [uGDS: A User-Space Development Kit for High-Performance GPU Direct Storage](https://arxiv.org/abs/2610.30868v1)
@@ -85,12 +91,6 @@
   - [LCT: Losslessly Compressed Tensors with GPU friendly execution for Training](https://arxiv.org/abs/2610.22179v1)
   - [Revisiting Cauchy-Schwarz Norm Bounds for SDC Detection in LLM Inference](https://arxiv.org/abs/2610.18557v1)
   - [Query-Dependent Reading for Quantized Inner-Product Estimation: A Minimax Separation](https://arxiv.org/abs/2610.24890v1)
-- GitHub / Open Source Projects：26 条进入跟踪；高频信号：github、github.com、open-source、agent、framework、compression。
-  - [Geometric Algebra for Neural Networks: A Survey](https://arxiv.org/abs/2610.30121v1)
-  - [Scalable Weak-to-Strong Verifier Hardening for Agent Environments](https://arxiv.org/abs/2610.15924)
-  - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
-  - [OpenMOSS/OpenETA](https://github.com/OpenMOSS/OpenETA)
-  - [langgenius/dify](https://github.com/langgenius/dify)
 - Context Compression / Long Context / Memory：24 条进入跟踪；高频信号：language model、long-context、attention、inference、agent、framework。
   - [Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction](http://bair.berkeley.edu/blog/2026/07/26/abbel/)
   - [Stratified Sparse Attention: Reducing the Sparse-to-Dense Gap at Extreme Sparsity](https://arxiv.org/abs/2610.28441)
