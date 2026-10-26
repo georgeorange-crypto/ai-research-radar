@@ -1,6 +1,6 @@
 # AI Research Radar Monthly - 2026-10
 
-- 纳入日报：25 份
+- 纳入日报：26 份
 - 跟踪条目：4001；MUST_READ 34；SKIM 107；ARCHIVE 666
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
