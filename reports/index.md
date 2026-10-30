@@ -2,6 +2,7 @@
 
 | 日期 | 今日 Must Read 数量 | 今日主要方向 | 链接 |
 |---|---:|---|---|
+| 2026-10-30 | 3 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-10-30.md](daily/2026/10/2026-10-30.md) |
 | 2026-10-29 | 2 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-10-29.md](daily/2026/10/2026-10-29.md) |
 | 2026-10-28 | 3 | Embodied Intelligence / VLA / World Models | [2026-10-28.md](daily/2026/10/2026-10-28.md) |
 | 2026-10-27 | 1 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-10-27.md](daily/2026/10/2026-10-27.md) |
