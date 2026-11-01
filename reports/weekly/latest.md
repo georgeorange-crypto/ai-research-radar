@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W44
 
 - 日期范围：2026-10-26 至 2026-11-01
-- 纳入日报：6 份
-- 跟踪条目：1460；MUST_READ 10；SKIM 32；ARCHIVE 360
+- 纳入日报：7 份
+- 跟踪条目：1462；MUST_READ 10；SKIM 33；ARCHIVE 362
 
 ## 本周最重要论文 / 动态
 - [FlatCake: A Flat KVCache Storage Architecture for LLM Serving](https://arxiv.org/abs/2610.38355v1)（MUST_READ，GPU-Centric I/O / Networking / Storage，personal 0.91，global 0.50）
@@ -55,7 +55,7 @@
   - [OpenAI expands partnership with Oracle to bring its apps to ChatGPT](https://openai.com/index/oracle-apps-in-chatgpt)
   - [OpenAI and ServiceNow expand partnership across enterprise workflows](https://openai.com/index/openai-servicenow-partnership-expansion)
   - [Physicist Christopher Stubbs joins Anthropic's Long-Term Benefit Trust](https://www.anthropic.com/news/christopher-stubbs-joins-long-term-benefit-trust)
-- NLP：49 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、agent、framework。
+- NLP：50 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、agent、framework。
   - [MTA-Zero: Self-Improving Multimodal Deep Search via Online QA-Solver Co-training](https://arxiv.org/abs/2610.33799v1)
   - [Teach reality, not ethics: a drop-in continued-pretraining corpus installs coupled human-biosphere-AI welfare dispositions across model families](https://arxiv.org/abs/2610.37484v1)
   - [ShallowDefend: Harnessing Shallow Safety Alignment for Multi-Turn Defender](https://arxiv.org/abs/2610.40627v1)
@@ -115,12 +115,12 @@
   - [Unlimited OCR Works](https://arxiv.org/abs/2606.23050)
   - [NVIDIA Releases New AI Models and Developer Tools to Advance Autonomous Vehicle Ecosystem](https://blogs.nvidia.com/blog/autonomous-vehicle-ecosystem-ai-models-developer-tools/)
   - [Truncate or Not? A Scaling Study of Looped Transformers with Truncated Backpropagation](https://arxiv.org/abs/2610.26030)
-- RL：5 条进入跟踪；高频信号：reinforcement learning、rl、grpo、language model、reasoning、agentic。
+- RL：6 条进入跟踪；高频信号：reinforcement learning、rl、grpo、language model、reasoning、agentic。
   - [AlphaBet: Reinforcement Learning for LLM Event Forecasting Agents](https://arxiv.org/abs/2610.22684)
   - [LongZero: Enhancing Long-Context Reasoning in LLMs from Zero Data](https://arxiv.org/abs/2610.30132)
   - [Inherited, Not Invented: Tracing the Provenance of Wait in Reasoning Models](https://arxiv.org/abs/2610.30882)
+  - [Xiaomi-OCR-0 Technical Report](https://arxiv.org/abs/2609.36136)
   - [Build, Don't Play: Self-Improving LLM Research Agents Develop a Hearthstone Battlegrounds AI That Rivals Top Players](https://arxiv.org/abs/2610.33845)
-  - [What Outcome RL Buys: Finishing, Reliability, Rarely Reach](https://arxiv.org/abs/2610.34894)
 - Novel Class Discovery / Open-World Learning / OOD / Continual Learning：4 条进入跟踪；高频信号：out-of-distribution、attention、clustering、diffusion、github、inference。
   - [AB-Attention: Accurate Block Attention for Accelerating Video Diffusion Transformers](https://arxiv.org/abs/2610.39663)
   - [Judging the Justification: Decision Certificate Supervision for Generative Reward Models](https://arxiv.org/abs/2610.27528)
