@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Research Radar - 2026-11-02</title>
+    <title>AI Research Radar - 2026-11-03</title>
     <style>
         :root {
             --bg: #f8fafd;
@@ -731,7 +731,7 @@
 
             <main class="content-panel">
                 <article class="report-content" id="report-content">
-<h1>AI Research Radar - 2026-11-02</h1>
+<h1>AI Research Radar - 2026-11-03</h1>
 
 <ul>
 <li>研究画像：George Research Profile v2</li>
@@ -753,12 +753,12 @@
 <h2>0. 每日概览</h2>
 
 <ul>
-<li>最重要方向：具身智能 / VLA / 世界模型</li>
-<li>必读数量：1（2026 BAIR Graduate Showcase）</li>
-<li>略读数量：8（FlatCake: A Flat KVCache Storage Architecture for LLM Serving；Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Gym-Anything for Robotics: Scaling physical simulations with digital agents；Intrinsic Distribution Matching）</li>
-<li>关注数量：12（Identifying Interactions at Scale for LLMs；The Endgame of FSDP Communication: Layout-Aware Collectives on Copy Engines, RDMA, and NVSwitch；Difficulty Calibration Across Time for Membership Inference in Diffusion Models；VeriCUA: Verification as Agentic Exploration for Computer-Using Agents；How I Aligned Your Model: Scaling Up Multilingual Safety Training with Templates）</li>
-<li>关键词：agent、agentic、framework、berkeley.edu、attention、KV cache、evaluation、inference</li>
-<li>判断：今日主线：推理时扩展正在从顺序 CoT 转向自适应并行推理与可选择的搜索路径；同时 Agentic RL 正从单次结果打分推进到长程轨迹、环境反馈和策略更新的闭环。</li>
+<li>最重要方向：AI 系统 / HPC / 分布式训练与推理</li>
+<li>必读数量：1（Layered Reproducibility for High-Performance Computing Applications: The Feel++ and Ktirio Urban Buildings Case Study）</li>
+<li>略读数量：8（Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；Digital Twin-Assisted Fast Beam Alignment for mmWave MIMO Networks；Jet-QSparse: Accelerating Agentic LLM Inference with 4-Bit Sparse Attention；Video Generation Meets Agent Harness: Agentic Video Generation, Agentic World Modeling and Recursive Self-Improvement）</li>
+<li>关注数量：12（2026 BAIR Graduate Showcase；Identifying Interactions at Scale for LLMs；Apriel Voice 27B Preview: An Open Model for Speech, Reasoning, and Tool Use；RoboArchitect: Automating the Design of Robotic Agents with Persistent Memory；Learning Quality-Controllable Robot Policies with Iterative Hindsight Relabeling）</li>
+<li>关键词：agent、framework、agentic、long-horizon、attention、evaluation、nlp、reinforcement learning</li>
+<li>判断：今日主线：围绕《Layered Reproducibility for High-Performance Computing Appli》展开，建议从其问题设定和可复现实验切入。</li>
 </ul>
 
 <h2>1. 核心研究方向</h2>
@@ -766,8 +766,22 @@
 <h3>1.1 AI 系统 / HPC / 分布式训练与推理</h3>
 
 <h4>必读</h4>
+<h5>1. <a href="https://arxiv.org/abs/2610.41861v1">Layered Reproducibility for High-Performance Computing Applications: The Feel++ and Ktirio Urban Buildings Case Study</a></h5>
 <ul>
-<li>无。</li>
+<li>阅读优先级：必读</li>
+<li>来源：arXiv Systems/HPC/GPU Data Path（一手来源；角色=论文来源）</li>
+<li>发布时间：2026-10-30T15:15:14+00:00</li>
+<li>主方向：AI 系统 / HPC / 分布式训练与推理</li>
+<li>次级标签：AI 基础设施压缩 / 可靠性、GPU 中心 I/O / 网络 / 存储、Agent 运行时 / RL 基础设施 / 调度、Benchmark / 数据集 / 评测</li>
+<li>依据层级：仅摘要</li>
+<li class="score-section">评分：个人相关度=0.85，全局热度=0.47，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00</li>
+<li>项目相关性：skyfs=0.44、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00</li>
+<li>是什么：Layered Reproducibility for High-Performance Computing Applications: The Feel++ and Ktirio Urban Buildings Case Study：研究论文，方向为“AI 系统 / HPC / 分布式训练与推理”；主要线索：HPC、checksum、cs.DC、data path。</li>
+<li>问题：它关注“AI 系统 / HPC / 分布式训练与推理”里的 HPC、checksum、cs.DC、data path 等问题。</li>
+<li>方法 / 贡献：摘要可确认它提出或引入了 HPC、checksum、cs.DC、data path；具体训练设置、指标和消融细节需读原文确认。</li>
+<li>为什么对 George 重要：阅读优先级：必读 编辑优先级：0.76 今天安排深读。 个人相关度：0.85，研究相关度：1.00。</li>
+<li>建议动作：读 PDF</li>
+<li class="keyword-section">命中关键词：HPC、benchmark、checksum、cs.DC、data path、dataset、high-performance computing、materials</li>
 </ul>
 
 <h4>略读</h4>
@@ -778,8 +792,8 @@
 <h4>关注</h4>
 <ul>
 <li><a href="http://bair.berkeley.edu/blog/2026/03/13/spex/">Identifying Interactions at Scale for LLMs</a> （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.86；全局热度=0.39；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40616v1">Difficulty Calibration Across Time for Membership Inference in Diffusion Models</a> （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.84；全局热度=0.37；炒作风险=0.00）</li>
-<li><a href="https://www.csail.mit.edu/news/teaching-ai-create-visuals-more-common-sense">Teaching AI to create visuals with more common sense</a> （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.81；全局热度=0.36；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.40738">Apriel Voice 27B Preview: An Open Model for Speech, Reasoning, and Tool Use</a> （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.86；全局热度=0.49；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.01233v1">STLT: A Novel System for Energy-Aware Distributed Inference in the Edge-Cloud-Space Continuum</a> （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.83；全局热度=0.40；炒作风险=0.00）</li>
 </ul>
 
 <h3>1.2 GPU 中心 I/O / 网络 / 存储</h3>
@@ -790,29 +804,15 @@
 </ul>
 
 <h4>略读</h4>
-<h5>1. <a href="https://arxiv.org/abs/2610.38355v1">FlatCake: A Flat KVCache Storage Architecture for LLM Serving</a></h5>
 <ul>
-<li>阅读优先级：略读</li>
-<li>来源：arXiv Systems/HPC/GPU Data Path（一手来源；角色=论文来源）</li>
-<li>发布时间：2026-10-28T06:54:51+00:00</li>
-<li>主方向：GPU 中心 I/O / 网络 / 存储</li>
-<li>次级标签：AI 系统 / HPC / 分布式训练与推理、上下文压缩 / 长上下文 / 记忆、AI 基础设施压缩 / 可靠性、Agent 运行时 / RL 基础设施 / 调度</li>
-<li>依据层级：仅摘要</li>
-<li class="score-section">评分：个人相关度=0.90，全局热度=0.47，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00</li>
-<li>项目相关性：skyfs=0.66、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00</li>
-<li>是什么：FlatCake: A Flat KVCache Storage Architecture for LLM Serving：研究论文，方向为“GPU 中心 I/O / 网络 / 存储”；主要线索：GDS、GPUDirect Storage、HPC、KV cache。</li>
-<li>问题：它关注“GPU 中心 I/O / 网络 / 存储”里的 GDS、GPUDirect Storage、HPC、KV cache 等问题。</li>
-<li>方法 / 贡献：摘要可确认它提出或引入了 GDS、GPUDirect Storage、HPC、KV cache；具体训练设置、指标和消融细节需读原文确认。</li>
-<li>为什么对 George 重要：阅读优先级：略读 编辑优先级：0.78 今天快速扫读。 个人相关度：0.90，研究相关度：1.00。</li>
-<li>建议动作：快速扫读</li>
-<li class="keyword-section">命中关键词：GDS、GPUDirect Storage、HPC、KV cache、NVMe、agentic、architecture、cache reuse</li>
+<li>无。</li>
 </ul>
 
 <h4>关注</h4>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.38228v1">The Endgame of FSDP Communication: Layout-Aware Collectives on Copy Engines, RDMA, and NVSwitch</a> （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.85；全局热度=0.34；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.39981v1">TRACEs: Fine-Grained Embedded Provenance for Distributed Scientific Workflows</a> （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.80；全局热度=0.34；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40134v1">Integer-Quantized Hierarchical Matrices with Adaptive Bit Allocation</a> （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.78；全局热度=0.43；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.41508v1">HiState: Hierarchical Prefix Cache Management for Hybrid LLM Serving in Agentic Workloads</a> （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.81；全局热度=0.48；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.41160v1">ARK: Avoiding Routing Collisions for KV Cache Transfer in Disaggregated LLM Inference</a> （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.81；全局热度=0.34；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.00495v1">Understanding GPU Megakernels: Why Residency Can Mislead</a> （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.76；全局热度=0.38；炒作风险=0.00）</li>
 </ul>
 
 <h3>1.3 AI 基础设施压缩 / 可靠性</h3>
@@ -823,15 +823,29 @@
 </ul>
 
 <h4>略读</h4>
+<h5>1. <a href="https://arxiv.org/abs/2611.01107v1">Digital Twin-Assisted Fast Beam Alignment for mmWave MIMO Networks</a></h5>
 <ul>
-<li>无。</li>
+<li>阅读优先级：略读</li>
+<li>来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）</li>
+<li>发布时间：2026-10-31T16:54:51+00:00</li>
+<li>主方向：AI 基础设施压缩 / 可靠性</li>
+<li>次级标签：GPU 中心 I/O / 网络 / 存储、AI 系统 / HPC / 分布式训练与推理、具身智能 / VLA / 世界模型、Agent 运行时 / RL 基础设施 / 调度</li>
+<li>依据层级：仅摘要</li>
+<li class="score-section">评分：个人相关度=0.85，全局热度=0.47，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00</li>
+<li>项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00</li>
+<li>是什么：Digital Twin-Assisted Fast Beam Alignment for mmWave MIMO Networks：研究论文，方向为“AI 基础设施压缩 / 可靠性”；主要线索：alignment、architecture、cs.IT、cs.LG。</li>
+<li>问题：它关注“AI 基础设施压缩 / 可靠性”里的 alignment、architecture、cs.IT、cs.LG 等问题。</li>
+<li>方法 / 贡献：摘要可确认它提出或引入了 alignment、architecture、cs.IT、cs.LG；具体训练设置、指标和消融细节需读原文确认。</li>
+<li>为什么对 George 重要：阅读优先级：略读 编辑优先级：0.79 今天快速扫读。 个人相关度：0.85，研究相关度：1.00。</li>
+<li>建议动作：快速扫读</li>
+<li class="keyword-section">命中关键词：alignment、architecture、cs.IT、cs.LG、cs.NI、environment、framework、network</li>
 </ul>
 
 <h4>关注</h4>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.40586v1">Multistatic ISAC with Deep Learning-Based Clutter Suppression for 5G and Beyond</a> （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.80；全局热度=0.36；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40490v1">Fast and accurate neural triage decoding of ultra-high-rate quantum LDPC codes</a> （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.79；全局热度=0.35；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.39258v1">Agentic LinkDreamer: Adaptive Neuro-Fuzzy World-Model Decision Making for Intermittent V2X Cooperative Perception</a> （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.77；全局热度=0.36；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.01070v1">Synergetic Autonomous Intelligence: Three Axioms for Recursive Semi-Closed Learning</a> （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.78；全局热度=0.39；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.41784v1">Clinical-Protocol-Aware Cyber Resilience for Connected Clinical Technologies Under AI-Enabled Adversarial Conditions</a> （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.76；全局热度=0.35；炒作风险=0.00）</li>
+<li><a href="https://openai.com/index/dan-driscoll-joins-openai">OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization</a> （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.72；全局热度=0.50；炒作风险=0.00）</li>
 </ul>
 
 <h3>1.4 Agent 运行时 / RL 基础设施 / 调度</h3>
@@ -848,70 +862,43 @@
 
 <h4>关注</h4>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.39264">Online Dense Reinforcement Learning with Planning-Grounding Agent for UI Navigation on Live IOS Apps</a> （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.81；全局热度=0.47；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.33106">VibeGame: Prompt-to-Game Development with AI-Native Engine and Self-Evolving Adversarial Agent Team</a> （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.78；全局热度=0.44；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40494v1">AI in the EGI e-infrastructure -- Past experiences and future strategies</a> （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.77；全局热度=0.36；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.01081v1">Robust Safety Assurance for Robotic Swarms Using Decentralized Collision Verification</a> （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.80；全局热度=0.40；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.01183v1">Satisfied, Not Solving: Wireheading of Bounded Homeostatic Rewards in Reinforcement Learning</a> （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.80；全局热度=0.39；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.42053">REA: A Routed Embodied Agent Runtime for Asynchronous Brain-Cerebellum Control</a> （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.79；全局热度=0.49；炒作风险=0.00）</li>
 </ul>
 
 <h3>1.5 具身智能 / VLA / 世界模型</h3>
 
 <h4>必读</h4>
-<h5>1. <a href="http://bair.berkeley.edu/blog/2026/07/01/grads-2026/">2026 BAIR Graduate Showcase</a></h5>
 <ul>
-<li>阅读优先级：必读</li>
-<li>来源：BAIR Blog（一手来源；角色=机构权威来源）</li>
-<li>发布时间：2026-07-01T09:00:00+00:00</li>
-<li>主方向：具身智能 / VLA / 世界模型</li>
-<li>次级标签：Agent / 推理 / 推理时扩展 / 规划、AI 系统 / HPC / 分布式训练与推理、其他亮点、Agent 运行时 / RL 基础设施 / 调度</li>
-<li>依据层级：全文</li>
-<li class="score-section">评分：个人相关度=0.97，全局热度=0.41，可信度=1.00，证据强度=0.95，炒作风险=0.00，反馈=0.00</li>
-<li>项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=1.00</li>
-<li>是什么：2026 BAIR Graduate Showcase 是一篇围绕 具身智能 / VLA / 世界模型 的研究或技术文章；当前本地摘要依据全文抓取内容和关键词进行归纳，核心线索包括：AI systems、action chunking、agent、agentic。</li>
-<li>问题：它关注 具身智能 / VLA / 世界模型 中尚未被充分解决的建模、推理、系统或评测问题；具体问题需要结合原文上下文进一步确认。</li>
-<li>方法 / 贡献：它的贡献需要按正文脉络理解：先界定问题，再给出方法、系统设计、实验观察或研究范式，而不是只用关键词归类。</li>
-<li>为什么对 George 重要：该来源具备全文依据，适合用作当天判断 具身智能 / VLA / 世界模型 方向变化的实质材料；个人相关度=0.97，研究相关度=1.00。</li>
-<li>建议动作：读 PDF</li>
-<li class="keyword-section">命中关键词：AI systems、action chunking、agent、agentic、ai for science、ai systems、berkeley.edu、biology</li>
+<li>无。</li>
 </ul>
 
 <h4>略读</h4>
-<h5>1. <a href="https://arxiv.org/abs/2610.40565v1">Gym-Anything for Robotics: Scaling physical simulations with digital agents</a></h5>
 <ul>
-<li>阅读优先级：略读</li>
-<li>来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）</li>
-<li>发布时间：2026-10-29T17:42:32+00:00</li>
-<li>主方向：具身智能 / VLA / 世界模型</li>
-<li>次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、AI 基础设施压缩 / 可靠性、GitHub / 开源项目</li>
-<li>依据层级：仅摘要</li>
-<li class="score-section">评分：个人相关度=0.85，全局热度=0.38，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00</li>
-<li>项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00</li>
-<li>是什么：Gym-Anything for Robotics: Scaling physical simulations with digital agents：研究论文，方向为“具身智能 / VLA / 世界模型”；主要线索：agent、cs.AI、cs.LG、cs.RO。</li>
-<li>问题：它关注“具身智能 / VLA / 世界模型”里的 agent、cs.AI、cs.LG、cs.RO 等问题。</li>
-<li>方法 / 贡献：摘要可确认它提出或引入了 agent、cs.AI、cs.LG、cs.RO；具体训练设置、指标和消融细节需读原文确认。</li>
-<li>为什么对 George 重要：阅读优先级：略读 编辑优先级：0.74 今天快速扫读。 个人相关度：0.85，研究相关度：1.00。</li>
-<li>建议动作：快速扫读</li>
-<li class="keyword-section">命中关键词：agent、benchmark、cs.AI、cs.LG、cs.RO、embodied AI、framework、github</li>
+<li>无。</li>
 </ul>
 
 <h4>关注</h4>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.40578v1">VeriCUA: Verification as Agentic Exploration for Computer-Using Agents</a> （关注；具身智能 / VLA / 世界模型；个人相关度=0.83；全局热度=0.36；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40516v1">How I Aligned Your Model: Scaling Up Multilingual Safety Training with Templates</a> （关注；具身智能 / VLA / 世界模型；个人相关度=0.82；全局热度=0.37；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40345v1">A Unified Hessian-Guided Framework for Post-Training Quantization</a> （关注；具身智能 / VLA / 世界模型；个人相关度=0.82；全局热度=0.43；炒作风险=0.00）</li>
+<li><a href="http://bair.berkeley.edu/blog/2026/07/01/grads-2026/">2026 BAIR Graduate Showcase</a> （关注；具身智能 / VLA / 世界模型；个人相关度=0.97；全局热度=0.41；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.42141">RoboArchitect: Automating the Design of Robotic Agents with Persistent Memory</a> （关注；具身智能 / VLA / 世界模型；个人相关度=0.85；全局热度=0.48；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.37393">Learning Quality-Controllable Robot Policies with Iterative Hindsight Relabeling</a> （关注；具身智能 / VLA / 世界模型；个人相关度=0.84；全局热度=0.43；炒作风险=0.00）</li>
 </ul>
 
 <h2>2. 支撑性 AI 基础方向</h2>
 
 <h3>上下文 / 记忆</h3>
 <ul>
-<li>无。</li>
+<li><a href="https://arxiv.org/abs/2610.37903">Think Twice: The Metis-1.6 Technical Report</a> （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.69；全局热度=0.42；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.39276">MemSteer: Turning User Histories into Supervision for Agent Memory Optimization</a> （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.67；全局热度=0.47；炒作风险=0.00）</li>
 </ul>
 
 <h3>通用 Agent / 推理</h3>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.40492v1">Agentic University: Collaborative Agents for Personalized Learning</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.78；全局热度=0.37；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.27954">Lost in Recovery: Demystifying Recovery Behavior of Computer-Use Agents via Goal-Oriented Action Replay</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.84；全局热度=0.43；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.41260">SketchDirector: Complex Scene Sketching via Agentic Layout Reasoning and Detail Refinement</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.83；全局热度=0.46；炒作风险=0.00）</li>
 <li><a href="http://bair.berkeley.edu/blog/2025/11/01/rl-without-td-learning/">RL without TD learning</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.77；全局热度=0.37；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40525v1">CrossWeave: Cross-Modal Scene and Instance Retrieval from Sparse 2D-3D Alignment</a> （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.76；全局热度=0.36；炒作风险=0.00）</li>
 </ul>
 
 <h3>强化学习</h3>
@@ -927,24 +914,26 @@
 
 <h3>多模态 / VLM / 计算机视觉</h3>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.40580v1">RADIOlogy: A Single-Pass Approach to Training-Free Zero-Shot Anomaly Detection</a> （关注；CV；个人相关度=0.70；全局热度=0.36；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.36671">Look Only When Needed: Certificate-Guided Visual Routing for Efficient Diffusion VLMs</a> （归档；CV；个人相关度=0.65；全局热度=0.50；炒作风险=0.00）</li>
+<li><a href="https://machinelearning.apple.com/research/tri-modal-masked-diffusion">The Design Space of Tri-Modal Masked Diffusion Models</a> （归档；CV；个人相关度=0.56；全局热度=0.30；炒作风险=0.00）</li>
+<li><a href="https://www.csail.mit.edu/news/reproducing-paintings-make-impression">Reproducing paintings that make an impression</a> （归档；CV；个人相关度=0.55；全局热度=0.35；炒作风险=0.00）</li>
 </ul>
 
 <h3>NLP</h3>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.40511v1">A Low-Rank Space Captures Linear Alignment Between LLM and Human Neural Activity During Naturalistic Language Listening</a> （归档；NLP；个人相关度=0.63；全局热度=0.36；炒作风险=0.00）</li>
-<li><a href="https://arxiv.org/abs/2610.40627v1">ShallowDefend: Harnessing Shallow Safety Alignment for Multi-Turn Defender</a> （归档；NLP；个人相关度=0.63；全局热度=0.35；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.01143v1">GSLM2: Multi-Stream Speech Representation Learning and Generative Spoken Language Modeling</a> （关注；NLP；个人相关度=0.65；全局热度=0.40；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.01113v1">CogRSI: Evolving and Auditing Cognitive Reasoning Strategies</a> （归档；NLP；个人相关度=0.57；全局热度=0.38；炒作风险=0.00）</li>
 </ul>
 
 <h3>开放世界 / 持续学习</h3>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.39663">AB-Attention: Accurate Block Attention for Accelerating Video Diffusion Transformers</a> （关注；新类学习 / 开放世界学习；个人相关度=0.70；全局热度=0.48；炒作风险=0.00）</li>
+<li>无。</li>
 </ul>
 
 <h3>模型蒸馏</h3>
 <ul>
-<li><a href="https://arxiv.org/abs/2610.38681">Weaken to Strengthen: Weakening-Induced On-Policy Self-Distillation for Large Reasoning Models</a> （关注；模型蒸馏 / 模型压缩；个人相关度=0.77；全局热度=0.46；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2611.01065v1">Label Smoothing in Disguise? Gated Knowledge Distillation for Low-Resource Bangla Generation</a> （关注；模型蒸馏 / 模型压缩；个人相关度=0.81；全局热度=0.39；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.35850">OSWAM: An Effective World Action Model with One-Step Action Generation</a> （关注；模型蒸馏 / 模型压缩；个人相关度=0.74；全局热度=0.44；炒作风险=0.00）</li>
+<li><a href="https://arxiv.org/abs/2610.38637">On-Policy Self-Distillation with Teacher Evolution</a> （关注；模型蒸馏 / 模型压缩；个人相关度=0.68；全局热度=0.44；炒作风险=0.00）</li>
 </ul>
 
 <h2>3. 跨方向连接</h2>
@@ -962,29 +951,18 @@
 <h2>4. Benchmark / 数据集 / 评测</h2>
 
 <h3>Core Benchmarks for My Research</h3>
-<h5>1. <a href="https://arxiv.org/abs/2610.36420">SO-101 Bench: Accessible Spatial Manipulation</a></h5>
-<ul>
-<li>阅读层级：关注</li>
-<li>来源：Hugging Face Daily Papers</li>
-<li>证据来源：仅摘要</li>
-<li>benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。</li>
-<li>适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。</li>
-<li>可否作为实验基准：可以优先评估是否作为实验基准。</li>
-<li>建议行动：use_as_eval</li>
-</ul>
-
-<h5>2. <a href="https://arxiv.org/abs/2610.40532v1">BURGER: Benchmarking and Understanding Robotic Generalization via Embodied Drawing</a></h5>
+<h5>1. <a href="https://arxiv.org/abs/2611.01125v1">What Does a Safety Label Measure? Auditing Situational-Safety Benchmarks for Multimodal LLMs</a></h5>
 <ul>
 <li>阅读层级：关注</li>
 <li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
 <li>证据来源：仅摘要</li>
-<li>benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。</li>
+<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
 <li>适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。</li>
 <li>可否作为实验基准：可以优先评估是否作为实验基准。</li>
 <li>建议行动：use_as_eval</li>
 </ul>
 
-<h5>3. <a href="https://arxiv.org/abs/2610.39570v1">LLM Agent-Based Design of RISC-V CPUs with FPGA-in-the-Loop Evaluation</a></h5>
+<h5>2. <a href="https://arxiv.org/abs/2611.00449v1">SpBench: An Agent-Native Framework for Cross-Engine Lakehouse Benchmarking</a></h5>
 <ul>
 <li>阅读层级：关注</li>
 <li>来源：arXiv Systems/HPC/GPU Data Path</li>
@@ -993,6 +971,17 @@
 <li>适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。</li>
 <li>可否作为实验基准：可以优先评估是否作为实验基准。</li>
 <li>建议行动：use_as_eval</li>
+</ul>
+
+<h5>3. <a href="https://arxiv.org/abs/2611.01239v1">Mathematical Formulation and Comparative Performance Evaluation of Machine Learning Algorithms for Maize Land Suitability Prediction</a></h5>
+<ul>
+<li>阅读层级：关注</li>
+<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
+<li>证据来源：仅摘要</li>
+<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
+<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
+<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
+<li>建议行动：skim</li>
 </ul>
 
 <h5>4. <a href="http://bair.berkeley.edu/blog/2026/01/10/information-driven-imaging/">Information-Driven Design of Imaging Systems</a></h5>
@@ -1006,19 +995,52 @@
 <li>建议行动：use_as_eval</li>
 </ul>
 
-<h5>5. <a href="https://arxiv.org/abs/2610.40544v1">Machine Learning-Based Detection of Mobile Money Scan Messages in Ghana: A Comparative Evaluation of Naive Bayes, Support Vector Machine, and Randon Forest Classifiers</a></h5>
+<h5>5. <a href="https://arxiv.org/abs/2610.40293">MAServeBench: Benchmarking Multi-Agent LLM Serving Systems with Hierarchical Collaboration Workloads</a></h5>
 <ul>
-<li>阅读层级：关注</li>
-<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
+<li>阅读层级：归档</li>
+<li>来源：Hugging Face Daily Papers</li>
 <li>证据来源：仅摘要</li>
-<li>benchmark 评估什么能力：评估 LLM agent 在真实/拟真 workflow 中是否按预期完成轨迹与关键步骤。</li>
-<li>适合用于什么研究：适合用于 agent evaluation、long-horizon workflow、轨迹保真度和安全执行研究。</li>
+<li>benchmark 评估什么能力：评估 agent 规划、执行或环境交互能力。</li>
+<li>适合用于什么研究：适合用于 agent evaluation / memory / long-horizon planning 相关实验。</li>
 <li>可否作为实验基准：可以优先评估是否作为实验基准。</li>
 <li>建议行动：use_as_eval</li>
 </ul>
 
 <h3>Interesting Benchmarks</h3>
-<h5>1. <a href="https://arxiv.org/abs/2610.38315v1">LLM-PowerTrace: A Dataset of Time-Resolved GPU Power Traces for AI Compute</a></h5>
+<h5>1. <a href="https://arxiv.org/abs/2611.01191v1">ArSciKids: Arabic Curriculum-Aligned Datasets for Scientific Experiment and Multiple-Choice Question Generation in Primary Education</a></h5>
+<ul>
+<li>阅读层级：关注</li>
+<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
+<li>证据来源：仅摘要</li>
+<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
+<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
+<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
+<li>建议行动：skim</li>
+</ul>
+
+<h5>2. <a href="https://arxiv.org/abs/2611.00935v1">Labadain-MedQA: A Tetun Medical QA Dataset for Fine-Tuning and Evaluating Large Language Models</a></h5>
+<ul>
+<li>阅读层级：关注</li>
+<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
+<li>证据来源：仅摘要</li>
+<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
+<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
+<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
+<li>建议行动：save</li>
+</ul>
+
+<h5>3. <a href="https://arxiv.org/abs/2611.00957v1">Evaluating Tactile Foundation Models for End-to-End Imitation Learning in Contact-Rich Manipulation</a></h5>
+<ul>
+<li>阅读层级：关注</li>
+<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
+<li>证据来源：仅摘要</li>
+<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
+<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
+<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
+<li>建议行动：skim</li>
+</ul>
+
+<h5>4. <a href="https://arxiv.org/abs/2611.01176v1">Benchmark Study for Quantum Statevector Simulators for Scientific Computing</a></h5>
 <ul>
 <li>阅读层级：关注</li>
 <li>来源：arXiv Systems/HPC/GPU Data Path</li>
@@ -1029,18 +1051,7 @@
 <li>建议行动：skim</li>
 </ul>
 
-<h5>2. <a href="https://arxiv.org/abs/2610.40364v1">Is It the Curriculum or Just the Easy Start? Benchmarking Unsupervised Environment Design on Quadrupeds</a></h5>
-<ul>
-<li>阅读层级：关注</li>
-<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
-<li>证据来源：仅摘要</li>
-<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
-<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
-<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
-<li>建议行动：skim</li>
-</ul>
-
-<h5>3. <a href="https://arxiv.org/abs/2610.38425">IntReal: A Real-World Dataset and Benchmark for Multimodal Interleaved Generation</a></h5>
+<h5>5. <a href="https://arxiv.org/abs/2610.36384">SOMA: A Benchmark for Fine-Grained Egocentric Behavior and Body-Motion Understanding</a></h5>
 <ul>
 <li>阅读层级：关注</li>
 <li>来源：Hugging Face Daily Papers</li>
@@ -1048,34 +1059,12 @@
 <li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
 <li>适合用于什么研究：适合用于多模态泛化或跨域评测设计参考。</li>
 <li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
-<li>建议行动：skim</li>
-</ul>
-
-<h5>4. <a href="https://arxiv.org/abs/2610.40518v1">IndicIPR-QA: A Benchmark for Extractive Question Answering on Indian IPR Laws</a></h5>
-<ul>
-<li>阅读层级：关注</li>
-<li>来源：arXiv AI/ML/NLP/Vision/Robotics</li>
-<li>证据来源：仅摘要</li>
-<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
-<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
-<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
-<li>建议行动：skim</li>
-</ul>
-
-<h5>5. <a href="https://arxiv.org/abs/2610.39070v1">When the Same Prompt Gives Different Answers (and the Same Answer Isn&#x27;t Always Right): A Taxonomy of Failure Mechanisms, Testing, and Mitigation Strategies for LLM-Assisted Evidence Synthesis Read-and-Evaluate Tasks</a></h5>
-<ul>
-<li>阅读层级：关注</li>
-<li>来源：arXiv Systems/HPC/GPU Data Path</li>
-<li>证据来源：仅摘要</li>
-<li>benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。</li>
-<li>适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。</li>
-<li>可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。</li>
-<li>建议行动：skim</li>
+<li>建议行动：save</li>
 </ul>
 
 <h3>Other Benchmarks</h3>
 <ul>
-<li>其余 9 个只进入附录标题列表：reports/appendix/2026-11-02-benchmarks.md</li>
+<li>其余 6 个只进入附录标题列表：reports/appendix/2026-11-03-benchmarks.md</li>
 </ul>
 
 <h2>5. GitHub / 开源项目</h2>
@@ -1085,7 +1074,7 @@
 <ul>
 <li>阅读优先级：克隆运行</li>
 <li>来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）</li>
-<li>发布时间：2026-11-02T01:42:43+00:00</li>
+<li>发布时间：2026-11-03T03:34:50+00:00</li>
 <li>主方向：GitHub / 开源项目推荐</li>
 <li>次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、工具库</li>
 <li>依据层级：仓库 README</li>
@@ -1103,7 +1092,7 @@
 <ul>
 <li>阅读优先级：克隆运行</li>
 <li>来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）</li>
-<li>发布时间：2026-11-02T01:33:42+00:00</li>
+<li>发布时间：2026-11-03T03:34:53+00:00</li>
 <li>主方向：GitHub / 开源项目推荐</li>
 <li>次级标签：Agent / 推理 / 推理时扩展 / 规划、上下文压缩 / 长上下文 / 记忆、Agent 运行时 / RL 基础设施 / 调度、工具库</li>
 <li>依据层级：仓库 README</li>
@@ -1211,15 +1200,15 @@
 <h2>7. 高校 / 实验室雷达</h2>
 
 <ul>
-<li><a href="https://arxiv.org/abs/2610.38355v1">FlatCake: A Flat KVCache Storage Architecture for LLM Serving</a></li>
-<li>学校 / 实验室：Harbin Institute of Technology</li>
-<li>类型：paper</li>
-<li>为什么值得关注：institution_signal 0.96，authority_score 0.96</li>
-<li>与我的研究方向关系：GPU 中心 I/O / 网络 / 存储，personal 0.90</li>
-<li>建议行动：skim</li>
 <li><a href="http://bair.berkeley.edu/blog/2026/03/13/spex/">Identifying Interactions at Scale for LLMs</a></li>
 <li>学校 / 实验室：UC Berkeley</li>
 <li>类型：project</li>
+<li>为什么值得关注：institution_signal 0.96，authority_score 0.96</li>
+<li>与我的研究方向关系：AI 系统 / HPC / 分布式训练与推理，personal 0.86</li>
+<li>建议行动：watch</li>
+<li><a href="https://arxiv.org/abs/2610.40738">Apriel Voice 27B Preview: An Open Model for Speech, Reasoning, and Tool Use</a></li>
+<li>学校 / 实验室：Hugging Face</li>
+<li>类型：paper</li>
 <li>为什么值得关注：institution_signal 0.96，authority_score 0.96</li>
 <li>与我的研究方向关系：AI 系统 / HPC / 分布式训练与推理，personal 0.86</li>
 <li>建议行动：watch</li>
@@ -1229,18 +1218,18 @@
 <li>为什么值得关注：institution_signal 0.96，authority_score 0.96</li>
 <li>与我的研究方向关系：Agent / 推理 / 推理时扩展 / 规划，personal 0.85</li>
 <li>建议行动：skim</li>
-<li><a href="https://arxiv.org/abs/2610.39633">Intrinsic Distribution Matching</a></li>
+<li><a href="https://arxiv.org/abs/2610.42141">RoboArchitect: Automating the Design of Robotic Agents with Persistent Memory</a></li>
 <li>学校 / 实验室：Hugging Face</li>
 <li>类型：paper</li>
 <li>为什么值得关注：institution_signal 0.96，authority_score 0.96</li>
-<li>与我的研究方向关系：模型蒸馏 / 模型压缩，personal 0.83</li>
-<li>建议行动：skim</li>
-<li><a href="https://github.com/NousResearch/hermes-agent">NousResearch/hermes-agent</a></li>
-<li>学校 / 实验室：MIT</li>
-<li>类型：project</li>
+<li>与我的研究方向关系：具身智能 / VLA / 世界模型，personal 0.85</li>
+<li>建议行动：watch</li>
+<li><a href="https://arxiv.org/abs/2610.37393">Learning Quality-Controllable Robot Policies with Iterative Hindsight Relabeling</a></li>
+<li>学校 / 实验室：Hugging Face</li>
+<li>类型：paper</li>
 <li>为什么值得关注：institution_signal 0.96，authority_score 0.96</li>
-<li>与我的研究方向关系：GitHub / 开源项目推荐，personal 0.81</li>
-<li>建议行动：clone_and_run</li>
+<li>与我的研究方向关系：具身智能 / VLA / 世界模型，personal 0.84</li>
+<li>建议行动：watch</li>
 </ul>
 
 <h2>8. 公司研究雷达</h2>
@@ -1290,18 +1279,15 @@
 
 <h2>11. 常青经典</h2>
 
-<h3>1. <a href="https://arxiv.org/abs/1707.06347">Proximal Policy Optimization Algorithms</a>（2017）</h3>
+<h3>1. <a href="https://arxiv.org/abs/2305.10601">Tree of Thoughts</a>（2023）</h3>
 <ul>
-<li>作者：John Schulman、Filip Wolski、Prafulla Dhariwal、Alec Radford、Oleg Klimov</li>
-<li>topic_tags：rl、agents</li>
-<li>关联方向：Agent / Reasoning / Inference-time Scaling / Planning、RL</li>
-<li>为什么经典：PPO 是现代 RL 和 RLHF 语境里反复出现的基础算法，适合对照 agentic RL、长程轨迹优化和偏好优化系统。</li>
-<li>今日新论文继承了什么问题：2026 BAIR Graduate Showcase 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。</li>
+<li>作者：Shunyu Yao、Dian Yu、Jeffrey Zhao、Izhak Shafran、Thomas L. Griffiths、Yuan Cao、Karthik Narasimhan</li>
+<li>topic_tags：agents、planning</li>
+<li>关联方向：Agent / Reasoning / Inference-time Scaling / Planning</li>
+<li>为什么经典：Tree of Thoughts 把单一路径 CoT 扩展为可搜索、可回溯的思维树，适合连接今天关于自适应并行推理、搜索式规划和 agent reasoning 的工作。</li>
+<li>今日新论文继承了什么问题：今天的相关条目 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。</li>
 <li>它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。</li>
 <li>它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。</li>
-<li>预备知识：了解 policy gradient 和 actor-critic。</li>
-<li>相关今日条目：</li>
-<li><a href="http://bair.berkeley.edu/blog/2026/07/01/grads-2026/">2026 BAIR Graduate Showcase</a>（Embodied Intelligence / VLA / World Models；连接词：long-horizon、reinforcement learning、rl、rlhf）</li>
 </ul>
 
 <h2>12. 反馈感知推荐</h2>
@@ -1315,26 +1301,27 @@
 <ul>
 <li>OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)</li>
 <li>GitHub AI Research Projects：time budget exhausted（23 条） - 时间预算已耗尽 after 23 items</li>
+<li>Meta AI Blog：0 items（0 条） - fetch completed with 0 items</li>
 <li>The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch</li>
 </ul>
 
 <h2>14. 采集说明</h2>
 
 <ul>
-<li>生成时间：2026-11-02T01:46:28.091248+00:00</li>
-<li>来源数量：32</li>
-<li>原始条目数：681</li>
-<li>去重后条目数：566</li>
+<li>生成时间：2026-11-03T03:42:09.654947+00:00</li>
+<li>来源数量：31</li>
+<li>原始条目数：666</li>
+<li>去重后条目数：559</li>
 <li>API 请求总数：7</li>
 <li>各供应商 API 请求数：deepseek:6, kimi:1</li>
-<li>缓存命中：0</li>
-<li>缓存未命中：6</li>
-<li>Benchmark 附录：reports/appendix/2026-11-02-benchmarks.md</li>
+<li>缓存命中：1</li>
+<li>缓存未命中：5</li>
+<li>Benchmark 附录：reports/appendix/2026-11-03-benchmarks.md</li>
 </ul>
 
 <ul>
-<li>报告路径：reports/daily/2026/11/2026-11-02.md</li>
-<li>上一份报告链接：reports/daily/2026/11/2026-11-01.md</li>
+<li>报告路径：reports/daily/2026/11/2026-11-03.md</li>
+<li>上一份报告链接：reports/daily/2026/11/2026-11-02.md</li>
 </ul>
 
                 </article>
