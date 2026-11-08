@@ -1,4 +1,4 @@
-# AI Research Radar - 2026-11-07
+# AI Research Radar - 2026-11-08
 
 - Profile: George Research Profile v2
 - Summary mode: single
@@ -15,20 +15,23 @@
 
 ## 0. Daily Overview
 
-- Most important direction: AI Systems / HPC / Distributed Training & Inference
-- Must Read count: 1 (StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference)
-- Skim count: 8 (Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction; Agent-R$^2$: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis; Energy Efficient Near-Threshold Voltage Massive MIMO Computing; OpenRDMA: A GPU-Native Multi-Path Reliable RDMA Transport Architecture; ProQuant: Progressive Quantization-aware Training for Edge MLLMs)
+- Most important direction: Agent / 推理 / 推理时扩展 / 规划
+- Must Read count: 0
+- Skim count: 8 (StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference; Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction; Agent-R$^2$: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis; OpenRDMA: A GPU-Native Multi-Path Reliable RDMA Transport Architecture; ProQuant: Progressive Quantization-aware Training for Edge MLLMs)
 - Watch count: 12 (2026 BAIR Graduate Showcase; Identifying Interactions at Scale for LLMs; Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling; Detecting Silent Faults at the Environment-Trainer Boundary in Reinforcement Learning; AutoCompress: Automated Hardware-Guided Model Compression)
 - Keywords: framework, nlp, inference, language model, cs.CL, robotics, throughput, agent
-- Judgement: 今日主线: 围绕《StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference》展开, 建议从其问题设定和可复现实验切入.
+- Judgement: 今日主线: 没有强制深读项, 建议归档观察.
 
 ## 1. Core Research Tracks
 
 ### 1.1 AI Systems / HPC / Distributed Training & Inference
 
 #### Must Read
+- 无。
+
+#### Skim
 ##### 1. [StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference](https://arxiv.org/abs/2611.08363v1)
-- Reading tier: MUST_READ
+- Reading tier: SKIM
 - Source: arXiv AI/ML/NLP/Vision/Robotics (primary; role=paper_source)
 - Published: 2026-11-05T17:42:06+00:00
 - Primary track: AI Systems / HPC / Distributed Training & Inference
@@ -39,12 +42,9 @@
 - What it is: StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference: 研究论文, 方向为“AI Systems / HPC / Distributed Training & Inference”; 主要线索: KV-cache, cs.DC, cs.LG, framework.
 - Problem: 它关注“AI Systems / HPC / Distributed Training & Inference”里的 KV-cache, cs.DC, cs.LG, framework 等问题.
 - Method/contribution: 摘要可确认它提出或引入了 KV-cache, cs.DC, cs.LG, framework; 具体训练设置, 指标和消融细节需读原文确认.
-- Why important to George: Reading tier: MUST_READ editorial_priority: 0.80 schedule deep read today. personal: 0.86, relevance: 1.00.
-- Suggested action: read_pdf
+- Why important to George: Reading tier: SKIM editorial_priority: 0.80 今天快速扫读. personal: 0.86, relevance: 1.00.
+- Suggested action: skim
 - Matched keywords: KV-cache, cs.DC, cs.LG, framework, inference, language model, nlp, quantization
-
-#### Skim
-- 无。
 
 #### Watch
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.86；全局热度=0.39；炒作风险=0.00）
@@ -74,8 +74,8 @@
 - Matched keywords: GDR, GPUDirect RDMA, HPC, InfiniBand, RDMA, architecture, cs.AR, data path
 
 #### Watch
-- [File-Semantic SSD for I/O-centric Architectures with NFS-over-NVMe Protocol](https://arxiv.org/abs/2611.06071v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.77；全局热度=0.38；炒作风险=0.00）
-- [Mobility-Aware Mobile Edge Computing for Energy-Balanced Data Collection in IoT-Enabled Underwater Sensor Networks](https://arxiv.org/abs/2611.06186v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.76；全局热度=0.38；炒作风险=0.00）
+- [File-Semantic SSD for I/O-centric Architectures with NFS-over-NVMe Protocol](https://arxiv.org/abs/2611.06071v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.76；全局热度=0.35；炒作风险=0.00）
+- [Mobility-Aware Mobile Edge Computing for Energy-Balanced Data Collection in IoT-Enabled Underwater Sensor Networks](https://arxiv.org/abs/2611.06186v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.75；全局热度=0.34；炒作风险=0.00）
 - [Local and Distributed Large LLM Inference with MLX and RDMA on Mac Studio](https://machinelearning.apple.com/research/mlx-distributed-inference) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.74；全局热度=0.31；炒作风险=0.00）
 
 ### 1.3 Compression / Reliability for AI Infrastructure
@@ -84,23 +84,10 @@
 - 无。
 
 #### Skim
-##### 1. [Energy Efficient Near-Threshold Voltage Massive MIMO Computing](https://arxiv.org/abs/2611.06772v1)
-- Reading tier: SKIM
-- Source: arXiv Systems/HPC/GPU Data Path (primary; role=paper_source)
-- Published: 2026-11-04T16:50:50+00:00
-- Primary track: Compression / Reliability for AI Infrastructure
-- Secondary tags: AI Systems / HPC / Distributed Training & Inference, GPU-Centric I/O / Networking / Storage, Embodied Intelligence / VLA / World Models, CV
-- Grounding level: abstract only
-- Scores: personal=0.84, global=0.47, credibility=1.00, evidence=1.00, hype_risk=0.00, feedback=0.00
-- Project relevance: skyfs=0.44, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
-- What it is: Energy Efficient Near-Threshold Voltage Massive MIMO Computing: 研究论文, 方向为“Compression / Reliability for AI Infrastructure”; 主要线索: HPC, checksum, cs.AR, data path.
-- Problem: 它关注“Compression / Reliability for AI Infrastructure”里的 HPC, checksum, cs.AR, data path 等问题.
-- Method/contribution: 摘要可确认它提出或引入了 HPC, checksum, cs.AR, data path; 具体训练设置, 指标和消融细节需读原文确认.
-- Why important to George: Reading tier: SKIM editorial_priority: 0.78 今天快速扫读. personal: 0.84, relevance: 1.00.
-- Suggested action: skim
-- Matched keywords: HPC, checksum, cs.AR, data path, detection, fault injection, fault tolerance, framework
+- 无。
 
 #### Watch
+- [Energy Efficient Near-Threshold Voltage Massive MIMO Computing](https://arxiv.org/abs/2611.06772v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.84；全局热度=0.43；炒作风险=0.00）
 - [AI-Native Task-Oriented Semantic Communications over a Relay: Benefits and Vulnerabilities](https://arxiv.org/abs/2611.08155v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.82；全局热度=0.39；炒作风险=0.00）
 
 ### 1.4 Agent Runtime / RL Infrastructure / Scheduling
@@ -112,7 +99,7 @@
 - 无。
 
 #### Watch
-- [Tools Need Not Speak in Text: Latent Context Compression for Agents](https://arxiv.org/abs/2611.06500) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.83；全局热度=0.47；炒作风险=0.00）
+- [Tools Need Not Speak in Text: Latent Context Compression for Agents](https://arxiv.org/abs/2611.06500) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.83；全局热度=0.48；炒作风险=0.00）
 - [Formally verifying agent-written full-stack web apps with PDD Kit](https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/) （关注；Agent 运行时 / RL 基础设施 / 调度；个人相关度=0.56；全局热度=0.48；炒作风险=0.00）
 
 ### 1.5 Embodied Intelligence / VLA / World Models
@@ -145,8 +132,7 @@
 ## 2. Supporting AI Foundations
 
 ### Context / Memory
-- [Signed but Steerable: Measuring and Closing the Text-Vector Integrity Gap in Offline Retrieval-Augmented Generation](https://arxiv.org/abs/2611.06498) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.70；全局热度=0.49；炒作风险=0.00）
-- [Reducing Representational Interference in Retrieval Embeddings with Trainable Prefix Tokens](https://arxiv.org/abs/2611.07298) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.65；全局热度=0.48；炒作风险=0.00）
+- [Signed but Steerable: Measuring and Closing the Text-Vector Integrity Gap in Offline Retrieval-Augmented Generation](https://arxiv.org/abs/2611.06498) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.69；全局热度=0.47；炒作风险=0.00）
 - [Faster Retrieval for Better, More Efficient RAG](https://machinelearning.apple.com/research/faster-retrieval) （关注；上下文压缩 / 长上下文 / 记忆；个人相关度=0.60；全局热度=0.37；炒作风险=0.00）
 
 ### Generic Agents / Reasoning
@@ -163,17 +149,17 @@
 
 ### Multimodal / VLM / CV
 - [Multimodal Hierarchical Mixture-of-Experts for 3D Medical Vision-Language Modeling](https://arxiv.org/abs/2611.08185v1) （关注；CV；个人相关度=0.71；全局热度=0.40；炒作风险=0.00）
-- [EDGAR: Efficient Diffusion-Driven Gaussian Avatar Refinement via Synthetic Failure](https://arxiv.org/abs/2611.07909) （关注；CV；个人相关度=0.69；全局热度=0.53；炒作风险=0.00）
+- [EDGAR: Efficient Diffusion-Driven Gaussian Avatar Refinement via Synthetic Failure](https://arxiv.org/abs/2611.07909) （归档；CV；个人相关度=0.68；全局热度=0.49；炒作风险=0.00）
 
 ### NLP
 - [SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains](https://arxiv.org/abs/2611.08362v1) （关注；NLP；个人相关度=0.67；全局热度=0.40；炒作风险=0.00）
 - [Polarity Classification with Multitask Learning Syntax Augmentation](https://arxiv.org/abs/2611.08323v1) （关注；NLP；个人相关度=0.64；全局热度=0.40；炒作风险=0.00）
 
 ### Open-World / Continual Learning
-- [Towards Real-Time Full-Waveform LiDAR Transformers via Intensity-Guided Token Reduction and Physics-Aware Augmentation](https://arxiv.org/abs/2611.07613) （关注；新类学习 / 开放世界学习；个人相关度=0.81；全局热度=0.52；炒作风险=0.00）
+- [Towards Real-Time Full-Waveform LiDAR Transformers via Intensity-Guided Token Reduction and Physics-Aware Augmentation](https://arxiv.org/abs/2611.07613) （关注；新类学习 / 开放世界学习；个人相关度=0.82；全局热度=0.52；炒作风险=0.00）
 
 ### Model Distillation
-- [WeLM-Image: A Unified Image Generation Model towards Visual Intelligence](https://arxiv.org/abs/2611.07392) （关注；模型蒸馏 / 模型压缩；个人相关度=0.80；全局热度=0.52；炒作风险=0.00）
+- [WeLM-Image: A Unified Image Generation Model towards Visual Intelligence](https://arxiv.org/abs/2611.07392) （关注；模型蒸馏 / 模型压缩；个人相关度=0.79；全局热度=0.49；炒作风险=0.00）
 - [StepX-OPD: Rethinking Multi-Teacher On-Policy Distillation in Diffusion Models](https://arxiv.org/abs/2611.04386) （关注；模型蒸馏 / 模型压缩；个人相关度=0.71；全局热度=0.45；炒作风险=0.00）
 
 ## 3. Cross-Track Connections
@@ -281,7 +267,7 @@
 - 建议行动：skim
 
 ### Other Benchmarks
-- 其余 9 个只进入附录标题列表：reports/appendix/2026-11-07-benchmarks.md
+- 其余 9 个只进入附录标题列表：reports/appendix/2026-11-08-benchmarks.md
 
 ## 5. GitHub / Open Source Projects
 
@@ -289,7 +275,7 @@
 ##### 1. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-11-07T02:12:42+00:00
+- Published: 2026-11-08T01:44:05+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: AI Systems / HPC / Distributed Training & Inference, Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -302,26 +288,10 @@
 - Suggested action: clone_and_run
 - Matched keywords: GPU cluster, agent, cluster, github, github.com, gpu, open-source
 
-##### 2. [NVIDIA/Model-Optimizer](https://github.com/NVIDIA/Model-Optimizer)
+##### 2. [langgenius/dify](https://github.com/langgenius/dify)
 - Reading tier: clone_and_run
 - Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-11-07T01:53:16+00:00
-- Primary track: GitHub / 开源项目推荐
-- Secondary tags: Model Compression, Quantization, 工具库
-- Grounding level: repo README
-- Scores: personal=0.78, global=0.62, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
-- Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
-- What it is: NVIDIA/Model-Optimizer: 开源项目, 方向为“GitHub / 开源项目推荐”; 主要线索: architecture, checkpoint, distillation, github.
-- Problem: 它关注“GitHub / 开源项目推荐”里的 architecture, checkpoint, distillation, github 等问题.
-- Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
-- Why important to George: Reading tier: 克隆运行 editorial_priority: 0.33 按 GitHub 项目动作处理. personal: 0.78, relevance: 0.87.
-- Suggested action: clone_and_run
-- Matched keywords: architecture, checkpoint, distillation, github, github.com, inference, library, open-source
-
-##### 3. [langgenius/dify](https://github.com/langgenius/dify)
-- Reading tier: clone_and_run
-- Source: GitHub AI Research Projects (aggregator; role=code_actionability)
-- Published: 2026-11-06T19:46:43+00:00
+- Published: 2026-11-07T14:55:47+00:00
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: Agent / 推理 / 推理时扩展 / 规划, 上下文压缩 / 长上下文 / 记忆, Agent Runtime / RL Infrastructure / Scheduling, 工具库
 - Grounding level: repo README
@@ -334,6 +304,22 @@
 - Suggested action: clone_and_run
 - Matched keywords: RAG, agent, agentic, framework, github, github.com, open-source, repository
 
+##### 3. [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)
+- Reading tier: clone_and_run
+- Source: GitHub AI Research Projects (aggregator; role=code_actionability)
+- Published: 2026-11-06T05:53:36+00:00
+- Primary track: GitHub / 开源项目推荐
+- Secondary tags: 上下文压缩 / 长上下文 / 记忆, Benchmark / 数据集 / 评测, Agent Runtime / RL Infrastructure / Scheduling, 其他亮点, 工具库
+- Grounding level: repo README
+- Scores: personal=0.63, global=0.48, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
+- Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
+- What it is: Shubhamsaboo/awesome-llm-apps: 开源项目, 方向为“GitHub / 开源项目推荐”; 主要线索: RAG, agent, eval, github.
+- Problem: 它关注“GitHub / 开源项目推荐”里的 RAG, agent, eval, github 等问题.
+- Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
+- Why important to George: Reading tier: 克隆运行 editorial_priority: 0.21 按 GitHub 项目动作处理. personal: 0.63, relevance: 0.65.
+- Suggested action: clone_and_run
+- Matched keywords: RAG, agent, eval, github, github.com, open source, open-source, security
+
 ### Paper-linked Repos
 ##### 1. [rednote-machine-learning/RedKnot](https://github.com/rednote-machine-learning/RedKnot)
 - Reading tier: 作为基线
@@ -342,12 +328,12 @@
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: 上下文压缩 / 长上下文 / 记忆, AI Systems / HPC / Distributed Training & Inference, Benchmark / 数据集 / 评测, NLP, 工具库
 - Grounding level: repo README
-- Scores: personal=0.64, global=0.48, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
+- Scores: personal=0.63, global=0.44, credibility=0.89, evidence=0.69, hype_risk=0.00, feedback=0.00
 - Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
 - What it is: rednote-machine-learning/RedKnot: 开源项目, 方向为“GitHub / 开源项目推荐”; 主要线索: framework, github, github.com, long-context.
 - Problem: 它关注“GitHub / 开源项目推荐”里的 framework, github, github.com, long-context 等问题.
 - Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
-- Why important to George: Reading tier: 作为基线 editorial_priority: 0.22 按 GitHub 项目动作处理. personal: 0.64, relevance: 0.67.
+- Why important to George: Reading tier: 作为基线 editorial_priority: 0.18 按 GitHub 项目动作处理. personal: 0.63, relevance: 0.67.
 - Suggested action: read_readme
 - Matched keywords: benchmark, framework, github, github.com, long-context, open-source, release, serving
 
@@ -358,12 +344,12 @@
 - Primary track: GitHub / 开源项目推荐
 - Secondary tags: 上下文压缩 / 长上下文 / 记忆, Agent / 推理 / 推理时扩展 / 规划, Compression / Reliability for AI Infrastructure, Benchmark / 数据集 / 评测, 工具库
 - Grounding level: repo README
-- Scores: personal=0.69, global=0.62, credibility=0.88, evidence=0.69, hype_risk=0.00, feedback=0.00
+- Scores: personal=0.68, global=0.59, credibility=0.88, evidence=0.69, hype_risk=0.00, feedback=0.00
 - Project relevance: skyfs=0.00, schedagent=0.00, verl_infrastructure=0.00, embodied_intelligence=0.00
 - What it is: Paritok-official/paritok-4b-v1: 开源项目, 方向为“GitHub / 开源项目推荐”; 主要线索: agent, agentic, compression, context window.
 - Problem: 它关注“GitHub / 开源项目推荐”里的 agent, agentic, compression, context window 等问题.
 - Method/contribution: 这是代码仓库条目; 优先检查 README, 示例, 许可证和是否有可复现实验入口.
-- Why important to George: Reading tier: 研读代码 editorial_priority: 0.29 按 GitHub 项目动作处理. personal: 0.69, relevance: 0.69.
+- Why important to George: Reading tier: 研读代码 editorial_priority: 0.26 按 GitHub 项目动作处理. personal: 0.68, relevance: 0.69.
 - Suggested action: study_code
 - Matched keywords: agent, agentic, compression, context window, evaluation, github, github.com, open-source
 
@@ -417,18 +403,18 @@
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：Agent 运行时 / RL 基础设施 / 调度，personal 0.83
   - 建议行动：watch
+- [Towards Real-Time Full-Waveform LiDAR Transformers via Intensity-Guided Token Reduction and Physics-Aware Augmentation](https://arxiv.org/abs/2611.07613)
+  - 学校 / 实验室：Hugging Face
+  - 类型：paper
+  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
+  - 与我的研究方向关系：新类学习 / 开放世界学习，personal 0.82
+  - 建议行动：watch
 - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
   - 学校 / 实验室：MIT
   - 类型：project
   - 为什么值得关注：institution_signal 0.96，authority_score 0.96
   - 与我的研究方向关系：GitHub / 开源项目推荐，personal 0.81
   - 建议行动：clone_and_run
-- [Towards Real-Time Full-Waveform LiDAR Transformers via Intensity-Guided Token Reduction and Physics-Aware Augmentation](https://arxiv.org/abs/2611.07613)
-  - 学校 / 实验室：Hugging Face
-  - 类型：paper
-  - 为什么值得关注：institution_signal 0.96，authority_score 0.96
-  - 与我的研究方向关系：新类学习 / 开放世界学习，personal 0.81
-  - 建议行动：watch
 
 ## 8. Company Research Radar
 
@@ -469,16 +455,14 @@
 
 ## 11. Evergreen Classics
 
-### 1. [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)（2021）
-- 作者：Edward J. Hu、Yelong Shen、Phillip Wallis、Zeyuan Allen-Zhu、Yuanzhi Li、Shean Wang、Lu Wang、Weizhu Chen
-- topic_tags：model_distillation、model_compression、efficient_training
-- 关联方向：Model Distillation / Model Compression / Efficient Training
-- 为什么经典：LoRA 是低秩适配的代表工作，常被用来理解参数高效训练、压缩部署和小模型微调的工程取舍。
-- 今日新论文继承了什么问题：StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference 继承了经典压缩/蒸馏工作的问题：如何在更低计算成本下保留教师模型能力。
-- 它挑战了什么经典假设：它挑战只做 logits matching 或静态小模型压缩的假设，转向轨迹、扩散过程、排序一致性和部署约束。
-- 它推进到什么新场景：新场景扩展到 few-step diffusion、VLM 预训练、量化剪枝和推理服务优化。
-- 相关今日条目：
-  - [StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference](https://arxiv.org/abs/2611.08363v1)（AI Systems / HPC / Distributed Training & Inference；连接词：quantization）
+### 1. [Highly accurate protein structure prediction with AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)（2021）
+- 作者：John Jumper、Richard Evans、Alexander Pritzel、Tim Green、Michael Figurnov、Olaf Ronneberger、Kathryn Tunyasuvunakool、Russ Bates 等
+- topic_tags：ai_for_science、biology
+- 关联方向：Other Highlights
+- 为什么经典：AlphaFold 是 AI for Science 的标志性成果，适合在生物、蛋白质、科学发现和世界模型相关进展出现时重读。
+- 今日新论文继承了什么问题：今天的相关条目 与这篇经典论文共享一个概念问题，而不仅是关键词重合。
+- 它挑战了什么经典假设：需要阅读新论文后确认它是否改变了经典论文中的数据、模型或评估假设。
+- 它推进到什么新场景：暂时把它作为背景坐标，用来判断新工作是否只是换任务，还是确实推进了方法边界。
 
 ## 12. Feedback-Aware Recommendations
 
@@ -487,21 +471,21 @@
 ## 13. Source Health
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
-- GitHub AI Research Projects：time budget exhausted（25 条） - 时间预算已耗尽 after 25 items
-- Meta AI Blog：0 items（0 条） - fetch completed with 0 items
+- GitHub AI Research Projects：time budget exhausted（23 条） - 时间预算已耗尽 after 23 items
 - The Batch by DeepLearning.AI：错误（0 条） - 403 Client Error: Forbidden for url: https://www.deeplearning.ai/the-batch
+- Latent Space：0 items（0 条） - fetch completed with 0 items
 
 ## 14. Collection Notes
 
-- Generated at: 2026-11-07T02:16:13.525605+00:00
+- Generated at: 2026-11-08T01:46:53.675705+00:00
 - Source count: 31
-- Raw item count: 668
-- Dedup item count: 557
+- Raw item count: 666
+- Dedup item count: 550
 - API requests total: 7
 - API requests by provider: deepseek:6, kimi:1
 - Cache hits: 0
 - Cache misses: 6
-- Benchmark appendix: reports/appendix/2026-11-07-benchmarks.md
+- Benchmark appendix: reports/appendix/2026-11-08-benchmarks.md
 
-- Report path: reports/daily/2026/11/2026-11-07.md
-- 上一份报告链接：reports/daily/2026/11/2026-11-06.md
+- Report path: reports/daily/2026/11/2026-11-08.md
+- 上一份报告链接：reports/daily/2026/11/2026-11-07.md
