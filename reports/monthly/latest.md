@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-11
 
-- 纳入日报：8 份
-- 跟踪条目：1564；MUST_READ 10；SKIM 41；ARCHIVE 338
+- 纳入日报：9 份
+- 跟踪条目：1565；MUST_READ 10；SKIM 41；ARCHIVE 339
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -75,7 +75,7 @@
   - [Selective, Risk-Controlled Emotion Forecasting in Conversation: From a Persistence Barrier to Departure Detection with Conformal Guarantees](https://arxiv.org/abs/2611.05896v1)
   - [Say Less, Mean Better: Training-Free Verbosity Control for Language Models](https://arxiv.org/abs/2611.04107v1)
   - [ShallowDefend: Harnessing Shallow Safety Alignment for Multi-Turn Defender](https://arxiv.org/abs/2610.40627v1)
-- Agent Runtime / RL Infrastructure / Scheduling：35 条进入跟踪；高频信号：agent、cs.AI、nlp、robotics、language model、cs.LG、runtime、llm agent。
+- Agent Runtime / RL Infrastructure / Scheduling：36 条进入跟踪；高频信号：agent、cs.AI、nlp、robotics、language model、cs.LG、runtime、llm agent。
   - [FlyHash for LLM Agent Memory: An Empirical Validation and a New Application](https://arxiv.org/abs/2611.05791v1)
   - [DoGNAVY-Exploit: Harnessing Parallel Open-Weight Agents for Stage-Aware Vulnerability Exploitation](https://arxiv.org/abs/2611.04196v1)
   - [The Agent Board: Kanban for Machines; Durable Coordination for Agents That Outlive the Conversation](https://arxiv.org/abs/2611.04100v1)
