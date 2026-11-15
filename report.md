@@ -1,11 +1,11 @@
-# AI Research Radar - 2026-11-14
+# AI Research Radar - 2026-11-15
 
 - 研究画像：George Research Profile v2
 - 总结模式：单模型
 - 供应商：deepseek
 - 模型：deepseek-v4-flash
 
-- LLM 总结调用次数：5
+- LLM 总结调用次数：7
 - 估算成本：RMB 0.0 / 1.0
 - 最近一次 LLM 错误：provider=deepseek; model=deepseek-v4-flash; base_url=https://api.deepseek.com; HTTP status=n/a; error=Could not parse JSON response:
 - 已禁用供应商：kimi
@@ -16,11 +16,11 @@
 ## 0. 每日概览
 
 - 最重要方向：具身智能 / VLA / 世界模型
-- 必读数量：2（CADET: Construction of PCB Routing Instances with Executable Demonstrations；AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video）
-- 略读数量：8（Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Agent-R^2: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；LazyWeights: Decode-on-Demand Edge LLMs；AgentSSL: Can MLE Agents Leverage Unlabeled Data?）
+- 必读数量：1（AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video）
+- 略读数量：8（CADET: Construction of PCB Routing Instances with Executable Demonstrations；Teaching LLMs to Update Beliefs for Efficient Long-Horizon Interaction；Agent-R^2: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis；Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling；LazyWeights: Decode-on-Demand Edge LLMs）
 - 关注数量：12（BAIR at CoRL 2026；2026 BAIR Graduate Showcase；Identifying Interactions at Scale for LLMs；Evolving Infra: Agent-Adaptive LLM Serving at Scale；Joint Null-Space Projection for Data-Free Model Merging）
-- 关键词：nlp、robotics、cs.AI、cs.LG、agent、dataset、github、reinforcement learning
-- 判断：今日主线：围绕《CADET: Construction of PCB Routing Instances with Executable》展开，建议从其问题设定和可复现实验切入。
+- 关键词：nlp、robotics、cs.AI、cs.CV、dataset、inference、long-horizon、cs.LG
+- 判断：今日主线：围绕《AURA 2.0: From User-Driven Responses to Model-Initiated Conv》展开，建议从其问题设定和可复现实验切入。
 
 ## 1. 核心研究方向
 
@@ -46,22 +46,6 @@
 - 建议动作：快速扫读
 - 命中关键词：cs.AR、cs.CL、cs.IT、cs.LG、nlp、robotics、throughput
 
-##### 2. [AgentSSL: Can MLE Agents Leverage Unlabeled Data?](https://arxiv.org/abs/2611.17323v1)
-- 阅读优先级：略读
-- 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
-- 发布时间：2026-11-12T18:59:06+00:00
-- 主方向：AI 系统 / HPC / 分布式训练与推理
-- 次级标签：Agent 运行时 / RL 基础设施 / 调度、具身智能 / VLA / 世界模型、AI 基础设施压缩 / 可靠性、Learning Methods / Optimization / Representation Learning
-- 依据层级：仅摘要
-- 评分：个人相关度=0.84，全局热度=0.40，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
-- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：AgentSSL: Can MLE Agents Leverage Unlabeled Data?：研究论文，方向为“AI 系统 / HPC / 分布式训练与推理”；主要线索：agent、agentic、cs.AI、cs.LG。
-- 问题：它关注“AI 系统 / HPC / 分布式训练与推理”里的 agent、agentic、cs.AI、cs.LG 等问题。
-- 方法 / 贡献：摘要可确认它提出或引入了 agent、agentic、cs.AI、cs.LG；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对 George 重要：阅读优先级：略读 编辑优先级：0.77 今天快速扫读。 个人相关度：0.84，研究相关度：1.00。
-- 建议动作：快速扫读
-- 命中关键词：agent、agentic、benchmark、cs.AI、cs.LG、detection、machine learning systems、nlp
-
 #### 关注
 - [Identifying Interactions at Scale for LLMs](http://bair.berkeley.edu/blog/2026/03/13/spex/) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.86；全局热度=0.39；炒作风险=0.00）
 - [Evolving Infra: Agent-Adaptive LLM Serving at Scale](https://arxiv.org/abs/2611.12304) （关注；AI 系统 / HPC / 分布式训练与推理；个人相关度=0.85；全局热度=0.48；炒作风险=0.00）
@@ -76,8 +60,8 @@
 - 无。
 
 #### 关注
-- [Energy Aware Optimization of Non-Deterministic Task-Based Intermittent Computing Nodes with Thimble](https://arxiv.org/abs/2611.15681v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.77；全局热度=0.38；炒作风险=0.00）
-- [Local and Distributed Large LLM Inference with MLX and RDMA on Mac Studio](https://machinelearning.apple.com/research/mlx-distributed-inference) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.74；全局热度=0.31；炒作风险=0.00）
+- [Energy Aware Optimization of Non-Deterministic Task-Based Intermittent Computing Nodes with Thimble](https://arxiv.org/abs/2611.15681v1) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.76；全局热度=0.34；炒作风险=0.00）
+- [Local and Distributed Large LLM Inference with MLX and RDMA on Mac Studio](https://machinelearning.apple.com/research/mlx-distributed-inference) （关注；GPU 中心 I/O / 网络 / 存储；个人相关度=0.74；全局热度=0.27；炒作风险=0.00）
 
 ### 1.3 AI 基础设施压缩 / 可靠性
 
@@ -89,7 +73,7 @@
 
 #### 关注
 - [Context Graph: Explainable Multi-Agent Decision Chains in AI-RAN](https://arxiv.org/abs/2611.16879v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.76；全局热度=0.38；炒作风险=0.00）
-- [Rateless Coding for Efficient Model Broadcast in Federated Learning](https://arxiv.org/abs/2611.15499v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.73；全局热度=0.38；炒作风险=0.00）
+- [Rateless Coding for Efficient Model Broadcast in Federated Learning](https://arxiv.org/abs/2611.15499v1) （关注；AI 基础设施压缩 / 可靠性；个人相关度=0.72；全局热度=0.34；炒作风险=0.00）
 
 ### 1.4 Agent 运行时 / RL 基础设施 / 调度
 
@@ -107,8 +91,25 @@
 ### 1.5 具身智能 / VLA / 世界模型
 
 #### 必读
-##### 1. [CADET: Construction of PCB Routing Instances with Executable Demonstrations](https://arxiv.org/abs/2611.16913v1)
+##### 1. [AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video](https://arxiv.org/abs/2611.17048v1)
 - 阅读优先级：必读
+- 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
+- 发布时间：2026-11-12T16:31:54+00:00
+- 主方向：具身智能 / VLA / 世界模型
+- 次级标签：Agent 运行时 / RL 基础设施 / 调度、CV、Agent / 推理 / 推理时扩展 / 规划、NLP
+- 依据层级：仅摘要
+- 评分：个人相关度=0.85，全局热度=0.41，可信度=1.00，证据强度=1.00，炒作风险=0.00，反馈=0.00
+- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
+- 是什么：AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video：研究论文，方向为“具身智能 / VLA / 世界模型”；主要线索：cs.AI、cs.CV、inference、language model。
+- 问题：它关注“具身智能 / VLA / 世界模型”里的 cs.AI、cs.CV、inference、language model 等问题。
+- 方法 / 贡献：摘要可确认它提出或引入了 cs.AI、cs.CV、inference、language model；具体训练设置、指标和消融细节需读原文确认。
+- 为什么对 George 重要：阅读优先级：必读 编辑优先级：0.77 今天安排深读。 个人相关度：0.85，研究相关度：0.97。
+- 建议动作：读 PDF
+- 命中关键词：cs.AI、cs.CV、dataset、inference、language model、long-horizon、nlp、open-source
+
+#### 略读
+##### 1. [CADET: Construction of PCB Routing Instances with Executable Demonstrations](https://arxiv.org/abs/2611.16913v1)
+- 阅读优先级：略读
 - 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
 - 发布时间：2026-11-12T15:03:50+00:00
 - 主方向：具身智能 / VLA / 世界模型
@@ -119,12 +120,11 @@
 - 是什么：CADET: Construction of PCB Routing Instances with Executable Demonstrations：研究论文，方向为“具身智能 / VLA / 世界模型”；主要线索：behavior cloning、cs.AI、cs.LG、github。
 - 问题：它关注“具身智能 / VLA / 世界模型”里的 behavior cloning、cs.AI、cs.LG、github 等问题。
 - 方法 / 贡献：摘要可确认它提出或引入了 behavior cloning、cs.AI、cs.LG、github；具体训练设置、指标和消融细节需读原文确认。
-- 为什么对 George 重要：阅读优先级：必读 编辑优先级：0.78 今天安排深读。 个人相关度：0.86，研究相关度：1.00。
-- 建议动作：读 PDF
+- 为什么对 George 重要：阅读优先级：略读 编辑优先级：0.78 今天快速扫读。 个人相关度：0.86，研究相关度：1.00。
+- 建议动作：快速扫读
 - 命中关键词：behavior cloning、cs.AI、cs.LG、dataset、github、nlp、open source、open-source
 
-#### 略读
-##### 1. [FLEX-LBP: Learning Local Binary Patterns with Exact Binary Inference for Texture Classification](https://arxiv.org/abs/2611.17302v1)
+##### 2. [FLEX-LBP: Learning Local Binary Patterns with Exact Binary Inference for Texture Classification](https://arxiv.org/abs/2611.17302v1)
 - 阅读优先级：略读
 - 来源：arXiv AI/ML/NLP/Vision/Robotics（一手来源；角色=论文来源）
 - 发布时间：2026-11-12T18:55:56+00:00
@@ -152,7 +152,7 @@
 
 ### 通用 Agent / 推理
 - [Open Vision Banana: A Fully Open Recipe for Generative Visual Perception](https://arxiv.org/abs/2611.15844) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.82；全局热度=0.51；炒作风险=0.00）
-- [Who Remembers What? Multi-Granularity Memory Extraction for Multi-User, Multi-Agent Interaction](https://arxiv.org/abs/2611.10439) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.78；全局热度=0.42；炒作风险=0.00）
+- [Who Remembers What? Multi-Granularity Memory Extraction for Multi-User, Multi-Agent Interaction](https://arxiv.org/abs/2611.10439) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.78；全局热度=0.43；炒作风险=0.00）
 - [RL without TD learning](http://bair.berkeley.edu/blog/2025/11/01/rl-without-td-learning/) （关注；Agent / 推理 / 推理时扩展 / 规划；个人相关度=0.77；全局热度=0.37；炒作风险=0.00）
 
 ### 强化学习
@@ -164,7 +164,7 @@
 
 ### 多模态 / VLM / 计算机视觉
 - [Report of the 8th LSVOS Challenge: Mobile Unified Multimodal Understanding](https://arxiv.org/abs/2611.16925v1) （关注；CV；个人相关度=0.73；全局热度=0.39；炒作风险=0.00）
-- [UniSpark: Exploring Hybrid Attention for Multimodal Understanding and Generation](https://arxiv.org/abs/2611.16517) （归档；CV；个人相关度=0.65；全局热度=0.50；炒作风险=0.00）
+- [UniSpark: Exploring Hybrid Attention for Multimodal Understanding and Generation](https://arxiv.org/abs/2611.16517) （归档；CV；个人相关度=0.64；全局热度=0.47；炒作风险=0.00）
 
 ### NLP
 - [Beyond Word Error Rate: A Failure Taxonomy of Streaming Dictation ASR](https://arxiv.org/abs/2611.16919v1) （关注；NLP；个人相关度=0.60；全局热度=0.49；炒作风险=0.00）
@@ -175,7 +175,6 @@
 
 ### 模型蒸馏
 - [Two mathematical models of knowledge distillation](https://arxiv.org/abs/2611.17230v1) （关注；模型蒸馏 / 模型压缩；个人相关度=0.79；全局热度=0.39；炒作风险=0.00）
-- [G-STAR: Group-Scaled Token Capacity for Deeply Compressed Autoregressive Generation](https://arxiv.org/abs/2611.13004) （关注；模型蒸馏 / 模型压缩；个人相关度=0.69；全局热度=0.51；炒作风险=0.00）
 
 ## 3. 跨方向连接
 
@@ -263,16 +262,7 @@
 - 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
 - 建议行动：skim
 
-##### 4. [PhysLoop: Harnessing LLMs' Physics Awareness for Self-Improving Video Generation Models](https://arxiv.org/abs/2611.16748)
-- 阅读层级：归档
-- 来源：Hugging Face Daily Papers
-- 证据来源：仅摘要
-- benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。
-- 适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。
-- 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
-- 建议行动：save
-
-##### 5. [Consensus Capture in Reference-Based UAV Video Stabilization: A Benchmark on Dynamic Urban Scenes](https://arxiv.org/abs/2611.17190v1)
+##### 4. [Consensus Capture in Reference-Based UAV Video Stabilization: A Benchmark on Dynamic Urban Scenes](https://arxiv.org/abs/2611.17190v1)
 - 阅读层级：归档
 - 来源：arXiv AI/ML/NLP/Vision/Robotics
 - 证据来源：仅摘要
@@ -281,8 +271,17 @@
 - 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
 - 建议行动：save
 
+##### 5. [When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems](https://arxiv.org/abs/2611.17239v1)
+- 阅读层级：归档
+- 来源：arXiv AI/ML/NLP/Vision/Robotics
+- 证据来源：仅摘要
+- benchmark 评估什么能力：评估摘要中描述的任务能力；具体指标需打开原文确认。
+- 适合用于什么研究：适合用于评测协议、指标设计或负样本构造参考；是否纳入实验需看任务贴合度。
+- 可否作为实验基准：暂不作为核心基准，先保存评测协议和指标设计。
+- 建议行动：skim
+
 ### Other Benchmarks
-- 其余 9 个只进入附录标题列表：reports/appendix/2026-11-14-benchmarks.md
+- 其余 9 个只进入附录标题列表：reports/appendix/2026-11-15-benchmarks.md
 
 ## 5. GitHub / 开源项目
 
@@ -290,7 +289,7 @@
 ##### 1. [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-11-14T02:37:36+00:00
+- 发布时间：2026-11-15T01:59:35+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：AI 系统 / HPC / 分布式训练与推理、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -306,7 +305,7 @@
 ##### 2. [langgenius/dify](https://github.com/langgenius/dify)
 - 阅读优先级：克隆运行
 - 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-11-14T00:35:15+00:00
+- 发布时间：2026-11-15T00:33:50+00:00
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：Agent / 推理 / 推理时扩展 / 规划、上下文压缩 / 长上下文 / 记忆、Agent 运行时 / RL 基础设施 / 调度、工具库
 - 依据层级：仓库 README
@@ -326,12 +325,12 @@
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：上下文压缩 / 长上下文 / 记忆、Benchmark / 数据集 / 评测、Agent 运行时 / RL 基础设施 / 调度、其他亮点、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.63，全局热度=0.48，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.62，全局热度=0.44，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
 - 是什么：Shubhamsaboo/awesome-llm-apps：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：RAG、agent、eval、github。
 - 问题：它关注“GitHub / 开源项目推荐”里的 RAG、agent、eval、github 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.21 按 GitHub 项目动作处理。 个人相关度：0.63，研究相关度：0.65。
+- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.18 按 GitHub 项目动作处理。 个人相关度：0.62，研究相关度：0.65。
 - 建议动作：克隆运行
 - 命中关键词：RAG、agent、eval、github、github.com、open source、open-source、security
 
@@ -343,12 +342,12 @@
 - 主方向：GitHub / 开源项目推荐
 - 次级标签：上下文压缩 / 长上下文 / 记忆、AI 系统 / HPC / 分布式训练与推理、Benchmark / 数据集 / 评测、NLP、工具库
 - 依据层级：仓库 README
-- 评分：个人相关度=0.64，全局热度=0.48，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
+- 评分：个人相关度=0.63，全局热度=0.44，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
 - 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
 - 是什么：rednote-machine-learning/RedKnot：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：framework、github、github.com、long-context。
 - 问题：它关注“GitHub / 开源项目推荐”里的 framework、github、github.com、long-context 等问题。
 - 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：作为基线 编辑优先级：0.22 按 GitHub 项目动作处理。 个人相关度：0.64，研究相关度：0.67。
+- 为什么对 George 重要：阅读优先级：作为基线 编辑优先级：0.18 按 GitHub 项目动作处理。 个人相关度：0.63，研究相关度：0.67。
 - 建议动作：阅读 README
 - 命中关键词：benchmark、framework、github、github.com、long-context、open-source、release、serving
 
@@ -385,21 +384,7 @@
 - 命中关键词：compression、environment、eval、github、github.com、image、inference、open-source
 
 ### Evergreen Toolkits
-##### 1. [browser-use/browser-use](https://github.com/browser-use/browser-use)
-- 阅读优先级：克隆运行
-- 来源：GitHub AI Research Projects（聚合来源；角色=代码可操作性来源）
-- 发布时间：2026-11-13T20:56:59+00:00
-- 主方向：GitHub / 开源项目推荐
-- 次级标签：Agent 运行时 / RL 基础设施 / 调度、工具库
-- 依据层级：仓库 README
-- 评分：个人相关度=0.67，全局热度=0.62，可信度=0.89，证据强度=0.69，炒作风险=0.00，反馈=0.00
-- 项目相关性：skyfs=0.00、schedagent=0.00、verl_infrastructure=0.00、embodied_intelligence=0.00
-- 是什么：browser-use/browser-use：开源项目，方向为“GitHub / 开源项目推荐”；主要线索：agent、github、github.com、library。
-- 问题：它关注“GitHub / 开源项目推荐”里的 agent、github、github.com、library 等问题。
-- 方法 / 贡献：这是代码仓库条目；优先检查 README、示例、许可证和是否有可复现实验入口。
-- 为什么对 George 重要：阅读优先级：克隆运行 编辑优先级：0.28 按 GitHub 项目动作处理。 个人相关度：0.67，研究相关度：0.65。
-- 建议动作：克隆运行
-- 命中关键词：agent、github、github.com、library、open source、open-source
+- 今日无需要重复推荐的常青工具库。
 
 
 ## 6. 学者雷达
@@ -484,17 +469,16 @@
 
 ## 11. 常青经典
 
-### 1. [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)（2017）
-- 作者：John Schulman、Filip Wolski、Prafulla Dhariwal、Alec Radford、Oleg Klimov
-- topic_tags：rl、agents
-- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning、RL
-- 为什么经典：PPO 是现代 RL 和 RLHF 语境里反复出现的基础算法，适合对照 agentic RL、长程轨迹优化和偏好优化系统。
-- 今日新论文继承了什么问题：CADET: Construction of PCB Routing Instances with Executable Demonstrations；AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
+### 1. [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)（2022）
+- 作者：Shunyu Yao、Jeffrey Zhao、Dian Yu、Nan Du、Izhak Shafran、Karthik Narasimhan、Yuan Cao
+- topic_tags：agents、planning
+- 关联方向：Agent / Reasoning / Inference-time Scaling / Planning
+- 为什么经典：ReAct 把推理轨迹和行动轨迹放在同一循环中，是今天 tool use、web agent、GUI agent 和长程任务规划的经典起点。
+- 今日新论文继承了什么问题：AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video 继承了经典 agent 论文中的问题：如何把推理、行动、工具调用和环境反馈组织成可检查的轨迹。
 - 它挑战了什么经典假设：它挑战固定单轨迹、人工指定控制流或只看任务成功率的假设，转向并行、自适应和轨迹级评估。
 - 它推进到什么新场景：新场景扩展到长程规划、agentic RL、支付/网页/GUI workflow 与并行推理执行。
-- 预备知识：了解 policy gradient 和 actor-critic。
+- 预备知识：熟悉 prompting、chain-of-thought 和基础强化学习任务表述。
 - 相关今日条目：
-  - [CADET: Construction of PCB Routing Instances with Executable Demonstrations](https://arxiv.org/abs/2611.16913v1)（Embodied Intelligence / VLA / World Models；连接词：reinforcement learning、rl）
   - [AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video](https://arxiv.org/abs/2611.17048v1)（Embodied Intelligence / VLA / World Models；连接词：long-horizon）
 
 ## 12. 反馈感知推荐
@@ -505,19 +489,18 @@
 
 - OpenReview：错误（0 条） - 返回内容为空或不是合法 JSON: line 1 column 1 (char 0)
 - GitHub AI Research Projects：time budget exhausted（18 条） - 时间预算已耗尽 after 18 items
-- Latent Space：0 items（0 条） - fetch completed with 0 items
 
 ## 14. 采集说明
 
-- 生成时间：2026-11-14T02:40:37.062409+00:00
-- 来源数量：32
-- 原始条目数：676
-- 去重后条目数：560
-- API 请求总数：5
-- 各供应商 API 请求数：deepseek:4, kimi:1
+- 生成时间：2026-11-15T02:07:22.805935+00:00
+- 来源数量：33
+- 原始条目数：691
+- 去重后条目数：577
+- API 请求总数：7
+- 各供应商 API 请求数：deepseek:6, kimi:1
 - 缓存命中：0
-- 缓存未命中：4
-- Benchmark 附录：reports/appendix/2026-11-14-benchmarks.md
+- 缓存未命中：6
+- Benchmark 附录：reports/appendix/2026-11-15-benchmarks.md
 
-- 报告路径：reports/daily/2026/11/2026-11-14.md
-- 上一份报告链接：reports/daily/2026/11/2026-11-13.md
+- 报告路径：reports/daily/2026/11/2026-11-15.md
+- 上一份报告链接：reports/daily/2026/11/2026-11-14.md

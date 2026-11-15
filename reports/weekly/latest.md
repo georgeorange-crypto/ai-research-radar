@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W46
 
 - 日期范围：2026-11-09 至 2026-11-15
-- 纳入日报：6 份
-- 跟踪条目：1438；MUST_READ 7；SKIM 34；ARCHIVE 358
+- 纳入日报：7 份
+- 跟踪条目：1442；MUST_READ 7；SKIM 34；ARCHIVE 361
 
 ## 本周最重要论文 / 动态
 - [DeRep: Learning Depth Representations for End-to-End Navigation in Cluttered Environments](https://arxiv.org/abs/2611.13499v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.88，global 0.41）
@@ -25,7 +25,7 @@
   - [AgentSSL: Can MLE Agents Leverage Unlabeled Data?](https://arxiv.org/abs/2611.17323v1)
   - [SHADOWPREFILL: Keeping Your Next Model Warm for Per-Step Model Routing in Agentic LLM Serving](https://arxiv.org/abs/2611.13176v1)
   - [AutoC2V: Synthesis-Guided LLM Training for QoR-Optimized C++-to-Verilog Generation](https://arxiv.org/abs/2611.10824v1)
-- Embodied Intelligence / VLA / World Models：415 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG。
+- Embodied Intelligence / VLA / World Models：416 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG。
   - [DeRep: Learning Depth Representations for End-to-End Navigation in Cluttered Environments](https://arxiv.org/abs/2611.13499v1)
   - [CADET: Construction of PCB Routing Instances with Executable Demonstrations](https://arxiv.org/abs/2611.16913v1)
   - [Learning Heterogeneous Tactile Representation for General Dexterous Manipulation](https://arxiv.org/abs/2611.12806)
@@ -49,7 +49,7 @@
   - [Announcements](https://www.anthropic.com/news/announcements)
   - [ChatGPT Enterprise now available in AWS Marketplace](https://openai.com/index/chatgpt-enterprise-aws-marketplace)
   - [Work at the Frontier: AI's effect on freelance work](https://openai.com/index/ai-effect-on-freelance-work)
-- Other Highlights：60 条进入跟踪；高频信号：stanford.edu、cmu.edu、security、systems、openai.com、safety。
+- Other Highlights：62 条进入跟踪；高频信号：stanford.edu、cmu.edu、security、systems、openai.com、safety。
   - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
   - [Confucius4-R2T2: A Stable-Prefix Streaming ASR Model for Real Real-Time Transcription](https://arxiv.org/abs/2611.06043)
   - [Toward provably private learning from federated data](https://research.google/blog/toward-provably-private-learning-from-federated-data/)
@@ -61,7 +61,7 @@
   - [AOP-Smart-Finder: A High-Throughput Human-AI Hybrid Framework for AOP Discovery and Evidence Mapping from Large-Scale Literature](https://arxiv.org/abs/2611.11349v1)
   - [Beyond Word Error Rate: A Failure Taxonomy of Streaming Dictation ASR](https://arxiv.org/abs/2611.16919v1)
   - [Polarity Classification with Multitask Learning Syntax Augmentation](https://arxiv.org/abs/2611.08323v1)
-- CV：42 条进入跟踪；高频信号：image、visual、multimodal、language model、diffusion、detection。
+- CV：43 条进入跟踪；高频信号：image、visual、multimodal、language model、diffusion、detection。
   - [Report of the 8th LSVOS Challenge: Mobile Unified Multimodal Understanding](https://arxiv.org/abs/2611.16925v1)
   - [From Pixels to Prompts: Physics-Guided Language Enhancement for AI-Generated Image Detection](https://arxiv.org/abs/2611.14898v1)
   - [Multimodal Hierarchical Mixture-of-Experts for 3D Medical Vision-Language Modeling](https://arxiv.org/abs/2611.08185v1)

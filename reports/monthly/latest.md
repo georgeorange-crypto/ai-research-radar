@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-11
 
-- 纳入日报：14 份
-- 跟踪条目：2524；MUST_READ 17；SKIM 67；ARCHIVE 486
+- 纳入日报：15 份
+- 跟踪条目：2528；MUST_READ 17；SKIM 67；ARCHIVE 489
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,7 +33,7 @@
   - [Layered Reproducibility for High-Performance Computing Applications: The Feel++ and Ktirio Urban Buildings Case Study](https://arxiv.org/abs/2610.41861v1)
   - [Route Anything: A Study of Model and Policy Routing for General-Purpose AI Systems](https://arxiv.org/abs/2611.05275)
   - [LazyWeights: Decode-on-Demand Edge LLMs](https://arxiv.org/abs/2611.17108v1)
-- Embodied Intelligence / VLA / World Models：741 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG、cs.RO、language model。
+- Embodied Intelligence / VLA / World Models：742 条进入跟踪；高频信号：nlp、robotics、cs.AI、cs.CV、framework、cs.LG、cs.RO、language model。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [DeRep: Learning Depth Representations for End-to-End Navigation in Cluttered Environments](https://arxiv.org/abs/2611.13499v1)
   - [CADET: Construction of PCB Routing Instances with Executable Demonstrations](https://arxiv.org/abs/2611.16913v1)
@@ -57,19 +57,19 @@
   - [OpenAI expands partnership with Oracle to bring its apps to ChatGPT](https://openai.com/index/oracle-apps-in-chatgpt)
   - [Physicist Christopher Stubbs joins Anthropic's Long-Term Benefit Trust](https://www.anthropic.com/news/christopher-stubbs-joins-long-term-benefit-trust)
   - [Announcements](https://www.anthropic.com/news/announcements)
+- Other Highlights：72 条进入跟踪；高频信号：stanford.edu、cmu.edu、security、openai.com、systems、safety、alignment、microsoft.com。
+  - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
+  - [From Fragmentation to Fusion: A Survey and Roadmap for Omnimodal Embeddings](https://arxiv.org/abs/2611.00172)
+  - [Toward provably private learning from federated data](https://research.google/blog/toward-provably-private-learning-from-federated-data/)
+  - [Confucius4-R2T2: A Stable-Prefix Streaming ASR Model for Real Real-Time Transcription](https://arxiv.org/abs/2611.06043)
+  - [Preparing our next security sprint to harden OpenAI](https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai)
 - NLP：70 条进入跟踪；高频信号：nlp、cs.CL、robotics、language model、evaluation、github、corpus、princeton。
   - [SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains](https://arxiv.org/abs/2611.08362v1)
   - [GSLM2: Multi-Stream Speech Representation Learning and Generative Spoken Language Modeling](https://arxiv.org/abs/2611.01143v1)
   - [Selective, Risk-Controlled Emotion Forecasting in Conversation: From a Persistence Barrier to Departure Detection with Conformal Guarantees](https://arxiv.org/abs/2611.05896v1)
   - [An LLM Is All You Need: Data-Efficient Adaptation to Full-Duplex, Word-Level Spoken Dialogue](https://arxiv.org/abs/2611.14774v1)
   - [Say Less, Mean Better: Training-Free Verbosity Control for Language Models](https://arxiv.org/abs/2611.04107v1)
-- Other Highlights：70 条进入跟踪；高频信号：stanford.edu、cmu.edu、security、openai.com、systems、safety、alignment、microsoft.com。
-  - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
-  - [From Fragmentation to Fusion: A Survey and Roadmap for Omnimodal Embeddings](https://arxiv.org/abs/2611.00172)
-  - [Toward provably private learning from federated data](https://research.google/blog/toward-provably-private-learning-from-federated-data/)
-  - [Confucius4-R2T2: A Stable-Prefix Streaming ASR Model for Real Real-Time Transcription](https://arxiv.org/abs/2611.06043)
-  - [Preparing our next security sprint to harden OpenAI](https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai)
-- CV：65 条进入跟踪；高频信号：image、visual、language model、diffusion、multimodal、github、detection、video。
+- CV：66 条进入跟踪；高频信号：image、visual、language model、diffusion、multimodal、detection、github、video。
   - [Navigational Safety of Marine Surface Vehicles in Restricted Visibility: From Intelligent Vision to Vision-Centered Multi-Sensor Fusion](https://arxiv.org/abs/2611.05818v1)
   - [Report of the 8th LSVOS Challenge: Mobile Unified Multimodal Understanding](https://arxiv.org/abs/2611.16925v1)
   - [From Pixels to Prompts: Physics-Guided Language Enhancement for AI-Generated Image Detection](https://arxiv.org/abs/2611.14898v1)
@@ -162,4 +162,4 @@
 - Benchmark / Dataset / Evaluation：本月可继续沿着 [Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization](https://arxiv.org/abs/2611.11995) 追踪。
 - Agent / Reasoning / Inference-time Scaling / Planning：本月可继续沿着 [Adversarial Speculative Reasoning Improves Long Horizon Agents](https://arxiv.org/abs/2611.05345) 追踪。
 - Institutional Updates：本月可继续沿着 [Expanding our partnership with GSA to bring Claude to all levels of government](https://www.anthropic.com/news/expanding-partnership-gsa) 追踪。
-- NLP：本月可继续沿着 [SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains](https://arxiv.org/abs/2611.08362v1) 追踪。
+- Other Highlights：本月可继续沿着 [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots) 追踪。
