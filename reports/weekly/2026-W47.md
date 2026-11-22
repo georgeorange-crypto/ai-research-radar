@@ -1,8 +1,8 @@
 # AI Research Radar Weekly - 2026-W47
 
 - 日期范围：2026-11-16 至 2026-11-22
-- 纳入日报：6 份
-- 跟踪条目：1544；MUST_READ 15；SKIM 43；ARCHIVE 362
+- 纳入日报：7 份
+- 跟踪条目：1545；MUST_READ 15；SKIM 43；ARCHIVE 362
 
 ## 本周最重要论文 / 动态
 - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.97，global 0.41）
@@ -19,7 +19,7 @@
 - [ART: Bridging the Embodiment Gap in 3D Human-to-Robot Affordance Transfer](https://arxiv.org/abs/2611.24182v1)（MUST_READ，Embodied Intelligence / VLA / World Models，personal 0.86，global 0.43）
 
 ## 分方向趋势
-- Embodied Intelligence / VLA / World Models：490 条进入跟踪；高频信号：nlp、robotics、cs.CV、cs.AI、framework、image。
+- Embodied Intelligence / VLA / World Models：491 条进入跟踪；高频信号：nlp、robotics、cs.CV、cs.AI、framework、image。
   - [2026 BAIR Graduate Showcase](http://bair.berkeley.edu/blog/2026/07/01/grads-2026/)
   - [Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent](https://arxiv.org/abs/2611.18397)
   - [ScaleVLA: Scaling Vision-Language-Action Models to 552 Billion Parameters](https://arxiv.org/abs/2611.21607)
