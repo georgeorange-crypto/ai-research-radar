@@ -2,6 +2,7 @@
 
 | 日期 | 今日 Must Read 数量 | 今日主要方向 | 链接 |
 |---|---:|---|---|
+| 2026-11-27 | 3 | Embodied Intelligence / VLA / World Models | [2026-11-27.md](daily/2026/11/2026-11-27.md) |
 | 2026-11-26 | 3 | Embodied Intelligence / VLA / World Models | [2026-11-26.md](daily/2026/11/2026-11-26.md) |
 | 2026-11-25 | 3 | Agent / Reasoning / Inference-time Scaling / Planning | [2026-11-25.md](daily/2026/11/2026-11-25.md) |
 | 2026-11-24 | 3 | Embodied Intelligence / VLA / World Models | [2026-11-24.md](daily/2026/11/2026-11-24.md) |
