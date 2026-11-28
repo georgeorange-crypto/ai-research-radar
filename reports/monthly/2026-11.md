@@ -1,7 +1,7 @@
 # AI Research Radar Monthly - 2026-11
 
-- 纳入日报：27 份
-- 跟踪条目：4605；MUST_READ 43；SKIM 136；ARCHIVE 746
+- 纳入日报：28 份
+- 跟踪条目：4617；MUST_READ 43；SKIM 136；ARCHIVE 757
 - 本月高频主方向：Agent / Reasoning / Inference-time Scaling / Planning
 
 ## 本月最重要论文 / 动态
@@ -33,19 +33,19 @@
   - [Enhancing Maritime Domain Awareness using Latent Space Representations](https://arxiv.org/abs/2611.34899v1)
   - [Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent](https://arxiv.org/abs/2611.18397)
   - [ScaleVLA: Scaling Vision-Language-Action Models to 552 Billion Parameters](https://arxiv.org/abs/2611.21607)
-- AI Systems / HPC / Distributed Training & Inference：1450 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、nlp、robotics、cs.DC、framework。
+- AI Systems / HPC / Distributed Training & Inference：1451 条进入跟踪；高频信号：HPC、data path、systems、cs.LG、nlp、robotics、cs.DC、framework。
   - [High-Throughput Serving of Nemotron 3.5 Transcribe with Regime-Aware Megakernels and Kernel Fusion](https://arxiv.org/abs/2611.20095v1)
   - [StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference](https://arxiv.org/abs/2611.08363v1)
   - [GC-MoE: Overlapping Expert-Parallel Token Dispatch with FP8/FP4 Grouped GEMM via CUDA Green Contexts](https://arxiv.org/abs/2611.04222v1)
   - [Layered Reproducibility for High-Performance Computing Applications: The Feel++ and Ktirio Urban Buildings Case Study](https://arxiv.org/abs/2610.41861v1)
   - [Route Anything: A Study of Model and Policy Routing for General-Purpose AI Systems](https://arxiv.org/abs/2611.05275)
-- Benchmark / Dataset / Evaluation：428 条进入跟踪；高频信号：benchmark、evaluation、nlp、robotics、cs.AI、dataset、agent、language model。
+- Benchmark / Dataset / Evaluation：431 条进入跟踪；高频信号：benchmark、evaluation、nlp、robotics、cs.AI、dataset、agent、language model。
   - [Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization](https://arxiv.org/abs/2611.11995)
   - [FM4SAR-Bench 1.0: Towards A Fair Benchmark for Evaluating Foundation Models for SAR Image Interpretation](https://arxiv.org/abs/2611.27158v1)
   - [How to "train" a surgeon? Benchmarking generalist agents in surgical scene understanding](https://arxiv.org/abs/2611.11437v1)
   - [SWEEP-Bench: Do Embodied Policies Act on the Speed They See?](https://arxiv.org/abs/2611.30637v1)
   - [AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs](https://arxiv.org/abs/2611.17621v1)
-- Agent / Reasoning / Inference-time Scaling / Planning：312 条进入跟踪；高频信号：agent、reasoning、framework、agentic、language model、nlp、robotics、evaluation。
+- Agent / Reasoning / Inference-time Scaling / Planning：313 条进入跟踪；高频信号：agent、reasoning、framework、agentic、language model、nlp、robotics、evaluation。
   - [Embodied-Harness: Towards Recursive Self-Improvement for Robotic Manipulation](https://arxiv.org/abs/2611.27689)
   - [Adversarial Speculative Reasoning Improves Long Horizon Agents](https://arxiv.org/abs/2611.05345)
   - [Adaptive Parallel Reasoning: The Next Paradigm in Efficient Inference Scaling](http://bair.berkeley.edu/blog/2026/05/08/adaptive-parallel-reasoning/)
@@ -63,31 +63,31 @@
   - [Expanding our partnership with GSA to bring Claude to all levels of government](https://www.anthropic.com/news/expanding-partnership-gsa)
   - [OpenAI and ServiceNow expand partnership across enterprise workflows](https://openai.com/index/openai-servicenow-partnership-expansion)
   - [OpenAI expands partnership with Oracle to bring its apps to ChatGPT](https://openai.com/index/oracle-apps-in-chatgpt)
-- CV：110 条进入跟踪；高频信号：image、visual、language model、multimodal、diffusion、video、github、framework。
+- CV：112 条进入跟踪；高频信号：image、visual、language model、multimodal、diffusion、video、github、framework。
   - [Navigational Safety of Marine Surface Vehicles in Restricted Visibility: From Intelligent Vision to Vision-Centered Multi-Sensor Fusion](https://arxiv.org/abs/2611.05818v1)
   - [Report of the 8th LSVOS Challenge: Mobile Unified Multimodal Understanding](https://arxiv.org/abs/2611.16925v1)
   - [From Pixels to Prompts: Physics-Guided Language Enhancement for AI-Generated Image Detection](https://arxiv.org/abs/2611.14898v1)
   - [Multimodal Hierarchical Mixture-of-Experts for 3D Medical Vision-Language Modeling](https://arxiv.org/abs/2611.08185v1)
   - [RADIOlogy: A Single-Pass Approach to Training-Free Zero-Shot Anomaly Detection](https://arxiv.org/abs/2610.40580v1)
-- Agent Runtime / RL Infrastructure / Scheduling：98 条进入跟踪；高频信号：agent、cs.AI、nlp、robotics、cs.LG、language model、framework、llm agent。
+- Agent Runtime / RL Infrastructure / Scheduling：99 条进入跟踪；高频信号：agent、cs.AI、nlp、robotics、cs.LG、language model、framework、llm agent。
   - [LuthorSQL: A One-Pass Text-to-SQL Model as System 1 for a Slower LLM Agent](https://arxiv.org/abs/2611.17780v1)
   - [FlyHash for LLM Agent Memory: An Empirical Validation and a New Application](https://arxiv.org/abs/2611.05791v1)
   - [DoGNAVY-Exploit: Harnessing Parallel Open-Weight Agents for Stage-Aware Vulnerability Exploitation](https://arxiv.org/abs/2611.04196v1)
   - [The Agent Board: Kanban for Machines; Durable Coordination for Agents That Outlive the Conversation](https://arxiv.org/abs/2611.04100v1)
   - [Verifiable Agentic Traffic Class: A Policed Quality-of-Service Mechanism for Agentic AI Traffic, Evaluated from Simulation to Real-Kernel Adversarial Testing](https://arxiv.org/abs/2611.14211v1)
-- Other Highlights：85 条进入跟踪；高频信号：stanford.edu、openai.com、cmu.edu、safety、security、systems、alignment、microsoft.com。
+- Other Highlights：86 条进入跟踪；高频信号：stanford.edu、openai.com、cmu.edu、safety、security、systems、alignment、microsoft.com。
   - [Our first phase of embedded assessments](https://openai.com/index/our-first-phase-of-embedded-assessments)
   - [MIT simulator lets users design wide range of functional soft robots](https://www.csail.mit.edu/news/mit-simulator-lets-users-design-wide-range-functional-soft-robots)
   - [Abstention Direction in Large Language Models: Mechanistic Interpretability of Abstention Across Query Ambiguity, Knowledge Limits, and Safety Alignment](https://arxiv.org/abs/2611.20441)
   - [From Fragmentation to Fusion: A Survey and Roadmap for Omnimodal Embeddings](https://arxiv.org/abs/2611.00172)
   - [Let Samples Sing in Chorus: Mitigating Spurious Correlations via Cross-view Consensus](https://arxiv.org/abs/2611.22668)
-- Compression / Reliability for AI Infrastructure：77 条进入跟踪；高频信号：cs.LG、nlp、robotics、cs.NI、HPC、data path、cs.IT、framework。
+- Compression / Reliability for AI Infrastructure：78 条进入跟踪；高频信号：cs.LG、nlp、robotics、cs.NI、HPC、data path、cs.IT、framework。
   - [LoomKV: Lossless KV Cache Compression from GPU Memory to SSD for LLM Serving](https://arxiv.org/abs/2611.32954v1)
   - [LoopKV: Loop-Aware KV Cache Compression for Serving Looped Transformers](https://arxiv.org/abs/2611.04137v1)
   - [Digital Twin-Assisted Fast Beam Alignment for mmWave MIMO Networks](https://arxiv.org/abs/2611.01107v1)
   - [Energy Efficient Near-Threshold Voltage Massive MIMO Computing](https://arxiv.org/abs/2611.06772v1)
   - [Robust and Private Swarm Learning via Zero-Knowledge Validator Admission and Consensus Aggregation](https://arxiv.org/abs/2611.11477v1)
-- GPU-Centric I/O / Networking / Storage：76 条进入跟踪；高频信号：HPC、data path、gpu、network、storage、cs.DC、cs.NI、systems。
+- GPU-Centric I/O / Networking / Storage：77 条进入跟踪；高频信号：HPC、data path、gpu、network、storage、cs.DC、cs.NI、systems。
   - [TailGuard-GDS: Tail-Safe Control of GPU Storage Data Movement](https://arxiv.org/abs/2611.17824v1)
   - [Tree-Ising: Repairing Language Models with Bit-Level Ising Edits](https://arxiv.org/abs/2611.14210v1)
   - [Similarity-Aware Client-Side Reordering for Server-Side Storage Compression in Distributed File Systems](https://arxiv.org/abs/2611.22847v1)
@@ -117,7 +117,7 @@
   - [LongCat-Video Technical Report](https://arxiv.org/abs/2510.22200)
   - [MemOnce: A Scalable Memory Architecture for Large Language Models](https://arxiv.org/abs/2611.27973)
   - [BYOD: Build Your Own DLM - Efficient Autoregressive-to-Diffusion Language Model Conversion](https://arxiv.org/abs/2610.41574)
-- RL：17 条进入跟踪；高频信号：reinforcement learning、grpo、optimization、rl、reward model、language model、policy optimization、gradient。
+- RL：18 条进入跟踪；高频信号：reinforcement learning、grpo、optimization、rl、reward model、language model、policy optimization、gradient。
   - [EmoReward: Self-Evolving Reward Calibration for Emotional Video Generation RL](https://arxiv.org/abs/2611.06518)
   - [Lazy Agents Answer Against Their Own Beliefs: Reinforcement Learning with Verifiable Beliefs Teaches Them to Act on What They Believe](https://arxiv.org/abs/2611.32884)
   - [Decision Models Are General-Purpose Process Reward Models](https://arxiv.org/abs/2611.27068v1)
